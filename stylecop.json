@@ -1,0 +1,27 @@
+{
+    "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+    "settings": {
+      "layoutRules": {
+        "newlineAtEndOfFile": "require"
+      },
+      "namingRules": {
+        "allowCommonHungarianPrefixes": true,
+        "allowedHungarianPrefixes": [ "db", "at", "or", "up", "it", "un", "x", "y", "id", "ip", "bg" ]
+      },
+      "documentationRules": {
+        "companyName": "HospitalityManagmentSystem",
+        "copyrightText": "Copyright (c) {companyName}. All Rights Reserved.",
+        "documentInterfaces": false,
+        "documentInternalElements": false,
+        "fileNamingConvention": "stylecop"
+      },
+      "orderingRules": {
+        "usingDirectivesPlacement": "insideNamespace",
+        "systemUsingDirectivesFirst": true,
+        "blankLinesBetweenUsingGroups": "require"
+      },
+      "maintainabilityRules": {
+        "topLevelTypes": [ "class", "interface", "enum" ]
+      }
+    }
+  }
