@@ -22,6 +22,9 @@
         //Reservation Note
         public const int ReservationNoteBodyMaxLength = 500;
 
+        //Profile Note
+        public const int ProfileNoteBodyMaxLength = 500;
+
         //Identity Document
         public const int IdentityDocumentNationalityMaxLength = 20;
         public const int IdentityDocumentIssuedByMaxLength = 50;
@@ -30,5 +33,8 @@
         public const int IdentityDocumentPersonalNumberMaxLength = 30;
         public const int IdentityDocumentCountryMaxLength = 50;
         public const int IdentityDocumentPlaceOfBirthMaxLength = 50;
+
+        //Room
+        public const int RoomNumberMaxLength = 6;
     }
 }

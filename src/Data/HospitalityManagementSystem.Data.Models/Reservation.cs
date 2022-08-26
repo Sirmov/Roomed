@@ -11,7 +11,7 @@
         public Reservation()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Guests = new HashSet<Profile>();
+            this.Guests = new HashSet<ReservationGuest>();
             this.Notes = new HashSet<ReservationNote>();
         }
 
@@ -40,7 +40,7 @@
         [ForeignKey(nameof(ReservationHolderId))]
         public virtual Profile ReservationHolder { get; set; }
 
-        public virtual ICollection<Profile> Guests { get; set; }
+        public virtual ICollection<ReservationGuest> Guests { get; set; }
 
         public virtual ICollection<ReservationNote> Notes { get; set; }
     }

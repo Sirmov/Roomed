@@ -11,7 +11,10 @@
         public Profile()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Reservations = new HashSet<Reservation>();
+            this.HolderReservations = new HashSet<Reservation>();
+            this.GuestReservations = new HashSet<ReservationGuest>();
+            this.IdentityDocuments = new HashSet<IdentityDocument>();
+            this.Notes = new HashSet<ProfileNote>();
         }
 
         [Required(AllowEmptyStrings = false)]
@@ -41,6 +44,12 @@
 
         // Navigational Properties
 
-        public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Reservation> HolderReservations { get; set; }
+
+        public virtual ICollection<ReservationGuest> GuestReservations { get; set; }
+
+        public virtual ICollection<IdentityDocument> IdentityDocuments { get; set; }
+
+        public virtual ICollection<ProfileNote> Notes { get; set; }
     }
 }

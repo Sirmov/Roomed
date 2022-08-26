@@ -13,17 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{45EE33DD-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4DA11DD9-1A44-4B3F-8E98-588B04A911A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalityManagementSystem.Data", "HospitalityManagementSystem.Data\HospitalityManagementSystem.Data.csproj", "{958A626C-58F0-4A5C-808C-45D07BA6CE53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalityManagementSystem.Data", "Data/HospitalityManagementSystem.Data\HospitalityManagementSystem.Data.csproj", "{958A626C-58F0-4A5C-808C-45D07BA6CE53}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalityManagementSystem.Data.Models", "HospitalityManagementSystem.Data.Models\HospitalityManagementSystem.Data.Models.csproj", "{BB9A1368-7EFA-41D0-9F85-ECAFCF2A5E53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalityManagementSystem.Data.Models", "Data/HospitalityManagementSystem.Data.Models\HospitalityManagementSystem.Data.Models.csproj", "{BB9A1368-7EFA-41D0-9F85-ECAFCF2A5E53}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalityManagementSystem.Data.Common", "HospitalityManagementSystem.Data.Common\HospitalityManagementSystem.Data.Common.csproj", "{089FF573-27C4-425A-8811-4885713CFD64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalityManagementSystem.Data.Common", "Data/HospitalityManagementSystem.Data.Common\HospitalityManagementSystem.Data.Common.csproj", "{089FF573-27C4-425A-8811-4885713CFD64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalityManagementSystem.Services.Data", "HospitalityManagementSystem.Services.Data\HospitalityManagementSystem.Services.Data.csproj", "{BBC30EDB-6542-40DA-A813-4D637D7A5D01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalityManagementSystem.Services.Data", "Services/HospitalityManagementSystem.Services.Data\HospitalityManagementSystem.Services.Data.csproj", "{BBC30EDB-6542-40DA-A813-4D637D7A5D01}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalityManagementSystem.Services.Mapping", "HospitalityManagementSystem.Services.Mapping\HospitalityManagementSystem.Services.Mapping.csproj", "{E75873FA-9412-48BF-A085-46FB992423AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalityManagementSystem.Services.Mapping", "Services/HospitalityManagementSystem.Services.Mapping\HospitalityManagementSystem.Services.Mapping.csproj", "{E75873FA-9412-48BF-A085-46FB992423AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalityManagementSystem.Common", "HospitalityManagementSystem.Common\HospitalityManagementSystem.Common.csproj", "{6F54914F-6CA8-4A38-BE18-1EE877130D94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalityManagementSystem.Common", "HospitalityManagementSystem.Common/HospitalityManagementSystem.Common.csproj", "{6F54914F-6CA8-4A38-BE18-1EE877130D94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
