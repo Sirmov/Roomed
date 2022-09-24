@@ -1,2 +1,2 @@
-# HMS
+# Roomed
 Hotel management system
