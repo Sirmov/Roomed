@@ -6,6 +6,7 @@
 
     public interface IDeletableEntityRepository<TEntity, TKey> : IRepository<TEntity, TKey>
         where TEntity : BaseDeletableModel<TKey>
+        where TKey : struct
     {
         IQueryable<TEntity> AllWithDeleted();
 

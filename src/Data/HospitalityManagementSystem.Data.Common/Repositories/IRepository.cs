@@ -7,6 +7,7 @@
 
     public interface IRepository<TEntity, TKey> : IDisposable
         where TEntity : BaseModel<TKey>
+        where TKey : struct
     {
         IQueryable<TEntity> All();
 

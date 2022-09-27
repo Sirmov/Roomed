@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     public abstract class BaseModel<TKey> : IAuditInfo
+        where TKey : struct
     {
         [Key]
         public TKey Id { get; set; }
