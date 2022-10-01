@@ -11,8 +11,11 @@
       "documentationRules": {
         "companyName": "Roomed",
         "copyrightText": "Copyright (c) {companyName}. All Rights Reserved.",
-        "documentInterfaces": false,
+        "documentInterfaces": true,
+        "documentExposedElements": true,
         "documentInternalElements": false,
+        "documentPrivateElements": false,
+        "documentPrivateFields": false,
         "fileNamingConvention": "stylecop"
       },
       "orderingRules": {
