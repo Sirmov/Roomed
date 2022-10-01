@@ -1,9 +1,10 @@
 ﻿namespace Roomed.Data.Models
 {
-    using Roomed.Common;
-    using Roomed.Data.Common.Models;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
+    using Roomed.Common;
+    using Roomed.Data.Common.Models;
 
     public class ProfileNote : BaseDeletableModel<string>
     {

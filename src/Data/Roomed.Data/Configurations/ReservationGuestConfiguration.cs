@@ -1,8 +1,8 @@
 ﻿namespace Roomed.Data.Configurations
 {
-    using Roomed.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Roomed.Data.Models;
 
     public class ReservationGuestConfiguration : IEntityTypeConfiguration<ReservationGuest>
     {

@@ -1,9 +1,10 @@
 ﻿namespace Roomed.Data
 {
+    using Microsoft.EntityFrameworkCore;
+
     using Roomed.Data.Common;
     using Roomed.Data.Configurations;
     using Roomed.Data.Models;
-    using Microsoft.EntityFrameworkCore;
 
     public class ApplicationDbContext : DbContext
     {

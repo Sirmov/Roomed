@@ -3,8 +3,8 @@
     using System.ComponentModel.DataAnnotations;
 
     using Roomed.Common;
-    using Roomed.Data.Models.Enums;
     using Roomed.Data.Common.Models;
+    using Roomed.Data.Models.Enums;
 
     public class Profile : BaseDeletableModel<string>
     {

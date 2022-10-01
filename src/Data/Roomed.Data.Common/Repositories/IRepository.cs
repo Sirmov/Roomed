@@ -1,9 +1,10 @@
 ﻿namespace Roomed.Data.Common.Repositories
 {
-    using Roomed.Data.Common.Models;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using Roomed.Data.Common.Models;
 
     public interface IRepository<TEntity, TKey> : IDisposable
         where TEntity : BaseModel<TKey>

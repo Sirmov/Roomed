@@ -4,8 +4,8 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     using Roomed.Common;
-    using Roomed.Data.Models.Enums;
     using Roomed.Data.Common.Models;
+    using Roomed.Data.Models.Enums;
 
     public class IdentityDocument : BaseDeletableModel<string>
     {

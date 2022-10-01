@@ -3,10 +3,10 @@
     using System;
     using System.Linq;
 
+    using Microsoft.EntityFrameworkCore;
+
     using Roomed.Data.Common.Models;
     using Roomed.Data.Common.Repositories;
-
-    using Microsoft.EntityFrameworkCore;
 
     public class EfDeletableEntityRepository<TEntity, TKey> : EfRepository<TEntity, TKey>, IDeletableEntityRepository<TEntity, TKey>
         where TEntity : BaseDeletableModel<TKey>
