@@ -11,15 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{01C4D151
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{7BBA7988-534E-4A28-B2E2-B79597E11AFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Data", "Roomed.Data\Roomed.Data.csproj", "{193B4B40-8456-4DE7-AAC8-FF765B1CE78C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Data", "Data\Roomed.Data\Roomed.Data.csproj", "{193B4B40-8456-4DE7-AAC8-FF765B1CE78C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Data.Common", "Roomed.Data.Common\Roomed.Data.Common.csproj", "{EC95456A-B4E7-4536-BE58-D78CD74A4673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Data.Common", "Data\Roomed.Data.Common\Roomed.Data.Common.csproj", "{EC95456A-B4E7-4536-BE58-D78CD74A4673}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Data.Models", "Roomed.Data.Models\Roomed.Data.Models.csproj", "{5ABC1F61-0C53-4FA1-86F6-82877C6931EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Data.Models", "Data\Roomed.Data.Models\Roomed.Data.Models.csproj", "{5ABC1F61-0C53-4FA1-86F6-82877C6931EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Services.Data", "Roomed.Services.Data\Roomed.Services.Data.csproj", "{20C783D0-E956-4E98-A67C-CC0C68F00E97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Services.Data", "Services\Roomed.Services.Data\Roomed.Services.Data.csproj", "{20C783D0-E956-4E98-A67C-CC0C68F00E97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Services.Mapping", "Roomed.Services.Mapping\Roomed.Services.Mapping.csproj", "{B8236BC5-5AE8-4D86-963F-AB706DBBCD8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Services.Mapping", "Services\Roomed.Services.Mapping\Roomed.Services.Mapping.csproj", "{B8236BC5-5AE8-4D86-963F-AB706DBBCD8A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Common", "Roomed.Common\Roomed.Common.csproj", "{B30BAC3E-B12D-48DF-A2A2-8F1F2E12C59D}"
 EndProject
