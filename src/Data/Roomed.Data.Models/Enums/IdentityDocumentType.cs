@@ -4,6 +4,6 @@
     {
         Id,
         Passport,
-        DrivingLicense
+        DrivingLicense,
     }
 }
