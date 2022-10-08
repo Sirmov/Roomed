@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-
+    using System.Linq.Expressions;
     using Microsoft.EntityFrameworkCore;
 
     using Roomed.Data.Common.Models;
@@ -18,11 +18,19 @@
 
         public override IQueryable<TEntity> All() => base.All().Where(x => !x.IsDeleted);
 
+        public override IQueryable<TEntity> All(Expression<Func<TEntity, bool>> search) => this.All().Where(search);
+
         public override IQueryable<TEntity> AllAsNoTracking() => base.AllAsNoTracking().Where(x => !x.IsDeleted);
+
+        public override IQueryable<TEntity> AllAsNoTracking(Expression<Func<TEntity, bool>> search) => this.AllAsNoTracking().Where(search);
 
         public IQueryable<TEntity> AllWithDeleted() => base.All().IgnoreQueryFilters();
 
+        public IQueryable<TEntity> AllWithDeleted(Expression<Func<TEntity, bool>> search) => this.AllWithDeleted().Where(search);
+
         public IQueryable<TEntity> AllWithDeletedAsNoTracking() => base.AllAsNoTracking().IgnoreQueryFilters();
+
+        public IQueryable<TEntity> AllWithDeletedAsNoTracking(Expression<Func<TEntity, bool>> search) => this.AllWithDeletedAsNoTracking().Where(search);
 
         public void HardDelete(TEntity entity) => base.Delete(entity);
 
