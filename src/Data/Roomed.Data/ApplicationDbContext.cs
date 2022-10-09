@@ -2,7 +2,6 @@
 {
     using Microsoft.EntityFrameworkCore;
 
-    using Roomed.Data.Common;
     using Roomed.Data.Configurations;
     using Roomed.Data.Models;
 
@@ -44,7 +43,9 @@
 
             modelBuilder.ApplyConfiguration<Profile>(new ProfileConfiguration());
 
-            modelBuilder.ApplyConfiguration<ReservationGuest>(new ReservationGuestConfiguration());
+            modelBuilder.ApplyConfiguration<ReservationDay>(new ReservationDayConfiguration());
+
+            modelBuilder.ApplyConfiguration<ReservationDayGuest>(new ReservationDayGuestConfiguration());
         }
     }
 }

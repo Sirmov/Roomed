@@ -13,7 +13,7 @@
         {
             this.Id = Guid.NewGuid();
             this.HolderReservations = new HashSet<Reservation>();
-            this.GuestReservations = new HashSet<ReservationGuest>();
+            this.GuestReservationDays = new HashSet<ReservationDayGuest>();
             this.IdentityDocuments = new HashSet<IdentityDocument>();
             this.Notes = new HashSet<ProfileNote>();
         }
@@ -46,7 +46,7 @@
         // Navigational Properties
         public virtual ICollection<Reservation> HolderReservations { get; set; }
 
-        public virtual ICollection<ReservationGuest> GuestReservations { get; set; }
+        public virtual ICollection<ReservationDayGuest> GuestReservationDays { get; set; }
 
         public virtual ICollection<IdentityDocument> IdentityDocuments { get; set; }
 

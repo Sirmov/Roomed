@@ -12,7 +12,7 @@ using Roomed.Data;
 namespace Roomed.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221009150135_InitialMigration")]
+    [Migration("20221009185417_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -219,6 +219,9 @@ namespace Roomed.Data.Migrations
                     b.Property<Guid>("ReservationHolderId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("RoomTypeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Teenagers")
                         .HasColumnType("int");
 
@@ -226,12 +229,47 @@ namespace Roomed.Data.Migrations
 
                     b.HasIndex("ReservationHolderId");
 
+                    b.HasIndex("RoomTypeId");
+
                     b.ToTable("Reservation");
                 });
 
-            modelBuilder.Entity("Roomed.Data.Models.ReservationGuest", b =>
+            modelBuilder.Entity("Roomed.Data.Models.ReservationDay", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("ReservationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("ReservationDay");
+                });
+
+            modelBuilder.Entity("Roomed.Data.Models.ReservationDayGuest", b =>
+                {
+                    b.Property<Guid>("ReservationDayId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("GuestId")
@@ -252,11 +290,11 @@ namespace Roomed.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ReservationId", "GuestId");
+                    b.HasKey("ReservationDayId", "GuestId");
 
                     b.HasIndex("GuestId");
 
-                    b.ToTable("ReservationGuest");
+                    b.ToTable("ReservationDayGuest");
                 });
 
             modelBuilder.Entity("Roomed.Data.Models.ReservationNote", b =>
@@ -386,26 +424,53 @@ namespace Roomed.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Roomed.Data.Models.RoomType", "RoomType")
+                        .WithMany()
+                        .HasForeignKey("RoomTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ReservationHolder");
+
+                    b.Navigation("RoomType");
                 });
 
-            modelBuilder.Entity("Roomed.Data.Models.ReservationGuest", b =>
+            modelBuilder.Entity("Roomed.Data.Models.ReservationDay", b =>
+                {
+                    b.HasOne("Roomed.Data.Models.Reservation", "Reservation")
+                        .WithMany("ReservationDays")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Roomed.Data.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reservation");
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("Roomed.Data.Models.ReservationDayGuest", b =>
                 {
                     b.HasOne("Roomed.Data.Models.Profile", "Guest")
-                        .WithMany("GuestReservations")
+                        .WithMany("GuestReservationDays")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Roomed.Data.Models.Reservation", "Reservation")
+                    b.HasOne("Roomed.Data.Models.ReservationDay", "ReservationDay")
                         .WithMany("Guests")
-                        .HasForeignKey("ReservationId")
+                        .HasForeignKey("ReservationDayId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Guest");
 
-                    b.Navigation("Reservation");
+                    b.Navigation("ReservationDay");
                 });
 
             modelBuilder.Entity("Roomed.Data.Models.ReservationNote", b =>
@@ -432,7 +497,7 @@ namespace Roomed.Data.Migrations
 
             modelBuilder.Entity("Roomed.Data.Models.Profile", b =>
                 {
-                    b.Navigation("GuestReservations");
+                    b.Navigation("GuestReservationDays");
 
                     b.Navigation("HolderReservations");
 
@@ -443,9 +508,14 @@ namespace Roomed.Data.Migrations
 
             modelBuilder.Entity("Roomed.Data.Models.Reservation", b =>
                 {
-                    b.Navigation("Guests");
-
                     b.Navigation("Notes");
+
+                    b.Navigation("ReservationDays");
+                });
+
+            modelBuilder.Entity("Roomed.Data.Models.ReservationDay", b =>
+                {
+                    b.Navigation("Guests");
                 });
 #pragma warning restore 612, 618
         }

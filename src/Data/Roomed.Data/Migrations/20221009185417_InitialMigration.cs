@@ -113,6 +113,7 @@ namespace Roomed.Data.Migrations
                     ReservationHolderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ArrivalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DepartureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RoomTypeId = table.Column<int>(type: "int", nullable: false),
                     Adults = table.Column<int>(type: "int", nullable: false),
                     Teenagers = table.Column<int>(type: "int", nullable: false),
                     Children = table.Column<int>(type: "int", nullable: false),
@@ -128,6 +129,12 @@ namespace Roomed.Data.Migrations
                         name: "FK_Reservation_Profiles_ReservationHolderId",
                         column: x => x.ReservationHolderId,
                         principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reservation_RoomTypes_RoomTypeId",
+                        column: x => x.RoomTypeId,
+                        principalTable: "RoomTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -157,35 +164,6 @@ namespace Roomed.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReservationGuest",
-                columns: table => new
-                {
-                    ReservationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GuestId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReservationGuest", x => new { x.ReservationId, x.GuestId });
-                    table.ForeignKey(
-                        name: "FK_ReservationGuest_Profiles_GuestId",
-                        column: x => x.GuestId,
-                        principalTable: "Profiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ReservationGuest_Reservation_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservation",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ReservationNotes",
                 columns: table => new
                 {
@@ -208,6 +186,64 @@ namespace Roomed.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ReservationDay",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReservationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationDay", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReservationDay_Reservation_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ReservationDay_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReservationDayGuest",
+                columns: table => new
+                {
+                    ReservationDayId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GuestId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationDayGuest", x => new { x.ReservationDayId, x.GuestId });
+                    table.ForeignKey(
+                        name: "FK_ReservationDayGuest_Profiles_GuestId",
+                        column: x => x.GuestId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ReservationDayGuest_ReservationDay_ReservationDayId",
+                        column: x => x.ReservationDayId,
+                        principalTable: "ReservationDay",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_IdentityDocuments_OwnerId",
                 table: "IdentityDocuments",
@@ -224,8 +260,23 @@ namespace Roomed.Data.Migrations
                 column: "ReservationHolderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReservationGuest_GuestId",
-                table: "ReservationGuest",
+                name: "IX_Reservation_RoomTypeId",
+                table: "Reservation",
+                column: "RoomTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservationDay_ReservationId",
+                table: "ReservationDay",
+                column: "ReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservationDay_RoomId",
+                table: "ReservationDay",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservationDayGuest_GuestId",
+                table: "ReservationDayGuest",
                 column: "GuestId");
 
             migrationBuilder.CreateIndex(
@@ -248,22 +299,25 @@ namespace Roomed.Data.Migrations
                 name: "ProfileNotes");
 
             migrationBuilder.DropTable(
-                name: "ReservationGuest");
+                name: "ReservationDayGuest");
 
             migrationBuilder.DropTable(
                 name: "ReservationNotes");
 
             migrationBuilder.DropTable(
-                name: "Rooms");
+                name: "ReservationDay");
 
             migrationBuilder.DropTable(
                 name: "Reservation");
 
             migrationBuilder.DropTable(
-                name: "RoomTypes");
+                name: "Rooms");
 
             migrationBuilder.DropTable(
                 name: "Profiles");
+
+            migrationBuilder.DropTable(
+                name: "RoomTypes");
         }
     }
 }

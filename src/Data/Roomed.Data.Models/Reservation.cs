@@ -12,7 +12,7 @@
         public Reservation()
         {
             this.Id = Guid.NewGuid();
-            this.Guests = new HashSet<ReservationGuest>();
+            this.ReservationDays = new HashSet<ReservationDay>();
             this.Notes = new HashSet<ReservationNote>();
         }
 
@@ -24,6 +24,9 @@
 
         [Required]
         public DateOnly DepartureDate { get; set; }
+
+        [Required]
+        public RoomType RoomType { get; set; }
 
         [Required]
         [Range(0, ReservationAdultsMaxCount)]
@@ -41,7 +44,7 @@
         [ForeignKey(nameof(ReservationHolderId))]
         public virtual Profile ReservationHolder { get; set; }
 
-        public virtual ICollection<ReservationGuest> Guests { get; set; }
+        public virtual ICollection<ReservationDay> ReservationDays { get; set; }
 
         public virtual ICollection<ReservationNote> Notes { get; set; }
     }
