@@ -7,11 +7,11 @@
 
     using static Roomed.Data.Common.DataConstants.Profile;
 
-    public class Profile : BaseDeletableModel<string>
+    public class Profile : BaseDeletableModel<Guid>
     {
         public Profile()
         {
-            this.Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid();
             this.HolderReservations = new HashSet<Reservation>();
             this.GuestReservations = new HashSet<ReservationGuest>();
             this.IdentityDocuments = new HashSet<IdentityDocument>();

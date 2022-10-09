@@ -8,15 +8,15 @@
 
     using static Roomed.Data.Common.DataConstants.IdentityDocument;
 
-    public class IdentityDocument : BaseDeletableModel<string>
+    public class IdentityDocument : BaseDeletableModel<Guid>
     {
         public IdentityDocument()
         {
-            this.Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid();
         }
 
         [Required(AllowEmptyStrings = false)]
-        public string OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
 
         [Required]
         [EnumDataType(typeof(IdentityDocumentType))]

@@ -7,17 +7,17 @@
 
     using static Roomed.Data.Common.DataConstants.Reservation;
 
-    public class Reservation : BaseDeletableModel<string>
+    public class Reservation : BaseDeletableModel<Guid>
     {
         public Reservation()
         {
-            this.Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid();
             this.Guests = new HashSet<ReservationGuest>();
             this.Notes = new HashSet<ReservationNote>();
         }
 
         [Required(AllowEmptyStrings = false)]
-        public string ReservationHolderId { get; set; }
+        public Guid ReservationHolderId { get; set; }
 
         [Required]
         public DateOnly ArrivalDate { get; set; }

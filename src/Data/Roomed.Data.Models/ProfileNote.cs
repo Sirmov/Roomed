@@ -7,14 +7,14 @@
 
     using static Roomed.Data.Common.DataConstants.ProfileNote;
 
-    public class ProfileNote : BaseDeletableModel<string>
+    public class ProfileNote : BaseDeletableModel<Guid>
     {
         public ProfileNote()
         {
-            this.Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid();
         }
 
-        public string ProfileId { get; set; }
+        public Guid ProfileId { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [MaxLength(ProfileNoteBodyMaxLength)]

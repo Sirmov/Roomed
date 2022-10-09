@@ -2,11 +2,13 @@
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class ReservationGuest
-    {
-        public string ReservationId { get; set; }
+    using Roomed.Data.Common.Models;
 
-        public string GuestId { get; set; }
+    public class ReservationGuest : BaseDeletableModel<int>
+    {
+        public Guid ReservationId { get; set; }
+
+        public Guid GuestId { get; set; }
 
         // Navigational Properties
         [ForeignKey(nameof(ReservationId))]

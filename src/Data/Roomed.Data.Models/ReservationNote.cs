@@ -7,14 +7,14 @@
 
     using static Roomed.Data.Common.DataConstants.ReservationNote;
 
-    public class ReservationNote : BaseDeletableModel<string>
+    public class ReservationNote : BaseDeletableModel<Guid>
     {
         public ReservationNote()
         {
-            this.Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid();
         }
 
-        public string ReservationId { get; set; }
+        public Guid ReservationId { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [MaxLength(ReservationNoteBodyMaxLength)]
