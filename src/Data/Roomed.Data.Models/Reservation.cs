@@ -3,8 +3,9 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using Roomed.Common;
     using Roomed.Data.Common.Models;
+
+    using static Roomed.Data.Common.DataConstants.Reservation;
 
     public class Reservation : BaseDeletableModel<string>
     {
@@ -25,15 +26,15 @@
         public DateOnly DepartureDate { get; set; }
 
         [Required]
-        [Range(0, GlobalConstants.ReservationAdultsMaxCount)]
+        [Range(0, ReservationAdultsMaxCount)]
         public int Adults { get; set; }
 
         [Required]
-        [Range(0, GlobalConstants.ReservationTeenagersMaxCount)]
+        [Range(0, ReservationTeenagersMaxCount)]
         public int Teenagers { get; set; }
 
         [Required]
-        [Range(0, GlobalConstants.ReservationChildrenMaxCount)]
+        [Range(0, ReservationChildrenMaxCount)]
         public int Children { get; set; }
 
         // Navigational Properties

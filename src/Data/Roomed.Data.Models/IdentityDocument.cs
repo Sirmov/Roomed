@@ -3,9 +3,10 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using Roomed.Common;
     using Roomed.Data.Common.Models;
     using Roomed.Data.Models.Enums;
+
+    using static Roomed.Data.Common.DataConstants.IdentityDocument;
 
     public class IdentityDocument : BaseDeletableModel<string>
     {
@@ -22,27 +23,27 @@
         public IdentityDocumentType Type { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(GlobalConstants.IdentityDocumentNameMaxLength)]
+        [MaxLength(IdentityDocumentNameMaxLength)]
         public string NameInDocument { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(GlobalConstants.IdentityDocumentNumberMaxLength)]
+        [MaxLength(IdentityDocumentNumberMaxLength)]
         public string DocumentNumber { get; set; }
 
-        [MaxLength(GlobalConstants.IdentityDocumentPersonalNumberMaxLength)]
+        [MaxLength(IdentityDocumentPersonalNumberMaxLength)]
         public string? PersonalNumber { get; set; }
 
-        [MaxLength(GlobalConstants.IdentityDocumentCountryMaxLength)]
+        [MaxLength(IdentityDocumentCountryMaxLength)]
         public string Country { get; set; }
 
         [Required]
         public DateOnly Birthdate { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.IdentityDocumentPlaceOfBirthMaxLength)]
+        [MaxLength(IdentityDocumentPlaceOfBirthMaxLength)]
         public string PlaceOfBirth { get; set; }
 
-        [MaxLength(GlobalConstants.IdentityDocumentNationalityMaxLength)]
+        [MaxLength(IdentityDocumentNationalityMaxLength)]
         public string Nationality { get; set; }
 
         [Required]
@@ -52,11 +53,10 @@
         public DateOnly ValidUntil { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(GlobalConstants.IdentityDocumentIssuedByMaxLength)]
+        [MaxLength(IdentityDocumentIssuedByMaxLength)]
         public string IssuedBy { get; set; }
 
         // Navigational Properties
-
         [ForeignKey(nameof(OwnerId))]
         public virtual Profile Owner { get; set; }
     }

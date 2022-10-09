@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Linq.Expressions;
+
     using Microsoft.EntityFrameworkCore;
 
     using Roomed.Data.Common.Models;

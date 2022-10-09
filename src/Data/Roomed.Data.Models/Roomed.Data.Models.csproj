@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Roomed.Common\Roomed.Common.csproj" />
     <ProjectReference Include="..\..\Data\Roomed.Data.Common\Roomed.Data.Common.csproj" />
   </ItemGroup>
 

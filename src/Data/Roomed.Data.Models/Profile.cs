@@ -2,9 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using Roomed.Common;
     using Roomed.Data.Common.Models;
     using Roomed.Data.Models.Enums;
+
+    using static Roomed.Data.Common.DataConstants.Profile;
 
     public class Profile : BaseDeletableModel<string>
     {
@@ -18,14 +19,14 @@
         }
 
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(GlobalConstants.ProfileFirstNameMaxLength)]
+        [MaxLength(ProfileFirstNameMaxLength)]
         public string FirstName { get; set; }
 
-        [MaxLength(GlobalConstants.ProfileMiddleNameMaxLenght)]
+        [MaxLength(ProfileMiddleNameMaxLenght)]
         public string? MiddleName { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(GlobalConstants.ProfileLastNameMaxLength)]
+        [MaxLength(ProfileLastNameMaxLength)]
         public string LastName { get; set; }
 
         public DateOnly? Birthdate { get; set; }
@@ -33,17 +34,16 @@
         [EnumDataType(typeof(Gender))]
         public Gender? Gender { get; set; }
 
-        [MaxLength(GlobalConstants.ProfileNationalityMaxLength)]
+        [MaxLength(ProfileNationalityMaxLength)]
         public string? Nationality { get; set; }
 
-        [StringLength(GlobalConstants.ProfileNationalityCodeMaxLength, MinimumLength = GlobalConstants.ProfileNationalityCodeMinLength)]
+        [StringLength(ProfileNationalityCodeMaxLength, MinimumLength = ProfileNationalityCodeMinLength)]
         public string? NationalityCode { get; set; }
 
-        [StringLength(GlobalConstants.ProfileAddressMaxLength, MinimumLength = GlobalConstants.ProfileAddressMinLength)]
+        [StringLength(ProfileAddressMaxLength, MinimumLength = ProfileAddressMinLength)]
         public string? Address { get; set; }
 
         // Navigational Properties
-
         public virtual ICollection<Reservation> HolderReservations { get; set; }
 
         public virtual ICollection<ReservationGuest> GuestReservations { get; set; }

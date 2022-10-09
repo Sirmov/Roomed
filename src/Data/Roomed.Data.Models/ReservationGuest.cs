@@ -9,7 +9,6 @@
         public string GuestId { get; set; }
 
         // Navigational Properties
-
         [ForeignKey(nameof(ReservationId))]
         public virtual Reservation Reservation { get; set; }
 
