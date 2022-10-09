@@ -53,5 +53,6 @@
             }
 
             return await File.ReadAllTextAsync(this.jsonPath);
+        }
     }
 }
