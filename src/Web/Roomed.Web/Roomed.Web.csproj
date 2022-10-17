@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Roomed.Web.ViewModels\Roomed.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
 </Project>
