@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Roomed.Web.Data;
+using Roomed.Data;
 
 internal class Program
 {

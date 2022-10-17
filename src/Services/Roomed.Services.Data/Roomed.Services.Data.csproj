@@ -17,4 +17,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\Roomed.Data\Roomed.Data.csproj" />
+  </ItemGroup>
+
 </Project>
