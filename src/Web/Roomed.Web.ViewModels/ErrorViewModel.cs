@@ -1,4 +1,4 @@
-namespace Roomed.Web.Models
+namespace Roomed.Web.ViewModels
 {
     public class ErrorViewModel
     {

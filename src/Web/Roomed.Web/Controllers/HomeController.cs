@@ -1,7 +1,7 @@
 ﻿namespace Roomed.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Roomed.Web.Models;
+    using Roomed.Web.ViewModels;
     using System.Diagnostics;
 
     public class HomeController : Controller
