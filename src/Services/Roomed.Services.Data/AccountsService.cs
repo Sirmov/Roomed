@@ -1,0 +1,178 @@
+﻿namespace Roomed.Services.Data
+{
+    using System.Security.Claims;
+
+    using Microsoft.AspNetCore.Identity;
+
+    using Roomed.Services.Data.Contracts;
+
+    /// <summary>
+    /// Implementation of the IAccountsService.
+    /// Abstraction on top of the user manager and sign in manager from Microsoft Identity.
+    /// </summary>
+    /// <typeparam name="TUser">Class inheritor of IdentityUser with parameterless constructor.</typeparam>
+    public class AccountsService<TUser> : IAccountsService<TUser>
+        where TUser : IdentityUser, new()
+    {
+        private readonly UserManager<TUser> userManager;
+        private readonly SignInManager<TUser> signInManager;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountsService{TUser}"/> class.
+        /// Injects user and sign in manager from IoC.
+        /// </summary>
+        /// <param name="userManager">Microsoft Identity user manager.</param>
+        /// <param name="signInManager">Microsoft Identity sign in manager.</param>
+        public AccountsService(UserManager<TUser> userManager, SignInManager<TUser> signInManager)
+        {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+        }
+
+        public async Task<IdentityResult> RegisterWithEmailAndUsernameAsync(string email, string username, string password)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(nameof(email), "Email cannot be null or white space.");
+            }
+
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentNullException(nameof(username), "Username cannot be null or white space.");
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentNullException(nameof(password), "Password cannot be null or white space.");
+            }
+
+            TUser user = this.CreateUserWithEmailAndUsername(email, username);
+
+            var result = await this.userManager.CreateAsync(user, password);
+
+            return result;
+        }
+
+        public async Task<SignInResult> LoginWithEmailAsync(string email, string password, bool isPersistant = false, bool isLockout = true)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(nameof(email), "Email cannot be null or white space.");
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentNullException(nameof(password), "Password cannot be null or white space.");
+            }
+
+            var user = await this.FindUserByEmailAsync(email);
+            var result = await this.signInManager.PasswordSignInAsync(user, password, isPersistant, isLockout);
+
+            return result;
+        }
+
+        public async Task<SignInResult> LoginWithUsernameAsync(string username, string password, bool isPersistant = false, bool isLockout = true)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentNullException(nameof(username), "Username cannot be null or white space.");
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentNullException(nameof(password), "Password cannot be null or white space.");
+            }
+
+            var user = await this.FindUserByUsernameAsync(username);
+            var result = await this.signInManager.PasswordSignInAsync(user, password, isPersistant, isLockout);
+
+            return result;
+        }
+
+        public async Task LogoutAsync()
+        {
+            await this.signInManager.SignOutAsync();
+        }
+
+        public bool IsSignedIn(TUser user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user), "User cannot be null.");
+            }
+
+            var principal = user as ClaimsPrincipal;
+
+            return this.signInManager.IsSignedIn(principal);
+        }
+
+        public async Task<TUser> FindUserByEmailAsync(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(nameof(email), "Email cannot be null or white space.");
+            }
+
+            var user = await this.userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException("No user with this email was found.");
+            }
+
+            return user;
+        }
+
+        public async Task<TUser> FindUserByIdAsync(string id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id), "Id cannot be null.");
+            }
+
+            var user = await this.userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException("No user with this id was found.");
+            }
+
+            return user;
+        }
+
+        public async Task<TUser> FindUserByUsernameAsync(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentNullException(nameof(username), "Username cannot be null or white space.");
+            }
+
+            var user = await this.userManager.FindByNameAsync(username);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException("No user with this username was found.");
+            }
+
+            return user;
+        }
+
+        public TUser CreateUserWithEmailAndUsername(string email, string username)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException(nameof(email), "Email cannot be null or white space.");
+            }
+
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentNullException(nameof(username), "Username cannot be null or white space.");
+            }
+
+            var user = Activator.CreateInstance<TUser>();
+            user.Email = email;
+            user.UserName = username;
+            return user;
+        }
+    }
+}
