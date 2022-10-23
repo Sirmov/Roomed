@@ -43,6 +43,11 @@ internal class Program
         })
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.LoginPath = "/User/Login";
+        });
+
         // AutoMapper configuration
         AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
         IMapper mapper = AutoMapperConfig.MapperInstance;
