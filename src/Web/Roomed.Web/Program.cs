@@ -1,7 +1,12 @@
-using Microsoft.AspNetCore.Identity;
+using System.Reflection;
+
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+
 using Roomed.Data;
 using Roomed.Data.Models;
+using Roomed.Services.Mapping;
+using Roomed.Web.ViewModels;
 
 internal class Program
 {
@@ -10,17 +15,44 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(connectionString));
-        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-        builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>();
-        builder.Services.AddControllersWithViews();
+        ConfigureServices(builder.Services, builder.Configuration);
 
         var app = builder.Build();
 
+        // Configure application pipeline
+        ConfigurePipeline(app);
+
+        app.Run();
+    }
+
+    private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    {
+        // Database configuration
+        string defaultConnectingString = configuration.GetConnectionString("DefaultConnection");
+
+        services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            options.UseSqlServer(defaultConnectingString);
+        });
+        services.AddDatabaseDeveloperPageExceptionFilter();
+
+        // Identity configuration
+        services.AddDefaultIdentity<ApplicationUser>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = true;
+        })
+        .AddEntityFrameworkStores<ApplicationDbContext>();
+
+        // AutoMapper configuration
+        AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+        IMapper mapper = AutoMapperConfig.MapperInstance;
+        services.AddSingleton(mapper);
+
+        services.AddControllersWithViews();
+    }
+
+    private static void ConfigurePipeline(WebApplication app)
+    {
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
@@ -45,7 +77,5 @@ internal class Program
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
         app.MapRazorPages();
-
-        app.Run();
     }
 }
