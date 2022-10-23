@@ -4,7 +4,7 @@
     using Roomed.Web.ViewModels;
     using System.Diagnostics;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
