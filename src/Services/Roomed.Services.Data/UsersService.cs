@@ -7,23 +7,23 @@
     using Roomed.Services.Data.Contracts;
 
     /// <summary>
-    /// Implementation of the IAccountsService.
+    /// Implementation of the IUsersService.
     /// Abstraction on top of the user manager and sign in manager from Microsoft Identity.
     /// </summary>
     /// <typeparam name="TUser">Class inheritor of IdentityUser with parameterless constructor.</typeparam>
-    public class AccountsService<TUser> : IAccountsService<TUser>
+    public class UsersService<TUser> : IUsersService<TUser>
         where TUser : IdentityUser, new()
     {
         private readonly UserManager<TUser> userManager;
         private readonly SignInManager<TUser> signInManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountsService{TUser}"/> class.
+        /// Initializes a new instance of the <see cref="UsersService{TUser}"/> class.
         /// Injects user and sign in manager from IoC.
         /// </summary>
         /// <param name="userManager">Microsoft Identity user manager.</param>
         /// <param name="signInManager">Microsoft Identity sign in manager.</param>
-        public AccountsService(UserManager<TUser> userManager, SignInManager<TUser> signInManager)
+        public UsersService(UserManager<TUser> userManager, SignInManager<TUser> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;

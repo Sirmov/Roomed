@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity;
 
-    public interface IAccountsService<TUser>
+    public interface IUsersService<TUser>
         where TUser : IdentityUser, new()
     {
         public Task<IdentityResult> RegisterWithEmailAndUsernameAsync(string email, string username, string password);
