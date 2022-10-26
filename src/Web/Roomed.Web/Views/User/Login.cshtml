@@ -1,5 +1,7 @@
 ﻿@using Roomed.Web.ViewModels.User
 
+@using static Roomed.Common.ControllersActionsConstants
+
 @model LoginViewModel
 
 @{
@@ -23,10 +25,10 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome!</h1>
                                 </div>
-                                <form class="user" asp-controller="User" asp-action="Login" method="post">
+                                <form class="user" asp-controller="@Controllers.User" asp-action="@Actions.Login" method="post">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <div class="form-group">
-                                        <input class="form-control form-control-user" asp-for="@Model.Username" placeholder="Enter Username...">
+                                        <input class="form-control form-control-user" asp-for="@Model.UserName" placeholder="Enter Username...">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control form-control-user" asp-for="@Model.Password" placeholder="Password">
@@ -37,16 +39,14 @@
                                             <label class="custom-control-label" asp-for="@Model.RememberMe">Remember Me</label>
                                         </div>
                                     </div>
-                                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </a>
+                                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Login" />
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" asp-controller="User" asp-action="Register">Create an Account!</a>
+                                    <a class="small" asp-controller="@Controllers.User" asp-action="@Actions.Register">Create an Account!</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" asp-controller="User" asp-action="ForgotPassword">Forgot Password?</a>
+                                    <a class="small" asp-controller="@Controllers.User" asp-action="@Actions.ForgotPassword">Forgot Password?</a>
                                 </div>
                             </div>
                         </div>
@@ -59,3 +59,7 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
