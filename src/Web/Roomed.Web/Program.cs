@@ -5,8 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 using Roomed.Data;
 using Roomed.Data.Models;
+using Roomed.Services.Data;
+using Roomed.Services.Data.Contracts;
 using Roomed.Services.Mapping;
 using Roomed.Web.ViewModels;
+using static Roomed.Common.DataConstants.ApplicationUser;
 
 internal class Program
 {
@@ -39,7 +42,15 @@ internal class Program
         // Identity configuration
         services.AddDefaultIdentity<ApplicationUser>(options =>
         {
-            options.SignIn.RequireConfirmedAccount = true;
+            options.SignIn.RequireConfirmedAccount = false;
+
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+
+            options.Password.RequireNonAlphanumeric = true;
+            options.Password.RequireDigit = true;
+            options.Password.RequireUppercase = true;
+            options.Password.RequiredLength = PasswordMinLength;
         })
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -52,6 +63,9 @@ internal class Program
         AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
         IMapper mapper = AutoMapperConfig.MapperInstance;
         services.AddSingleton(mapper);
+
+        // Register data services
+        services.AddTransient(typeof(IUsersService<>), typeof(UsersService<>));
 
         services.AddControllersWithViews();
     }
