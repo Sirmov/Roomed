@@ -4,8 +4,8 @@
     {
         public static class ApplicationUser
         {
-            public const int UsernameMinLength = 5;
-            public const int UsernameMaxLength = 30;
+            public const int UserNameMinLength = 5;
+            public const int UserNameMaxLength = 30;
 
             public const int PasswordMinLength = 8;
             public const int PasswordMaxLength = 30;
