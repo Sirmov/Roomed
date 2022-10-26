@@ -39,15 +39,14 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration<ApplicationUser>(new ApplicationUserConfiguration());
             modelBuilder.ApplyConfiguration<Reservation>(new ReservationConfiguration());
-
             modelBuilder.ApplyConfiguration<IdentityDocument>(new IdentityDocumentConfiguration());
-
             modelBuilder.ApplyConfiguration<Profile>(new ProfileConfiguration());
-
             modelBuilder.ApplyConfiguration<ReservationDay>(new ReservationDayConfiguration());
-
             modelBuilder.ApplyConfiguration<ReservationDayGuest>(new ReservationDayGuestConfiguration());
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
