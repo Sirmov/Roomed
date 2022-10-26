@@ -33,4 +33,8 @@
     <ProjectReference Include="..\Roomed.Data.Models\Roomed.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
