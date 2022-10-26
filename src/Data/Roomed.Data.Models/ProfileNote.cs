@@ -5,7 +5,7 @@
 
     using Roomed.Data.Common.Models;
 
-    using static Roomed.Data.Common.DataConstants.ProfileNote;
+    using static Roomed.Common.DataConstants.ProfileNote;
 
     public class ProfileNote : BaseDeletableModel<Guid>
     {

@@ -5,7 +5,7 @@
 
     using Roomed.Data.Common.Models;
 
-    using static Roomed.Data.Common.DataConstants.Reservation;
+    using static Roomed.Common.DataConstants.Reservation;
 
     public class Reservation : BaseDeletableModel<Guid>
     {

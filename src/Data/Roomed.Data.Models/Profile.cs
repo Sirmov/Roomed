@@ -5,7 +5,7 @@
     using Roomed.Data.Common.Models;
     using Roomed.Data.Models.Enums;
 
-    using static Roomed.Data.Common.DataConstants.Profile;
+    using static Roomed.Common.DataConstants.Profile;
 
     public class Profile : BaseDeletableModel<Guid>
     {

@@ -1,7 +1,19 @@
-﻿namespace Roomed.Data.Common
+﻿namespace Roomed.Common
 {
     public static class DataConstants
     {
+        public static class ApplicationUser
+        {
+            public const int UsernameMinLength = 5;
+            public const int UsernameMaxLength = 30;
+
+            public const int PasswordMinLength = 8;
+            public const int PasswordMaxLength = 30;
+
+            public const int EmailMinLength = 6;
+            public const int EmailMaxLength = 35;
+        }
+
         public static class Reservation
         {
             public const int ReservationAdultsMaxCount = 5;

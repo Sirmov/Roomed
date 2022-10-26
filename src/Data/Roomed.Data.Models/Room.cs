@@ -4,7 +4,7 @@
 
     using Roomed.Data.Common.Models;
 
-    using static Roomed.Data.Common.DataConstants.Room;
+    using static Roomed.Common.DataConstants.Room;
 
     public class Room : BaseDeletableModel<int>
     {

@@ -6,7 +6,7 @@
     using Roomed.Data.Common.Models;
     using Roomed.Data.Models.Enums;
 
-    using static Roomed.Data.Common.DataConstants.IdentityDocument;
+    using static Roomed.Common.DataConstants.IdentityDocument;
 
     public class IdentityDocument : BaseDeletableModel<Guid>
     {

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Roomed.Data.Common\Roomed.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Roomed.Common\Roomed.Common.csproj" />
   </ItemGroup>
 
 </Project>
