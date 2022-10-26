@@ -1,8 +1,10 @@
 ﻿namespace Roomed.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Roomed.Web.ViewModels;
     using System.Diagnostics;
+
+    using Microsoft.AspNetCore.Mvc;
+
+    using Roomed.Web.ViewModels;
 
     public class HomeController : BaseController
     {
@@ -18,10 +20,6 @@
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
