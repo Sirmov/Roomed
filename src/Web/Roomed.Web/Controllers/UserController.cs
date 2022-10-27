@@ -1,5 +1,6 @@
 ﻿namespace Roomed.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Roomed.Data.Models;
@@ -51,9 +52,13 @@
             return RedirectToAction(Actions.Index, Controllers.Home);
         }
 
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await usersService.LogoutAsync();
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                await usersService.LogoutAsync();
+            }
 
             return RedirectToAction(Actions.Login);
         }
