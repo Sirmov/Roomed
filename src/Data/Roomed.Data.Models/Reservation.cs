@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     using Roomed.Data.Common.Models;
+    using Roomed.Data.Models.Enums;
 
     using static Roomed.Common.DataConstants.Reservation;
 
@@ -24,6 +25,9 @@
 
         [Required]
         public DateOnly DepartureDate { get; set; }
+
+        [Required]
+        public ReservationStatus Status { get; set; }
 
         [Required]
         public RoomType RoomType { get; set; }
