@@ -1,5 +1,6 @@
 ﻿namespace Roomed.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     using Roomed.Data.Common.Models;
@@ -14,7 +15,11 @@
 
         public Guid ReservationId { get; set; }
 
+        [Required]
         public Room Room { get; set; }
+
+        [Required]
+        public DateOnly Date { get; set; }
 
         // Navigational Properties
         [ForeignKey(nameof(ReservationId))]
