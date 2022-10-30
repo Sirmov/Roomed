@@ -2,13 +2,17 @@ using System.Reflection;
 
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 using Roomed.Data;
+using Roomed.Data.Common.Repositories;
 using Roomed.Data.Models;
+using Roomed.Data.Repositories;
 using Roomed.Services.Data;
 using Roomed.Services.Data.Contracts;
 using Roomed.Services.Mapping;
 using Roomed.Web.ViewModels;
+
 using static Roomed.Common.DataConstants.ApplicationUser;
 
 internal class Program
@@ -64,8 +68,13 @@ internal class Program
         IMapper mapper = AutoMapperConfig.MapperInstance;
         services.AddSingleton(mapper);
 
+        // Register data repositories
+        services.AddScoped(typeof(IRepository<,>), typeof(EfRepository<,>));
+        services.AddScoped(typeof(IDeletableEntityRepository<,>), typeof(EfDeletableEntityRepository<,>));
+
         // Register data services
-        services.AddTransient(typeof(IUsersService<>), typeof(UsersService<>));
+        services.AddScoped(typeof(IUsersService<>), typeof(UsersService<>));
+        services.AddScoped<IReservationsService, ReservationsService>();
 
         services.AddControllersWithViews();
     }
