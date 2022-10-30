@@ -2,7 +2,6 @@ using System.Reflection;
 
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 using Roomed.Data;
 using Roomed.Data.Common.Repositories;
