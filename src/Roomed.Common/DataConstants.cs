@@ -49,6 +49,11 @@
             public const int RoomNumberMaxLength = 6;
         }
 
+        public static class RoomType
+        {
+            public const int NameMaxLength = 50;
+        }
+
         public static class ReservationNote
         {
             public const int ReservationNoteBodyMaxLength = 500;
