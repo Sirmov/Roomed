@@ -2,8 +2,11 @@
 {
     public enum ReservationStatus
     {
+        Expected,
         Arriving,
         InHouse,
-        Departuring
+        Departuring,
+        CheckOut,
+        Canceled,
     }
 }
