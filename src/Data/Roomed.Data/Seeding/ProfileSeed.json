@@ -1,0 +1,57 @@
+[
+  {
+    "id": "c096ec59-524a-4ff3-80e2-5b5a4da8a94c",
+    "firstName": "John",
+    "middleName": null,
+    "lastName": "Stewart",
+    "birthday": "15.04.1988",
+    "gender": "Male",
+    "nationality": "British",
+    "nationalityCode": "GB",
+    "address": null
+  },
+  {
+    "id": "608ffc4c-70cb-464b-bef9-741db6c7dae5",
+    "firstName": "Julie",
+    "middleName": null,
+    "lastName": "Kerry",
+    "birthday": null,
+    "gender": null,
+    "nationality": null,
+    "nationalityCode": null,
+    "address": null
+  },
+  {
+    "id": "990f7f10-aead-44dc-aebd-ab23698bbdbe",
+    "firstName": "Belinda",
+    "middleName": "Angie",
+    "lastName": "Parker",
+    "birthday": "24.07.1997",
+    "gender": "Female",
+    "nationality": "German",
+    "nationalityCode": "DE",
+    "address": null
+  },
+  {
+    "id": "e80d4a4e-d41b-4f71-9d76-59b55fc57b92",
+    "firstName": "Nell",
+    "middleName": null,
+    "lastName": "Johns",
+    "birthday": null,
+    "gender": null,
+    "nationality": null,
+    "nationalityCode": null,
+    "address": null
+  },
+  {
+    "id": "b2a126a7-2483-4636-84f8-a0a4e5098489",
+    "firstName": "Patric",
+    "middleName": null,
+    "lastName": "Horse",
+    "birthday": null,
+    "gender": null,
+    "nationality": null,
+    "nationalityCode": null,
+    "address": null
+  }
+]
