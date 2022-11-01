@@ -1,0 +1,30 @@
+[
+  {
+    "ownerId": "c096ec59-524a-4ff3-80e2-5b5a4da8a94c",
+    "type": "Passport",
+    "nameInDocument": "John Charles Stewart",
+    "documentNumber": "2644358632",
+    "personalNumber": null,
+    "country": "Great Britain",
+    "birthdate": "15.04.1988",
+    "placeOfBirth": "London",
+    "nationality": "British",
+    "validFrom": "14.02.2015",
+    "validUntil": "14.02.2025",
+    "IssuedBy": "London"
+  },
+  {
+    "ownerId": "990f7f10-aead-44dc-aebd-ab23698bbdbe",
+    "type": "Id",
+    "nameInDocument": "Belinda Angie Parker",
+    "documentNumber": "2658796833",
+    "personalNumber": null,
+    "country": "Germany",
+    "birthdate": "24.07.1997",
+    "placeOfBirth": "Berlin",
+    "nationality": "German",
+    "validFrom": "30.05.2017",
+    "validUntil": "30.05.2027",
+    "IssuedBy": "London"
+  }
+]
