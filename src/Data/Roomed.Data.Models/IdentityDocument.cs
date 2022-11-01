@@ -8,8 +8,14 @@
 
     using static Roomed.Common.DataConstants.IdentityDocument;
 
+    /// <summary>
+    /// Identity document entity model. Inherits base deletable model. Has guid id.
+    /// </summary>
     public class IdentityDocument : BaseDeletableModel<Guid>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IdentityDocument"/> class with new guid as id.
+        /// </summary>
         public IdentityDocument()
         {
             this.Id = Guid.NewGuid();
