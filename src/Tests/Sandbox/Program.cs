@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using Roomed.Data.Models;
-using System.Globalization;
-
+﻿using System;
 internal class Program
 {
     private static  void Main(string[] args)
