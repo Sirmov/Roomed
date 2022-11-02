@@ -6,8 +6,12 @@
     using Roomed.Data.Models;
     using Roomed.Services.Json.SerializerSettings;
 
+    /// <summary>
+    /// This is a <see cref="ReservationDay"/> seeder implementing <see cref="ISeeder"/>.
+    /// </summary>
     public class ReservationDaySeeder : ISeeder
     {
+        /// <inheritdoc/>
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             string json = await File.ReadAllTextAsync("../../Data/Roomed.Data/Seeding/Data/ReservationDaySeed.json");

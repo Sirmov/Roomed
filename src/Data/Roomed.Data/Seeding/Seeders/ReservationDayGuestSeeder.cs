@@ -4,8 +4,12 @@
     using Newtonsoft.Json;
     using Roomed.Data.Models;
 
+    /// <summary>
+    /// This is a <see cref="ReservationDayGuest"/> seeder implementing <see cref="ISeeder"/>.
+    /// </summary>
     public class ReservationDayGuestSeeder : ISeeder
     {
+        /// <inheritdoc/>
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             string json = await File.ReadAllTextAsync("../../Data/Roomed.Data/Seeding/Data/ReservationDayGuestSeed.json");

@@ -5,8 +5,12 @@
 
     using Roomed.Data.Models;
 
+    /// <summary>
+    /// This is a <see cref="Room"/> seeder implementing <see cref="ISeeder"/>.
+    /// </summary>
     public class RoomSeeder : ISeeder
     {
+        /// <inheritdoc/>
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             string json = await File.ReadAllTextAsync("../../Data/Roomed.Data/Seeding/Data/RoomSeed.json");
