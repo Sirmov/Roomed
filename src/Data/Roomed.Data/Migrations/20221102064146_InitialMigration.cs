@@ -77,7 +77,7 @@ namespace Roomed.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -134,8 +134,8 @@ namespace Roomed.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -179,8 +179,8 @@ namespace Roomed.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -251,13 +251,14 @@ namespace Roomed.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservation",
+                name: "Reservations",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReservationHolderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ArrivalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DepartureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     RoomTypeId = table.Column<int>(type: "int", nullable: false),
                     Adults = table.Column<int>(type: "int", nullable: false),
                     Teenagers = table.Column<int>(type: "int", nullable: false),
@@ -269,15 +270,15 @@ namespace Roomed.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservation", x => x.Id);
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reservation_Profiles_ReservationHolderId",
+                        name: "FK_Reservations_Profiles_ReservationHolderId",
                         column: x => x.ReservationHolderId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reservation_RoomTypes_RoomTypeId",
+                        name: "FK_Reservations_RoomTypes_RoomTypeId",
                         column: x => x.RoomTypeId,
                         principalTable: "RoomTypes",
                         principalColumn: "Id",
@@ -324,9 +325,9 @@ namespace Roomed.Data.Migrations
                 {
                     table.PrimaryKey("PK_ReservationNotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ReservationNotes_Reservation_ReservationId",
+                        name: "FK_ReservationNotes_Reservations_ReservationId",
                         column: x => x.ReservationId,
-                        principalTable: "Reservation",
+                        principalTable: "Reservations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -338,6 +339,7 @@ namespace Roomed.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReservationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -347,9 +349,9 @@ namespace Roomed.Data.Migrations
                 {
                     table.PrimaryKey("PK_ReservationDay", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ReservationDay_Reservation_ReservationId",
+                        name: "FK_ReservationDay_Reservations_ReservationId",
                         column: x => x.ReservationId,
-                        principalTable: "Reservation",
+                        principalTable: "Reservations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -451,16 +453,6 @@ namespace Roomed.Data.Migrations
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservation_ReservationHolderId",
-                table: "Reservation",
-                column: "ReservationHolderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reservation_RoomTypeId",
-                table: "Reservation",
-                column: "RoomTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ReservationDay_ReservationId",
                 table: "ReservationDay",
                 column: "ReservationId");
@@ -479,6 +471,16 @@ namespace Roomed.Data.Migrations
                 name: "IX_ReservationNotes_ReservationId",
                 table: "ReservationNotes",
                 column: "ReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ReservationHolderId",
+                table: "Reservations",
+                column: "ReservationHolderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_RoomTypeId",
+                table: "Reservations",
+                column: "RoomTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_TypeId",
@@ -525,7 +527,7 @@ namespace Roomed.Data.Migrations
                 name: "ReservationDay");
 
             migrationBuilder.DropTable(
-                name: "Reservation");
+                name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "Rooms");
