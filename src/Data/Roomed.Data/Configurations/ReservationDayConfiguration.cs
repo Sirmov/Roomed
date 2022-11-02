@@ -5,8 +5,12 @@
     using Roomed.Data.Common;
     using Roomed.Data.Models;
 
+    /// <summary>
+    /// Model builder configuration for <see cref="ReservationDay"/> entity.
+    /// </summary>
     public class ReservationDayConfiguration : IEntityTypeConfiguration<ReservationDay>
     {
+        /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<ReservationDay> builder)
         {
             builder.HasOne(e => e.Reservation)

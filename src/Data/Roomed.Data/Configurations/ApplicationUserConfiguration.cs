@@ -7,8 +7,12 @@
 
     using static Roomed.Common.DataConstants.ApplicationUser;
 
+    /// <summary>
+    /// Model builder configuration for <see cref="ApplicationUser"/> entity.
+    /// </summary>
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
+        /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             builder.Property(au => au.UserName)

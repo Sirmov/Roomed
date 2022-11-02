@@ -6,8 +6,12 @@
     using Roomed.Data.Common;
     using Roomed.Data.Models;
 
+    /// <summary>
+    /// Model builder configuration for <see cref="IdentityDocument"/> entity.
+    /// </summary>
     public class IdentityDocumentConfiguration : IEntityTypeConfiguration<IdentityDocument>
     {
+        /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<IdentityDocument> builder)
         {
             builder.Property(e => e.Birthdate)
