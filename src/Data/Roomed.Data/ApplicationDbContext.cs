@@ -1,6 +1,5 @@
 ﻿namespace Roomed.Data
 {
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +13,7 @@
         public ApplicationDbContext(DbContextOptions options)
             : base(options) { }
 
-        public DbSet<Reservation> Reservation { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         public DbSet<ReservationNote> ReservationNotes { get; set; }
 
@@ -39,6 +38,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Applying configuration
             modelBuilder.ApplyConfiguration<ApplicationUser>(new ApplicationUserConfiguration());
             modelBuilder.ApplyConfiguration<Reservation>(new ReservationConfiguration());
             modelBuilder.ApplyConfiguration<IdentityDocument>(new IdentityDocumentConfiguration());
