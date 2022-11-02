@@ -45,6 +45,7 @@
             modelBuilder.ApplyConfiguration<Profile>(new ProfileConfiguration());
             modelBuilder.ApplyConfiguration<ReservationDay>(new ReservationDayConfiguration());
             modelBuilder.ApplyConfiguration<ReservationDayGuest>(new ReservationDayGuestConfiguration());
+            modelBuilder.ApplyConfiguration<Room>(new RoomConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
