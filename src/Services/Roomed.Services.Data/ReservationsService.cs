@@ -5,10 +5,9 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-
+    using Roomed.Data.Common.Repositories;
     using Roomed.Data.Models;
     using Roomed.Data.Models.Enums;
-    using Roomed.Data.Repositories;
     using Roomed.Services.Data.Contracts;
 
     /// <summary>
@@ -17,9 +16,9 @@
     /// <inheritdoc cref="IReservationsService"/>
     public class ReservationsService : IReservationsService
     {
-        private readonly EfDeletableEntityRepository<Reservation, Guid> reservationRepository;
+        private readonly IDeletableEntityRepository<Reservation, Guid> reservationRepository;
 
-        public ReservationsService(EfDeletableEntityRepository<Reservation, Guid> reservationRepository)
+        public ReservationsService(IDeletableEntityRepository<Reservation, Guid> reservationRepository)
         {
             this.reservationRepository = reservationRepository;
         }
