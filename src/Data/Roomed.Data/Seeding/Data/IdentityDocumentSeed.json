@@ -6,12 +6,12 @@
     "documentNumber": "2644358632",
     "personalNumber": null,
     "country": "Great Britain",
-    "birthdate": "15.04.1988",
+    "birthdate": "1988-04-15",
     "placeOfBirth": "London",
     "nationality": "British",
-    "validFrom": "14.02.2015",
-    "validUntil": "14.02.2025",
-    "IssuedBy": "London"
+    "validFrom": "2015-02-14",
+    "validUntil": "2025-02-14",
+    "issuedBy": "London"
   },
   {
     "ownerId": "990f7f10-aead-44dc-aebd-ab23698bbdbe",
@@ -20,11 +20,11 @@
     "documentNumber": "2658796833",
     "personalNumber": null,
     "country": "Germany",
-    "birthdate": "24.07.1997",
+    "birthdate": "1997-07-24",
     "placeOfBirth": "Berlin",
     "nationality": "German",
-    "validFrom": "30.05.2017",
-    "validUntil": "30.05.2027",
-    "IssuedBy": "London"
+    "validFrom": "2017-05-30",
+    "validUntil": "2027-05-30",
+    "issuedBy": "London"
   }
 ]

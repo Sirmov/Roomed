@@ -351,3 +351,6 @@ MigrationBackup/
 
 # ASP.NET Core client side libraries
 **/wwwroot/lib/**
+
+# XML generated documentation
+src/Documentation/
