@@ -354,3 +354,6 @@ MigrationBackup/
 
 # XML generated documentation
 src/Documentation/
+
+# Console sandbox project
+src/Tests/Sandbox
