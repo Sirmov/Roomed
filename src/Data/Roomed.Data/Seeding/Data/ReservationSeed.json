@@ -1,7 +1,7 @@
 [
   {
     "id": "6f660971-cd1e-4460-838e-202832569c8b",
-    "holderId": "c096ec59-524a-4ff3-80e2-5b5a4da8a94c",
+    "reservationHolderId": "c096ec59-524a-4ff3-80e2-5b5a4da8a94c",
     "arrivalDate": "2022-12-12",
     "departureDate": "2022-12-15",
     "status": "Expected",
@@ -12,7 +12,7 @@
   },
   {
     "id": "93139886-2a8f-4daa-9786-1c7f380dae0c",
-    "holderId": "990f7f10-aead-44dc-aebd-ab23698bbdbe",
+    "reservationHolderId": "990f7f10-aead-44dc-aebd-ab23698bbdbe",
     "arrivalDate": "2022-12-13",
     "departureDate": "2022-12-15",
     "status": "Expected",
