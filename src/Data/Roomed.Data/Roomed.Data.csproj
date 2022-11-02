@@ -24,6 +24,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -31,12 +32,33 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Roomed.Services.Json\Roomed.Services.Json.csproj" />
     <ProjectReference Include="..\Roomed.Data.Common\Roomed.Data.Common.csproj" />
     <ProjectReference Include="..\Roomed.Data.Models\Roomed.Data.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <None Update="Seeding\Data\IdentityDocumentSeed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Seeding\Data\ProfileSeed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Seeding\Data\ReservationDayGuestSeed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Seeding\Data\ReservationDaySeed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Seeding\Data\ReservationSeed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Seeding\Data\RoomSeed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Seeding\Data\RoomTypeSeed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
