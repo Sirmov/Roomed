@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Roomed.Services.Json\Roomed.Services.Json.csproj" />
+    <ProjectReference Include="..\..\Services\Roomed.Services.Json\Roomed.Services.Json.csproj" />
     <ProjectReference Include="..\Roomed.Data.Common\Roomed.Data.Common.csproj" />
     <ProjectReference Include="..\Roomed.Data.Models\Roomed.Data.Models.csproj" />
   </ItemGroup>

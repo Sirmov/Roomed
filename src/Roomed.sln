@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Tests\Sandbox\Sa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0B699F47-389C-43DE-929D-A5941C324E9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomed.Services.Json", "Roomed.Services.Json\Roomed.Services.Json.csproj", "{8C01147F-923F-4394-A100-D22E2558C6C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomed.Services.Json", "Services\Roomed.Services.Json\Roomed.Services.Json.csproj", "{8C01147F-923F-4394-A100-D22E2558C6C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
