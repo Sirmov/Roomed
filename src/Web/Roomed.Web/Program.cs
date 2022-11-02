@@ -1,5 +1,4 @@
 using System.Reflection;
-
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +6,7 @@ using Roomed.Data;
 using Roomed.Data.Common.Repositories;
 using Roomed.Data.Models;
 using Roomed.Data.Repositories;
+using Roomed.Data.Seeding.Seeders;
 using Roomed.Services.Data;
 using Roomed.Services.Data.Contracts;
 using Roomed.Services.Mapping;
@@ -16,7 +16,7 @@ using static Roomed.Common.DataConstants.ApplicationUser;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +26,7 @@ internal class Program
         var app = builder.Build();
 
         // Configure application pipeline
-        ConfigurePipeline(app);
+        await ConfigurePipelineAsync(app);
 
         app.Run();
     }
@@ -78,8 +78,14 @@ internal class Program
         services.AddControllersWithViews();
     }
 
-    private static void ConfigurePipeline(WebApplication app)
+    private static async Task ConfigurePipelineAsync(WebApplication app)
     {
+        using (var serviceScope = app.Services.CreateScope())
+        {
+            var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            await ApplicationDbContextSeeder.SeedAsync(dbContext, serviceScope.ServiceProvider);
+        }
+
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
