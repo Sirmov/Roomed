@@ -12,7 +12,7 @@
             builder.HasKey(e => new { e.ReservationDayId, e.GuestId });
 
             builder.HasOne(e => e.ReservationDay)
-                .WithMany(r => r.Guests)
+                .WithMany(r => r.ReservationDayGuests)
                 .HasForeignKey(e => e.ReservationDayId)
                 .OnDelete(DeleteBehavior.Restrict);
 

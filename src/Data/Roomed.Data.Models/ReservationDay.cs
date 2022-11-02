@@ -17,7 +17,7 @@
         public ReservationDay()
         {
             this.Id = Guid.NewGuid();
-            this.Guests = new HashSet<ReservationDayGuest>();
+            this.ReservationDayGuests = new HashSet<ReservationDayGuest>();
         }
 
         /// <summary>
@@ -55,6 +55,6 @@
         /// <summary>
         /// Gets or sets guest navigational property.
         /// </summary>
-        public virtual ICollection<ReservationDayGuest> Guests { get; set; }
+        public virtual ICollection<ReservationDayGuest> ReservationDayGuests { get; set; }
     }
 }
