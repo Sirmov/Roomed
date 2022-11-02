@@ -11,7 +11,7 @@
     /// The seeded data is read from a json file.
     /// </summary>
     /// <typeparam name="TEntity">The model class of the entity.</typeparam>
-    public class Seeder<TEntity> : IEntityTypeConfiguration<TEntity>
+    public class ModelConfigurationSeeder<TEntity> : IEntityTypeConfiguration<TEntity>
         where TEntity : class
     {
         private readonly string jsonPath;
@@ -32,26 +32,11 @@
         /// <param name="builder">This is the provided configuration builder.</param>
         public async void Configure(EntityTypeBuilder<TEntity> builder)
         {
-            string jsonData = await this.ReadJson();
+            string jsonData = await File.ReadAllTextAsync(this.jsonPath);
 
             IEnumerable<TEntity> data = JsonConvert.DeserializeObject<IEnumerable<TEntity>>(jsonData, new DateOnlyJsonSettings().Settings);
 
             builder.HasData(data);
-        }
-
-        /// <summary>
-        /// This method reads the json file asynchronously as string.
-        /// </summary>
-        /// <returns>This method returns a string representing the json file.</returns>
-        /// <exception cref="ArgumentException">This method throws an exception if the provided file does not exist.</exception>
-        private async Task<string> ReadJson()
-        {
-            if (!File.Exists(this.jsonPath))
-            {
-                throw new ArgumentException($"File {this.jsonPath} can not be found!", nameof(this.jsonPath));
-            }
-
-            return await File.ReadAllTextAsync(this.jsonPath);
         }
     }
 }
