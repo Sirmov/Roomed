@@ -11,18 +11,18 @@
             string json = await File.ReadAllTextAsync("../../Data/Roomed.Data/Seeding/Data/ReservationDayGuestSeed.json");
             var reservationDaysGuests = JsonConvert.DeserializeObject<IEnumerable<ReservationDayGuest>>(json);
 
-            var reservation = dbContext.Reservations
-                .Include(r => r.ReservationDays)
-                .ThenInclude(rd => rd.ReservationDayGuests)
-                .FirstOrDefault();
-            var reservationDay = reservation?.ReservationDays.FirstOrDefault();
-            var reservationDayGuest = reservationDay?.ReservationDayGuests.FirstOrDefault();
-
-            if (reservationDayGuest == null)
+            foreach (var reservationDayGuest in reservationDaysGuests)
             {
-                await dbContext.AddRangeAsync(reservationDaysGuests);
-                await dbContext.SaveChangesAsync();
+                if (!(await dbContext.Reservations
+                    .AnyAsync(r => r.ReservationDays
+                        .Any(rd => rd.ReservationDayGuests
+                            .Any(rdg => rdg.Id == reservationDayGuest.Id)))))
+                {
+                    await dbContext.AddAsync(reservationDayGuest);
+                }
             }
+
+            await dbContext.SaveChangesAsync();
         }
     }
 }

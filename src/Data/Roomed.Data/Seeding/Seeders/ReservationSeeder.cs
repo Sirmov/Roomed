@@ -1,5 +1,6 @@
 ﻿namespace Roomed.Data.Seeding.Seeders
 {
+    using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
 
     using Roomed.Data.Models;
@@ -12,11 +13,15 @@
             string json = await File.ReadAllTextAsync("../../Data/Roomed.Data/Seeding/Data/ReservationSeed.json");
             var reservations = JsonConvert.DeserializeObject<IEnumerable<Reservation>>(json, new DateOnlyJsonSettings().Settings);
 
-            if (!dbContext.Reservations.Any())
+            foreach (var reservation in reservations)
             {
-                await dbContext.AddRangeAsync(reservations);
-                await dbContext.SaveChangesAsync();
+                if (!(await dbContext.Reservations.AnyAsync(r => r.Id == reservation.Id)))
+                {
+                    await dbContext.AddAsync(reservation);
+                }
             }
+
+            await dbContext.SaveChangesAsync();
         }
     }
 }

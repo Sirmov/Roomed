@@ -1,5 +1,6 @@
 ﻿namespace Roomed.Data.Seeding.Seeders
 {
+    using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
 
     using Roomed.Data.Models;
@@ -13,11 +14,16 @@
 
             var profiles = JsonConvert.DeserializeObject<IEnumerable<Profile>>(json, new DateOnlyJsonSettings().Settings);
 
-            if (!dbContext.Profiles.Any())
+            foreach (var profile in profiles)
             {
-                await dbContext.AddRangeAsync(profiles);
-                await dbContext.SaveChangesAsync();
+                if (!(await dbContext.Profiles.AnyAsync(p => p.Id == profile.Id)))
+                {
+                    await dbContext.Profiles.AddAsync(profile);
+                }
             }
+
+            await dbContext.SaveChangesAsync();
+
         }
     }
 }

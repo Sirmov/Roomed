@@ -1,5 +1,6 @@
 ﻿namespace Roomed.Data.Seeding.Seeders
 {
+    using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
 
     using Roomed.Data.Models;
@@ -12,11 +13,15 @@
             string json = await File.ReadAllTextAsync("../../Data/Roomed.Data/Seeding/Data/IdentityDocumentSeed.json");
             var identityDocuments = JsonConvert.DeserializeObject<IEnumerable<IdentityDocument>>(json, new DateOnlyJsonSettings().Settings);
 
-            if (!dbContext.IdentityDocuments.Any())
+            foreach (var identityDocument in identityDocuments)
             {
-                await dbContext.AddRangeAsync(identityDocuments);
-                await dbContext.SaveChangesAsync();
+                if (!(await dbContext.IdentityDocuments.AnyAsync(id => id.Id == identityDocument.Id)))
+                {
+                    await dbContext.IdentityDocuments.AddAsync(identityDocument);
+                }
             }
+
+            await dbContext.SaveChangesAsync();
         }
     }
 }

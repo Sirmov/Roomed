@@ -13,17 +13,17 @@
             string json = await File.ReadAllTextAsync("../../Data/Roomed.Data/Seeding/Data/ReservationDaySeed.json");
             var reservationDays = JsonConvert.DeserializeObject<IEnumerable<ReservationDay>>(json, new DateOnlyJsonSettings().Settings);
 
-            var reservationDay = dbContext.Reservations
-                .Include(r => r.ReservationDays)
-                .FirstOrDefault()
-                ?.ReservationDays
-                .FirstOrDefault();
-
-            if (reservationDay == null)
+            foreach (var reservationDay in reservationDays)
             {
-                await dbContext.AddRangeAsync(reservationDays);
-                await dbContext.SaveChangesAsync();
+                if (!(await dbContext.Reservations
+                    .AnyAsync(r => r.ReservationDays
+                        .Any(rd => rd.Id == reservationDay.Id))))
+                {
+                    await dbContext.AddAsync(reservationDay);
+                }
             }
+
+            await dbContext.SaveChangesAsync();
         }
     }
 }
