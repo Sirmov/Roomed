@@ -21,7 +21,7 @@
         /// Sets the directory of the according json file.
         /// </summary>
         /// <param name="jsonPath">The directory of the json file.</param>
-        public Seeder(string jsonPath)
+        public ModelConfigurationSeeder(string jsonPath)
         {
             this.jsonPath = jsonPath;
         }
