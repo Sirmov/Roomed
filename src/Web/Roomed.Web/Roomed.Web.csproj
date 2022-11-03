@@ -30,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Roomed.Services.Json\Roomed.Services.Json.csproj" />
     <ProjectReference Include="..\..\Services\Roomed.Services.Data\Roomed.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\Roomed.Services.Json\Roomed.Services.Json.csproj" />
     <ProjectReference Include="..\..\Services\Roomed.Services.Mapping\Roomed.Services.Mapping.csproj" />
     <ProjectReference Include="..\Roomed.Web.ViewModels\Roomed.Web.ViewModels.csproj" />
   </ItemGroup>
