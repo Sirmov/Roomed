@@ -35,17 +35,25 @@
                 return View(inputModel);
             }
 
-            var result = await this.usersService.LoginWithUsernameAsync(inputModel.UserName, inputModel.Password, inputModel.RememberMe, true);
+            try
+            {
+                var result = await this.usersService.LoginWithUsernameAsync(inputModel.UserName, inputModel.Password, inputModel.RememberMe, true);
 
-            if (!result.Succeeded)
+                if (!result.Succeeded)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login!");
+
+                    if (result.IsLockedOut)
+                    {
+                        ModelState.AddModelError(string.Empty, "Too many attempts! Try again later!");
+                    }
+
+                    return View(inputModel);
+                }
+            }
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "Invalid login!");
-
-                if (result.IsLockedOut)
-                {
-                    ModelState.AddModelError(string.Empty, "Too many attempts! Try again later!");
-                }
-
                 return View(inputModel);
             }
 
