@@ -1,11 +1,16 @@
 ﻿namespace Roomed.Web.ViewModels.Reservation
 {
-    using Roomed.Web.ViewModels.Enums;
+    using Roomed.Data.Models.Enums;
+    using Roomed.Services.Data.Dtos.Reservation;
+    using Roomed.Services.Mapping;
     using Roomed.Web.ViewModels.Profile;
+    using Roomed.Web.ViewModels.ReservationDay;
     using Roomed.Web.ViewModels.RoomType;
 
-    public class ReservationViewModel
+    public class ReservationViewModel : IMapFrom<ReservationDto>
     {
+        public Guid Id { get; set; }
+
         public Guid ReservationHolderId { get; set; }
 
         public DateOnly ArrivalDate { get; set; }
@@ -20,6 +25,6 @@
 
         public RoomTypeViewModel RoomType { get; set; } = null!;
 
-        public ICollection<ReservationViewModel> ReservationDays { get; set; }
+        public ICollection<ReservationDayViewModel> ReservationDays { get; set; }
     }
 }
