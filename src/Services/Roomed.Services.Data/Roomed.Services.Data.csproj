@@ -23,14 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Roomed.Data.Models\Roomed.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\Roomed.Data\Roomed.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Dtos\Profile\" />
-    <Folder Include="Dtos\RoomType\" />
-    <Folder Include="Dtos\Room\" />
-    <Folder Include="Dtos\ReservationDay\" />
-    <Folder Include="Dtos\Reservation\" />
+    <ProjectReference Include="..\Roomed.Services.Mapping\Roomed.Services.Mapping.csproj" />
   </ItemGroup>
 
 </Project>
