@@ -29,11 +29,7 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder
-                    .UseSqlServer(@"Server=localhost;Database=Roomed;User Id=sa;Password=123Nikola321!;");
-            }
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
