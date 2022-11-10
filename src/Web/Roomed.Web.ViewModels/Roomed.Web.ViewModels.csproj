@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Roomed.Common\Roomed.Common.csproj" />
+    <ProjectReference Include="..\..\Services\Roomed.Services.Data\Roomed.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\Roomed.Services.Mapping\Roomed.Services.Mapping.csproj" />
   </ItemGroup>
 
