@@ -51,9 +51,9 @@ internal class Program
             options.Lockout.MaxFailedAccessAttempts = 5;
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
 
-            options.Password.RequireNonAlphanumeric = true;
-            options.Password.RequireDigit = true;
-            options.Password.RequireUppercase = true;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireDigit = false;
+            options.Password.RequireUppercase = false;
             options.Password.RequiredLength = PasswordMinLength;
         })
         .AddEntityFrameworkStores<ApplicationDbContext>();
