@@ -10,6 +10,7 @@ using Roomed.Data.Repositories;
 using Roomed.Data.Seeding.Seeders;
 using Roomed.Services.Data;
 using Roomed.Services.Data.Contracts;
+using Roomed.Services.Data.Dtos.Reservation;
 using Roomed.Services.Mapping;
 using Roomed.Web.ViewModels;
 
@@ -64,7 +65,12 @@ internal class Program
         });
 
         // AutoMapper configuration
-        AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+        var asseblies = new Assembly[]
+        {
+            typeof(ErrorViewModel).GetTypeInfo().Assembly,
+            typeof(ReservationDto).GetTypeInfo().Assembly,
+        };
+        AutoMapperConfig.RegisterMappings(asseblies);
         IMapper mapper = AutoMapperConfig.MapperInstance;
         services.AddSingleton(mapper);
 
