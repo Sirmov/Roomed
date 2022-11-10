@@ -1,8 +1,36 @@
-﻿@{
+﻿@model IEnumerable<ReservationViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Arrival</th>
+                <th scope="col">Departure</th>
+                <th scope="col">Status</th>
+                <th scope="col">Room Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int i = 1;}
+            @foreach (var reservation in Model)
+            {
+                <tr>
+                    <th scope="row">@(i++)</th>
+                    <td>@($"{reservation.ReservationHolder.FirstName} {reservation.ReservationHolder.LastName}")</td>
+                    <td>@reservation.ArrivalDate</td>
+                    <td>@reservation.DepartureDate</td>
+                    <td>@reservation.Status</td>
+                    <td>@reservation.RoomType.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
