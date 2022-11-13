@@ -18,6 +18,7 @@
             services.AddScoped(typeof(IUsersService<>), typeof(UsersService<>));
             services.AddScoped<IReservationsService, ReservationsService>();
             services.AddScoped<IIdentityDocumentsService, IdentityDocumentsService>();
+            services.AddScoped<IProfilesService, ProfilesService>();
 
             return services;
         }

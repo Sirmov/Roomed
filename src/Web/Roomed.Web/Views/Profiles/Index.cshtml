@@ -1,0 +1,67 @@
+﻿@using Roomed.Data.Models.Enums;
+@using static Roomed.Common.ControllersActionsConstants;
+
+@model IEnumerable<ProfileViewModel>
+
+@{
+	ViewData["Title"] = "Identity documents";
+}
+
+<div class="text-center">
+	<h1 class="display-4 mb-4">Identity documents</h1>
+	@foreach (var profile in Model)
+	{
+		<div class="card rounded-lg mb-3">
+			<div class="card-header">
+				<b>@profile.FirstName @(profile.MiddleName == null ? "" : $"{profile.MiddleName} ")@profile.LastName</b>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col col-auto text-center">
+						@switch (profile.Gender)
+						{
+							case Gender.Male:
+								<h5>@profile.Gender</h5>
+								<img class="img rounded border-0" width="50" height="50" src="/assets/images/man.png" alt="male">
+								break;
+							case Gender.Female:
+								<h5>@profile.Gender</h5>
+								<img class="img rounded border-0" width="50" height="50" src="/assets/images/woman.png" alt="female">
+								break;
+							default:
+								<h5>Gender</h5>
+								<img class="img rounded border-0" width="50" height="50" src="/assets/images/anonymous.png" alt="anonymous">
+								break;
+						}
+					</div>
+					<div class="col col align-self-center text-left">
+						@if (profile.Nationality == null || profile.Birthdate == null)
+						{
+							<a asp-area="" asp-controller="@Controllers.Profiles" asp-action="Edit" asp-route-id="@profile.Id">Please complete the profile.</a>
+						}
+						else
+						{
+							<p class="card-text">The person is <b>@profile.Nationality</b> and is born in <b>@profile.Birthdate</b>.</p>
+						}
+
+						@if (profile.Address == null)
+						{
+							<a asp-area="" asp-controller="@Controllers.Profiles" asp-action="Edit" asp-route-id="@profile.Id">Please add an address.</a>
+						}
+						else
+						{
+							<p class="card-text">His address is <b>@profile.Address</b></p>
+						}
+					</div>
+					<div class="col-2">
+						<div class="btn-group-vertical">
+							<a href="#" class="btn btn-success mb-1">Details</a>
+							<a href="#" class="btn btn-warning mb-1">Edit</a>
+							<a href="#" class="btn btn-danger">Delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</div>
