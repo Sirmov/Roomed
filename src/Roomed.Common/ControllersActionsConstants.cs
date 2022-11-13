@@ -6,6 +6,8 @@
         {
             public const string Home = "Home";
             public const string User = "User";
+            public const string Reservations = "Reservations";
+            public const string IdentityDocuments = "IdentityDocuments";
         }
 
         public static class Actions
@@ -18,6 +20,8 @@
             public const string Register = "Register";
             public const string Logout = "Logout";
             public const string ForgotPassword = "ForgotPassword";
+
+            // Reservations controller actions
         }
     }
 }
