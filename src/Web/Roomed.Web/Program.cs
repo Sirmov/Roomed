@@ -12,6 +12,7 @@ using Roomed.Services.Data;
 using Roomed.Services.Data.Contracts;
 using Roomed.Services.Data.Dtos.Reservation;
 using Roomed.Services.Mapping;
+using Roomed.Web.Extensions;
 using Roomed.Web.ViewModels;
 
 using static Roomed.Common.DataConstants.ApplicationUser;
@@ -79,8 +80,7 @@ internal class Program
         services.AddScoped(typeof(IDeletableEntityRepository<,>), typeof(EfDeletableEntityRepository<,>));
 
         // Register data services
-        services.AddScoped(typeof(IUsersService<>), typeof(UsersService<>));
-        services.AddScoped<IReservationsService, ReservationsService>();
+        services.AddRoomedDataServices();
 
         services.AddControllersWithViews();
     }
