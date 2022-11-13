@@ -22,6 +22,9 @@
 
             builder.Property(e => e.ValidUntil)
                 .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+
+            builder.HasIndex(e => e.DocumentNumber)
+                .IsUnique(true);
         }
     }
 }
