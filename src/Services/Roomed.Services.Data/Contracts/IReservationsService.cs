@@ -4,7 +4,7 @@
     using Roomed.Services.Data.Dtos.Reservation;
 
     /// <summary>
-    /// This interface is used to abstract and document the reservations service functionality.
+    /// This interface is used to state and document the reservations data service functionality.
     /// </summary>
     public interface IReservationsService
     {

@@ -9,24 +9,45 @@
 
     using static Roomed.Common.ControllersActionsConstants;
 
-    public class UserController : Controller
+    /// <summary>
+    /// A MVC controller inheriting <see cref="BaseController"/>.
+    /// The user controller is responsible for all operations regarding the user identity.
+    /// </summary>
+    public class UserController : BaseController
     {
         private readonly IUsersService<ApplicationUser> usersService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserController"/> class.
+        /// Uses constructor injection to resolve dependencies.
+        /// </summary>
+        /// <param name="usersService">The implementation of <see cref="IUsersService{TUser}"/>.</param>
         public UserController(IUsersService<ApplicationUser> usersService)
         {
             this.usersService = usersService;
         }
 
+        /// <summary>
+        /// This method returns the login page.
+        /// </summary>
+        /// <returns>Return <see cref="IActionResult"/>.</returns>
         [HttpGet]
-        public async Task<IActionResult> Login()
+        [AllowAnonymous]
+        public IActionResult Login()
         {
             var viewModel = new LoginViewModel();
 
             return View(viewModel);
         }
 
+        /// <summary>
+        /// This method handles the login request.
+        /// Returns the same view if the login is not successful otherwise redirects to <see cref="HomeController.Index"/> action.
+        /// </summary>
+        /// <param name="inputModel">The login input model.</param>
+        /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel inputModel)
         {
             if (!ModelState.IsValid)
@@ -60,7 +81,11 @@
             return RedirectToAction(Actions.Index, Controllers.Home);
         }
 
-        [Authorize]
+        /// <summary>
+        /// This method signs out the current user.
+        /// Redirects to <see cref="UserController.Login"/> action.
+        /// </summary>
+        /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
         public async Task<IActionResult> Logout()
         {
             if (User?.Identity?.IsAuthenticated ?? false)

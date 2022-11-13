@@ -10,7 +10,7 @@
     /// Implementation of the IUsersService.
     /// Abstraction on top of the user manager and sign in manager from Microsoft Identity.
     /// </summary>
-    /// <typeparam name="TUser">Class inheritor of IdentityUser with parameterless constructor.</typeparam>
+    /// <typeparam name="TUser">Class inheritor of <see cref="IdentityUser"/> with parameterless constructor.</typeparam>
     public class UsersService<TUser> : IUsersService<TUser>
         where TUser : IdentityUser, new()
     {
@@ -29,6 +29,8 @@
             this.signInManager = signInManager;
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when any of the arguments is null or empty.</exception>
         public async Task<IdentityResult> RegisterWithEmailAndUsernameAsync(string email, string username, string password)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -53,6 +55,8 @@
             return result;
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when the email or the password is null or empty.</exception>
         public async Task<SignInResult> LoginWithEmailAsync(string email, string password, bool isPersistant = false, bool isLockout = true)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -71,6 +75,8 @@
             return result;
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when the username or the password is null or empty.</exception>
         public async Task<SignInResult> LoginWithUsernameAsync(string username, string password, bool isPersistant = false, bool isLockout = true)
         {
             if (string.IsNullOrWhiteSpace(username))
@@ -89,11 +95,13 @@
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task LogoutAsync()
         {
             await this.signInManager.SignOutAsync();
         }
 
+        /// <inheritdoc/>
         public bool IsSignedIn(TUser user)
         {
             if (user == null)
@@ -106,6 +114,9 @@
             return this.signInManager.IsSignedIn(principal);
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when the email is null or empty.</exception>
+        /// <exception cref="InvalidOperationException">Throws when no user with this email can be found.</exception>
         public async Task<TUser> FindUserByEmailAsync(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -123,6 +134,9 @@
             return user;
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when the id is null or empty.</exception>
+        /// <exception cref="InvalidOperationException">Throws when no user with this id can be found.</exception>
         public async Task<TUser> FindUserByIdAsync(string id)
         {
             if (id == null)
@@ -140,6 +154,9 @@
             return user;
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when the username is null or empty.</exception>
+        /// <exception cref="InvalidOperationException">Throws when no user with this username can be found.</exception>
         public async Task<TUser> FindUserByUsernameAsync(string username)
         {
             if (string.IsNullOrWhiteSpace(username))
@@ -157,6 +174,8 @@
             return user;
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when any of the arguments is null or empty.</exception>
         public TUser CreateUserWithEmailAndUsername(string email, string username)
         {
             if (string.IsNullOrWhiteSpace(email))

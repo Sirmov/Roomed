@@ -5,6 +5,9 @@
     using Roomed.Web.ViewModels.Profile;
     using Roomed.Web.ViewModels.ReservationDay;
 
+    /// <summary>
+    /// This is a <see cref="Roomed.Data.Models.ReservationDayGuest"/> view model.
+    /// </summary>
     public class ReservationDayGuestViewModel : IMapFrom<ReservationDayGuestDto>
     {
         public int Id { get; set; }

@@ -4,6 +4,9 @@
     using Roomed.Services.Mapping;
     using Roomed.Web.ViewModels.RoomType;
 
+    /// <summary>
+    /// This is a <see cref="Roomed.Data.Models.Room"/> view model.
+    /// </summary>
     public class RoomViewModel : IMapFrom<RoomDto>
     {
         public int Id { get; set; }

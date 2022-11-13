@@ -4,6 +4,10 @@
 
     using static Roomed.Common.DataConstants.ApplicationUser;
 
+    /// <summary>
+    /// This is a login view model. It is used for displaying the login form and validation errors.
+    /// It is also used as an input model.
+    /// </summary>
     public class LoginViewModel
     {
         [Required]

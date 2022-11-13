@@ -2,6 +2,9 @@
 {
     using Roomed.Services.Data.Dtos.IdentityDocument;
 
+    /// <summary>
+    /// This interface is used to state and document the identity documents data service functionality.
+    /// </summary>
     public interface IIdentityDocumentsService
     {
         /// <summary>
