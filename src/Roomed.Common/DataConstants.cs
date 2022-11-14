@@ -25,9 +25,9 @@
         /// </summary>
         public static class Reservation
         {
-            public const int ReservationAdultsMaxCount = 5;
-            public const int ReservationTeenagersMaxCount = 5;
-            public const int ReservationChildrenMaxCount = 5;
+            public const int AdultsMaxCount = 5;
+            public const int TeenagersMaxCount = 5;
+            public const int ChildrenMaxCount = 5;
         }
 
         /// <summary>
@@ -35,14 +35,16 @@
         /// </summary>
         public static class Profile
         {
-            public const int ProfileFirstNameMaxLength = 50;
-            public const int ProfileLastNameMaxLength = 50;
-            public const int ProfileMiddleNameMaxLenght = 50;
-            public const int ProfileNationalityMaxLength = 20;
-            public const int ProfileNationalityCodeMinLength = 2;
-            public const int ProfileNationalityCodeMaxLength = 2;
-            public const int ProfileAddressMinLength = 10;
-            public const int ProfileAddressMaxLength = 250;
+            public const int FirstNameMaxLength = 50;
+            public const int LastNameMaxLength = 50;
+            public const int MiddleNameMaxLenght = 50;
+
+            public const int NationalityMaxLength = 20;
+            public const int NationalityCodeMinLength = 2;
+            public const int NationalityCodeMaxLength = 2;
+
+            public const int AddressMinLength = 10;
+            public const int AddressMaxLength = 250;
         }
 
         /// <summary>
@@ -50,13 +52,26 @@
         /// </summary>
         public static class IdentityDocument
         {
-            public const int IdentityDocumentNationalityMaxLength = 20;
-            public const int IdentityDocumentIssuedByMaxLength = 50;
-            public const int IdentityDocumentNumberMaxLength = 50;
-            public const int IdentityDocumentNameMaxLength = 80;
-            public const int IdentityDocumentPersonalNumberMaxLength = 30;
-            public const int IdentityDocumentCountryMaxLength = 50;
-            public const int IdentityDocumentPlaceOfBirthMaxLength = 50;
+            public const int NationalityMaxLength = 20;
+            public const int NationalityMinLength = 2;
+
+            public const int IssuedByMaxLength = 50;
+            public const int IssuedByMinLength = 3;
+
+            public const int NumberMaxLength = 50;
+            public const int NumberMinLength = 5;
+
+            public const int NameMaxLength = 80;
+            public const int NameMinLength = 3;
+
+            public const int PersonalNumberMaxLength = 30;
+            public const int PersonalNumberMinLength = 5;
+
+            public const int CountryMaxLength = 50;
+            public const int CountryMinLength = 3;
+
+            public const int PlaceOfBirthMaxLength = 50;
+            public const int PlaceOfBirthMinLength = 3;
         }
 
         /// <summary>
@@ -80,7 +95,7 @@
         /// </summary>
         public static class ReservationNote
         {
-            public const int ReservationNoteBodyMaxLength = 500;
+            public const int BodyMaxLength = 500;
         }
 
         /// <summary>
@@ -88,7 +103,7 @@
         /// </summary>
         public static class ProfileNote
         {
-            public const int ProfileNoteBodyMaxLength = 500;
+            public const int BodyMaxLength = 500;
         }
     }
 }
