@@ -59,21 +59,21 @@
         /// Gets or sets reservation adults count.
         /// </summary>
         [Required]
-        [Range(0, ReservationAdultsMaxCount)]
+        [Range(0, AdultsMaxCount)]
         public int Adults { get; set; }
 
         /// <summary>
         /// Gets or sets reservation teenagers count.
         /// </summary>
         [Required]
-        [Range(0, ReservationTeenagersMaxCount)]
+        [Range(0, TeenagersMaxCount)]
         public int Teenagers { get; set; }
 
         /// <summary>
         /// Gets or sets reservation children count.
         /// </summary>
         [Required]
-        [Range(0, ReservationChildrenMaxCount)]
+        [Range(0, ChildrenMaxCount)]
         public int Children { get; set; }
 
         // Navigational Properties

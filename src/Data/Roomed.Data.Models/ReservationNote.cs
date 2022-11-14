@@ -30,7 +30,7 @@
         /// Gets or sets reservation note body.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(ReservationNoteBodyMaxLength)]
+        [MaxLength(BodyMaxLength)]
         public string Body { get; set; } = null!;
 
         // Navigational Properties

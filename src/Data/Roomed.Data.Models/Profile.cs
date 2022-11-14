@@ -29,20 +29,20 @@
         /// Gets or sets profile first name.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(ProfileFirstNameMaxLength)]
+        [MaxLength(FirstNameMaxLength)]
         public string FirstName { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets profile middle name.
         /// </summary>
-        [MaxLength(ProfileMiddleNameMaxLenght)]
+        [MaxLength(MiddleNameMaxLenght)]
         public string? MiddleName { get; set; }
 
         /// <summary>
         /// Gets or sets profile last name.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(ProfileLastNameMaxLength)]
+        [MaxLength(LastNameMaxLength)]
         public string LastName { get; set; } = null!;
 
         /// <summary>
@@ -59,19 +59,19 @@
         /// <summary>
         /// Gets or sets profile nationality.
         /// </summary>
-        [MaxLength(ProfileNationalityMaxLength)]
+        [MaxLength(NationalityMaxLength)]
         public string? Nationality { get; set; }
 
         /// <summary>
         /// Gets or sets profile nationality code.
         /// </summary>
-        [StringLength(ProfileNationalityCodeMaxLength, MinimumLength = ProfileNationalityCodeMinLength)]
+        [StringLength(NationalityCodeMaxLength, MinimumLength = NationalityCodeMinLength)]
         public string? NationalityCode { get; set; }
 
         /// <summary>
         /// Gets or sets profile address.
         /// </summary>
-        [MaxLength(ProfileAddressMaxLength)]
+        [MaxLength(AddressMaxLength)]
         public string? Address { get; set; }
 
         // Navigational Properties

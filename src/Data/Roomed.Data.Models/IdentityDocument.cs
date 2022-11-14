@@ -38,26 +38,26 @@
         /// Gets or sets name in document.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(IdentityDocumentNameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string NameInDocument { get; set; }
 
         /// <summary>
         /// Gets or sets document number.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(IdentityDocumentNumberMaxLength)]
+        [MaxLength(NumberMaxLength)]
         public string DocumentNumber { get; set; }
 
         /// <summary>
         /// Gets or sets personal number.
         /// </summary>
-        [MaxLength(IdentityDocumentPersonalNumberMaxLength)]
+        [MaxLength(PersonalNumberMaxLength)]
         public string? PersonalNumber { get; set; }
 
         /// <summary>
         /// Gets or sets identity document country.
         /// </summary>
-        [MaxLength(IdentityDocumentCountryMaxLength)]
+        [MaxLength(CountryMaxLength)]
         public string Country { get; set; }
 
         /// <summary>
@@ -70,13 +70,14 @@
         /// Gets or sets place of birth.
         /// </summary>
         [Required]
-        [MaxLength(IdentityDocumentPlaceOfBirthMaxLength)]
+        [MaxLength(PlaceOfBirthMaxLength)]
         public string PlaceOfBirth { get; set; }
 
         /// <summary>
         /// Gets or sets nationality.
         /// </summary>
-        [MaxLength(IdentityDocumentNationalityMaxLength)]
+        [Required]
+        [MaxLength(NationalityMaxLength)]
         public string Nationality { get; set; }
 
         /// <summary>
@@ -91,12 +92,11 @@
         [Required]
         public DateOnly ValidUntil { get; set; }
 
-
         /// <summary>
         /// Gets or sets issued by.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(IdentityDocumentIssuedByMaxLength)]
+        [MaxLength(IssuedByMaxLength)]
         public string IssuedBy { get; set; }
 
         // Navigational Properties

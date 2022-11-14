@@ -30,7 +30,7 @@
         /// Gets or sets profile note body.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(ProfileNoteBodyMaxLength)]
+        [MaxLength(BodyMaxLength)]
         public string Body { get; set; } = null!;
 
         // Navigational Properties
