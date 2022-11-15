@@ -4,15 +4,16 @@
 
     using Microsoft.AspNetCore.Identity;
 
+    using Roomed.Data.Models;
     using Roomed.Services.Data.Contracts;
 
     /// <summary>
     /// Implementation of the IUsersService.
     /// Abstraction on top of the user manager and sign in manager from Microsoft Identity.
     /// </summary>
-    /// <typeparam name="TUser">Class inheritor of <see cref="IdentityUser"/> with parameterless constructor.</typeparam>
+    /// <typeparam name="TUser">Class inheritor of <see cref="ApplicationUser"/> with parameterless constructor.</typeparam>
     public class UsersService<TUser> : IUsersService<TUser>
-        where TUser : IdentityUser, new()
+        where TUser : ApplicationUser, new()
     {
         private readonly UserManager<TUser> userManager;
         private readonly SignInManager<TUser> signInManager;

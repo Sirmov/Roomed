@@ -58,11 +58,13 @@ internal class Program
             options.Password.RequireUppercase = false;
             options.Password.RequiredLength = PasswordMinLength;
         })
+        .AddRoles<ApplicationRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
         services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath = "/User/Login";
+            options.LogoutPath = "/User/Logout";
         });
 
         // AutoMapper configuration

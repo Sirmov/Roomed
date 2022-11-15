@@ -3,9 +3,9 @@
     using Microsoft.AspNetCore.Identity;
 
     /// <summary>
-    /// Extension of the base identity user class.
+    /// Extension of the base identity role class.
     /// </summary>
-    public class ApplicationUser : IdentityUser<Guid>
+    public class ApplicationRole : IdentityRole<Guid>
     {
     }
 }

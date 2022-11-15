@@ -6,32 +6,66 @@
     using Roomed.Data.Configurations;
     using Roomed.Data.Models;
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    /// <summary>
+    /// Application db context using Entity Framework Core, Microsoft SQL Server and ASP Identity. Inherits <see cref="IdentityDbContext{TUser, TRole, TKey}"/>.
+    /// </summary>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
+        /// </summary>
         public ApplicationDbContext() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
+        /// </summary>
+        /// <param name="options">Db context configuring options.</param>
         public ApplicationDbContext(DbContextOptions options)
             : base(options) { }
 
-        public DbSet<Reservation> Reservations { get; set; }
+        /// <summary>
+        /// Gets or sets db set for <see cref="Reservation"/> entity model.
+        /// </summary>
+        public DbSet<Reservation> Reservations { get; set; } = null!;
 
-        public DbSet<ReservationNote> ReservationNotes { get; set; }
+        /// <summary>
+        /// Gets or sets db set for <see cref="ReservationNote"/> entity model.
+        /// </summary>
+        public DbSet<ReservationNote> ReservationNotes { get; set; } = null!;
 
-        public DbSet<Profile> Profiles { get; set; }
+        /// <summary>
+        /// Gets or sets db set for <see cref="Profile"/> entity model.
+        /// </summary>
+        public DbSet<Profile> Profiles { get; set; } = null!;
 
-        public DbSet<ProfileNote> ProfileNotes { get; set; }
+        /// <summary>
+        /// Gets or sets db set for <see cref="ProfileNote"/> entity model.
+        /// </summary>
+        public DbSet<ProfileNote> ProfileNotes { get; set; } = null!;
 
-        public DbSet<IdentityDocument> IdentityDocuments { get; set; }
+        /// <summary>
+        /// Gets or sets db set for <see cref="IdentityDocument"/> entity model.
+        /// </summary>
+        public DbSet<IdentityDocument> IdentityDocuments { get; set; } = null!;
 
-        public DbSet<Room> Rooms { get; set; }
+        /// <summary>
+        /// Gets or sets db set for <see cref="Room"/> entity model.
+        /// </summary>
+        public DbSet<Room> Rooms { get; set; } = null!;
 
-        public DbSet<RoomType> RoomTypes { get; set; }
+        /// <summary>
+        /// Gets or sets db set for <see cref="RoomType"/> entity model.
+        /// </summary>
+        public DbSet<RoomType> RoomTypes { get; set; } = null!;
 
+
+        /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
         }
 
+        /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Applying configuration

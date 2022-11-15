@@ -1,13 +1,14 @@
 ﻿namespace Roomed.Services.Data.Contracts
 {
     using Microsoft.AspNetCore.Identity;
+    using Roomed.Data.Models;
 
     /// <summary>
     /// This interface is used to state and document the users data service functionality.
     /// </summary>
-    /// <typeparam name="TUser">Class inheritor of <see cref="IdentityUser"/> with parameterless constructor.</typeparam>
+    /// <typeparam name="TUser">Class inheritor of <see cref="ApplicationUser"/> with parameterless constructor.</typeparam>
     public interface IUsersService<TUser>
-        where TUser : IdentityUser, new()
+        where TUser : ApplicationUser, new()
     {
         /// <summary>
         /// This method creates a user with the specified email, username and password, adds it to the database and returns the result.
