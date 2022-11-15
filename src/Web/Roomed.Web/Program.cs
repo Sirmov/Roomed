@@ -8,8 +8,6 @@ using Roomed.Data.Common.Repositories;
 using Roomed.Data.Models;
 using Roomed.Data.Repositories;
 using Roomed.Data.Seeding.Seeders;
-using Roomed.Services.Data;
-using Roomed.Services.Data.Contracts;
 using Roomed.Services.Data.Dtos.Reservation;
 using Roomed.Services.Mapping;
 using Roomed.Web.Extensions;
@@ -48,14 +46,14 @@ internal class Program
         // Identity configuration
         services.AddDefaultIdentity<ApplicationUser>(options =>
         {
-            options.SignIn.RequireConfirmedAccount = false;
+            options.SignIn.RequireConfirmedAccount = configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
 
-            options.Lockout.MaxFailedAccessAttempts = 5;
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+            options.Lockout.MaxFailedAccessAttempts = configuration.GetValue<int>("Identity:Lockout:MaxFailedAccessAttempts");
+            options.Lockout.DefaultLockoutTimeSpan = configuration.GetValue<TimeSpan>("Identity:Lockout:MaxFailedAccessAttempts");
 
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireDigit = false;
-            options.Password.RequireUppercase = false;
+            options.Password.RequireNonAlphanumeric = configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+            options.Password.RequireDigit = configuration.GetValue<bool>("Identity:Password:RequireDigit");
+            options.Password.RequireUppercase = configuration.GetValue<bool>("Identity:Password:RequireUppercase");
             options.Password.RequiredLength = PasswordMinLength;
         })
         .AddRoles<ApplicationRole>()
