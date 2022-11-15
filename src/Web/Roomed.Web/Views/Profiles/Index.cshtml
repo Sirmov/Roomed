@@ -11,7 +11,7 @@
 	@foreach (var profile in Model)
 	{
 		<div class="card rounded-lg mb-3">
-			<div class="card-header">
+			<div class="card-header bg-primary text-light">
 				<b>@profile.FirstName @(profile.MiddleName == null ? "" : $"{profile.MiddleName} ")@profile.LastName</b>
 			</div>
 			<div class="card-body">
@@ -54,9 +54,9 @@
 					</div>
 					<div class="col-2">
 						<div class="btn-group-vertical">
-							<a href="#" class="btn btn-success mb-1">Details</a>
-							<a href="#" class="btn btn-warning mb-1">Edit</a>
-							<a href="#" class="btn btn-danger">Delete</a>
+							<a href="#" class="btn btn-success mb-1 rounded">Details</a>
+							<a href="#" class="btn btn-warning mb-1 rounded">Edit</a>
+							<a href="#" class="btn btn-danger rounded">Delete</a>
 						</div>
 					</div>
 				</div>
