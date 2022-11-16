@@ -17,7 +17,7 @@
         private readonly string jsonPath;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Seeder{TEntity}"/> class.
+        /// Initializes a new instance of the <see cref="ModelConfigurationSeeder{TEntity}"/> class.
         /// Sets the directory of the according json file.
         /// </summary>
         /// <param name="jsonPath">The directory of the json file.</param>
@@ -34,7 +34,12 @@
         {
             string jsonData = await File.ReadAllTextAsync(this.jsonPath);
 
-            IEnumerable<TEntity> data = JsonConvert.DeserializeObject<IEnumerable<TEntity>>(jsonData, new DateOnlyJsonSettings().Settings);
+            IEnumerable<TEntity>? data = JsonConvert.DeserializeObject<IEnumerable<TEntity>>(jsonData, new DateOnlyJsonSettings().Settings);
+
+            if (data == null)
+            {
+                throw new NullReferenceException("Deserialized object is set to a null reference.");
+            }
 
             builder.HasData(data);
         }
