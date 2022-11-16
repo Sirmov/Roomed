@@ -3,6 +3,6 @@
     public enum OrderByOrder
     {
         Ascending,
-        Descending
+        Descending,
     }
 }
