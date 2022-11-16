@@ -1,14 +1,70 @@
 ﻿namespace Roomed.Services.Data.Common
 {
+    using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Reflection;
+    using System.Threading.Tasks;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
+
+    using Roomed.Data.Common.Models;
+    using Roomed.Data.Common.Repositories;
+    using Roomed.Services.Data.Contracts;
 
     /// <summary>
     /// This is a base class for all services.
     /// It adds the support for modifying queries using <see cref="QueryOptions{TDto}"/> parameter.
     /// </summary>
-    public class BaseService
+    /// <typeparam name="TEntity">The data model entity.</typeparam>
+    /// <typeparam name="TKey">The type of the id of the <typeparamref name="TEntity"/>.</typeparam>
+    public class BaseService<TEntity, TKey> : IBaseService<TKey>
+        where TEntity : BaseDeletableModel<TKey>
     {
+        protected readonly IMapper mapper;
+        private readonly IDeletableEntityRepository<TEntity, TKey> entityRepository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseService{TEntity, TKey}"/> class.
+        /// </summary>
+        /// <param name="entityRepository">The repository of the <typeparamref name="TEntity"/>.</param>
+        /// <param name="mapper">The global auto mapper.</param>
+        public BaseService(IDeletableEntityRepository<TEntity, TKey> entityRepository, IMapper mapper)
+        {
+            this.entityRepository = entityRepository;
+            this.mapper = mapper;
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task<ICollection<TDto>> GetAllAsync<TDto>(QueryOptions<TDto> queryOptions)
+        {
+            var query = this.entityRepository
+                .All(queryOptions?.IsReadOnly ?? false, queryOptions?.WithDeleted ?? false)
+                .ProjectTo<TDto>(this.mapper.ConfigurationProvider);
+
+            this.ModifyQuery(query, queryOptions ?? new ());
+
+            var dtos = await query.ToListAsync();
+
+            return dtos;
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task<TDto> GetAsync<TDto>(TKey id, QueryOptions<TDto> queryOptions)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var entity = await this.entityRepository.FindAsync(id);
+
+            var dto = mapper.Map<TDto>(entity);
+
+            return dto;
+        }
+
         /// <summary>
         /// This method modifies the query based on the <see cref="QueryOptions{TDto}"/> passed.
         /// </summary>
