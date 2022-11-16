@@ -17,7 +17,7 @@
 
         [Required]
         [DataType(DataType.Password)]
-        [StringLength (PasswordMaxLength, MinimumLength = PasswordMinLength)]
+        [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength)]
         public string Password { get; set; } = null!;
 
         public bool RememberMe { get; set; }
