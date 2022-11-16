@@ -3,7 +3,9 @@
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using Roomed.Data.Models;
+    using Roomed.Services.Data.Common;
     using Roomed.Services.Data.Contracts;
+    using Roomed.Services.Data.Dtos.Reservation;
     using Roomed.Web.ViewModels.Reservation;
 
     /// <summary>
