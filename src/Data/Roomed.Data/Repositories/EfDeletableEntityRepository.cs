@@ -25,11 +25,10 @@
         {
         }
 
-
         /// <inheritdoc/>
         public IQueryable<TEntity> All(bool isReadonly = false, bool withDeleted = false)
         {
-            var query = this.All(isReadonly);
+            var query = base.All(isReadonly);
 
             if (!withDeleted)
             {
@@ -42,7 +41,7 @@
         /// <inheritdoc/>
         public IQueryable<TEntity> All(Expression<Func<TEntity, bool>> search, bool isReadonly = false, bool withDeleted = false)
         {
-            var query = this.All(search, isReadonly);
+            var query = base.All(search, isReadonly);
 
             if (!withDeleted)
             {
