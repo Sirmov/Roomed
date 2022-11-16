@@ -8,12 +8,12 @@
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
     public sealed class BeforeDateAttribute : ValidationAttribute
     {
-        public string OtherProperty { get; set; }
-
         public BeforeDateAttribute(string otherProperty)
         {
             this.OtherProperty = otherProperty;
         }
+
+        public string OtherProperty { get; set; }
 
         protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
