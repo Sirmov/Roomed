@@ -9,18 +9,19 @@
     using Microsoft.EntityFrameworkCore;
 
     using Roomed.Data.Common.Repositories;
+    using Roomed.Services.Data.Common;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.Profile;
+    using Roomed.Services.Data.Dtos.Reservation;
 
     using Profile = Roomed.Data.Models.Profile;
 
     /// <summary>
     /// This class is a implementation of the <see cref="IProfilesService"/> interface.
     /// </summary>
-    public class ProfilesService : IProfilesService
+    public class ProfilesService : BaseService<Profile, Guid>, IProfilesService
     {
         private readonly IDeletableEntityRepository<Profile, Guid> profilesRepository;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfilesService"/> class.
@@ -29,20 +30,15 @@
         /// <param name="profilesRepository">The <see cref="Profile"/> database repository.</param>
         /// <param name="mapper">The global auto mapper.</param>
         public ProfilesService(IDeletableEntityRepository<Profile, Guid> profilesRepository, IMapper mapper)
+            : base(profilesRepository, mapper)
         {
             this.profilesRepository = profilesRepository;
-            this.mapper = mapper;
         }
 
-        /// <inheritdoc/>
-        public async Task<ICollection<ProfileDto>> GetAllAsync()
+        /// <inheritdoc />
+        public async Task<ICollection<ProfileDto>> GetAllAsync(QueryOptions<ProfileDto>? queryOptions = null)
         {
-            var profiles = await this.profilesRepository
-                .All()
-                .ProjectTo<ProfileDto>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
-
-            return profiles;
+            return await base.GetAllAsync(queryOptions ?? new ());
         }
     }
 }
