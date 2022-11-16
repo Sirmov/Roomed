@@ -56,25 +56,25 @@
         /// This method tries to find the user with the specified email.
         /// </summary>
         /// <param name="email">The email of the searched user.</param>
-        /// <returns>Returns a task of <see cref="TUser"/>.</returns>
+        /// <returns>Returns a task of <typeparamref name="TUser"/>.</returns>
         public Task<TUser> FindUserByEmailAsync(string email);
 
         /// <summary>
         /// This method tries to find the user with the specified username.
         /// </summary>
         /// <param name="username">The username of the searched user.</param>
-        /// <returns>Returns a task of <see cref="TUser"/>.</returns>
+        /// <returns>Returns a task of <typeparamref name="TUser"/>.</returns>
         public Task<TUser> FindUserByUsernameAsync(string username);
 
         /// <summary>
         /// This method tries to find the user with the specified id.
         /// </summary>
         /// <param name="id">The id of the searched user.</param>
-        /// <returns>Returns a task of <see cref="TUser"/>.</returns>
+        /// <returns>Returns a task of <typeparamref name="TUser"/>.</returns>
         public Task<TUser> FindUserByIdAsync(string id);
 
         /// <summary>
-        /// This method creates an instance of the <see cref="TUser"/> class with the specified email and username.
+        /// This method creates an instance of the <typeparamref name="TUser"/> class with the specified email and username.
         /// </summary>
         /// <param name="email">The email of the new user.</param>
         /// <param name="username">The username of the new user.</param>
