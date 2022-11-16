@@ -58,7 +58,6 @@
         /// </summary>
         public DbSet<RoomType> RoomTypes { get; set; } = null!;
 
-
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

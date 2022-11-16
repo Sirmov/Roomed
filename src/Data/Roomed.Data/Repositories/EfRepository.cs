@@ -54,7 +54,6 @@
         /// <inheritdoc/>
         public virtual IQueryable<TEntity> All(Expression<Func<TEntity, bool>> search, bool isReadonly = false)
         {
-
             var query = this.DbSet.Where(search);
 
             if (isReadonly)
