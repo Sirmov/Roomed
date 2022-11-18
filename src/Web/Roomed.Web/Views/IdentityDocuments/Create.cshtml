@@ -9,32 +9,34 @@
 <form asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Create">
     <div class="form-row">
         <div class="form-group col">
-            <label asp-for="@Model.Type">Document type *</label>
+            <label asp-for="@Model.Type">Document type <span class="text-danger">*</span></label>
             <select class="form-control" asp-for="@Model.Type" asp-items="@DocumentTypes"></select>
             <span class="form-text text-danger" asp-validation-for="@Model.Type"></span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label asp-for="@Model.NameInDocument">Name in document *</label>
+            <label asp-for="@Model.NameInDocument">Name in document <span class="text-danger">*</span></label>
             <input class="form-control" asp-for="@Model.NameInDocument">
             <span class="form-text text-danger text-danger" asp-validation-for="@Model.NameInDocument"></span>
         </div>
         <div class="form-group col-md-6">
-            <label asp-for="@Model.Country">Country *</label>
+            <label asp-for="@Model.Country">Country <span class="text-danger">*</span></label>
             <input class="form-control" asp-for="@Model.Country">
             <span class="form-text text-danger" asp-validation-for="@Model.Country"></span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label asp-for="@Model.DocumentNumber">Document Number *</label>
+            <label asp-for="@Model.DocumentNumber">Document Number <span class="text-danger">*</span></label>
             <input class="form-control" asp-for="@Model.DocumentNumber">
             <span class="form-text text-danger" asp-validation-for="@Model.DocumentNumber"></span>
         </div>
         <div class="form-group col-md-6">
-            <label asp-for="@Model.Nationality">Nationality *</label>
-            <select class="form-control" asp-for="@Model.Nationality" asp-items="@Nationalities"></select>
+            <label asp-for="@Model.Nationality">Nationality <span class="text-danger">*</span></label>
+            <select class="form-control" asp-for="@Model.Nationality" asp-items="@Code_Nationality_SelectList()">
+                <option value="" selected disabled hidden>Choose here</option>
+            </select>
             <span class="form-text text-danger" asp-validation-for="@Model.Nationality"></span>
         </div>
     </div>
@@ -45,31 +47,31 @@
             <span class="form-text text-danger" asp-validation-for="@Model.PersonalNumber"></span>
         </div>
         <div class="form-group col-md-6">
-            <label asp-for="@Model.PlaceOfBirth">Place Of Birth *</label>
+            <label asp-for="@Model.PlaceOfBirth">Place Of Birth <span class="text-danger">*</span></label>
             <input class="form-control" asp-for="@Model.PlaceOfBirth">
             <span class="form-text text-danger" asp-validation-for="@Model.PlaceOfBirth"></span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label asp-for="@Model.Birthdate">Birthdate *</label>
+            <label asp-for="@Model.Birthdate">Birthdate <span class="text-danger">*</span></label>
             <input class="form-control" asp-for="@Model.Birthdate">
             <span class="form-text text-danger" asp-validation-for="@Model.Birthdate"></span>
         </div>
         <div class="form-group col-md-6">
-            <label asp-for="@Model.IssuedBy">Issued By *</label>
+            <label asp-for="@Model.IssuedBy">Issued By <span class="text-danger">*</span></label>
             <input class="form-control" asp-for="@Model.IssuedBy">
             <span class="form-text text-danger" asp-validation-for="@Model.IssuedBy"></span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label asp-for="@Model.ValidFrom">Valid from *</label>
+            <label asp-for="@Model.ValidFrom">Valid from <span class="text-danger">*</span></label>
             <input class="form-control" asp-for="@Model.ValidFrom">
             <span class="form-text text-danger" asp-validation-for="@Model.ValidFrom"></span>
         </div>
         <div class="form-group col-md-6">
-            <label asp-for="@Model.ValidUntil">Valid Until *</label>
+            <label asp-for="@Model.ValidUntil">Valid Until <span class="text-danger">*</span></label>
             <input class="form-control" asp-for="@Model.ValidUntil">
             <span class="form-text text-danger" asp-validation-for="@Model.ValidUntil"></span>
         </div>
