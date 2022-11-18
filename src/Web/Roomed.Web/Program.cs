@@ -1,6 +1,7 @@
 using System.Reflection;
 
 using AutoMapper;
+using Ganss.Xss;
 using Microsoft.EntityFrameworkCore;
 
 using Roomed.Data;
@@ -73,7 +74,11 @@ internal class Program
         };
         AutoMapperConfig.RegisterMappings(asseblies);
         IMapper mapper = AutoMapperConfig.MapperInstance;
-        services.AddSingleton(mapper);
+        services.AddSingleton<IMapper>(mapper);
+
+        // HtmlSanitizer configuration
+        IHtmlSanitizer htmlSanitizer = new HtmlSanitizer(new HtmlSanitizerOptions() { AllowedTags = { } });
+        services.AddSingleton<IHtmlSanitizer>(htmlSanitizer);
 
         // Register data repositories
         services.AddScoped(typeof(IRepository<,>), typeof(EfRepository<,>));
@@ -81,6 +86,9 @@ internal class Program
 
         // Register data services
         services.AddRoomedDataServices();
+
+        // Add DateOnly and TimeOnly support
+        services.AddDateOnlyTimeOnlyStringConverters();
 
         services.AddControllersWithViews();
     }
