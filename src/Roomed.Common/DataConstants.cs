@@ -36,15 +36,22 @@
         public static class Profile
         {
             public const int FirstNameMaxLength = 50;
+            public const int FirstNameMinLength = 3;
+
             public const int LastNameMaxLength = 50;
+            public const int LastNameMinLength = 3;
+
             public const int MiddleNameMaxLenght = 50;
+            public const int MiddleNameMinLenght = 3;
 
-            public const int NationalityMaxLength = 20;
-            public const int NationalityCodeMinLength = 2;
+            public const int NationalityMaxLength = 40;
+            public const int NationalityMinLength = 2;
+
             public const int NationalityCodeMaxLength = 2;
+            public const int NationalityCodeMinLength = 2;
 
-            public const int AddressMinLength = 10;
             public const int AddressMaxLength = 250;
+            public const int AddressMinLength = 10;
         }
 
         /// <summary>
