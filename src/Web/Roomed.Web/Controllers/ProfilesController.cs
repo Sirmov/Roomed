@@ -1,10 +1,14 @@
 ﻿namespace Roomed.Web.Controllers
 {
+    using System.Globalization;
+
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
 
     using Roomed.Services.Data.Contracts;
     using Roomed.Web.ViewModels.Profile;
+
+    using static Roomed.Common.GlobalConstants;
 
     using Profile = Roomed.Data.Models.Profile;
 
@@ -40,6 +44,54 @@
             var model = profiles.Select(p => this.mapper.Map<ProfileViewModel>(p));
 
             return View(model);
+        }
+
+        /// <summary>
+        /// This method returns a view with a form for creating a new guest profile.
+        /// </summary>
+        /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var model = new DetailedProfileInputModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(DetailedProfileInputModel model)
+        {
+            if (!NationalitiesDictionary.ContainsKey(model.Nationality))
+            {
+                ModelState.AddModelError(nameof(model.Nationality), "Invalid nationality.");
+            }
+            else
+            {
+                if (NationalitiesDictionary[model.Nationality] != model.NationalityCode)
+                {
+                    ModelState.AddModelError(nameof(model.Nationality), "Nationality not equal to nationality code.");
+                    ModelState.AddModelError(nameof(model.NationalityCode), "Nationality code not equal to nationality.");
+                }
+            }
+
+            if (!NationalityCodes.Contains(model.NationalityCode))
+            {
+                ModelState.AddModelError(nameof(model.NationalityCode), "Invalid nationality code.");
+            }
+
+            var today = DateOnly.FromDateTime(DateTime.Now);
+
+            if (model.Birthdate >= today)
+            {
+                ModelState.AddModelError(nameof(model.Birthdate), $"Birthday should be before {today.ToString(CultureInfo.InvariantCulture)}.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            return Ok(model);
         }
     }
 }
