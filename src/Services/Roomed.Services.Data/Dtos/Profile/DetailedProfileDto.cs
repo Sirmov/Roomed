@@ -7,7 +7,7 @@
 
     using static Roomed.Common.DataConstants.Profile;
 
-    public class DetailedProfileDto : IMapFrom<Roomed.Data.Models.Profile>
+    public class DetailedProfileDto : IMapFrom<Roomed.Data.Models.Profile>, IMapTo<Roomed.Data.Models.Profile>
     {
         [Required(AllowEmptyStrings = false)]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
