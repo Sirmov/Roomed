@@ -1,6 +1,7 @@
 ﻿namespace Roomed.Web.Controllers
 {
     using AutoMapper;
+    using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc;
     using Roomed.Data.Models;
     using Roomed.Services.Data.Contracts;
@@ -26,7 +27,9 @@
         public IdentityDocumentsController(
             IIdentityDocumentsService identityDocumentsService,
             IProfilesService profilesService,
-            IMapper mapper)
+            IMapper mapper,
+            IHtmlSanitizer sanitizer)
+            : base(sanitizer)
         {
             this.identityDocumentsService = identityDocumentsService;
             this.profilesService = profilesService;

@@ -1,6 +1,7 @@
 ﻿namespace Roomed.Web.Controllers
 {
     using AutoMapper;
+    using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc;
     using Roomed.Data.Models;
     using Roomed.Services.Data.Common;
@@ -23,7 +24,8 @@
         /// </summary>
         /// <param name="reservationsService">The implementation of <see cref="IReservationsService"/>.</param>
         /// <param name="mapper">The global auto mapper.</param>
-        public ReservationsController(IReservationsService reservationsService, IMapper mapper)
+        public ReservationsController(IReservationsService reservationsService, IMapper mapper, IHtmlSanitizer sanitizer)
+            : base(sanitizer)
         {
             this.reservationsService = reservationsService;
             this.mapper = mapper;

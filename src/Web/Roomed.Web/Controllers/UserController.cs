@@ -1,5 +1,6 @@
 ﻿namespace Roomed.Web.Controllers
 {
+    using Ganss.Xss;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,8 @@
         /// Uses constructor injection to resolve dependencies.
         /// </summary>
         /// <param name="usersService">The implementation of <see cref="IUsersService{TUser}"/>.</param>
-        public UserController(IUsersService<ApplicationUser> usersService)
+        public UserController(IUsersService<ApplicationUser> usersService, IHtmlSanitizer sanitizer)
+            : base(sanitizer)
         {
             this.usersService = usersService;
         }

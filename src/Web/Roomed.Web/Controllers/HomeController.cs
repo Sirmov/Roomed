@@ -1,7 +1,7 @@
 ﻿namespace Roomed.Web.Controllers
 {
     using System.Diagnostics;
-
+    using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc;
 
     using Roomed.Web.ViewModels;
@@ -14,6 +14,11 @@
     /// </summary>
     public class HomeController : BaseController
     {
+        public HomeController(IHtmlSanitizer sanitizer)
+            : base(sanitizer)
+        {
+        }
+
         /// <summary>
         /// This method redirects to the <see cref="ReservationsController.Index"/> action.
         /// </summary>
