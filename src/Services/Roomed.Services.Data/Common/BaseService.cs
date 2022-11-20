@@ -1,6 +1,7 @@
 ﻿namespace Roomed.Services.Data.Common
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Threading.Tasks;
@@ -102,6 +103,16 @@
             }
 
             return query;
+        }
+
+        protected bool ValidateDto<TDto>(TDto dto)
+        {
+            var context = new ValidationContext(dto, serviceProvider: null, items: null);
+            var validationResults = new List<ValidationResult>();
+
+            bool isValid = Validator.TryValidateObject(dto, context, validationResults, true);
+
+            return isValid;
         }
 
         private PropertyInfo GetPropertyInfo<TSource, TProperty>(TSource source, Expression<Func<TSource, TProperty>> propertyLambda)
