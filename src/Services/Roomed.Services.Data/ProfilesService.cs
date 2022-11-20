@@ -12,7 +12,6 @@
     using Roomed.Services.Data.Common;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.Profile;
-    using Roomed.Services.Data.Dtos.Reservation;
 
     using Profile = Roomed.Data.Models.Profile;
 
@@ -39,6 +38,24 @@
         public async Task<ICollection<ProfileDto>> GetAllAsync(QueryOptions<ProfileDto>? queryOptions = null)
         {
             return await base.GetAllAsync(queryOptions ?? new ());
+        }
+
+        /// <inheritdoc/>
+        public async Task<Guid> CreateDetailedAsync(DetailedProfileDto profile)
+        {
+            bool isValid = this.ValidateDto(profile);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Profile model state is not valid.", nameof(profile));
+            }
+
+            Profile model = this.mapper.Map<Profile>(profile);
+
+            var result = await this.profilesRepository.AddAsync(model);
+            await this.profilesRepository.SaveChangesAsync();
+
+            return result.Entity.Id;
         }
     }
 }

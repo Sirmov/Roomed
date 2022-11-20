@@ -3,11 +3,14 @@
     using System.Globalization;
 
     using AutoMapper;
+    using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc;
 
     using Roomed.Services.Data.Contracts;
+    using Roomed.Services.Data.Dtos.Profile;
     using Roomed.Web.ViewModels.Profile;
 
+    using static Roomed.Common.ControllersActionsConstants;
     using static Roomed.Common.GlobalConstants;
 
     using Profile = Roomed.Data.Models.Profile;
@@ -27,7 +30,8 @@
         /// </summary>
         /// <param name="profilesService">The implementation of <see cref="IProfilesService"/>.</param>
         /// <param name="mapper">The global auto mapper.</param>
-        public ProfilesController(IProfilesService profilesService, IMapper mapper)
+        public ProfilesController(IProfilesService profilesService, IMapper mapper, IHtmlSanitizer sanitizer)
+            : base(sanitizer)
         {
             this.profilesService = profilesService;
             this.mapper = mapper;
@@ -91,7 +95,11 @@
                 return View(model);
             }
 
-            return Ok(model);
+            this.SanitizeModel(model);
+            var dto = this.mapper.Map<DetailedProfileDto>(model);
+            var id = await this.profilesService.CreateDetailedAsync(dto);
+
+            return RedirectToAction(Actions.Index);
         }
     }
 }
