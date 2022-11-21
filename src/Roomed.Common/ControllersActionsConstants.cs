@@ -26,6 +26,8 @@
             // Common actions
             public const string Index = "Index";
             public const string Create = "Create";
+            public const string Details = "Details";
+            public const string Edit = "Edit";
 
             // User controller actions
             public const string Login = "Login";
