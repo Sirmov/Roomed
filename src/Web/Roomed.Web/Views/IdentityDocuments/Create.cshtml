@@ -10,7 +10,7 @@
     <div class="form-row">
         <div class="form-group col">
             <label asp-for="@Model.Type">Document type <span class="text-danger">*</span></label>
-            <select class="form-control" asp-for="@Model.Type" asp-items="@DocumentTypes"></select>
+            <select class="form-control" asp-for="@Model.Type" asp-items="@DocumentTypes()"></select>
             <span class="form-text text-danger" asp-validation-for="@Model.Type"></span>
         </div>
     </div>

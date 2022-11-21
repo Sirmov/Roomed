@@ -50,7 +50,7 @@
 	<div class="form-row">
 		<div class="form-group col-md-6">
 			<label asp-for="@Model.Gender">Gender <span class="text-danger">*</span></label>
-			<select class="form-control" asp-for="@Model.Gender" asp-items="@Genders"></select>
+			<select class="form-control" asp-for="@Model.Gender" asp-items="@Genders()"></select>
 			<span class="form-text text-danger" asp-validation-for="@Model.Gender"></span>
 		</div>
 		<div class="form-group col-md-6">
