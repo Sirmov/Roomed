@@ -9,6 +9,8 @@
 
     public class DetailedProfileDto : IMapFrom<Roomed.Data.Models.Profile>, IMapTo<Roomed.Data.Models.Profile>
     {
+        public Guid? Id { get; set; }
+
         [Required(AllowEmptyStrings = false)]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         public string FirstName { get; set; } = null!;
