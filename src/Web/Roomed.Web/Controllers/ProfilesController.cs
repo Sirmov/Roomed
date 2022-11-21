@@ -5,7 +5,7 @@
     using AutoMapper;
     using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.Profile;
     using Roomed.Web.ViewModels.Profile;
@@ -45,7 +45,7 @@
         public async Task<IActionResult> Index()
         {
             var profiles = await this.profilesService.GetAllAsync();
-            var model = profiles.Select(p => this.mapper.Map<ProfileViewModel>(p));
+            var model = profiles.Select(p => this.mapper.Map<DetailedProfileViewModel>(p));
 
             return View(model);
         }
@@ -64,6 +64,57 @@
 
         [HttpPost]
         public async Task<IActionResult> Create(DetailedProfileInputModel model)
+        {
+            this.ValidateProfile(ModelState, model);
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            this.SanitizeModel(model);
+            var dto = this.mapper.Map<DetailedProfileDto>(model);
+            var id = await this.profilesService.CreateDetailedAsync(dto);
+
+            return RedirectToAction(Actions.Details, Controllers.Profiles, new { id = id.ToString() });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var profile = await this.profilesService.GetAsync(id);
+            var model = this.mapper.Map<DetailedProfileViewModel>(profile);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var profile = await this.profilesService.GetAsync(id);
+            var model = this.mapper.Map<DetailedProfileInputModel>(profile);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Guid id, DetailedProfileInputModel model)
+        {
+            this.ValidateProfile(ModelState, model);
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            this.SanitizeModel(model);
+            var dto = this.mapper.Map<DetailedProfileDto>(model);
+            await this.profilesService.EditAsync(id, dto);
+
+            return RedirectToAction(Actions.Details, Controllers.Profiles, new { id = id.ToString() });
+        }
+
+        private void ValidateProfile(ModelStateDictionary modelState, DetailedProfileInputModel model)
         {
             if (!NationalitiesDictionary.ContainsKey(model.Nationality))
             {
@@ -89,17 +140,6 @@
             {
                 ModelState.AddModelError(nameof(model.Birthdate), $"Birthday should be before {today.ToString(CultureInfo.InvariantCulture)}.");
             }
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            this.SanitizeModel(model);
-            var dto = this.mapper.Map<DetailedProfileDto>(model);
-            var id = await this.profilesService.CreateDetailedAsync(dto);
-
-            return RedirectToAction(Actions.Index);
         }
     }
 }

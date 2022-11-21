@@ -1,0 +1,85 @@
+﻿@using static Roomed.Common.GlobalConstants
+
+@model DetailedProfileInputModel
+
+@{
+	ViewData["Title"] = "Edit Profile";
+}
+
+@section Topbar {
+	<a class="btn btn-success btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Edit" asp-route-id="@Model.Id">Edit Profile</a>
+}
+
+<div class="text-center">
+	<h1 class="display-4 mb-4">Edit Guest Profile</h1>
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<h3 class="card-title">@Model.FullName</h3>
+				<div class="row">
+					<div class="col-lg-5 col-md-5 col-sm-6">
+						<partial name="_ProfileIconPartial"
+								 model="@new ProfileIconViewModel() { Gender = Model.Gender, Width = 400, Height = 400}" />
+					</div>
+					<div class="col-lg-7 col-md-7 col-sm-6">
+						<form asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Edit">
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.FirstName">First name <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.FirstName" asp-for="@Model.FirstName">
+									<span class="form-text text-danger" asp-validation-for="@Model.FirstName"></span>
+								</div>
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.LastName">Last name <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.LastName" asp-for="@Model.LastName">
+									<span class="form-text text-danger text-danger" asp-validation-for="@Model.LastName"></span>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.Birthdate">Birthdate <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.Birthdate.ToString("yyyy-MM-dd")" asp-for="@Model.Birthdate">
+									<span class="form-text text-danger" asp-validation-for="@Model.Birthdate"></span>
+								</div>
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.MiddleName">Middle name</label>
+									<input class="form-control" value="@Model.MiddleName" asp-for="@Model.MiddleName">
+									<span class="form-text text-danger" asp-validation-for="@Model.MiddleName"></span>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.Nationality">Nationality <span class="text-danger">*</span></label>
+									<select class="form-control" asp-for="@Model.Nationality" asp-items="@NationalitiesSelectList(Model.Nationality)">
+										<option value="" selected disabled hidden>Choose nationality</option>
+									</select>
+									<span class="form-text text-danger" asp-validation-for="@Model.Nationality"></span>
+								</div>
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.NationalityCode">Nationality Code <span class="text-danger">*</span></label>
+									<select class="form-control" asp-for="@Model.NationalityCode" asp-items="@NationalityCodesSelectList(Model.NationalityCode)">
+										<option value="" selected disabled hidden>Choose nationality code</option>
+									</select>
+									<span class="form-text text-danger" asp-validation-for="@Model.NationalityCode"></span>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.Gender">Gender <span class="text-danger">*</span></label>
+									<select class="form-control" asp-for="@Model.Gender" asp-items="@Genders(((int) Model.Gender).ToString())"></select>
+									<span class="form-text text-danger" asp-validation-for="@Model.Gender"></span>
+								</div>
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.Address">Address</label>
+									<input class="form-control" value="@Model.Address" asp-for="@Model.Address">
+									<span class="form-text text-danger" asp-validation-for="@Model.Address"></span>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-warning">Edit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

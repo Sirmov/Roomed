@@ -34,8 +34,8 @@
             this.profilesRepository = profilesRepository;
         }
 
-        /// <inheritdoc />
-        public async Task<ICollection<ProfileDto>> GetAllAsync(QueryOptions<ProfileDto>? queryOptions = null)
+        /// <inheritdoc/>
+        public async Task<ICollection<DetailedProfileDto>> GetAllAsync(QueryOptions<DetailedProfileDto>? queryOptions = null)
         {
             return await base.GetAllAsync(queryOptions ?? new ());
         }
@@ -43,7 +43,7 @@
         /// <inheritdoc/>
         public async Task<Guid> CreateDetailedAsync(DetailedProfileDto profile)
         {
-            bool isValid = this.ValidateDto(profile);
+            bool isValid = base.ValidateDto(profile);
 
             if (!isValid)
             {
@@ -56,6 +56,38 @@
             await this.profilesRepository.SaveChangesAsync();
 
             return result.Entity.Id;
+        }
+
+        public async Task<DetailedProfileDto> GetAsync(Guid id, QueryOptions<DetailedProfileDto>? queryOptions = null)
+        {
+            return await base.GetAsync(id, queryOptions ?? new ());
+        }
+
+        /// <inheritdoc/>
+        public async Task EditAsync(Guid id, DetailedProfileDto newProfile)
+        {
+            bool isValid = base.ValidateDto(newProfile);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Profile model state is not valid.", nameof(newProfile));
+            }
+
+            var oldProfile = await this.profilesRepository.FindAsync(id, false);
+
+            if (id == newProfile.Id && newProfile.Id == oldProfile.Id)
+            {
+                oldProfile.FirstName = newProfile.FirstName;
+                oldProfile.MiddleName = newProfile.MiddleName;
+                oldProfile.LastName = newProfile.LastName;
+                oldProfile.Birthdate = newProfile.Birthdate;
+                oldProfile.Nationality = newProfile.Nationality;
+                oldProfile.NationalityCode = newProfile.NationalityCode;
+                oldProfile.Gender = newProfile.Gender;
+                oldProfile.Address = newProfile.Address;
+            }
+
+            await this.profilesRepository.SaveChangesAsync();
         }
     }
 }
