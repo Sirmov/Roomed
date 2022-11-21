@@ -1,0 +1,16 @@
+﻿@using Roomed.Data.Models.Enums;
+
+@model ProfileIconViewModel
+
+@switch (Model.Gender)
+{
+	case Gender.Male:
+		<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="/assets/images/man.png" alt="male">
+		break;
+	case Gender.Female:
+		<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="/assets/images/woman.png" alt="female">
+		break;
+	default:
+		<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="/assets/images/anonymous.png" alt="anonymous">
+		break;
+}
