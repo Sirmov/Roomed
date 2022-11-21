@@ -1,6 +1,6 @@
 ﻿@using Roomed.Data.Models.Enums;
 
-@model IEnumerable<ProfileViewModel>
+@model IEnumerable<DetailedProfileViewModel>
 
 @{
 	ViewData["Title"] = "Identity documents";
@@ -18,26 +18,14 @@
 	{
 		<div class="card rounded-lg mb-3">
 			<div class="card-header bg-primary text-light">
-				<b>@profile.FirstName @(profile.MiddleName == null ? "" : $"{profile.MiddleName} ")@profile.LastName</b>
+				<b>@profile.FullName</b>
 			</div>
 			<div class="card-body">
 				<div class="row">
 					<div class="col col-auto text-center">
-						@switch (profile.Gender)
-						{
-							case Gender.Male:
-								<h5>@profile.Gender</h5>
-								<img class="img rounded border-0" width="50" height="50" src="/assets/images/man.png" alt="male">
-								break;
-							case Gender.Female:
-								<h5>@profile.Gender</h5>
-								<img class="img rounded border-0" width="50" height="50" src="/assets/images/woman.png" alt="female">
-								break;
-							default:
-								<h5>Gender</h5>
-								<img class="img rounded border-0" width="50" height="50" src="/assets/images/anonymous.png" alt="anonymous">
-								break;
-						}
+						<h5>@(profile?.Gender?.ToString() ?? "Gender")</h5>
+						<partial name="_ProfileIconPartial" 
+							model="@new ProfileIconViewModel() { Gender = profile.Gender, Width = 50, Height = 50}" />
 					</div>
 					<div class="col col align-self-center text-left">
 						@if (profile.Nationality == null || profile.Birthdate == null)
@@ -60,8 +48,8 @@
 					</div>
 					<div class="col-2">
 						<div class="btn-group-vertical">
-							<a href="#" class="btn btn-success mb-1 rounded">Details</a>
-							<a href="#" class="btn btn-warning mb-1 rounded">Edit</a>
+							<a class="btn btn-success mb-1 rounded" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Details" asp-route-id="@profile.Id">Details</a>
+							<a class="btn btn-warning mb-1 rounded" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Edit" asp-route-id="@profile.Id">Edit</a>
 							<a href="#" class="btn btn-danger rounded">Delete</a>
 						</div>
 					</div>
