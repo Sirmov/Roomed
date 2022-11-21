@@ -1,24 +1,19 @@
 ﻿namespace Roomed.Services.Data.Dtos.Profile
 {
-    using Roomed.Data.Models.Enums;
+    using System.ComponentModel.DataAnnotations;
+
     using Roomed.Services.Mapping;
+
+    using static Roomed.Common.DataConstants.Profile;
 
     public class ProfileDto : IMapFrom<Roomed.Data.Models.Profile>
     {
-        public Guid Id { get; set; }
-
+        [Required(AllowEmptyStrings = false)]
+        [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         public string FirstName { get; set; } = null!;
 
-        public string? MiddleName { get; set; }
-
+        [Required(AllowEmptyStrings = false)]
+        [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
         public string LastName { get; set; } = null!;
-
-        public DateOnly? Birthdate { get; set; }
-
-        public Gender? Gender { get; set; }
-
-        public string? Nationality { get; set; }
-
-        public string? Address { get; set; }
     }
 }
