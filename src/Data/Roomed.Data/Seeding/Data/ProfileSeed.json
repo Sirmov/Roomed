@@ -6,7 +6,7 @@
     "lastName": "Stewart",
     "birthdate": "1988-04-15",
     "gender": "Male",
-    "nationality": "British",
+    "nationality": "United Kingdom of Great Britain and Northern Ireland",
     "nationalityCode": "GB",
     "address": null
   },
@@ -28,7 +28,7 @@
     "lastName": "Parker",
     "birthdate": "1997-07-24",
     "gender": "Female",
-    "nationality": "German",
+    "nationality": "Germany",
     "nationalityCode": "DE",
     "address": null
   },
