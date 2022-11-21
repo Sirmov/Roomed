@@ -1,7 +1,7 @@
 ﻿namespace Roomed.Web.ViewModels.Profile
 {
     using System.ComponentModel.DataAnnotations;
-
+    using AutoMapper.Configuration.Annotations;
     using Roomed.Common.Attribues;
     using Roomed.Data.Models.Enums;
     using Roomed.Services.Data.Dtos.Profile;
@@ -9,8 +9,10 @@
 
     using static Roomed.Common.DataConstants.Profile;
 
-    public class DetailedProfileInputModel : IMapTo<DetailedProfileDto>
+    public class DetailedProfileInputModel : IMapTo<DetailedProfileDto>, IMapFrom<DetailedProfileDto>
     {
+        public Guid? Id { get; set; }
+
         [Required(AllowEmptyStrings = false)]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         [Display(Name = "First name")]
@@ -47,5 +49,11 @@
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
         [Sanitize]
         public string? Address { get; set; }
+
+        [Ignore]
+        public string FullName
+        {
+            get => $"{this.FirstName} {(this.MiddleName == null ? string.Empty : $"{this.MiddleName} ")}{this.LastName}";
+        }
     }
 }
