@@ -515,22 +515,30 @@
             "AX",
         };
 
-        public static readonly Dictionary<string, string> NationalitiesDictionary =
+        public static Dictionary<string, string> NationalitiesDictionary =
             Nationality_Code_SelectList().ToDictionary(sl => sl.Value, sl => sl.Text);
 
-        public static List<SelectListItem> NationalitiesSelectList()
+        public static SelectList NationalitiesSelectList(string selectedValue = "")
         {
-            return Nationalities.Select(n => new SelectListItem() { Value = n, Text = n }).ToList();
+            return new SelectList(
+                Nationalities.Select(n => new SelectListItem() { Value = n, Text = n }),
+                "Value",
+                "Text",
+                selectedValue);
         }
 
-        public static List<SelectListItem> NationalityCodesSelectList()
+        public static SelectList NationalityCodesSelectList(string selectedValue = "")
         {
-            return NationalityCodes.Select(nc => new SelectListItem() { Value = nc, Text = nc }).ToList();
+            return new SelectList(
+                NationalityCodes.Select(nc => new SelectListItem() { Value = nc, Text = nc }),
+                "Value",
+                "Text",
+                selectedValue);
         }
 
-        public static List<SelectListItem> Code_Nationality_SelectList()
+        public static SelectList Code_Nationality_SelectList(string selectedValue = "")
         {
-            var selectList = new List<SelectListItem>();
+            var items = new List<SelectListItem>();
 
             var nationalitiesEnumerator = Nationalities.GetEnumerator();
             var nationalityCodesEnumerator = NationalityCodes.GetEnumerator();
@@ -540,15 +548,15 @@
                 string nationality = nationalitiesEnumerator.Current;
                 string nationalyCode = nationalityCodesEnumerator.Current;
 
-                selectList.Add(new SelectListItem() { Value = nationalyCode, Text = nationality });
+                items.Add(new SelectListItem() { Value = nationalyCode, Text = nationality });
             }
 
-            return selectList;
+            return new SelectList(items, "Value", "Text", selectedValue);
         }
 
-        public static List<SelectListItem> Nationality_Code_SelectList()
+        public static SelectList Nationality_Code_SelectList(string selectedValue = "")
         {
-            var selectList = new List<SelectListItem>();
+            var items = new List<SelectListItem>();
 
             var nationalitiesEnumerator = Nationalities.GetEnumerator();
             var nationalityCodesEnumerator = NationalityCodes.GetEnumerator();
@@ -558,24 +566,35 @@
                 string nationality = nationalitiesEnumerator.Current;
                 string nationalyCode = nationalityCodesEnumerator.Current;
 
-                selectList.Add(new SelectListItem() { Value = nationality, Text = nationalyCode });
+                items.Add(new SelectListItem() { Value = nationality, Text = nationalyCode });
             }
 
-            return selectList;
+            return new SelectList(items, "Value", "Text", selectedValue);
         }
 
-        public static readonly List<SelectListItem> DocumentTypes = new List<SelectListItem>()
+        public static SelectList DocumentTypes(string selectedValue = "")
         {
-            new SelectListItem() { Value = "0", Text = "Id" },
-            new SelectListItem() { Value = "1", Text = "Passport" },
-            new SelectListItem() { Value = "2", Text = "Driving license" },
-        };
+            var items = new List<SelectListItem>()
+            {
+                new () { Value = "0", Text = "Id" },
+                new () { Value = "1", Text = "Passport" },
+                new () { Value = "2", Text = "Driving license" },
+            };
 
-        public static readonly List<SelectListItem> Genders = new List<SelectListItem>()
+            return new SelectList(items, "Value", "Text", selectedValue);
+        }
+
+        public static SelectList Genders(string selectedValue = "")
         {
-            new SelectListItem() { Value = "0", Text = "Male" },
-            new SelectListItem() { Value = "1", Text = "Female" },
-        };
+            var items = new List<SelectListItem>()
+            {
+                new () { Value = "0", Text = "Male" },
+                new () { Value = "1", Text = "Female" },
+            };
+
+            var slectList = new SelectList(items, "Value", "Text", selectedValue);
+            return slectList;
+        }
 
         //public static readonly List<SelectListItem> Code_Nationality = new List<SelectListItem>()
         //{
