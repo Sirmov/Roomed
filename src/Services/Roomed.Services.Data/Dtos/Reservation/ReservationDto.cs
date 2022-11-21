@@ -20,7 +20,7 @@
 
         public int RoomTypeId { get; set; }
 
-        public ProfileDto ReservationHolder { get; set; } = null!;
+        public DetailedProfileDto ReservationHolder { get; set; } = null!;
 
         public RoomTypeDto RoomType { get; set; } = null!;
 

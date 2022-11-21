@@ -11,6 +11,6 @@
 
         public Guid ProfileId { get; set; }
 
-        public ProfileDto Profile { get; set; } = null!;
+        public DetailedProfileDto Profile { get; set; } = null!;
     }
 }

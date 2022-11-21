@@ -24,7 +24,7 @@
 
         public int RoomTypeId { get; set; }
 
-        public ProfileViewModel ReservationHolder { get; set; } = null!;
+        public DetailedProfileViewModel ReservationHolder { get; set; } = null!;
 
         public RoomTypeViewModel RoomType { get; set; } = null!;
 

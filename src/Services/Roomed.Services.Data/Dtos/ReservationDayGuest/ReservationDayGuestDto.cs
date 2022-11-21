@@ -14,6 +14,6 @@
 
         public virtual ReservationDayDto ReservationDay { get; set; } = null!;
 
-        public virtual ProfileDto Guest { get; set; } = null!;
+        public virtual DetailedProfileDto Guest { get; set; } = null!;
     }
 }

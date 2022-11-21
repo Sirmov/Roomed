@@ -18,6 +18,6 @@
 
         public virtual ReservationDayViewModel ReservationDay { get; set; } = null!;
 
-        public virtual ProfileViewModel Guest { get; set; } = null!;
+        public virtual DetailedProfileViewModel Guest { get; set; } = null!;
     }
 }
