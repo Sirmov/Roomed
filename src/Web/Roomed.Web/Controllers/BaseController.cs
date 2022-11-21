@@ -35,9 +35,9 @@
 
             foreach (var property in properties)
             {
-                property.IsDefined(typeof(SanitizeAttribute), false);
+                bool shouldBeSanitized = property.IsDefined(typeof(SanitizeAttribute), false);
 
-                if (property.PropertyType == typeof(string))
+                if (property.PropertyType == typeof(string) && shouldBeSanitized)
                 {
                     string? value = property.GetValue(model) as string;
 
