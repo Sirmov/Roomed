@@ -7,7 +7,7 @@
 }
 
 @section Topbar {
-	<a class="btn btn-success btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Edit" asp-route-id="@Model.Id">Edit Profile</a>
+	<a class="btn btn-success btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Details" asp-route-id="@Model.Id">Profile Details</a>
 }
 
 <div class="text-center">
@@ -83,3 +83,7 @@
 		</div>
 	</div>
 </div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

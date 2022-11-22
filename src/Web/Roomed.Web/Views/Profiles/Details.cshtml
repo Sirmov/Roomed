@@ -7,7 +7,15 @@
 }
 
 @section Topbar {
+	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Index">All Profiles</a>
 	<a class="btn btn-success btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Edit" asp-route-id="@Model.Id">Edit Profile</a>
+	<form method="get" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Delete" asp-route-id="@Model.Id">
+		<button class="btn btn-danger btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Delete" asp-route-id="@Model.Id">Delete Profile</button>
+		<input type="hidden" disabled readonly value="@Model.Id" name="Id" />
+		<input type="hidden" disabled readonly value="@Model.FirstName" name="FirstName" />
+		<input type="hidden" disabled readonly value="@Model.MiddleName" name="MiddleName" />
+		<input type="hidden" disabled readonly value="@Model.LastName" name="LastName" />
+	</form>
 }
 
 <div class="text-center">

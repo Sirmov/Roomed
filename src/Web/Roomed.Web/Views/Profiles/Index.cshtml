@@ -3,17 +3,17 @@
 @model IEnumerable<DetailedProfileViewModel>
 
 @{
-	ViewData["Title"] = "Identity documents";
+	ViewData["Title"] = "Guest profiles";
 }
 
 @section Topbar {
-	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create">Create detailed</a>
-	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create">Create quick</a>
+	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Index">All Profiles</a>
+	<a class="btn btn-success btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create">Create guest profile</a>
 	<a class="btn btn-warning btn-sm rounded-pill" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create">Search</a>
 }
 
 <div class="text-center">
-	<h1 class="display-4 mb-4">Identity documents</h1>
+	<h1 class="display-4 mb-4">Guest profiles</h1>
 	@foreach (var profile in Model)
 	{
 		<div class="card rounded-lg mb-3">
@@ -50,7 +50,13 @@
 						<div class="btn-group-vertical">
 							<a class="btn btn-success mb-1 rounded" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Details" asp-route-id="@profile.Id">Details</a>
 							<a class="btn btn-warning mb-1 rounded" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Edit" asp-route-id="@profile.Id">Edit</a>
-							<a href="#" class="btn btn-danger rounded">Delete</a>
+							<form method="get" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Delete" asp-route-id="@profile.Id">
+								<button class="btn btn-danger mb-1 rounded">Delete</button>
+								<input type="hidden" readonly value="@profile.Id" asp-for="@profile.Id" />
+								<input type="hidden" readonly value="@profile.FirstName" asp-for="@profile.FirstName" />
+								<input type="hidden" readonly value="@profile.MiddleName" asp-for="@profile.MiddleName" />
+								<input type="hidden" readonly value="@profile.LastName" asp-for="@profile.LastName" />
+							</form>
 						</div>
 					</div>
 				</div>
