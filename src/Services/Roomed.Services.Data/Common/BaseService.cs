@@ -84,22 +84,22 @@
             {
                 if (orderOption.Order == OrderByOrder.Ascending)
                 {
-                    query.OrderBy(x => this.GetPropertyInfo(x, orderOption.Property).GetValue(x));
+                    query = query.OrderBy(x => this.GetPropertyInfo(x, orderOption.Property).GetValue(x));
                 }
                 else
                 {
-                    query.OrderByDescending(x => this.GetPropertyInfo(x, orderOption.Property).GetValue(x));
+                    query = query.OrderByDescending(x => this.GetPropertyInfo(x, orderOption.Property).GetValue(x));
                 }
             }
 
             if (queryOptions.Skip.HasValue)
             {
-                query.Skip(queryOptions.Skip.Value);
+                query = query.Skip(queryOptions.Skip.Value);
             }
 
             if (queryOptions.Take.HasValue)
             {
-                query.Take(queryOptions.Take.Value);
+                query = query.Take(queryOptions.Take.Value);
             }
 
             return query;

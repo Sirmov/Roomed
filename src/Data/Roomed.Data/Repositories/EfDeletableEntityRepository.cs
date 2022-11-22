@@ -32,7 +32,7 @@
 
             if (!withDeleted)
             {
-                query.Where(e => !e.IsDeleted);
+                query = query.Where(e => !e.IsDeleted);
             }
 
             return query;
@@ -45,7 +45,7 @@
 
             if (!withDeleted)
             {
-                query.Where(e => !e.IsDeleted);
+                query = query.Where(e => !e.IsDeleted);
             }
 
             return query;
