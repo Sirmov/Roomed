@@ -1,0 +1,22 @@
+﻿@model ProfileViewModel
+
+@{
+	ViewData["Title"] = "Delete Profile";
+}
+<div class="text-center">
+	<h1 class="display-4 mb-4">Delete Guest Profile</h1>
+	<div class="card w-50 mx-auto">
+		<div class="card-body">
+			<img class="mb-3" src="~/assets/images/delete.png" width="150px" height="150px" alt="delete" />
+			<h4 class="card-title text-danger">Are you sure?</h4>
+			<h5 class="card-subtitle mb-4"><b>@Model.FullName</b> guest profile will be permanently deleted.</h5>
+			<p class="card-text text-muted">Do you really want to delete this record? This process cannot be undone.</p>
+			<div class="btn-group" role="group">
+				<a class="btn btn-secondary rounded mr-3" href='javascript:history.go(-1)'>Cancel</a>
+				<form asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Delete" asp-route-id="@Model.Id">
+					<button class="btn btn-danger rounded">Delete</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

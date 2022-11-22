@@ -5,8 +5,6 @@
     using System.Threading.Tasks;
 
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
 
     using Roomed.Data.Common.Repositories;
     using Roomed.Services.Data.Common;
@@ -87,6 +85,13 @@
                 oldProfile.Address = newProfile.Address;
             }
 
+            await this.profilesRepository.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task DeleteAsync(Guid id)
+        {
+            await this.profilesRepository.DeleteAsync(id);
             await this.profilesRepository.SaveChangesAsync();
         }
     }

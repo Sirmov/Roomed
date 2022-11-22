@@ -114,8 +114,31 @@
             return RedirectToAction(Actions.Details, Controllers.Profiles, new { id = id.ToString() });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id, ProfileViewModel profile)
+        {
+            if (id == profile.Id)
+            {
+                return View(profile);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await this.profilesService.DeleteAsync(id);
+            return RedirectToAction(Actions.Index);
+        }
+
         private void ValidateProfile(ModelStateDictionary modelState, DetailedProfileInputModel model)
         {
+            if (modelState.IsValid == false)
+            {
+                return;
+            }
+
             if (!NationalitiesDictionary.ContainsKey(model.Nationality))
             {
                 ModelState.AddModelError(nameof(model.Nationality), "Invalid nationality.");
@@ -139,6 +162,13 @@
             if (model.Birthdate >= today)
             {
                 ModelState.AddModelError(nameof(model.Birthdate), $"Birthday should be before {today.ToString(CultureInfo.InvariantCulture)}.");
+            }
+
+            var before120Years = today.AddYears(-120);
+
+            if (model.Birthdate <= before120Years)
+            {
+                ModelState.AddModelError(nameof(model.Birthdate), $"Please enter a valid birthdate.");
             }
         }
     }

@@ -37,5 +37,12 @@
         /// <param name="profile">The new profile.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
         public Task EditAsync(Guid id, DetailedProfileDto profile);
+
+        /// <summary>
+        /// This method asynchronously deletes the profile with the provided id.
+        /// </summary>
+        /// <param name="id">The id of the profile to be deleted.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        public Task DeleteAsync(Guid id);
     }
 }
