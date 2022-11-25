@@ -7,8 +7,8 @@
 }
 
 @section Topbar {
-	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Create">Create quick</a>
-	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Create">Create detailed</a>
+	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Index">All documents</a>
+	<a class="btn btn-success btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Create">Create identity document</a>
 	<a class="btn btn-warning btn-sm rounded-pill" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Create">Search</a>
 }
 
@@ -24,18 +24,8 @@
 				<div class="row">
 					<div class="col col-auto text-center">
 						<h5>@identityDocument.Type</h5>
-						@switch (identityDocument.Type)
-						{
-							case IdentityDocumentType.Id:
-								<img class="img rounded border-0" width="50" height="50" src="/assets/images/id-card.png" alt="id_card">
-								break;
-							case IdentityDocumentType.Passport:
-								<img class="img rounded border-0" width="50" height="50" src="/assets/images/passport.png" alt="passport">
-								break;
-							case IdentityDocumentType.DrivingLicense:
-								<img class="img rounded border-0" width="50" height="50" src="/assets/images/driver-license.png" alt="driving_license">
-								break;
-						}
+						<partial name="_IdentityDocumentIconPartial"
+							 model="@new IdentityDocumentIconViewModel() { Type = identityDocument.Type, Width = 50, Height = 50}" />
 					</div>
 					<div class="col col align-self-center text-left">
 						<p class="card-text">The number of the identity document is: <b>@identityDocument.DocumentNumber</b></p>
@@ -43,9 +33,20 @@
 					</div>
 					<div class="col-2">
 						<div class="btn-group-vertical">
-							<a href="#" class="btn btn-success mb-1 rounded">Details</a>
-							<a href="#" class="btn btn-warning mb-1 rounded">Edit</a>
-							<a href="#" class="btn btn-danger rounded">Delete</a>
+							<a class="btn btn-success mb-1 rounded" 
+								asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Details" asp-route-id="@identityDocument.Id">
+								Details
+							</a>
+							<a class="btn btn-warning mb-1 rounded"
+								asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Edit" asp-route-id="@identityDocument.Id">
+								Edit
+							</a>
+							<form method="get" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Delete" asp-route-id="@identityDocument.Id">
+								<button class="btn btn-danger mb-1 rounded">Delete</button>
+								<input type="hidden" readonly value="@identityDocument.Id" asp-for="@identityDocument.Id" />
+								<input type="hidden" readonly value="@identityDocument.NameInDocument" asp-for="@identityDocument.NameInDocument" />
+								<input type="hidden" readonly value="@identityDocument.DocumentNumber" asp-for="@identityDocument.DocumentNumber" />
+							</form>
 						</div>
 					</div>
 				</div>

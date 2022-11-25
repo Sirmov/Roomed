@@ -1,11 +1,19 @@
 ﻿namespace Roomed.Web.Controllers
 {
+    using System.Globalization;
+
     using AutoMapper;
     using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+
     using Roomed.Data.Models;
     using Roomed.Services.Data.Contracts;
+    using Roomed.Services.Data.Dtos.IdentityDocument;
+    using Roomed.Services.Data.Dtos.Profile;
     using Roomed.Web.ViewModels.IdentityDocument;
+    using Roomed.Web.ViewModels.Profile;
+    using static Roomed.Common.ControllersActionsConstants;
 
     /// <summary>
     /// A MVC controller inheriting <see cref="BaseController"/>.
@@ -24,6 +32,7 @@
         /// <param name="identityDocumentsService">The implementation of <see cref="IIdentityDocumentsService"/>.</param>
         /// <param name="profilesService">The implementation of <see cref="IProfilesService"/>.</param>
         /// <param name="mapper">The global auto mapper.</param>
+        /// <param name="sanitizer">The global html sanitizer.</param>
         public IdentityDocumentsController(
             IIdentityDocumentsService identityDocumentsService,
             IProfilesService profilesService,
@@ -57,7 +66,8 @@
         public async Task<IActionResult> Create()
         {
             var model = new IdentityDocumentInputModel();
-            ViewBag.Profiles = await this.profilesService.GetAllAsync();
+            var profiles = await this.profilesService.GetAllAsync();
+            ViewBag.Profiles = profiles.Select(p => this.mapper.Map<DetailedProfileViewModel>(p));
 
             return View(model);
         }
@@ -65,12 +75,101 @@
         [HttpPost]
         public async Task<IActionResult> Create(IdentityDocumentInputModel model)
         {
+            this.ValidateIdentityDocument(ModelState, model);
+
+            if (!ModelState.IsValid)
+            {
+                var profiles = await this.profilesService.GetAllAsync();
+                ViewBag.Profiles = profiles.Select(p => this.mapper.Map<DetailedProfileViewModel>(p));
+                return View(model);
+            }
+
+            this.SanitizeModel(model);
+            var dto = this.mapper.Map<IdentityDocumentDto>(model);
+            var id = await this.identityDocumentsService.CreateAsync(dto);
+
+            return RedirectToAction(Actions.Details, new { id = id.ToString() });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var document = await this.identityDocumentsService.GetAsync(id);
+            var model = this.mapper.Map<IdentityDocumentViewModel>(document);
+
+            var owner = await this.profilesService.GetAsync(document.OwnerId);
+            ViewBag.Owner = this.mapper.Map<DetailedProfileViewModel>(owner);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var document = await this.identityDocumentsService.GetAsync(id);
+            var model = this.mapper.Map<IdentityDocumentInputModel>(document);
+
+            var profiles = await this.profilesService.GetAllAsync();
+            ViewBag.Profiles = profiles.Select(p => this.mapper.Map<DetailedProfileViewModel>(p));
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Guid id, IdentityDocumentInputModel model)
+        {
+            this.ValidateIdentityDocument(ModelState, model);
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            return Ok(model);
+            this.SanitizeModel(model);
+            var dto = this.mapper.Map<IdentityDocumentDto>(model);
+            await this.identityDocumentsService.EditAsync(id, dto);
+
+            return RedirectToAction(Actions.Details, new { id = id.ToString() });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id, IdentityDocumentViewModel identityDocument)
+        {
+            if (id == identityDocument.Id)
+            {
+                return View(identityDocument);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await this.identityDocumentsService.DeleteAsync(id);
+            return RedirectToAction(Actions.Index);
+        }
+
+        private void ValidateIdentityDocument(ModelStateDictionary modelState, IdentityDocumentInputModel model)
+        {
+            if (modelState.IsValid == false)
+            {
+                return;
+            }
+
+            var today = DateOnly.FromDateTime(DateTime.Now);
+
+            if (model.Birthdate >= today)
+            {
+                ModelState.AddModelError(nameof(model.Birthdate), $"Birthday should be before {today.ToString(CultureInfo.InvariantCulture)}.");
+            }
+
+            var before120Years = today.AddYears(-120);
+
+            if (model.Birthdate <= before120Years)
+            {
+                ModelState.AddModelError(nameof(model.Birthdate), $"Please enter a valid birthdate.");
+            }
         }
     }
 }

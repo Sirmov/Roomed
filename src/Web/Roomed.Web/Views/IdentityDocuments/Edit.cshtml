@@ -1,0 +1,140 @@
+﻿@using Roomed.Data.Models.Enums;
+
+@using static Roomed.Common.GlobalConstants;
+
+@model IdentityDocumentInputModel
+
+@{
+    ViewData["Title"] = "Edit identity document";
+}
+
+@section Topbar {
+    <a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Index">All identity documents</a>
+    <a class="btn btn-success btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Details" asp-route-id="@Model.Id">Document details</a>
+    <form method="get" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Delete" asp-route-id="@Model.Id">
+        <button class="btn btn-danger btn-sm rounded-pill mr-2">Delete</button>
+        <input type="hidden" readonly value="@Model.Id" asp-for="@Model.Id" />
+        <input type="hidden" readonly value="@Model.NameInDocument" asp-for="@Model.NameInDocument" />
+        <input type="hidden" readonly value="@Model.DocumentNumber" asp-for="@Model.DocumentNumber" />
+    </form>
+}
+
+<div class="text-center">
+    <h1 class="display-4 mb-4">Edit identity document</h1>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">@Model.NameInDocument</h3>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-6">
+                        <partial name="_IdentityDocumentIconPartial"
+                                 model="@new IdentityDocumentIconViewModel() { Type = Model.Type, Width = 400, Height = 400}" />
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-6">
+						<form asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Edit">
+							<div class="form-row">
+								<div class="form-group col">
+									<label asp-for="@Model.Type">Document type <span class="text-danger">*</span></label>
+									<select class="form-control" asp-for="@Model.Type" asp-items="@DocumentTypes(Model.Type.ToString())"></select>
+									<span class="form-text text-danger" asp-validation-for="@Model.Type"></span>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col">
+									<label asp-for="@Model.OwnerId">Owner <span class="text-danger">*</span></label>
+									<select class="selectpicker form-control" data-style="form-control" data-size="5" data-live-search="true" asp-for="@Model.OwnerId">
+										<option value="" disabled selected>Select document owner</option>
+										@foreach (var profile in ViewBag.Profiles)
+										{
+											string icon = profile.Gender == Gender.Female ? "fa-solid fa-person-dress" : "fa-solid fa-person";
+											string text = profile.FullName;
+											text += profile.Nationality == null ? "" : $" - {profile.Nationality}";
+											text += profile.Gender == null ? "" : $" - {profile.Gender}";
+											bool isSelected = profile.Id == Model.OwnerId;
+
+											<option value="@profile.Id" selected="@isSelected" data-icon="@icon">@text</option>
+										}
+									</select>
+									<span class="form-text text-primary">
+										Can't find the guest. Create him
+										<a asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create"
+										   asp-route-ReturnUrl="@Url.ActionLink(Actions.Create, Controllers.IdentityDocuments)">here</a>.
+									</span>
+									<span class="form-text text-danger" asp-validation-for="@Model.OwnerId"></span>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.NameInDocument">Name in document <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.NameInDocument" asp-for="@Model.NameInDocument">
+									<span class="form-text text-danger text-danger" asp-validation-for="@Model.NameInDocument"></span>
+								</div>
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.Country">Country <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.Country" asp-for="@Model.Country">
+									<span class="form-text text-danger" asp-validation-for="@Model.Country"></span>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.DocumentNumber">Document number <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.DocumentNumber" asp-for="@Model.DocumentNumber">
+									<span class="form-text text-danger" asp-validation-for="@Model.DocumentNumber"></span>
+								</div>
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.Nationality">Nationality <span class="text-danger">*</span></label>
+									<select class="selectpicker form-control" data-style="form-control" data-live-search="true"
+									asp-for="@Model.Nationality" asp-items="@NationalitiesSelectList(Model.Nationality)">
+										<option value="" selected disabled hidden>Choose here</option>
+									</select>
+									<span class="form-text text-danger" asp-validation-for="@Model.Nationality"></span>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.PersonalNumber">Personal number</label>
+									<input class="form-control" value="@Model.PersonalNumber" asp-for="@Model.PersonalNumber">
+									<span class="form-text text-danger" asp-validation-for="@Model.PersonalNumber"></span>
+								</div>
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.PlaceOfBirth">Place of birth <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.PlaceOfBirth" asp-for="@Model.PlaceOfBirth">
+									<span class="form-text text-danger" asp-validation-for="@Model.PlaceOfBirth"></span>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.Birthdate">Birthdate <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.Birthdate?.ToString("yyyy-MM-dd")" asp-for="@Model.Birthdate">
+									<span class="form-text text-danger" asp-validation-for="@Model.Birthdate"></span>
+								</div>
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.IssuedBy">Issued by <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.IssuedBy" asp-for="@Model.IssuedBy">
+									<span class="form-text text-danger" asp-validation-for="@Model.IssuedBy"></span>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.ValidFrom">Valid from <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.ValidFrom?.ToString("yyyy-MM-dd")" asp-for="@Model.ValidFrom">
+									<span class="form-text text-danger" asp-validation-for="@Model.ValidFrom"></span>
+								</div>
+								<div class="form-group col-md-6">
+									<label asp-for="@Model.ValidUntil">Valid until <span class="text-danger">*</span></label>
+									<input class="form-control" value="@Model.ValidUntil?.ToString("yyyy-MM-dd")" asp-for="@Model.ValidUntil">
+									<span class="form-text text-danger" asp-validation-for="@Model.ValidUntil"></span>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-warning mb-2">Edit</button>
+						</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

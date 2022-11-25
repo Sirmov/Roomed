@@ -1,0 +1,104 @@
+﻿@using Roomed.Data.Models.Enums;
+
+@model IdentityDocumentViewModel
+
+@{
+	ViewData["Title"] = "Identity document";
+}
+
+@section Topbar {
+	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Index">All identity documents</a>
+	<a class="btn btn-success btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Edit" asp-route-id="@Model.Id">Edit document</a>
+	<form method="get" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Delete" asp-route-id="@Model.Id">
+		<button class="btn btn-danger btn-sm rounded-pill mr-2">Delete</button>
+		<input type="hidden" readonly value="@Model.Id" asp-for="@Model.Id" />
+		<input type="hidden" readonly value="@Model.NameInDocument" asp-for="@Model.NameInDocument" />
+		<input type="hidden" readonly value="@Model.DocumentNumber" asp-for="@Model.DocumentNumber" />
+	</form>
+}
+
+<div class="text-center">
+	<h1 class="display-4 mb-4">Identity document</h1>
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<h3 class="card-title">@Model.NameInDocument</h3>
+				<div class="row">
+					<div class="col-lg-5 col-md-5 col-sm-6">
+						<partial name="_IdentityDocumentIconPartial"
+								 model="@new IdentityDocumentIconViewModel() { Type = Model.Type, Width = 400, Height = 400}" />
+					</div>
+					<div class="col-lg-7 col-md-7 col-sm-6">
+                        <form onsubmit="return false;">
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <label>Document type</label>
+                                    <input class="form-control" readonly value="@Model.Type">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <label>Owner</label>
+                                    <input class="form-control" readonly value="@ViewBag.Owner.FullName">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Name in document</label>
+                                    <input class="form-control" readonly value="@Model.NameInDocument">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Country</label>
+                                    <input class="form-control" readonly value="@Model.Country">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Document Number</label>
+                                    <input class="form-control" readonly value="@Model.DocumentNumber">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Nationality</label>
+                                    <input class="form-control" readonly value="@Model.Nationality">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Personal Number</label>
+                                    <input class="form-control" readonly value="@Model.PersonalNumber">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Place Of Birth</label>
+                                    <input class="form-control" readonly value="@Model.PlaceOfBirth">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Birthdate</label>
+                                    <input class="form-control" readonly value="@Model.Birthdate?.ToString("yyyy-MM-dd")">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Issued By</label>
+                                    <input class="form-control" readonly value="@Model.IssuedBy">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Valid from</label>
+                                    <input class="form-control" readonly value="@Model.ValidFrom">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Valid until</label>
+                                    <input class="form-control" readonly value="@Model.ValidUntil">
+                                </div>
+                            </div>
+                        </form>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<h3 class="box-title mt-5">Identity document notes</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
