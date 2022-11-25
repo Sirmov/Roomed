@@ -7,77 +7,77 @@
 }
 
 @section Topbar {
-	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Index">All Profiles</a>
-	<a class="btn btn-success btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Edit" asp-route-id="@Model.Id">Edit Profile</a>
+	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Index">All profiles</a>
+	<a class="btn btn-success btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Edit" asp-route-id="@Model.Id">Edit profile</a>
 	<form method="get" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Delete" asp-route-id="@Model.Id">
-		<button class="btn btn-danger btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Delete" asp-route-id="@Model.Id">Delete Profile</button>
-		<input type="hidden" disabled readonly value="@Model.Id" name="Id" />
-		<input type="hidden" disabled readonly value="@Model.FirstName" name="FirstName" />
-		<input type="hidden" disabled readonly value="@Model.MiddleName" name="MiddleName" />
-		<input type="hidden" disabled readonly value="@Model.LastName" name="LastName" />
+		<button class="btn btn-danger btn-sm rounded-pill mr-2">Delete</button>
+		<input type="hidden" readonly value="@Model.Id" asp-for="@Model.Id" />
+		<input type="hidden" readonly value="@Model.FirstName" asp-for="@Model.FirstName" />
+		<input type="hidden" readonly value="@Model.MiddleName" asp-for="@Model.MiddleName" />
+		<input type="hidden" readonly value="@Model.LastName" asp-for="@Model.LastName" />
 	</form>
 }
 
 <div class="text-center">
-	<h1 class="display-4 mb-4">Guest Profile</h1>
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">@Model.FullName</h3>
-                <div class="row">
-                    <div class="col-lg-5 col-md-5 col-sm-6">
-                        <partial name="_ProfileIconPartial"
-                                 model="@new ProfileIconViewModel() { Gender = Model.Gender, Width = 400, Height = 400}" />
-                    </div>
-                    <div class="col-lg-7 col-md-7 col-sm-6">
-						<form>
+	<h1 class="display-4 mb-4">Guest profile</h1>
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<h3 class="card-title">@Model.FullName</h3>
+				<div class="row">
+					<div class="col-lg-5 col-md-5 col-sm-6">
+						<partial name="_ProfileIconPartial"
+								 model="@new ProfileIconViewModel() { Gender = Model.Gender, Width = 400, Height = 400}" />
+					</div>
+					<div class="col-lg-7 col-md-7 col-sm-6">
+						<form onsubmit="return false;">
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label asp-for="@Model.FirstName">First name</label>
+									<label>First name</label>
 									<input class="form-control" readonly value="@Model.FirstName">
 								</div>
 								<div class="form-group col-md-6">
-									<label asp-for="@Model.LastName">Last name</label>
+									<label>Last name</label>
 									<input class="form-control" readonly value="@Model.LastName">
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label asp-for="@Model.Birthdate">Birthdate</label>
-									<input class="form-control" readonly value="@Model.Birthdate">
+									<label>Birthdate</label>
+									<input class="form-control" readonly value="@Model.Birthdate?.ToString("yyyy-MM-dd")">
 								</div>
 								<div class="form-group col-md-6">
-									<label asp-for="@Model.MiddleName">Middle name</label>
+									<label>Middle name</label>
 									<input class="form-control" readonly value="@Model.MiddleName">
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label asp-for="@Model.Nationality">Nationality</label>
+									<label>Nationality</label>
 									<input class="form-control" readonly value="@Model.Nationality">
 								</div>
 								<div class="form-group col-md-6">
-									<label asp-for="@Model.NationalityCode">Nationality Code</label>
+									<label>Nationality code</label>
 									<input class="form-control" readonly value="@Model.NationalityCode">
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label asp-for="@Model.Gender">Gender</label>
+									<label>Gender</label>
 									<input class="form-control" readonly value="@Model.Gender">
 								</div>
 								<div class="form-group col-md-6">
-									<label asp-for="@Model.Address">Address</label>
+									<label>Address</label>
 									<input class="form-control" readonly value="@Model.Address">
 								</div>
 							</div>
 						</form>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <h3 class="box-title mt-5">Profile Notes</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<h3 class="box-title mt-5">Profile Notes</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
