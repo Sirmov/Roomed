@@ -1,7 +1,9 @@
 ﻿namespace Roomed.Web.ViewModels.Profile
 {
     using System.ComponentModel.DataAnnotations;
+
     using AutoMapper.Configuration.Annotations;
+
     using Roomed.Common.Attribues;
     using Roomed.Data.Models.Enums;
     using Roomed.Services.Data.Dtos.Profile;
@@ -32,7 +34,7 @@
 
         [Required]
         [DataType(DataType.Date)]
-        public DateOnly Birthdate { get; set; }
+        public DateOnly? Birthdate { get; set; }
 
         [Required]
         [EnumDataType(typeof(Gender))]
@@ -44,6 +46,7 @@
 
         [Required]
         [Sanitize]
+        [Display(Name = "Nationality code")]
         public string NationalityCode { get; set; }
 
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
