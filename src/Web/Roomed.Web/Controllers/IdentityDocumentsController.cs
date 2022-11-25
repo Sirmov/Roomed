@@ -10,9 +10,9 @@
     using Roomed.Data.Models;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.IdentityDocument;
-    using Roomed.Services.Data.Dtos.Profile;
     using Roomed.Web.ViewModels.IdentityDocument;
     using Roomed.Web.ViewModels.Profile;
+
     using static Roomed.Common.ControllersActionsConstants;
 
     /// <summary>
