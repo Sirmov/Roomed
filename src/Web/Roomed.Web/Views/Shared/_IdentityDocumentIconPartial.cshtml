@@ -1,0 +1,18 @@
+﻿@using Roomed.Data.Models.Enums;
+
+@using static Roomed.Common.GlobalConstants;
+
+@model IdentityDocumentIconViewModel
+
+@switch (Model.Type)
+{
+	case IdentityDocumentType.DrivingLicense:
+				<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="@DrivingLicenseImagePath" alt="driving-license">
+		break;
+	case IdentityDocumentType.Passport:
+				<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="@PassportImagePath" alt="passport">
+		break;
+	default:
+				<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="@IdImagePath" alt="id-card">
+		break;
+}
