@@ -50,6 +50,17 @@
       "files": [
         "jquery.easing.min.js"
       ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap-select@1.13.18",
+      "destination": "wwwroot/lib/bootstrap-select/",
+      "files": [
+        "js/bootstrap-select.min.js",
+        "css/bootstrap-select.css.map",
+        "css/bootstrap-select.min.css",
+        "js/bootstrap-select.min.js.map"
+      ]
     }
   ]
 }
