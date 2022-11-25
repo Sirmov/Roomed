@@ -29,6 +29,8 @@
 
             var seeders = new List<ISeeder>
                         {
+                            new ApplicationRoleSeeder(),
+                            new ApplicationUserSeeder(),
                             new RoomTypeSeeder(),
                             new RoomSeeder(),
                             new ProfileSeeder(),
