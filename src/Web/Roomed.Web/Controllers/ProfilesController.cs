@@ -55,15 +55,16 @@
         /// </summary>
         /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string? returnUrl)
         {
             var model = new DetailedProfileInputModel();
+            ViewBag.ReturnUrl = returnUrl;
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(DetailedProfileInputModel model)
+        public async Task<IActionResult> Create(string? returnUrl, DetailedProfileInputModel model)
         {
             this.ValidateProfile(ModelState, model);
 
@@ -76,7 +77,15 @@
             var dto = this.mapper.Map<DetailedProfileDto>(model);
             var id = await this.profilesService.CreateDetailedAsync(dto);
 
-            return RedirectToAction(Actions.Details, Controllers.Profiles, new { id = id.ToString() });
+            if (returnUrl != null &&
+                //To do: Uncomment when in production
+                //Url.IsLocalUrl(returnUrl) &&
+                !string.IsNullOrEmpty(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+
+            return RedirectToAction(Actions.Details, new { id = id.ToString() });
         }
 
         [HttpGet]
@@ -111,7 +120,7 @@
             var dto = this.mapper.Map<DetailedProfileDto>(model);
             await this.profilesService.EditAsync(id, dto);
 
-            return RedirectToAction(Actions.Details, Controllers.Profiles, new { id = id.ToString() });
+            return RedirectToAction(Actions.Details, new { id = id.ToString() });
         }
 
         [HttpGet]
