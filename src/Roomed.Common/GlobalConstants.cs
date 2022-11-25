@@ -9,6 +9,14 @@
     {
         public const string CopyrightText = "Copyright © Roomed 2022";
 
+        public const string ManImagePath = "/assets/images/man.png";
+        public const string WomanImagePath = "/assets/images/woman.png";
+        public const string AnonymousImagePath = "/assets/images/anonymous.png";
+
+        public const string IdImagePath = "/assets/images/id-card.png";
+        public const string PassportImagePath = "/assets/images/passport.png";
+        public const string DrivingLicenseImagePath = "/assets/images/driver-license.png";
+
         public static readonly HashSet<string> Nationalities = new HashSet<string>()
         {
             "Afghanistan",

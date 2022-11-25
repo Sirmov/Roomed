@@ -1,16 +1,18 @@
 ﻿@using Roomed.Data.Models.Enums;
 
+@using static Roomed.Common.GlobalConstants;
+
 @model ProfileIconViewModel
 
 @switch (Model.Gender)
 {
 	case Gender.Male:
-		<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="/assets/images/man.png" alt="male">
+		<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="@ManImagePath" alt="male">
 		break;
 	case Gender.Female:
-		<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="/assets/images/woman.png" alt="female">
+		<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="@WomanImagePath" alt="female">
 		break;
 	default:
-		<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="/assets/images/anonymous.png" alt="anonymous">
+		<img class="img rounded border-0" width="@Model.Width" height="@Model.Height" src="@AnonymousImagePath" alt="anonymous">
 		break;
 }
