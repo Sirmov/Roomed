@@ -31,7 +31,7 @@
                                  model="@new IdentityDocumentIconViewModel() { Type = Model.Type, Width = 400, Height = 400}" />
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-6">
-						<form asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Edit">
+						<form id="identity-document-edit-form" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Edit">
 							<div class="form-row">
 								<div class="form-group col">
 									<label asp-for="@Model.Type">Document type <span class="text-danger">*</span></label>
@@ -55,9 +55,9 @@
 											<option value="@profile.Id" selected="@isSelected" data-icon="@icon">@text</option>
 										}
 									</select>
-									<span class="form-text text-primary">
+									<span class="form-text">
 										Can't find the guest. Create him
-										<a asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create"
+										<a id="create-profile-link" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create"
 										   asp-route-ReturnUrl="@Url.ActionLink(Actions.Create, Controllers.IdentityDocuments)">here</a>.
 									</span>
 									<span class="form-text text-danger" asp-validation-for="@Model.OwnerId"></span>
@@ -136,5 +136,6 @@
 </div>
 
 @section Scripts {
+	<script src="~/js/views/identityDocuments/edit.js"></script>
     <partial name="_ValidationScriptsPartial" />
 }

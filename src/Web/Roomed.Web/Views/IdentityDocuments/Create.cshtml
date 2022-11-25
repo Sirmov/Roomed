@@ -13,7 +13,7 @@
 }
 <div>
 	<h1 class="display-4 mb-4 text-center">Create identity document</h1>
-	<form asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Create">
+	<form id="identity-document-form" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Create">
 		<div class="form-row">
 			<div class="form-group col">
 				<label asp-for="@Model.Type">Document type <span class="text-danger">*</span></label>
@@ -36,9 +36,9 @@
 						<option value="@profile.Id" data-icon="@icon">@text</option>
 					}
 				</select>
-				<span class="form-text text-primary">
+				<span class="form-text">
 					Can't find the guest. Create him
-					<a asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create"
+					<a id="create-profile-link" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create"
 					   asp-route-ReturnUrl="@Url.ActionLink(Actions.Create, Controllers.IdentityDocuments)">here</a>.
 				</span>
 				<span class="form-text text-danger" asp-validation-for="@Model.OwnerId"></span>
