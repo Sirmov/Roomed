@@ -16,7 +16,7 @@
         public Task<ICollection<DetailedProfileDto>> GetAllAsync(QueryOptions<DetailedProfileDto>? queryOptions = null);
 
         /// <summary>
-        /// This method asynchronously returns the profile with the coresponding id.
+        /// This method asynchronously returns the profile with the corresponding id.
         /// </summary>
         /// <param name="id">The id of the profile.</param>
         /// <param name="queryOptions">The query options.</param>
@@ -26,17 +26,17 @@
         /// <summary>
         /// This method asynchronously creates a guest profile with detailed data.
         /// </summary>
-        /// <param name="profile">The profile to be created.</param>
+        /// <param name="profileDto">The profile to be created.</param>
         /// <returns>Returns a <see cref="Guid"/> - the id of the newly created entity.</returns>
-        public Task<Guid> CreateDetailedAsync(DetailedProfileDto profile);
+        public Task<Guid> CreateDetailedAsync(DetailedProfileDto profileDto);
 
         /// <summary>
-        /// This method asynchronously updated the profile with the given id with the values of the new profile.
+        /// This method asynchronously updates the profile with the given id with the values of the new profile.
         /// </summary>
         /// <param name="id">The id of the profile to be updated.</param>
-        /// <param name="profile">The new profile.</param>
+        /// <param name="profileDto">The new profile.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
-        public Task EditAsync(Guid id, DetailedProfileDto profile);
+        public Task EditAsync(Guid id, DetailedProfileDto profileDto);
 
         /// <summary>
         /// This method asynchronously deletes the profile with the provided id.

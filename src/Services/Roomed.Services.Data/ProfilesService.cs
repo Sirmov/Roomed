@@ -39,16 +39,16 @@
         }
 
         /// <inheritdoc/>
-        public async Task<Guid> CreateDetailedAsync(DetailedProfileDto profile)
+        public async Task<Guid> CreateDetailedAsync(DetailedProfileDto profileDto)
         {
-            bool isValid = base.ValidateDto(profile);
+            bool isValid = base.ValidateDto(profileDto);
 
             if (!isValid)
             {
-                throw new ArgumentException("Profile model state is not valid.", nameof(profile));
+                throw new ArgumentException("Profile model state is not valid.", nameof(profileDto));
             }
 
-            Profile model = this.mapper.Map<Profile>(profile);
+            Profile model = this.mapper.Map<Profile>(profileDto);
 
             var result = await this.profilesRepository.AddAsync(model);
             await this.profilesRepository.SaveChangesAsync();
