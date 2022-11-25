@@ -1,6 +1,7 @@
 ﻿namespace Roomed.Web.Controllers
 {
     using System.Diagnostics;
+
     using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc;
 
