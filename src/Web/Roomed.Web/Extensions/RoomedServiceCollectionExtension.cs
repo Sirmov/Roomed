@@ -19,6 +19,7 @@
             services.AddScoped<IReservationsService, ReservationsService>();
             services.AddScoped<IIdentityDocumentsService, IdentityDocumentsService>();
             services.AddScoped<IProfilesService, ProfilesService>();
+            services.AddScoped<IRoomsService, RoomsService>();
 
             return services;
         }
