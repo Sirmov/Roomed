@@ -2,6 +2,7 @@ using System.Reflection;
 
 using AutoMapper;
 using Ganss.Xss;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using Roomed.Data;
@@ -90,7 +91,11 @@ internal class Program
         // Add DateOnly and TimeOnly support
         services.AddDateOnlyTimeOnlyStringConverters();
 
-        services.AddControllersWithViews();
+        services.AddControllersWithViews()
+            .AddMvcOptions(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
     }
 
     private static async Task ConfigurePipelineAsync(WebApplication app)
@@ -123,9 +128,17 @@ internal class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.MapControllerRoute(
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            endpoints.MapControllerRoute(
+              name: "areas",
+              pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+        });
+
         app.MapRazorPages();
     }
 }
