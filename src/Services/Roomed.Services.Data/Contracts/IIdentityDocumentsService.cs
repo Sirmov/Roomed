@@ -2,8 +2,6 @@
 {
     using Roomed.Services.Data.Common;
     using Roomed.Services.Data.Dtos.IdentityDocument;
-    using Roomed.Services.Data.Dtos.Profile;
-    using Roomed.Services.Data.Dtos.Reservation;
 
     /// <summary>
     /// This interface is used to state and document the identity documents data service functionality.
