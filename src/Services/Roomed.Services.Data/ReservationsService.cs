@@ -22,17 +22,23 @@
     public class ReservationsService : BaseService<Reservation, Guid>, IReservationsService
     {
         private readonly IDeletableEntityRepository<Reservation, Guid> reservationsRepository;
+        private readonly IRoomsService roomsService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReservationsService"/> class.
         /// Uses constructor injection to resolve dependencies.
         /// </summary>
         /// <param name="reservationRepository">The <see cref="Reservation"/> database repository.</param>
+        /// <param name="roomsService">The rooms data service.</param>
         /// <param name="mapper">The global auto mapper.</param>
-        public ReservationsService(IDeletableEntityRepository<Reservation, Guid> reservationRepository, IMapper mapper)
+        public ReservationsService(
+            IDeletableEntityRepository<Reservation, Guid> reservationRepository,
+            IRoomsService roomsService,
+            IMapper mapper)
             : base(reservationRepository, mapper)
         {
             this.reservationsRepository = reservationRepository;
+            this.roomsService = roomsService;
         }
 
         /// <inheritdoc/>
@@ -45,13 +51,13 @@
 
             var guid = Guid.Parse(id);
 
-            return await base.GetAsync(guid, queryOptions ?? new ());
+            return await base.GetAsync(guid, queryOptions ?? new());
         }
 
         /// <inheritdoc/>
         public async Task<ICollection<ReservationDto>> GetAllAsync(QueryOptions<ReservationDto>? queryOptions = null)
         {
-            return await base.GetAllAsync(queryOptions ?? new ());
+            return await base.GetAllAsync(queryOptions ?? new());
         }
 
         /// <inheritdoc />
@@ -97,6 +103,41 @@
         }
 
         /// <inheritdoc />
-        public Task CreateReservationAsync() => throw new NotImplementedException();
+        public async Task<Guid> CreateReservationAsync(ReservationDto reservationDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        ///// <inheritdoc/>
+        // public async Task<ICollection<ReservationDto>> GetAllOccupiedReservationsFromDateAsync(DateOnly date)
+        // {
+        //     var reservations = await this.reservationsRepository
+        //         .All()
+        //         .Include(r => r.ReservationDays)
+        //         .ProjectTo<ReservationDto>(this.mapper.ConfigurationProvider)
+        //         .Where(r => (r.Status == ReservationStatus.Arriving ||
+        //                     r.Status == ReservationStatus.InHouse ||
+        //                     r.Status == ReservationStatus.Departuring) &&
+        //                     r.ReservationDays
+        //                     .Any(rd => rd.Date == date))
+        //         .ToListAsync();
+        //     return reservations;
+        // }
+
+        ///// <inheritdoc/>
+        // public async Task<ICollection<ReservationDto>> GetAllOccupiedReservationsFromDateAsync(DateOnly startDate, DateOnly endDate)
+        // {
+        //     var reservations = await this.reservationsRepository
+        //         .All()
+        //         .Include(r => r.ReservationDays)
+        //        .ProjectTo<ReservationDto>(this.mapper.ConfigurationProvider)
+        //         .Where(r => (r.Status == ReservationStatus.Arriving ||
+        //                     r.Status == ReservationStatus.InHouse ||
+        //                     r.Status == ReservationStatus.Departuring) &&
+        //                     r.ReservationDays
+        //                     .Any(rd => rd.Date >= startDate && rd.Date <= endDate))
+        //         .ToListAsync();
+        //     return reservations;
+        // }
     }
 }
