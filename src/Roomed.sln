@@ -5,31 +5,33 @@ VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{02708C33-D1FA-4C8C-9A6D-D9CF15FA317E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{AD48B622-8E24-4454-9231-F814A288E7F3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Data", "Data\Roomed.Data\Roomed.Data.csproj", "{193B4B40-8456-4DE7-AAC8-FF765B1CE78C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Data.Common", "Data\Roomed.Data.Common\Roomed.Data.Common.csproj", "{EC95456A-B4E7-4536-BE58-D78CD74A4673}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Data.Models", "Data\Roomed.Data.Models\Roomed.Data.Models.csproj", "{5ABC1F61-0C53-4FA1-86F6-82877C6931EE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{AD48B622-8E24-4454-9231-F814A288E7F3}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Services.Data", "Services\Roomed.Services.Data\Roomed.Services.Data.csproj", "{20C783D0-E956-4E98-A67C-CC0C68F00E97}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Services.Mapping", "Services\Roomed.Services.Mapping\Roomed.Services.Mapping.csproj", "{B8236BC5-5AE8-4D86-963F-AB706DBBCD8A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Common", "Roomed.Common\Roomed.Common.csproj", "{B30BAC3E-B12D-48DF-A2A2-8F1F2E12C59D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Web", "Web\Roomed.Web\Roomed.Web.csproj", "{60A45F55-5AC3-4C66-B64A-301296FAC4F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomed.Services.Json", "Services\Roomed.Services.Json\Roomed.Services.Json.csproj", "{8C01147F-923F-4394-A100-D22E2558C6C6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{60977292-2337-41EC-81B7-CD603B9D8AA9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Web.ViewModels", "Web\Roomed.Web.ViewModels\Roomed.Web.ViewModels.csproj", "{965AF17D-15A9-474F-8CD7-75FF1E2E7821}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Tests\Sandbox\Sandbox.csproj", "{A777D939-AB46-45D7-A715-B9E15A0E4FED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Web", "Web\Roomed.Web\Roomed.Web.csproj", "{60A45F55-5AC3-4C66-B64A-301296FAC4F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0B699F47-389C-43DE-929D-A5941C324E9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomed.Services.Json", "Services\Roomed.Services.Json\Roomed.Services.Json.csproj", "{8C01147F-923F-4394-A100-D22E2558C6C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomed.Services.Data.Tests", "D:\Programming\Repos\Roomed\src\Tests\Roomed.Services.Data.Tests\Roomed.Services.Data.Tests.csproj", "{3A583C4C-6728-483B-BF25-E689A69D4A99}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Tests\Sandbox\Sandbox.csproj", "{A777D939-AB46-45D7-A715-B9E15A0E4FED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Common", "Roomed.Common\Roomed.Common.csproj", "{B30BAC3E-B12D-48DF-A2A2-8F1F2E12C59D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{8C01147F-923F-4394-A100-D22E2558C6C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C01147F-923F-4394-A100-D22E2558C6C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C01147F-923F-4394-A100-D22E2558C6C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A583C4C-6728-483B-BF25-E689A69D4A99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A583C4C-6728-483B-BF25-E689A69D4A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A583C4C-6728-483B-BF25-E689A69D4A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A583C4C-6728-483B-BF25-E689A69D4A99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,10 +93,11 @@ Global
 		{5ABC1F61-0C53-4FA1-86F6-82877C6931EE} = {02708C33-D1FA-4C8C-9A6D-D9CF15FA317E}
 		{20C783D0-E956-4E98-A67C-CC0C68F00E97} = {AD48B622-8E24-4454-9231-F814A288E7F3}
 		{B8236BC5-5AE8-4D86-963F-AB706DBBCD8A} = {AD48B622-8E24-4454-9231-F814A288E7F3}
+		{8C01147F-923F-4394-A100-D22E2558C6C6} = {AD48B622-8E24-4454-9231-F814A288E7F3}
+		{A777D939-AB46-45D7-A715-B9E15A0E4FED} = {0B699F47-389C-43DE-929D-A5941C324E9A}
+		{3A583C4C-6728-483B-BF25-E689A69D4A99} = {0B699F47-389C-43DE-929D-A5941C324E9A}
 		{60A45F55-5AC3-4C66-B64A-301296FAC4F0} = {60977292-2337-41EC-81B7-CD603B9D8AA9}
 		{965AF17D-15A9-474F-8CD7-75FF1E2E7821} = {60977292-2337-41EC-81B7-CD603B9D8AA9}
-		{A777D939-AB46-45D7-A715-B9E15A0E4FED} = {0B699F47-389C-43DE-929D-A5941C324E9A}
-		{8C01147F-923F-4394-A100-D22E2558C6C6} = {AD48B622-8E24-4454-9231-F814A288E7F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58B2A3AB-7DEA-49FC-919F-1AA1E81D98FE}
