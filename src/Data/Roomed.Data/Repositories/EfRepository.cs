@@ -103,16 +103,36 @@
         }
 
         /// <inheritdoc/>
-        public virtual EntityEntry<TEntity> Add(TEntity entity) => this.DbSet.Add(entity);
+        public virtual EntityEntry<TEntity> Add(TEntity entity)
+        {
+            entity.CreatedOn = DateTime.UtcNow;
+            return this.DbSet.Add(entity);
+        }
 
         /// <inheritdoc/>
-        public virtual Task<EntityEntry<TEntity>> AddAsync(TEntity entity) => this.DbSet.AddAsync(entity).AsTask();
+        public virtual async Task<EntityEntry<TEntity>> AddAsync(TEntity entity)
+        {
+            entity.CreatedOn = DateTime.UtcNow;
+            return await this.DbSet.AddAsync(entity);
+        }
 
         /// <inheritdoc/>
-        public virtual void AddRange(IEnumerable<TEntity> entities) => this.DbSet.AddRange(entities);
+        public virtual void AddRange(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                this.Add(entity);
+            }
+        }
 
         /// <inheritdoc/>
-        public virtual Task AddRangeAsync(IEnumerable<TEntity> entities) => this.DbSet.AddRangeAsync(entities);
+        public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                await this.AddAsync(entity);
+            }
+        }
 
         /// <inheritdoc/>
         public virtual void Update(TEntity entity)
@@ -123,6 +143,8 @@
             {
                 this.DbSet.Attach(entity);
             }
+
+            entry.Entity.ModifiedOn = DateTime.UtcNow;
 
             entry.State = EntityState.Modified;
         }
@@ -142,7 +164,13 @@
         }
 
         /// <inheritdoc/>
-        public virtual void UpdateRange(IEnumerable<TEntity> entities) => this.DbSet.UpdateRange(entities);
+        public virtual void UpdateRange(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                this.Update(entity);
+            }
+        }
 
         /// <inheritdoc/>
         public virtual void Delete(TEntity entity)
