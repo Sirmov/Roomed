@@ -13,7 +13,7 @@
 
         private ApplicationDbContext dbContext;
 
-        [OneTimeSetUp]
+        [SetUp]
         public async Task OneTimeSetup()
         {
             this.guids = new string[]
@@ -38,9 +38,10 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public async Task OneTimeTearDown()
         {
+            await this.dbContext.Database.EnsureDeletedAsync();
             await this.dbContext.DisposeAsync();
         }
 
