@@ -1,41 +1,21 @@
 ﻿namespace Roomed.Data.Tests
 {
     using Microsoft.EntityFrameworkCore;
+
     using Roomed.Data.Models;
     using Roomed.Data.Repositories;
+
+    using static Roomed.Tests.Common.TestsSetUp;
 
     [TestFixture]
     public class Tests
     {
-        private ReservationNote[] reservationNotes;
-        private string[] guids;
-        private string[] bodies;
-
         private ApplicationDbContext dbContext;
 
         [SetUp]
         public async Task OneTimeSetup()
         {
-            this.guids = new string[]
-                { "2bfff802-5afb-4bbb-96b3-27c98161ff00", "bb2f7b6c-d8d9-4e2c-b14b-3bd98e18ad86", "08bd1b0d-15fd-4d2e-9f59-979d09da1133" };
-            this.bodies = new string[]
-                { "Reservation note #1", "Reservation note #2", "Reservation note #3" };
-            this.reservationNotes = new ReservationNote[this.guids.Length];
-
-            for (int i = 0; i < this.guids.Length; i++)
-            {
-                var id = Guid.Parse(this.guids[i]);
-                var body = this.bodies[i];
-                this.reservationNotes[i] = new ReservationNote() { Id = id, Body = body };
-            }
-
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("RoomedInMemory")
-                .Options;
-
-            this.dbContext = new ApplicationDbContext(options);
-            await this.dbContext.AddRangeAsync(reservationNotes);
-            await this.dbContext.SaveChangesAsync();
+            this.dbContext = await InitializeDbContextAsync();
         }
 
         [TearDown]
@@ -58,9 +38,11 @@
 
             // Assert
             Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
-            Assert.That(entities, Has.Exactly(this.reservationNotes.Count()).Items, "Entities count is not correct.");
-            Assert.That(entities.Select(e => e.Id.ToString()), Is.EquivalentTo(this.guids), "Entities have incorrect ids.");
-            Assert.That(entities.Select(e => e.Body), Is.EquivalentTo(this.bodies), "Entities have incorrect data.");
+            Assert.That(entities, Has.Exactly(this.dbContext.ReservationNotes.Count()).Items, "Entities count is not correct.");
+            Assert.That(entities.Select(e => e.Id),
+                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Id)), "Entities have incorrect ids.");
+            Assert.That(entities.Select(e => e.Body),
+                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Body)), "Entities have incorrect data.");
             Assert.That(entities, Has.All.Matches<ReservationNote>(rn =>
             {
                 var entityState = this.dbContext.Entry(rn).State;
@@ -80,9 +62,11 @@
 
             // Assert
             Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
-            Assert.That(entities, Has.Exactly(this.reservationNotes.Count()).Items, "Entities count is not correct.");
-            Assert.That(entities.Select(e => e.Id.ToString()), Is.EquivalentTo(this.guids), "Entities have incorrect ids.");
-            Assert.That(entities.Select(e => e.Body), Is.EquivalentTo(this.bodies), "Entities have incorrect data.");
+            Assert.That(entities, Has.Exactly(this.dbContext.ReservationNotes.Count()).Items, "Entities count is not correct.");
+            Assert.That(entities.Select(e => e.Id),
+                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Id)), "Entities have incorrect ids.");
+            Assert.That(entities.Select(e => e.Body),
+                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Body)), "Entities have incorrect data.");
         }
 
         [Test]

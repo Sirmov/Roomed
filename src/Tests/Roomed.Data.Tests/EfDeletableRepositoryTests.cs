@@ -5,41 +5,17 @@
     using Roomed.Data.Models;
     using Roomed.Data.Repositories;
 
+    using static Roomed.Tests.Common.TestsSetUp;
+
     [TestFixture]
     public class EfDeletableRepositoryTests
     {
-        private ReservationNote[] reservationNotes;
-        private string[] guids;
-        private string[] bodies;
-        private bool[] isDeleted;
-
         private ApplicationDbContext dbContext;
 
         [SetUp]
         public async Task Setup()
         {
-            this.guids = new string[]
-                { "2bfff802-5afb-4bbb-96b3-27c98161ff00", "bb2f7b6c-d8d9-4e2c-b14b-3bd98e18ad86", "08bd1b0d-15fd-4d2e-9f59-979d09da1133" };
-            this.bodies = new string[]
-                { "Reservation note #1", "Reservation note #2", "Reservation note #3" };
-            this.isDeleted = new bool[] { false, true, false };
-            this.reservationNotes = new ReservationNote[this.guids.Length];
-
-            for (int i = 0; i < this.guids.Length; i++)
-            {
-                var id = Guid.Parse(this.guids[i]);
-                var body = this.bodies[i];
-                var isDeleted = this.isDeleted[i];
-                this.reservationNotes[i] = new ReservationNote() { Id = id, Body = body, IsDeleted = isDeleted };
-            }
-
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("RoomedInMemory")
-                .Options;
-
-            this.dbContext = new ApplicationDbContext(options);
-            await this.dbContext.AddRangeAsync(reservationNotes);
-            await this.dbContext.SaveChangesAsync();
+            this.dbContext = await InitializeDbContextAsync();
         }
 
         [TearDown]
@@ -75,8 +51,9 @@
             var entities = await repository.All().ToListAsync();
 
             // Assert
-            Assert.That(entities.Count, Is.EqualTo(2));
-            Assert.That(entities.Any(rn => rn.Id.ToString() == this.guids[1]), Is.False);
+            Assert.That(entities.Count,
+                Is.EqualTo(this.dbContext.ReservationNotes.Count(x => !x.IsDeleted)), "Entities count is not correct.");
+            Assert.That(entities.Any(rn => rn.IsDeleted), Is.False, "Only not deleted entities should be returned");
         }
 
         [Test]
@@ -89,9 +66,9 @@
             var entities = await repository.All(rn => rn.Body.Contains("Reservation note")).ToListAsync();
 
             // Assert
-            Assert.That(entities.Count, Is.EqualTo(2));
-            Assert.That(entities.Any(rn => rn.Id.ToString() == this.guids[1]), Is.False);
-            Assert.That(entities.Any(rn => rn.Body == this.bodies[1]), Is.False);
+            Assert.That(entities.Count,
+                Is.EqualTo(this.dbContext.ReservationNotes.Count(x => !x.IsDeleted)), "Entities count is not correct.");
+            Assert.That(entities.Any(rn => rn.IsDeleted), Is.False, "Only not deleted entities should be returned");
         }
 
         [Test]
@@ -104,9 +81,9 @@
             var entities = await repository.All(rn => rn.Body.Contains("Reservation note"), true).ToListAsync();
 
             // Assert
-            Assert.That(entities.Count, Is.EqualTo(2));
-            Assert.That(entities.Any(rn => rn.Id.ToString() == this.guids[1]), Is.False);
-            Assert.That(entities.Any(rn => rn.Body == this.bodies[1]), Is.False);
+            Assert.That(entities.Count,
+                Is.EqualTo(this.dbContext.ReservationNotes.Count(x => !x.IsDeleted)), "Entities count is not correct.");
+            Assert.That(entities.Any(rn => rn.IsDeleted), Is.False, "Only not deleted entities should be returned");
             Assert.That(entities.All(rn => this.dbContext.Entry(rn).State == EntityState.Detached), Is.True);
         }
 
