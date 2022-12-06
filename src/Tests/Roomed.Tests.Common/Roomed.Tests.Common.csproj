@@ -7,11 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.10" />
+    <PackageReference Include="Moq" Version="4.18.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Roomed.Data\Roomed.Data.csproj" />
+    <ProjectReference Include="..\..\Services\Roomed.Services.Data\Roomed.Services.Data.csproj" />
   </ItemGroup>
 
 </Project>
