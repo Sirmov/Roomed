@@ -38,7 +38,7 @@
         }
 
         /// <inheritdoc/>
-        public virtual async Task<ICollection<TDto>> GetAllAsync<TDto>(QueryOptions<TDto> queryOptions)
+        public virtual async Task<ICollection<TDto>> GetAllAsync<TDto>(QueryOptions<TDto>? queryOptions = null)
         {
             var query = this.entityRepository
                 .All(queryOptions?.IsReadOnly ?? false, queryOptions?.WithDeleted ?? false)
@@ -52,7 +52,7 @@
         }
 
         /// <inheritdoc/>
-        public virtual async Task<TDto> GetAsync<TDto>(TKey id, QueryOptions<TDto> queryOptions)
+        public virtual async Task<TDto> GetAsync<TDto>(TKey id, QueryOptions<TDto>? queryOptions = null)
         {
             if (id == null)
             {
