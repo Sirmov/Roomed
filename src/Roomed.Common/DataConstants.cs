@@ -102,6 +102,7 @@
         /// </summary>
         public static class ReservationNote
         {
+            public const int BodyMinLength = 5;
             public const int BodyMaxLength = 500;
         }
 
@@ -110,6 +111,7 @@
         /// </summary>
         public static class ProfileNote
         {
+            public const int BodyMinLength = 5;
             public const int BodyMaxLength = 500;
         }
     }
