@@ -5,8 +5,6 @@
     using Roomed.Data.Models;
     using Roomed.Data.Repositories;
 
-    using static Roomed.Tests.Common.TestsSetUp;
-
     [TestFixture]
     public class EfDeletableRepositoryTests
     {

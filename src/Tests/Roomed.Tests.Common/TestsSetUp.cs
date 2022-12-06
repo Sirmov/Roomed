@@ -1,11 +1,20 @@
 ﻿namespace Roomed.Tests.Common
 {
+    using AutoMapper;
     using Microsoft.EntityFrameworkCore;
+    using Moq;
     using Roomed.Data;
+    using Roomed.Data.Common.Repositories;
     using Roomed.Data.Models;
+    using Roomed.Services.Data.Dtos.Reservation;
+    using Roomed.Services.Mapping;
+    using System.Reflection;
+    using System.Runtime.CompilerServices;
 
     public static class TestsSetUp
     {
+        private static ApplicationDbContext DbContext;
+
         private static readonly ICollection<ReservationNote> reservationNotes = new List<ReservationNote>
         {
             new ReservationNote()
@@ -44,7 +53,48 @@
             await dbContext.AddRangeAsync(reservationNotes);
             await dbContext.SaveChangesAsync();
 
+            DbContext = dbContext;
             return dbContext;
+        }
+
+        public static IMapper GetMapper()
+        {
+            var asseblies = new Assembly[]
+            {
+                typeof(ReservationDto).GetTypeInfo().Assembly,
+            };
+            AutoMapperConfig.RegisterMappings(asseblies);
+
+            var mapper = AutoMapperConfig.MapperInstance;
+            return mapper;
+        }
+
+        public static IDeletableEntityRepository<ReservationNote, Guid> GetReservationNotesRepository()
+        {
+            var mock = new Mock<IDeletableEntityRepository<ReservationNote, Guid>>();
+            mock.Setup(m => m.All(It.IsAny<bool>(), It.IsAny<bool>()))
+                .Returns((bool isReadonly, bool withDeleted) =>
+                {
+                    var query = DbContext.Set<ReservationNote>().AsQueryable();
+
+                    if (isReadonly)
+                    {
+                        query = query.AsNoTracking();
+                    }
+
+                    if (!withDeleted)
+                    {
+                        query = query.Where(e => !e.IsDeleted);
+                    }
+
+                    return query;
+                });
+
+            mock.Setup(m => m.FindAsync(It.IsAny<Guid>(), It.IsAny<bool>()).Result)
+                .Returns(async (Guid id, bool isReadonly) => await DbContext.Set<ReservationNote>().FindAsync(id));
+
+            var repository = mock.Object;
+            return repository;
         }
     }
 }
