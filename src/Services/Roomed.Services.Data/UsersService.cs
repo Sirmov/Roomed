@@ -1,9 +1,10 @@
 ﻿namespace Roomed.Services.Data
 {
+    using System.Collections.Generic;
     using System.Security.Claims;
 
     using Microsoft.AspNetCore.Identity;
-
+    using Microsoft.EntityFrameworkCore;
     using Roomed.Data.Models;
     using Roomed.Services.Data.Contracts;
 
@@ -193,6 +194,12 @@
             user.Email = email;
             user.UserName = username;
             return user;
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<TUser>> GetAllUsersAsync()
+        {
+            return await this.userManager.Users.ToListAsync();
         }
     }
 }

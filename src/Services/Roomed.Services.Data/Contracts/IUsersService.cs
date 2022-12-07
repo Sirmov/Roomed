@@ -11,6 +11,12 @@
         where TUser : ApplicationUser, new()
     {
         /// <summary>
+        /// This method returns all registered users asynchronously.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/> with a collection of all <typeparamref name="TUser"/> users.</returns>
+        public Task<IEnumerable<TUser>> GetAllUsersAsync();
+
+        /// <summary>
         /// This method creates a user with the specified email, username and password, adds it to the database and returns the result.
         /// </summary>
         /// <param name="email">The email of the user.</param>
