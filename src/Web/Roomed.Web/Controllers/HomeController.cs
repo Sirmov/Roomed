@@ -3,11 +3,12 @@
     using System.Diagnostics;
 
     using Ganss.Xss;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Roomed.Web.ViewModels;
 
-    using static Roomed.Common.ControllersActionsConstants;
+    using static Roomed.Common.AreasControllersActionsConstants;
 
     /// <summary>
     /// A MVC controller inheriting <see cref="BaseController"/>.
@@ -26,7 +27,18 @@
         /// <returns>Returns <see cref="IActionResult"/>.</returns>
         public IActionResult Index()
         {
-            return RedirectToAction(Actions.Index, Controllers.Reservations);
+            return RedirectToAction(Actions.Index, Controllers.Reservations, new { area = string.Empty });
+        }
+
+        /// <summary>
+        /// This method returns the not implemented page.
+        /// </summary>
+        /// <returns>Returns <see cref="IActionResult"/>.</returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult NotImplemented()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
