@@ -8,7 +8,7 @@
     using Roomed.Services.Data.Contracts;
     using Roomed.Web.ViewModels.User;
 
-    using static Roomed.Common.ControllersActionsConstants;
+    using static Roomed.Common.AreasControllersActionsConstants;
 
     /// <summary>
     /// A MVC controller inheriting <see cref="BaseController"/>.
@@ -96,6 +96,17 @@
             }
 
             return RedirectToAction(Actions.Login);
+        }
+
+        /// <summary>
+        /// This method returns the access denied page.
+        /// </summary>
+        /// <returns>Return <see cref="IActionResult"/>.</returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
