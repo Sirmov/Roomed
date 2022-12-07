@@ -24,6 +24,7 @@
             public const string Reservations = "Reservations";
             public const string IdentityDocuments = "IdentityDocuments";
             public const string Profiles = "Profiles";
+            public const string Users = "Users";
         }
 
         /// <summary>

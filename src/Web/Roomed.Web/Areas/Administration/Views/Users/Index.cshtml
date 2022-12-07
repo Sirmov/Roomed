@@ -1,0 +1,56 @@
+﻿@using Roomed.Data.Models;
+
+@using static Roomed.Common.GlobalConstants;
+
+@model IEnumerable<ApplicationUser>
+
+@{
+	ViewData["Title"] = "Users";
+}
+
+@section Topbar {
+	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Users" asp-action="@Actions.Create">Create user</a>
+	<a class="btn btn-warning btn-sm rounded-pill" asp-area="" asp-controller="@Controllers.Home" asp-action="@Actions.NotImplemented">Search</a>
+}
+
+<div class="text-center">
+	<h1 class="display-4 mb-4">Users</h1>
+	@foreach (var profile in Model)
+	{
+		<div class="card rounded-lg mb-3">
+			<div class="card-header text-dark">
+				<b>@profile.Email</b>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col col-auto text-center">
+						<img class="img rounded border-0" width="50" height="50" src="@AnonymousImagePath" alt="anonymous">
+					</div>
+					<div class="col col align-self-center text-left">
+						<form class="form-inline" asp-area="@Areas.Administration" asp-controller="@Controllers.Users" asp-action="@Actions.Edit">
+							<div class="form-group mr-1">
+								<label class="mr-1 font-weight-bold" asp-for="@profile.Email">Email</label>
+								<input class="form-control" value="@profile.Email" asp-for="@profile.Email">
+								<span class="form-text text-danger" asp-validation-for="@profile.Email"></span>
+							</div>
+
+							<div class="form-group mr-1">
+								<label class="mr-1 font-weight-bold" asp-for="@profile.UserName">Username</label>
+								<input class="form-control" value="@profile.UserName" asp-for="@profile.UserName">
+								<span class="form-text text-danger" asp-validation-for="@profile.UserName"></span>
+							</div>
+
+							<div class="form-group">
+								<label class="mr-1 font-weight-bold" asp-for="@profile.PhoneNumber">Phone number</label>
+								<input class="form-control" value="@profile.PhoneNumber" asp-for="@profile.PhoneNumber">
+								<span class="form-text text-danger text-danger" asp-validation-for="@profile.PhoneNumber"></span>
+							</div>
+
+							<button type="submit" class="btn btn-warning ml-2">Edit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</div>
