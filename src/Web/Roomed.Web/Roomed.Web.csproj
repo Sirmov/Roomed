@@ -57,14 +57,8 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Areas\Administration\Views\Shared\Error.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Administration\Views\Shared\_CleanLayout.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Administration\Views\Shared\_DashboardLayout.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Administration\Views\Shared\_ValidationScriptsPartial.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Administration\Views\User\Login.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Areas\Administration\Views\Shared\_CleanLayout.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,10 +71,6 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Areas\Administration\Views\Shared\Error.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Areas\Administration\Views\User\Login.cshtml" />
   </ItemGroup>
 
 </Project>
