@@ -1,5 +1,13 @@
-﻿@using static Roomed.Common.GlobalConstants
+﻿@using Microsoft.AspNetCore.Authorization;
+
+@using static Roomed.Common.GlobalConstants
 @using static Roomed.Common.AreasControllersActionsConstants
+
+@inject IAuthorizationService authorizationService
+
+@{
+	var isInFrontOffice = (await authorizationService.AuthorizeAsync(User, "FrontOffice")).Succeeded;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +21,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/Roomed.Web.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/administration.css" asp-append-version="true" />
 </head>
 <body id="page-top">
 
@@ -20,7 +29,7 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
+		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="@Areas.Administration" asp-controller="@Controllers.Home" asp-action="@Actions.Index">
@@ -42,44 +51,15 @@
 			</li>
 
 			<!-- Nav Item - FrontOffice -->
-			<li class="nav-item active">
-				<a class="nav-link btn-primary" asp-area="" asp-controller="@Controllers.Home" asp-action="@Actions.Index">
-					<i class="fa-solid fa-bell-concierge"></i>
-					<span>Front office</span>
-				</a>
-			</li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-
-			<!-- Heading -->
-			<div class="sidebar-heading">
-				Exmaple use
-			</div>
-
-			<!-- Nav Item - Collapse Menu -->
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse{n}"
-				   aria-expanded="true" aria-controls="collapse{n}">
-					<i class="fas fa-fw fa-cog"></i>
-					<span>Collapse nav item</span>
-				</a>
-				<div id="collapse{n}" class="collapse" aria-labelledby="heading{n}" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Collapse title:</h6>
-						<a class="collapse-item" href="buttons.html">Collapse option 1</a>
-						<a class="collapse-item" href="cards.html">Collapse option 2</a>
-					</div>
-				</div>
-			</li>
-
-			<!-- Nav Item - Tables -->
-			<li class="nav-item">
-				<a class="nav-link" href="tables.html">
-					<i class="fas fa-fw fa-table"></i>
-					<span>Nav item</span>
-				</a>
-			</li>
+			@if (isInFrontOffice)
+			{
+				<li class="nav-item active">
+					<a class="nav-link btn-primary" asp-area="" asp-controller="@Controllers.Home" asp-action="@Actions.Index">
+						<i class="fa-solid fa-bell-concierge"></i>
+						<span>Front office</span>
+					</a>
+				</li>
+			}
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -89,45 +69,27 @@
 				Hotel
 			</div>
 
-			<!-- Nav Item - Reservations Collapse Menu -->
+			<!-- Nav Item - Profiles -->
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReservations"
-				   aria-expanded="true" aria-controls="collapseReservations">
-					<i class="fa-regular fa-calendar"></i>
-					<span>Reservations</span>
+				<a class="nav-link" asp-area="@Areas.Administration" asp-controller="@Controllers.Users" asp-action="@Actions.Index">
+					<i class="fa-solid fa-user"></i>
+					<span>Users</span>
 				</a>
-				<div id="collapseReservations" class="collapse" aria-labelledby="headingReservations" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">By status</h6>
-						<a class="collapse-item" href="tables.html">
-							<i class="fa-solid fa-plane-arrival"></i>
-							<span>Arriving</span>
-						</a>
-						<a class="collapse-item" href="tables.html">
-							<i class="fa-solid fa-hotel"></i>
-							<span>In house</span>
-						</a>
-						<a class="collapse-item" href="tables.html">
-							<i class="fa-solid fa-plane-departure"></i>
-							<span>Departing</span>
-						</a>
-					</div>
-				</div>
 			</li>
 
 			<!-- Nav Item - Profiles -->
 			<li class="nav-item">
 				<a class="nav-link" asp-area="@Areas.Administration" asp-controller="@Controllers.Profiles" asp-action="@Actions.Index">
-					<i class="fa-solid fa-user"></i>
-					<span>Profiles</span>
+					<i class="fa-solid fa-door-closed"></i>
+					<span>Rooms</span>
 				</a>
 			</li>
 
 			<!-- Nav Item - Profiles -->
 			<li class="nav-item">
 				<a class="nav-link" asp-area="@Areas.Administration" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Index">
-					<i class="fa-solid fa-id-card"></i>
-					<span>Identity documents</span>
+					<i class="fa-solid fa-mountain-sun"></i>
+					<span>Room types</span>
 				</a>
 			</li>
 

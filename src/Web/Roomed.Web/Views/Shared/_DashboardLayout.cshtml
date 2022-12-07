@@ -1,5 +1,13 @@
-﻿@using static Roomed.Common.GlobalConstants
+﻿@using Microsoft.AspNetCore.Authorization;
+
+@using static Roomed.Common.GlobalConstants
 @using static Roomed.Common.AreasControllersActionsConstants
+
+@inject IAuthorizationService authorizationService
+
+@{
+	var isInAdministration = (await authorizationService.AuthorizeAsync(User, "Administration")).Succeeded;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,44 +50,15 @@
 			</li>
 
 			<!-- Nav Item - Administration -->
-			<li class="nav-item active">
-				<a class="nav-link btn-danger" asp-area="@Areas.Administration" asp-controller="@Controllers.Home" asp-action="@Actions.Index">
-					<i class="fa-solid fa-briefcase"></i>
-					<span>Administration</span>
-				</a>
-			</li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-
-			<!-- Heading -->
-			<div class="sidebar-heading">
-				Exmaple use
-			</div>
-
-			<!-- Nav Item - Collapse Menu -->
-			<li class="nav-item">
-				<a class="nav-link collapsed" data-toggle="collapse" data-target="#collapse{n}"
-					aria-expanded="true" aria-controls="collapse{n}">
-					<i class="fas fa-fw fa-cog"></i>
-					<span>Collapse nav item</span>
-				</a>
-				<div id="collapse{n}" class="collapse" aria-labelledby="heading{n}" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Collapse title:</h6>
-						<a class="collapse-item" href="buttons.html">Collapse option 1</a>
-						<a class="collapse-item" href="cards.html">Collapse option 2</a>
-					</div>
-				</div>
-			</li>
-
-			<!-- Nav Item - Tables -->
-			<li class="nav-item">
-				<a class="nav-link" href="tables.html">
-					<i class="fas fa-fw fa-table"></i>
-					<span>Nav item</span>
-				</a>
-			</li>
+			@if (isInAdministration)
+			{
+				<li class="nav-item active">
+					<a class="nav-link btn-danger" asp-area="@Areas.Administration" asp-controller="@Controllers.Home" asp-action="@Actions.Index">
+						<i class="fa-solid fa-briefcase"></i>
+						<span>Administration</span>
+					</a>
+				</li>
+			}
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -123,7 +102,7 @@
 				</a>
 			</li>
 
-			<!-- Nav Item - Profiles -->
+			<!-- Nav Item - Documents -->
 			<li class="nav-item">
 				<a class="nav-link" asp-area="" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Index">
 					<i class="fa-solid fa-id-card"></i>
