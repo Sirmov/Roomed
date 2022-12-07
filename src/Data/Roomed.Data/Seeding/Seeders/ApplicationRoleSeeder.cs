@@ -27,6 +27,12 @@
                 NormalizedName = "HOTELSMANAGER",
             };
 
+            var administratorRole = new ApplicationRole()
+            {
+                Name = "Administrator",
+                NormalizedName = "ADMINISTRATOR",
+            };
+
             if (!await roleManager.RoleExistsAsync("Receptionist"))
             {
                 await roleManager.CreateAsync(receptionistRole);
@@ -35,6 +41,11 @@
             if (!await roleManager.RoleExistsAsync("HotelsManager"))
             {
                 await roleManager.CreateAsync(hotelsManagerRole);
+            }
+
+            if (!await roleManager.RoleExistsAsync("Administrator"))
+            {
+                await roleManager.CreateAsync(administratorRole);
             }
         }
     }

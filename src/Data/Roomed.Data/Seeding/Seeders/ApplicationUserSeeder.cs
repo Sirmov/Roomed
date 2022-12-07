@@ -54,6 +54,31 @@
             {
                 await userManager.AddToRoleAsync(user, "HotelsManager");
             }
+
+            ApplicationUser administrator = new ApplicationUser()
+            {
+                Email = "administrator@mail.com",
+                UserName = "administrator",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString(),
+            };
+
+            if (await userManager.FindByEmailAsync("administrator@mail.com") == null)
+            {
+                await userManager.CreateAsync(administrator, "administrator123");
+            }
+
+            user = await userManager.FindByEmailAsync("administrator@mail.com");
+
+            if (!await userManager.IsInRoleAsync(user, "Administrator"))
+            {
+                await userManager.AddToRoleAsync(user, "Administrator");
+            }
+
+            if (!await userManager.IsInRoleAsync(user, "HotelsManager"))
+            {
+                await userManager.AddToRoleAsync(user, "HotelsManager");
+            }
         }
     }
 }
