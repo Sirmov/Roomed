@@ -10,7 +10,7 @@
     using Roomed.Services.Data.Dtos.Profile;
     using Roomed.Web.ViewModels.Profile;
 
-    using static Roomed.Common.ControllersActionsConstants;
+    using static Roomed.Common.AreasControllersActionsConstants;
     using static Roomed.Common.GlobalConstants;
 
     using Profile = Roomed.Data.Models.Profile;

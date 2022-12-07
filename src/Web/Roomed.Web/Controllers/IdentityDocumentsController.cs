@@ -13,7 +13,7 @@
     using Roomed.Web.ViewModels.IdentityDocument;
     using Roomed.Web.ViewModels.Profile;
 
-    using static Roomed.Common.ControllersActionsConstants;
+    using static Roomed.Common.AreasControllersActionsConstants;
 
     /// <summary>
     /// A MVC controller inheriting <see cref="BaseController"/>.

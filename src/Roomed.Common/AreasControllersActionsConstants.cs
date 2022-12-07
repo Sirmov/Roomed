@@ -4,8 +4,16 @@
     /// This is a static class containing string constants of all controller names and actions.
     /// Its purpose is to prevent the use of magic strings.
     /// </summary>
-    public static class ControllersActionsConstants
+    public static class AreasControllersActionsConstants
     {
+        /// <summary>
+        /// This class holds the names of all areas.
+        /// </summary>
+        public static class Areas
+        {
+            public const string Administration = "Administration";
+        }
+
         /// <summary>
         /// This class holds the names of all controllers.
         /// </summary>
@@ -35,6 +43,9 @@
             public const string Register = "Register";
             public const string Logout = "Logout";
             public const string ForgotPassword = "ForgotPassword";
+
+            // Home controller actions
+            public const string NotImplemented = "NotImplemented";
 
             // Reservations controller actions
         }
