@@ -61,10 +61,20 @@ internal class Program
         .AddRoles<ApplicationRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("FrontOffice", policy =>
+                policy.RequireRole("Receptionist", "HotelsManager"));
+
+            options.AddPolicy("Administration", policy =>
+                policy.RequireRole("Administrator"));
+        });
+
         services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath = "/User/Login";
             options.LogoutPath = "/User/Logout";
+            options.AccessDeniedPath = "/User/AccessDenied";
         });
 
         // AutoMapper configuration
@@ -133,7 +143,7 @@ internal class Program
             endpoints.MapControllerRoute(
               name: "areas",
               pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-            
+
             endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
