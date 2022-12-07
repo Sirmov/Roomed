@@ -10,10 +10,10 @@
     using Roomed.Common.Attribues;
 
     /// <summary>
-    /// The base controller is a base class for all controllers in this applications.
+    /// The base controller is a base class for all controllers in this application.
     /// It inherits the default ASP MVC <see cref="Controller"/>.
     /// </summary>
-    [Authorize]
+    [Authorize(Policy = "FrontOffice")]
     public class BaseController : Controller
     {
         protected IHtmlSanitizer sanitizer;
