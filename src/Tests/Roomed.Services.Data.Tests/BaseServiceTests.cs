@@ -21,8 +21,9 @@
         private IDeletableEntityRepository<ReservationNote, Guid> repository;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
+            await InitializeDbContextAsync();
             this.mapper = GetMapper();
             this.repository = GetReservationNotesRepository();
         }
