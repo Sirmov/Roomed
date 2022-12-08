@@ -1,0 +1,55 @@
+﻿@using static Roomed.Common.GlobalConstants;
+
+@model UserInputModel;
+
+@{
+	var allRoles = ViewData["AllRoles"] as IEnumerable<string> ?? new List<string>();
+}
+
+<div class="card rounded-lg mb-3">
+	<div class="card-header text-dark">
+		<b>@Model.Email</b>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col col-auto text-center">
+				<img class="img rounded border-0" width="50" height="50" src="@AnonymousImagePath" alt="anonymous">
+			</div>
+			<div class="col align-self-center">
+				<form class="form-inline" asp-area="@Areas.Administration" asp-controller="@Controllers.Users" asp-action="@Actions.Edit">
+					<input type="hidden" readonly value="@Model.Id" asp-for="@Model.Id" />
+					@{
+						MultiSelectList selectList = new(
+						allRoles.Select(r => new SelectListItem() { Value = r, Text = r }),
+						"Value",
+						"Text",
+						Model.Roles
+						);
+					}
+
+					<div class="form-group mr-1">
+						<label asp-for="@Model.Roles">Roles</label>
+						<select class="selectpicker form-control" multiple data-style="form-control"
+								asp-for="@Model.Roles" asp-items="@selectList">
+						</select>
+						<span class="form-text text-danger" asp-validation-for="@Model.Roles"></span>
+					</div>
+
+					<div class="form-group mr-1">
+						<label class="mr-1 font-weight-bold" asp-for="@Model.Email">Email</label>
+						<input class="form-control" value="@Model.Email" asp-for="@Model.Email">
+						<span class="form-text text-danger" asp-validation-for="@Model.Email"></span>
+					</div>
+
+					<div class="form-group mr-1">
+						<label class="mr-1 font-weight-bold" asp-for="@Model.UserName">Username</label>
+						<input class="form-control" value="@Model.UserName" asp-for="@Model.UserName">
+						<span class="form-text text-danger" asp-validation-for="@Model.UserName"></span>
+					</div>
+
+					<button type="submit" class="btn btn-warning ml-2">Edit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
