@@ -42,7 +42,7 @@
 							<div class="form-row">
 								<div class="form-group col">
 									<label asp-for="@Model.OwnerId">Owner <span class="text-danger">*</span></label>
-									<select class="selectpicker form-control" data-style="form-control" data-size="5" data-live-search="true" asp-for="@Model.OwnerId">
+									<select class="selectpicker form-control" data-style="form-control border" data-size="5" data-live-search="true" asp-for="@Model.OwnerId">
 										<option value="" disabled selected>Select document owner</option>
 										@foreach (var profile in ViewBag.Profiles)
 										{
@@ -83,7 +83,7 @@
 								</div>
 								<div class="form-group col-md-6">
 									<label asp-for="@Model.Nationality">Nationality <span class="text-danger">*</span></label>
-									<select class="selectpicker form-control" data-style="form-control" data-live-search="true"
+									<select class="selectpicker form-control" data-style="form-control border" data-live-search="true"
 									asp-for="@Model.Nationality" asp-items="@NationalitiesSelectList(Model.Nationality)">
 										<option value="" selected disabled hidden>Choose here</option>
 									</select>
