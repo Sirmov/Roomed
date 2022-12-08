@@ -1,0 +1,64 @@
+﻿@using static Roomed.Common.GlobalConstants
+
+@model UserViewModel
+
+@{
+	ViewData["Title"] = "User details";
+}
+
+@section Topbar {
+	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="@Areas.Administration" asp-controller="@Controllers.Users" asp-action="@Actions.Index">All users</a>
+	<form method="get" asp-area="@Areas.Administration" asp-controller="@Controllers.Users" asp-action="@Actions.Delete" asp-route-id="@Model.Id">
+		<button class="btn btn-danger btn-sm rounded-pill">Delete</button>
+		<input type="hidden" readonly value="@Model.Id" asp-for="@Model.Id" />
+		<input type="hidden" readonly value="@Model.Email" asp-for="@Model.Email" />
+		<input type="hidden" readonly value="@Model.UserName" asp-for="@Model.UserName" />
+		@foreach (var role in Model.Roles)
+		{
+			<input type="hidden" readonly value="@role" asp-for="@Model.Roles" />
+		}
+	</form>
+}
+
+<div class="text-center">
+	<h1 class="display-4 mb-4">User details</h1>
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<h3 class="card-title">User</h3>
+				<div class="row">
+					<div class="col-lg-5 col-md-5 col-sm-6 my-auto">
+						<img class="img rounded border-0" width="250" height="250" src="@AnonymousImagePath" alt="anonymous">
+					</div>
+					<div class="col-lg-7 col-md-7 col-sm-6">
+						<form asp-area="@Areas.Administration" asp-controller="@Controllers.Users" asp-action="@Actions.Create">
+							<div class="form-row">
+								<div class="form-group col">
+									<label>Roles</label>
+									@foreach (var role in Model.Roles)
+									{
+										<input class="form-control" readonly value="@role">
+									}
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label>Email</label>
+									<input class="form-control" readonly value="@Model.Email">
+								</div>
+								<div class="form-group col-md-6">
+									<label>Username</label>
+									<input class="form-control" readonly value="@Model.UserName">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

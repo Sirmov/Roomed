@@ -7,6 +7,7 @@
     using Roomed.Data.Models;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.User;
+    using Roomed.Web.ViewModels.IdentityDocument;
     using Roomed.Web.ViewModels.User;
 
     using static Roomed.Common.AreasControllersActionsConstants;
@@ -101,6 +102,46 @@
 
                 return View(model);
             }
+
+            return RedirectToAction(Actions.Index, Controllers.Users, new { area = Areas.Administration });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            ApplicationUser user = null;
+
+            try
+            {
+                user = await this.usersService.FindUserByIdAsync(id.ToString());
+            }
+            catch (InvalidOperationException ioe)
+            {
+                return BadRequest();
+                throw;
+            }
+
+            var model = this.mapper.Map<UserViewModel>(user);
+            model.Roles = await this.usersService.GetUserRolesAsync(user);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id, UserViewModel model)
+        {
+            if (id == model.Id)
+            {
+                return View(model);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await this.usersService.DeleteUserWithId(id.ToString());
 
             return RedirectToAction(Actions.Index, Controllers.Users, new { area = Areas.Administration });
         }
