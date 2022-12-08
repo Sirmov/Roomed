@@ -32,6 +32,29 @@
         public Task<IEnumerable<string>> GetAllRolesAsync();
 
         /// <summary>
+        /// This method checks if a role exists asynchronously.
+        /// </summary>
+        /// <param name="role">The name of the role.</param>
+        /// <returns>Returns a <see cref="Task"/> of <see cref="bool"/>.</returns>
+        public Task<bool> DoesRoleExistAsync(string role);
+
+        /// <summary>
+        /// This method add a user to a role asynchronously.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="role">The name of the role.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        public Task AddToRoleAsync(TUser user, string role);
+
+        /// <summary>
+        /// This method removes a user from a role asynchronously.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="role">The name of the role.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        public Task RemoveFromRoleAsync(TUser user, string role);
+
+        /// <summary>
         /// This method asynchronously updates user properties like email, roles etc.
         /// </summary>
         /// <param name="userDto">The new user.</param>
@@ -44,8 +67,9 @@
         /// <param name="email">The email of the user.</param>
         /// <param name="username">The username of the user.</param>
         /// <param name="password">The password of the user.</param>
+        /// <param name="roles">Optional collection of user roles.</param>
         /// <returns>Returns a task of <see cref="IdentityResult"/> for the operation.</returns>
-        public Task<IdentityResult> RegisterWithEmailAndUsernameAsync(string email, string username, string password);
+        public Task<IdentityResult> RegisterWithEmailAndUsernameAsync(string email, string username, string password, IEnumerable<string>? roles = null);
 
         /// <summary>
         /// This method tries to log in the user with the specified email and password if the user exists.

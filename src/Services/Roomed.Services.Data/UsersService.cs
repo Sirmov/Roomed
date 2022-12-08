@@ -5,6 +5,7 @@
     using System.Security.Claims;
 
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc.Internal;
     using Microsoft.EntityFrameworkCore;
 
     using Roomed.Data.Models;
@@ -44,7 +45,7 @@
 
         /// <inheritdoc/>
         /// <exception cref="ArgumentNullException">Throws when any of the arguments is null or empty.</exception>
-        public async Task<IdentityResult> RegisterWithEmailAndUsernameAsync(string email, string username, string password)
+        public async Task<IdentityResult> RegisterWithEmailAndUsernameAsync(string email, string username, string password, IEnumerable<string>? roles = null)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -64,6 +65,21 @@
             TUser user = this.CreateUserWithEmailAndUsername(email, username);
 
             var result = await this.userManager.CreateAsync(user, password);
+
+            if (!result.Succeeded)
+            {
+                return result;
+            }
+
+            if (roles != null)
+            {
+                user = await this.FindUserByEmailAsync(email);
+
+                foreach (var role in roles)
+                {
+                    await this.AddToRoleAsync(user, role);
+                }
+            }
 
             return result;
         }
@@ -236,8 +252,8 @@
         }
 
         /// <inheritdoc/>
-        /// /// <exception cref="ArgumentNullException">Throws when the user dto or user id is null.</exception>
-        /// /// <exception cref="ArgumentException">Throws when the user model state is invalid.</exception>
+        /// <exception cref="ArgumentNullException">Throws when the user dto or user id is null.</exception>
+        /// <exception cref="ArgumentException">Throws when the user model state is invalid.</exception>
         public async Task EditAsync(UserDto userDto)
         {
             if (userDto == null)
@@ -261,21 +277,42 @@
 
             foreach (var role in userDto.Roles)
             {
-                if (!await this.userManager.IsInRoleAsync(user, role))
-                {
-                    await this.userManager.AddToRoleAsync(user, role);
-                }
+                await this.AddToRoleAsync(user, role);
             }
 
             foreach (var userRole in await this.GetUserRolesAsync(user))
             {
                 if (!userDto.Roles.Contains(userRole))
                 {
-                    await this.userManager.RemoveFromRoleAsync(user, userRole);
+                    await this.RemoveFromRoleAsync(user, userRole);
                 }
             }
 
             await this.userManager.UpdateAsync(user);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> DoesRoleExistAsync(string role)
+        {
+            return await this.roleManager.RoleExistsAsync(role);
+        }
+
+        /// <inheritdoc/>
+        public async Task AddToRoleAsync(TUser user, string role)
+        {
+            if (await this.DoesRoleExistAsync(role) && !await this.userManager.IsInRoleAsync(user, role))
+            {
+                await this.userManager.AddToRoleAsync(user, role);
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task RemoveFromRoleAsync(TUser user, string role)
+        {
+            if (await this.DoesRoleExistAsync(role) && await this.userManager.IsInRoleAsync(user, role))
+            {
+                await this.userManager.RemoveFromRoleAsync(user, role);
+            }
         }
 
         private bool ValidateDto<TDto>(TDto dto)
