@@ -315,6 +315,18 @@
             }
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when the id is null or empty.</exception>
+        /// <exception cref="InvalidOperationException">Throws when no user with this id can be found.</exception>
+        public async Task<IdentityResult> DeleteUserWithId(string id)
+        {
+            var user = await this.FindUserByIdAsync(id);
+
+            var result = await this.userManager.DeleteAsync(user);
+
+            return result;
+        }
+
         private bool ValidateDto<TDto>(TDto dto)
         {
             var context = new ValidationContext(dto, serviceProvider: null, items: null);

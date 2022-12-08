@@ -132,5 +132,12 @@
         /// <param name="username">The username of the new user.</param>
         /// <returns>Returns the newly created user.</returns>
         public TUser CreateUserWithEmailAndUsername(string email, string username);
+
+        /// <summary>
+        /// This method asynchronously deletes an user.
+        /// </summary>
+        /// <param name="id">The id of the user.</param>
+        /// <returns>Returns a <see cref="Task"/> with <see cref="IdentityResult"/>.</returns>
+        public Task<IdentityResult> DeleteUserWithId(string id);
     }
 }
