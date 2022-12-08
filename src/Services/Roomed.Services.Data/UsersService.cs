@@ -1,34 +1,45 @@
 ﻿namespace Roomed.Services.Data
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+
     using Roomed.Data.Models;
     using Roomed.Services.Data.Contracts;
+    using Roomed.Services.Data.Dtos.User;
 
     /// <summary>
     /// Implementation of the IUsersService.
     /// Abstraction on top of the user manager and sign in manager from Microsoft Identity.
     /// </summary>
     /// <typeparam name="TUser">Class inheritor of <see cref="ApplicationUser"/> with parameterless constructor.</typeparam>
-    public class UsersService<TUser> : IUsersService<TUser>
+    /// <typeparam name="TRole">Class inheritor of <see cref="ApplicationRole"/> with parameterless constructor.</typeparam>
+    public class UsersService<TUser, TRole> : IUsersService<TUser, TRole>
         where TUser : ApplicationUser, new()
+        where TRole : ApplicationRole, new()
     {
         private readonly UserManager<TUser> userManager;
         private readonly SignInManager<TUser> signInManager;
+        private readonly RoleManager<TRole> roleManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UsersService{TUser}"/> class.
-        /// Injects user and sign in manager from IoC.
+        /// Initializes a new instance of the <see cref="UsersService{TUser, TRole}"/> class.
+        /// Injects user, role and sign in manager from IoC.
         /// </summary>
         /// <param name="userManager">Microsoft Identity user manager.</param>
         /// <param name="signInManager">Microsoft Identity sign in manager.</param>
-        public UsersService(UserManager<TUser> userManager, SignInManager<TUser> signInManager)
+        /// <param name="roleManager">Microsoft Identity role manager.</param>
+        public UsersService(
+            UserManager<TUser> userManager,
+            SignInManager<TUser> signInManager,
+            RoleManager<TRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.roleManager = roleManager;
         }
 
         /// <inheritdoc/>
@@ -200,6 +211,81 @@
         public async Task<IEnumerable<TUser>> GetAllUsersAsync()
         {
             return await this.userManager.Users.ToListAsync();
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when the user is null.</exception>
+        public async Task<IEnumerable<string>> GetUserRolesAsync(TUser user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            return roles;
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<string>> GetAllRolesAsync()
+        {
+            var roles = await this.roleManager.Roles.ToListAsync();
+
+            return roles.Select(r => r.Name);
+        }
+
+        /// <inheritdoc/>
+        /// /// <exception cref="ArgumentNullException">Throws when the user dto or user id is null.</exception>
+        /// /// <exception cref="ArgumentException">Throws when the user model state is invalid.</exception>
+        public async Task EditAsync(UserDto userDto)
+        {
+            if (userDto == null)
+            {
+                throw new ArgumentNullException(nameof(userDto));
+            }
+
+            bool isValid = this.ValidateDto(userDto);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("User model state is not valid.", nameof(userDto));
+            }
+
+            string id = userDto?.Id?.ToString() ?? throw new ArgumentNullException(nameof(userDto.Id));
+
+            var user = await this.FindUserByIdAsync(id);
+
+            user.Email = userDto.Email;
+            user.UserName = userDto.UserName;
+
+            foreach (var role in userDto.Roles)
+            {
+                if (!await this.userManager.IsInRoleAsync(user, role))
+                {
+                    await this.userManager.AddToRoleAsync(user, role);
+                }
+            }
+
+            foreach (var userRole in await this.GetUserRolesAsync(user))
+            {
+                if (!userDto.Roles.Contains(userRole))
+                {
+                    await this.userManager.RemoveFromRoleAsync(user, userRole);
+                }
+            }
+
+            await this.userManager.UpdateAsync(user);
+        }
+
+        private bool ValidateDto<TDto>(TDto dto)
+        {
+            var context = new ValidationContext(dto, serviceProvider: null, items: null);
+            var validationResults = new List<ValidationResult>();
+
+            bool isValid = Validator.TryValidateObject(dto, context, validationResults, true);
+
+            return isValid;
         }
     }
 }

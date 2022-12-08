@@ -15,7 +15,7 @@
         /// <returns>The service collection with all data services added.</returns>
         public static IServiceCollection AddRoomedDataServices(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IUsersService<>), typeof(UsersService<>));
+            services.AddScoped(typeof(IUsersService<,>), typeof(UsersService<,>));
             services.AddScoped<IReservationsService, ReservationsService>();
             services.AddScoped<IIdentityDocumentsService, IdentityDocumentsService>();
             services.AddScoped<IProfilesService, ProfilesService>();

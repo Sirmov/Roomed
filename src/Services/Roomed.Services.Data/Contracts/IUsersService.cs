@@ -2,19 +2,41 @@
 {
     using Microsoft.AspNetCore.Identity;
     using Roomed.Data.Models;
+    using Roomed.Services.Data.Dtos.User;
 
     /// <summary>
     /// This interface is used to state and document the users data service functionality.
     /// </summary>
     /// <typeparam name="TUser">Class inheritor of <see cref="ApplicationUser"/> with parameterless constructor.</typeparam>
-    public interface IUsersService<TUser>
+    public interface IUsersService<TUser, TRole>
         where TUser : ApplicationUser, new()
+        where TRole : ApplicationRole, new()
     {
         /// <summary>
         /// This method returns all registered users asynchronously.
         /// </summary>
         /// <returns>Returns a <see cref="Task"/> with a collection of all <typeparamref name="TUser"/> users.</returns>
         public Task<IEnumerable<TUser>> GetAllUsersAsync();
+
+        /// <summary>
+        /// This method returns all roles which a user is in asynchronously.
+        /// </summary>
+        /// <param name="user">The specified user.</param>
+        /// <returns>Returns a collection of all the roles which the specified user is in.</returns>
+        public Task<IEnumerable<string>> GetUserRolesAsync(TUser user);
+
+        /// <summary>
+        /// This method returns all roles asynchronously.
+        /// </summary>
+        /// <returns>Returns a collection of all roles.</returns>
+        public Task<IEnumerable<string>> GetAllRolesAsync();
+
+        /// <summary>
+        /// This method asynchronously updates user properties like email, roles etc.
+        /// </summary>
+        /// <param name="userDto">The new user.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        public Task EditAsync(UserDto userDto);
 
         /// <summary>
         /// This method creates a user with the specified email, username and password, adds it to the database and returns the result.
