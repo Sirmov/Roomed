@@ -31,7 +31,7 @@
 						<div class="form-group mr-1 col">
 							<div class="row">
 								<div class="col">
-									<label class="mr-1 font-weight-bold" asp-for="@Model.Roles">Roles</label>
+									<label class="mr-1 font-weight-bold" asp-for="@Model.Roles">Roles <span class="text-danger">*</span></label>
 									<select class="selectpicker form-control" multiple data-style="form-control border"
 											asp-for="@Model.Roles" asp-items="@selectList">
 									</select>
@@ -80,7 +80,9 @@
 							</div>
 							<div class="row">
 								<div class="col">
-									<button type="submit" class="btn btn-danger">Delete</button>
+									<a class="btn btn-success"
+										asp-area="@Areas.Administration" asp-controller="@Controllers.Users"
+										asp-action="@Actions.Details" asp-route-id="@Model.Id">Details</a>
 								</div>
 							</div>
 						</div>
