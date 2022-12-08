@@ -53,7 +53,7 @@
 			<!-- Nav Item - FrontOffice -->
 			@if (isInFrontOffice)
 			{
-				<li class="nav-item active">
+				<li class="nav-item active mb-2">
 					<a class="nav-link btn-primary" asp-area="" asp-controller="@Controllers.Home" asp-action="@Actions.Index">
 						<i class="fa-solid fa-bell-concierge"></i>
 						<span>Front office</span>
@@ -77,17 +77,17 @@
 				</a>
 			</li>
 
-			<!-- Nav Item - Profiles -->
+			<!-- Nav Item - Rooms -->
 			<li class="nav-item">
-				<a class="nav-link" asp-area="@Areas.Administration" asp-controller="@Controllers.Profiles" asp-action="@Actions.Index">
+				<a class="nav-link" asp-area="" asp-controller="@Controllers.Home" asp-action="@Actions.NotImplemented">
 					<i class="fa-solid fa-door-closed"></i>
 					<span>Rooms</span>
 				</a>
 			</li>
 
-			<!-- Nav Item - Profiles -->
+			<!-- Nav Item - Room types -->
 			<li class="nav-item">
-				<a class="nav-link" asp-area="@Areas.Administration" asp-controller="@Controllers.IdentityDocuments" asp-action="@Actions.Index">
+				<a class="nav-link" asp-area="" asp-controller="@Controllers.Home" asp-action="@Actions.NotImplemented">
 					<i class="fa-solid fa-mountain-sun"></i>
 					<span>Room types</span>
 				</a>
