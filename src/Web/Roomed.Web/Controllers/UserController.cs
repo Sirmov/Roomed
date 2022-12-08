@@ -16,14 +16,17 @@
     /// </summary>
     public class UserController : BaseController
     {
-        private readonly IUsersService<ApplicationUser> usersService;
+        private readonly IUsersService<ApplicationUser, ApplicationRole> usersService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class.
         /// Uses constructor injection to resolve dependencies.
         /// </summary>
-        /// <param name="usersService">The implementation of <see cref="IUsersService{TUser}"/>.</param>
-        public UserController(IUsersService<ApplicationUser> usersService, IHtmlSanitizer sanitizer)
+        /// <param name="usersService">The implementation of <see cref="IUsersService{TUser, TRole}"/>.</param>
+        /// <param name="sanitizer">The global html sanitizer.</param>
+        public UserController(
+            IUsersService<ApplicationUser, ApplicationRole> usersService,
+            IHtmlSanitizer sanitizer)
             : base(sanitizer)
         {
             this.usersService = usersService;
