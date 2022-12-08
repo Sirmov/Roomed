@@ -61,5 +61,48 @@
 
             return RedirectToAction(Actions.Index, Controllers.Users, new { area = Areas.Administration });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var model = new UserInputModel();
+            ViewData["AllRoles"] = await this.usersService.GetAllRolesAsync();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(UserInputModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            this.SanitizeModel(model);
+
+            if (string.IsNullOrWhiteSpace(model.Password))
+            {
+                ModelState.AddModelError(nameof(model.Password), "Password is required.");
+                return View(model);
+            }
+
+            var result = await this.usersService
+                .RegisterWithEmailAndUsernameAsync(model.Email, model.UserName, model.Password, model.Roles);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Something went wrong.");
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+                return View(model);
+            }
+
+            return RedirectToAction(Actions.Index, Controllers.Users, new { area = Areas.Administration });
+        }
     }
 }
