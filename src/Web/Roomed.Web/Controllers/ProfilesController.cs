@@ -82,7 +82,7 @@
                 //Url.IsLocalUrl(returnUrl) &&
                 !string.IsNullOrEmpty(returnUrl))
             {
-                return LocalRedirect(returnUrl);
+                return Redirect(returnUrl);
             }
 
             return RedirectToAction(Actions.Details, new { id = id.ToString() });
