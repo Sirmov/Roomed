@@ -1,9 +1,5 @@
 ﻿namespace Roomed.Services.Data
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
@@ -23,22 +19,26 @@
     {
         private readonly IDeletableEntityRepository<Reservation, Guid> reservationsRepository;
         private readonly IRoomsService roomsService;
+        private readonly IReservationDaysService reservationDaysService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReservationsService"/> class.
         /// Uses constructor injection to resolve dependencies.
         /// </summary>
         /// <param name="reservationRepository">The <see cref="Reservation"/> database repository.</param>
-        /// <param name="roomsService">The rooms data service.</param>
+        /// <param name="roomsService">The implementation of <see cref="IRoomsService"/>.</param>
+        /// <param name="reservationDaysService">The implementation of <see cref="IReservationDaysService"/>.</param>
         /// <param name="mapper">The global auto mapper.</param>
         public ReservationsService(
             IDeletableEntityRepository<Reservation, Guid> reservationRepository,
             IRoomsService roomsService,
+            IReservationDaysService reservationDaysService,
             IMapper mapper)
             : base(reservationRepository, mapper)
         {
             this.reservationsRepository = reservationRepository;
             this.roomsService = roomsService;
+            this.reservationDaysService= reservationDaysService;
         }
 
         /// <inheritdoc/>
@@ -103,41 +103,32 @@
         }
 
         /// <inheritdoc />
-        public async Task<Guid> CreateReservationAsync(ReservationDto reservationDto)
+        public async Task<Guid> CreateReservationAsync(ReservationDto reservationDto, int roomId)
         {
-            throw new NotImplementedException();
+            bool isValid = base.ValidateDto(reservationDto);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Reservation model state is not valid.", nameof(reservationDto));
+            }
+
+            var today = DateOnly.FromDateTime(DateTime.Today);
+
+            if (reservationDto.ArrivalDate == today)
+            {
+                reservationDto.Status = ReservationStatus.Arriving;
+            }
+
+            reservationDto.Status = ReservationStatus.Expected;
+
+            Reservation model = this.mapper.Map<Reservation>(reservationDto);
+
+            var result = await this.reservationsRepository.AddAsync(model);
+            await this.reservationsRepository.SaveChangesAsync();
+
+            await this.reservationDaysService.CreateForReservationAsync(result.Entity, roomId);
+
+            return result.Entity.Id;
         }
-
-        ///// <inheritdoc/>
-        // public async Task<ICollection<ReservationDto>> GetAllOccupiedReservationsFromDateAsync(DateOnly date)
-        // {
-        //     var reservations = await this.reservationsRepository
-        //         .All()
-        //         .Include(r => r.ReservationDays)
-        //         .ProjectTo<ReservationDto>(this.mapper.ConfigurationProvider)
-        //         .Where(r => (r.Status == ReservationStatus.Arriving ||
-        //                     r.Status == ReservationStatus.InHouse ||
-        //                     r.Status == ReservationStatus.Departuring) &&
-        //                     r.ReservationDays
-        //                     .Any(rd => rd.Date == date))
-        //         .ToListAsync();
-        //     return reservations;
-        // }
-
-        ///// <inheritdoc/>
-        // public async Task<ICollection<ReservationDto>> GetAllOccupiedReservationsFromDateAsync(DateOnly startDate, DateOnly endDate)
-        // {
-        //     var reservations = await this.reservationsRepository
-        //         .All()
-        //         .Include(r => r.ReservationDays)
-        //        .ProjectTo<ReservationDto>(this.mapper.ConfigurationProvider)
-        //         .Where(r => (r.Status == ReservationStatus.Arriving ||
-        //                     r.Status == ReservationStatus.InHouse ||
-        //                     r.Status == ReservationStatus.Departuring) &&
-        //                     r.ReservationDays
-        //                     .Any(rd => rd.Date >= startDate && rd.Date <= endDate))
-        //         .ToListAsync();
-        //     return reservations;
-        // }
     }
 }

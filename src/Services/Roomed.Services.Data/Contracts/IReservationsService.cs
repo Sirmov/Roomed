@@ -69,7 +69,8 @@
         /// This method asynchronously create a <see cref="Reservation"/> entity in the database.
         /// </summary>
         /// <param name="reservationDto">The reservation to be created.</param>
+        /// <param name="roomId">The id of the room to be occupied.</param>
         /// <returns>Returns a <see cref="Task"/> with the id of the newly created reservation.</returns>
-        public Task<Guid> CreateReservationAsync(ReservationDto reservationDto);
+        public Task<Guid> CreateReservationAsync(ReservationDto reservationDto, int roomId);
     }
 }
