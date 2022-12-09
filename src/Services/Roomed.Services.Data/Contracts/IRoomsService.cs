@@ -16,7 +16,7 @@
         /// <param name="roomType">The type of the searched rooms.</param>
         /// <param name="queryOptions">The query options.</param>
         /// <returns>Returns a collection of all rooms with the given type.</returns>
-        public Task<ICollection<RoomDto>> GetAllRoomsAsync(RoomTypeDto? roomType = null, QueryOptions<RoomTypeDto>? queryOptions = null);
+        public Task<ICollection<RoomDto>> GetAllAsync(RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null);
 
         /// <summary>
         /// This method asynchronously returns all free rooms of a given type for a given day.
@@ -26,7 +26,7 @@
         /// <param name="roomType">The type of the searched rooms.</param>
         /// <param name="queryOptions">The query options.</param>
         /// <returns>Returns a collection of all free rooms of the given type.</returns>
-        public Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly date, RoomTypeDto? roomType = null, QueryOptions<RoomTypeDto>? queryOptions = null);
+        public Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly date, RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null);
 
         /// <summary>
         /// This method asynchronously returns all free rooms of a given type for a given period.
@@ -37,6 +37,6 @@
         /// <param name="roomType">The type of the searched rooms.</param>
         /// <param name="queryOptions">The query options.</param>
         /// <returns>Returns a collection of all free rooms of the given type for the given period.</returns>
-        public Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly startDate, DateOnly endDate, RoomTypeDto? roomType = null, QueryOptions<RoomTypeDto>? queryOptions = null);
+        public Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly startDate, DateOnly endDate, RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null);
     }
 }

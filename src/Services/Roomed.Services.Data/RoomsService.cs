@@ -18,22 +18,71 @@
     public class RoomsService : BaseService<Room, int>, IRoomsService
     {
         private readonly IDeletableEntityRepository<Room, int> roomsRepository;
+        private readonly IReservationDaysService reservationDaysService;
 
         public RoomsService(
             IDeletableEntityRepository<Room, int> entityRepository,
+            IReservationDaysService reservationDaysService,
             IMapper mapper)
             : base(entityRepository, mapper)
         {
             this.roomsRepository = entityRepository;
+            this.reservationDaysService = reservationDaysService;
         }
 
         /// <inheritdoc/>
-        public Task<ICollection<RoomDto>> GetAllRoomsAsync(RoomTypeDto? roomType = null, QueryOptions<RoomTypeDto>? queryOptions = null) => throw new NotImplementedException();
+        public async Task<ICollection<RoomDto>> GetAllAsync(RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null)
+        {
+            var rooms = await base.GetAllAsync(queryOptions ?? new());
+
+            if (roomType != null)
+            {
+                rooms = rooms.Where(r => r.Type.Name == roomType.Name).ToList();
+            }
+
+            return rooms;
+        }
 
         /// <inheritdoc/>
-        public Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly date, RoomTypeDto? roomType = null, QueryOptions<RoomTypeDto>? queryOptions = null) => throw new NotImplementedException();
+        public async Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly date, RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null)
+        {
+            var reservationDays = await this.reservationDaysService.GetAllForDate(date);
+
+            if (roomType != null)
+            {
+                reservationDays = reservationDays
+                    .Where(rd => rd.Room.Type.Name == roomType.Name)
+                    .ToList();
+            }
+
+            var rooms = await this.GetAllAsync(roomType);
+
+            var freeRooms = rooms
+                .Where(r => !reservationDays.Any(rd => rd.Room.Id == r.Id))
+                .ToList();
+
+            return freeRooms;
+        }
 
         /// <inheritdoc/>
-        public Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly startDate, DateOnly endDate, RoomTypeDto? roomType = null, QueryOptions<RoomTypeDto>? queryOptions = null) => throw new NotImplementedException();
+        public async Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly startDate, DateOnly endDate, RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null)
+        {
+            var reservationDays = await this.reservationDaysService.GetAllForPeriod(startDate, endDate);
+
+            if (roomType != null)
+            {
+                reservationDays = reservationDays
+                    .Where(rd => rd.Room.Type.Name == roomType.Name)
+                    .ToList();
+            }
+
+            var rooms = await this.GetAllAsync(roomType);
+
+            var freeRooms = rooms
+                .Where(r => !reservationDays.Any(rd => rd.Room.Id == r.Id))
+                .ToList();
+
+            return freeRooms;
+        }
     }
 }
