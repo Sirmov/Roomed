@@ -32,7 +32,7 @@
 				<span class="form-text">
 					Can't find the guest. Create him
 					<a id="create-profile-link" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create"
-					   asp-route-ReturnUrl="@Url.ActionLink(Actions.Create, Controllers.IdentityDocuments)">here</a>.
+					   asp-route-ReturnUrl="@Url.ActionLink(Actions.Create, Controllers.Reservations)">here</a>.
 				</span>
 				<span class="form-text text-danger" asp-validation-for="@Model.ReservationHolderId"></span>
 			</div>

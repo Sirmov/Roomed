@@ -1,0 +1,19 @@
+﻿@model ReservationInputModel
+
+<form asp-area="" asp-controller="@Controllers.Reservations" asp-action="@Actions.ChooseRoom" asp-route-roomId="@ViewData["roomId"]">
+	<input type="hidden" readonly
+		   value="@Model.ReservationHolderId" asp-for="@Model.ReservationHolderId" />
+	<input type="hidden" readonly
+		   value="@Model.RoomTypeId" asp-for="@Model.RoomTypeId" />
+	<input type="hidden" readonly
+		   value="@Model.ArrivalDate" asp-for="@Model.ArrivalDate" />
+	<input type="hidden" readonly
+		   value="@Model.DepartureDate" asp-for="@Model.DepartureDate" />
+	<input type="hidden" readonly
+		   value="@Model.Adults" asp-for="@Model.Adults" />
+	<input type="hidden" readonly
+		   value="@Model.Teenagers" asp-for="@Model.Teenagers" />
+	<input type="hidden" readonly
+		   value="@Model.Children" asp-for="@Model.Children" />
+	<button type="submit" class="btn btn-success">Choose</button>
+</form>

@@ -5,14 +5,19 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Newtonsoft.Json;
 
     using Roomed.Data.Models;
+    using Roomed.Data.Models.Enums;
     using Roomed.Services.Data.Contracts;
+    using Roomed.Services.Data.Dtos.Reservation;
     using Roomed.Web.ViewModels.Profile;
     using Roomed.Web.ViewModels.Reservation;
+    using Roomed.Web.ViewModels.Room;
     using Roomed.Web.ViewModels.RoomType;
 
     using static Roomed.Common.AreasControllersActionsConstants;
+    using static Roomed.Common.DataConstants;
 
     /// <summary>
     /// A MVC controller inheriting <see cref="BaseController"/>.
@@ -23,6 +28,7 @@
         private readonly IReservationsService reservationsService;
         private readonly IProfilesService profilesService;
         private readonly IRoomTypesService roomTypesService;
+        private readonly IRoomsService roomsService;
         private readonly IMapper mapper;
 
         /// <summary>
@@ -32,12 +38,14 @@
         /// <param name="reservationsService">The implementation of <see cref="IReservationsService"/>.</param>
         /// <param name="profilesService">The implementation of <see cref="IProfilesService"/>.</param>
         /// <param name="roomTypesService">The implementation of <see cref="IRoomTypesService"/>.</param>
+        /// <param name="roomsService">The implementation of <see cref="IRoomsService"/>.</param>
         /// <param name="mapper">The global auto mapper.</param>
         /// <param name="sanitizer">The global html sanitizer.</param>
         public ReservationsController(
             IReservationsService reservationsService,
             IProfilesService profilesService,
             IRoomTypesService roomTypesService,
+            IRoomsService roomsService,
             IMapper mapper,
             IHtmlSanitizer sanitizer)
             : base(sanitizer)
@@ -46,6 +54,7 @@
             this.mapper = mapper;
             this.profilesService = profilesService;
             this.roomTypesService = roomTypesService;
+            this.roomsService = roomsService;
         }
 
         /// <summary>
@@ -101,7 +110,56 @@
                 return View(model);
             }
 
-            return RedirectToAction(Actions.ChooseRoom, Controllers.Reservations, new { model = model });
+            TempData["CreateReservationModel"] = JsonConvert.SerializeObject(model);
+            return RedirectToAction(Actions.ChooseRoom, Controllers.Reservations);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChooseRoom()
+        {
+            var json = TempData["CreateReservationModel"]?.ToString();
+
+            if (json == null)
+            {
+                return RedirectToAction(Actions.Create, Controllers.Reservations);
+            }
+
+            var model = JsonConvert.DeserializeObject<ReservationInputModel>(json);
+            var roomType = await this.roomTypesService.GetAsync(model.RoomTypeId);
+
+            var rooms = await this.roomsService.GetAllFreeRoomsAsync(model.ArrivalDate, model.DepartureDate, roomType);
+
+            ViewData["FreeRooms"] = rooms.Select(r => this.mapper.Map<RoomViewModel>(r));
+            ViewData["ReservationInputModel"] = model;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChooseRoom(int roomId, ReservationInputModel model)
+        {
+            var roomType = await this.roomTypesService.GetAsync(model.RoomTypeId);
+            var freeRooms = await this.roomsService.GetAllFreeRoomsAsync(model.ArrivalDate, model.DepartureDate, roomType);
+
+            if (!freeRooms.Any(r => r.Id == roomId))
+            {
+                return BadRequest();
+            }
+
+            var dto = this.mapper.Map<ReservationDto>(model);
+
+            Guid id;
+
+            try
+            {
+                id = await this.reservationsService.CreateReservationAsync(dto, roomId);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest();
+                throw;
+            }
+
+            return RedirectToAction(Actions.Index);
         }
 
         private async Task ValidateReservation(ModelStateDictionary modelState, ReservationInputModel model)

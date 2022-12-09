@@ -1,0 +1,22 @@
+﻿@model ReservationInputModel
+
+@{
+	ViewData["Title"] = "Choose Room";
+}
+
+@section Topbar {
+}
+
+<div class="text-center">
+	<h1 class="display-4 mb-4">Choose room</h1>
+	<div class="container row mx-auto my-auto">
+		@foreach (var room in ViewData["FreeRooms"] as IEnumerable<RoomViewModel> ?? Enumerable.Empty<RoomViewModel>())
+		{
+			<partial name="_ChooseRoomPartial" model="@room" view-data="ViewData" />
+		}
+	</div>
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
