@@ -11,7 +11,7 @@
 
     using static Roomed.Common.DataConstants.Reservation;
 
-    public class ReservationDto : IMapFrom<Roomed.Data.Models.Reservation>
+    public class ReservationDto : IMapFrom<Roomed.Data.Models.Reservation>, IMapTo<Roomed.Data.Models.Reservation>
     {
         public Guid? Id { get; set; }
 
@@ -34,7 +34,7 @@
         public int RoomTypeId { get; set; }
 
         [Required]
-        [Range(0, AdultsMaxCount)]
+        [Range(1, AdultsMaxCount)]
         public int Adults { get; set; }
 
         [Required]
