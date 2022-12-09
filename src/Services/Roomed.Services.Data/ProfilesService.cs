@@ -94,5 +94,22 @@
             await this.profilesRepository.DeleteAsync(id);
             await this.profilesRepository.SaveChangesAsync();
         }
+
+        /// <inheritdoc/>
+        public async Task<bool> ExistsAsync(Guid id, QueryOptions<DetailedProfileDto>? queryOptions = null)
+        {
+            var result = true;
+
+            try
+            {
+                await this.profilesRepository.FindAsync(id);
+            }
+            catch (InvalidOperationException iox)
+            {
+                result = false;
+            }
+
+            return result;
+        }
     }
 }

@@ -24,6 +24,14 @@
         public Task<DetailedProfileDto> GetAsync(Guid id, QueryOptions<DetailedProfileDto>? queryOptions = null);
 
         /// <summary>
+        /// This method asynchronously checks if a guest profile exists.
+        /// </summary>
+        /// <param name="id">The id of the guest profile.</param>
+        /// <param name="queryOptions">The query options.</param>
+        /// <returns>Returns a <see cref="Task"/> of <see cref="bool"/>.</returns>
+        public Task<bool> ExistsAsync(Guid id, QueryOptions<DetailedProfileDto>? queryOptions = null);
+
+        /// <summary>
         /// This method asynchronously creates a guest profile with detailed data.
         /// </summary>
         /// <param name="profileDto">The profile to be created.</param>
