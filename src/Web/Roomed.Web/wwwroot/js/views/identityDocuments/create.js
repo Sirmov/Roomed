@@ -15,7 +15,7 @@ if (sessionStorage.getItem(storageKey) !== null) {
 }
 
 createProfileLinkElement.addEventListener('click', (e) => {
-    const formData = new FormData(identityDocumentEditForm);
+    const formData = new FormData(identityDocumentForm);
     const formEntries = [...formData.entries()];
     let = data = formEntries.reduce((a, [k, v]) => (allowedData.includes(k) ? Object.assign(a, { [k]: v }) : a), {});
     sessionStorage.setItem(storageKey, JSON.stringify(data));
