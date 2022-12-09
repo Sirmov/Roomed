@@ -75,7 +75,7 @@
         [HttpPost]
         public async Task<IActionResult> Create(IdentityDocumentInputModel model)
         {
-            this.ValidateIdentityDocument(ModelState, model);
+            await this.ValidateIdentityDocument(ModelState, model);
 
             if (!ModelState.IsValid)
             {
@@ -118,7 +118,7 @@
         [HttpPost]
         public async Task<IActionResult> Edit(Guid id, IdentityDocumentInputModel model)
         {
-            this.ValidateIdentityDocument(ModelState, model);
+            await this.ValidateIdentityDocument(ModelState, model);
 
             if (!ModelState.IsValid)
             {
@@ -150,11 +150,16 @@
             return RedirectToAction(Actions.Index);
         }
 
-        private void ValidateIdentityDocument(ModelStateDictionary modelState, IdentityDocumentInputModel model)
+        private async Task ValidateIdentityDocument(ModelStateDictionary modelState, IdentityDocumentInputModel model)
         {
             if (modelState.IsValid == false)
             {
                 return;
+            }
+
+            if (!await this.profilesService.ExistsAsync(model.OwnerId))
+            {
+                modelState.AddModelError(nameof(model.OwnerId), "Guest profile does not exist.");
             }
 
             var today = DateOnly.FromDateTime(DateTime.Now);
