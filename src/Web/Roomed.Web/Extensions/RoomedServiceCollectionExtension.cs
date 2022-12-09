@@ -20,6 +20,7 @@
             services.AddScoped<IIdentityDocumentsService, IdentityDocumentsService>();
             services.AddScoped<IProfilesService, ProfilesService>();
             services.AddScoped<IRoomsService, RoomsService>();
+            services.AddScoped<IRoomTypesService, RoomTypesService>();
 
             return services;
         }
