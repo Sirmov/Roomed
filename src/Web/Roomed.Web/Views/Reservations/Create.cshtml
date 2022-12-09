@@ -1,0 +1,86 @@
+﻿@using Roomed.Data.Models.Enums;
+
+@using static Roomed.Common.GlobalConstants
+
+@model ReservationInputModel
+
+@{
+	ViewData["Title"] = "Create Reservation";
+}
+
+@section Topbar {
+	<a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Reservations" asp-action="@Actions.Index">Reservations</a>
+}
+<div>
+	<h1 class="display-4 mb-4 text-center">Create reservation</h1>
+	<form id="reservation-form" asp-area="" asp-controller="@Controllers.Reservations" asp-action="@Actions.Create">
+		<div class="form-row">
+			<div class="form-group col">
+				<label asp-for="@Model.ReservationHolderId">Reservation holder <span class="text-danger">*</span></label>
+				<select class="selectpicker form-control" data-style="form-control border" data-size="5" data-live-search="true" asp-for="@Model.ReservationHolderId">
+					<option value="" disabled selected>Select reservation holder</option>
+					@foreach (var profile in ViewBag.Profiles)
+					{
+						string icon = profile.Gender == Gender.Female ? "fa-solid fa-person-dress" : "fa-solid fa-person";
+						string text = profile.FullName;
+						text += profile.Nationality == null ? "" : $" - {profile.Nationality}";
+						text += profile.Gender == null ? "" : $" - {profile.Gender}";
+
+						<option value="@profile.Id" data-icon="@icon">@text</option>
+					}
+				</select>
+				<span class="form-text">
+					Can't find the guest. Create him
+					<a id="create-profile-link" asp-area="" asp-controller="@Controllers.Profiles" asp-action="@Actions.Create"
+					   asp-route-ReturnUrl="@Url.ActionLink(Actions.Create, Controllers.IdentityDocuments)">here</a>.
+				</span>
+				<span class="form-text text-danger" asp-validation-for="@Model.ReservationHolderId"></span>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label asp-for="@Model.ArrivalDate">Arrival date <span class="text-danger">*</span></label>
+				<input class="form-control" asp-for="@Model.ArrivalDate">
+				<span class="form-text text-danger" asp-validation-for="@Model.ArrivalDate"></span>
+			</div>
+			<div class="form-group col-md-6">
+				<label asp-for="@Model.DepartureDate">Departure date <span class="text-danger">*</span></label>
+				<input class="form-control" asp-for="@Model.DepartureDate">
+				<span class="form-text text-danger" asp-validation-for="@Model.DepartureDate"></span>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col">
+			<label asp-for="@Model.RoomTypeId">Room type <span class="text-danger">*</span></label>
+			<select class="selectpicker form-control" data-style="form-control border" data-live-search="true"
+					asp-for="@Model.RoomTypeId" asp-items="@ViewBag.RoomTypesSelectList">
+				<option value="" disabled selected>Select room type</option>
+			</select>
+			<span class="form-text text-danger" asp-validation-for="@Model.RoomTypeId"></span>
+		</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col">
+				<label asp-for="@Model.Adults">Adults <span class="text-danger">*</span></label>
+				<input class="form-control" asp-for="@Model.Adults">
+				<span class="form-text text-danger" asp-validation-for="@Model.Adults"></span>
+			</div>
+			<div class="form-group col">
+				<label asp-for="@Model.Teenagers">Teenagers <span class="text-danger">*</span></label>
+				<input class="form-control" asp-for="@Model.Teenagers">
+				<span class="form-text text-danger" asp-validation-for="@Model.Teenagers"></span>
+			</div>
+			<div class="form-group col">
+				<label asp-for="@Model.Children">Children <span class="text-danger">*</span></label>
+				<input class="form-control" asp-for="@Model.Children">
+				<span class="form-text text-danger" asp-validation-for="@Model.Children"></span>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary mb-2">Create</button>
+	</form>
+</div>
+
+@section Scripts {
+	<script src="~/js/views/reservations/create.js"></script>
+	<partial name="_ValidationScriptsPartial" />
+}

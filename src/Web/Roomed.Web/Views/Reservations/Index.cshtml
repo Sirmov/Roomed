@@ -4,6 +4,10 @@
     ViewData["Title"] = "Reservations";
 }
 
+@section Topbar {
+    <a class="btn btn-primary btn-sm rounded-pill mr-2" asp-area="" asp-controller="@Controllers.Reservations" asp-action="@Actions.Create">Create reservation</a>
+}
+
 <div class="text-center">
     <h1 class="display-4">Reservations</h1>
     <table class="table table-bordered table-hover">
