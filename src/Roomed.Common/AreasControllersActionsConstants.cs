@@ -49,6 +49,7 @@
             public const string NotImplemented = "NotImplemented";
 
             // Reservations controller actions
+            public const string ChooseRoom = "ChooseRoom";
         }
     }
 }
