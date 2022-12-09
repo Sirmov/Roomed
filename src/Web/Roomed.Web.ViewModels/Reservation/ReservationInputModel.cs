@@ -4,10 +4,12 @@
 
     using Roomed.Common.ValidationAttributes;
     using Roomed.Data.Models.Enums;
+    using Roomed.Services.Data.Dtos.Reservation;
+    using Roomed.Services.Mapping;
 
     using static Roomed.Common.DataConstants.Reservation;
 
-    public class ReservationInputModel
+    public class ReservationInputModel : IMapFrom<ReservationDto>,  IMapTo<ReservationDto>
     {
         public Guid? Id { get; set; }
 
