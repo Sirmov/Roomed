@@ -21,6 +21,7 @@
             services.AddScoped<IProfilesService, ProfilesService>();
             services.AddScoped<IRoomsService, RoomsService>();
             services.AddScoped<IRoomTypesService, RoomTypesService>();
+            services.AddScoped<IReservationDaysService, ReservationDaysService>();
 
             return services;
         }
