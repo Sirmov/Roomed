@@ -37,7 +37,12 @@
     },
     "documentationRules": {
       "companyName": "Roomed",
-      "copyrightText": "Copyright (c) {companyName}. All Rights Reserved.",
+      "copyrightText": "Copyright (c) {companyName}. All Rights Reserved.\nLicensed under the {licenseName} license. See {licenseFile} file in the project root for full license information.",
+      "headerDecoration": "|-----------------------------------------------------------------------------------------------------|",
+      "variables": {
+        "licenseName": "GPLv3",
+        "licenseFile": "LICENSE"
+      },
       "documentInterfaces": true,
       "documentExposedElements": true,
       "documentInternalElements": false,
