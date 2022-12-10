@@ -7,20 +7,65 @@
     /// </summary>
     public static class GlobalConstants
     {
+        /// <summary>
+        /// A string containing the copyright text used in the footer.
+        /// </summary>
         public const string CopyrightText = "Copyright © Roomed 2022";
 
+        // Gender image paths
+
+        /// <summary>
+        /// The path to the man image.
+        /// </summary>
         public const string ManImagePath = "/assets/images/man.png";
+
+        /// <summary>
+        /// The path to the woman image.
+        /// </summary>
         public const string WomanImagePath = "/assets/images/woman.png";
+
+        /// <summary>
+        /// The path to the anonymous image.
+        /// </summary>
         public const string AnonymousImagePath = "/assets/images/anonymous.png";
 
+        // Document type image paths
+
+        /// <summary>
+        /// The path to the id image.
+        /// </summary>
         public const string IdImagePath = "/assets/images/id-card.png";
+
+        /// <summary>
+        /// The path to the passport image.
+        /// </summary>
         public const string PassportImagePath = "/assets/images/passport.png";
+
+        /// <summary>
+        /// The path to the driving license image.
+        /// </summary>
         public const string DrivingLicenseImagePath = "/assets/images/driver-license.png";
 
+        // Administration image paths
+
+        /// <summary>
+        /// The path to the cloud service image.
+        /// </summary>
         public const string CloudServiceImagePath = "/assets/images/administration/cloud-service.png";
+
+        /// <summary>
+        /// The path to the cloud settings path.
+        /// </summary>
         public const string CloudSettingsImagePath = "/assets/images/administration/cloud-settings.png";
+
+        /// <summary>
+        /// The path to the seo and web image.
+        /// </summary>
         public const string SeoAndWebImagePath = "/assets/images/administration/seo-and-web.png";
 
+        /// <summary>
+        /// A static read only hash set containing all nationalities.
+        /// </summary>
         public static readonly HashSet<string> Nationalities = new HashSet<string>()
         {
             "Afghanistan",
@@ -274,6 +319,9 @@
             "Åland Islands",
         };
 
+        /// <summary>
+        /// A static read only hash set containing all nationality codes.
+        /// </summary>
         public static readonly HashSet<string> NationalityCodes = new HashSet<string>()
         {
             "AF",
@@ -527,9 +575,17 @@
             "AX",
         };
 
-        public static Dictionary<string, string> NationalitiesDictionary =
+        /// <summary>
+        /// A static read only dictionary containing all nationalities as keys and their corresponding codes as values.
+        /// </summary>
+        public static readonly Dictionary<string, string> NationalitiesDictionary =
             Nationality_Code_SelectList().ToDictionary(sl => sl.Value, sl => sl.Text);
 
+        /// <summary>
+        /// This is a static method generating a <see cref="SelectList"/> with all nationalities both as values and text.
+        /// </summary>
+        /// <param name="selectedValue">An optional string containing the selected value.</param>
+        /// <returns>Returns a <see cref="SelectList"/> with all nationalities.</returns>
         public static SelectList NationalitiesSelectList(string selectedValue = "")
         {
             return new SelectList(
@@ -539,6 +595,11 @@
                 selectedValue);
         }
 
+        /// <summary>
+        /// This is a static method generating a <see cref="SelectList"/> with all nationality codes both as values and text.
+        /// </summary>
+        /// <param name="selectedValue">An optional string containing the selected value.</param>
+        /// <returns>Returns a <see cref="SelectList"/> with all nationality codes.</returns>
         public static SelectList NationalityCodesSelectList(string selectedValue = "")
         {
             return new SelectList(
@@ -548,6 +609,12 @@
                 selectedValue);
         }
 
+        /// <summary>
+        /// This is a static method generating a <see cref="SelectList"/> with all
+        ///  nationality codes as values and their corresponding nationality as text.
+        /// </summary>
+        /// <param name="selectedValue">An optional string containing the selected value.</param>
+        /// <returns>Returns a <see cref="SelectList"/> with all nationality codes as values and their corresponding nationality as text.</returns>
         public static SelectList Code_Nationality_SelectList(string selectedValue = "")
         {
             var items = new List<SelectListItem>();
@@ -566,6 +633,12 @@
             return new SelectList(items, "Value", "Text", selectedValue);
         }
 
+        /// <summary>
+        /// This is a static method generating a <see cref="SelectList"/> with all
+        ///  nationalities as values and their corresponding nationality code as text.
+        /// </summary>
+        /// <param name="selectedValue">An optional string containing the selected value.</param>
+        /// <returns>Returns a <see cref="SelectList"/> with all nationalities as values and their corresponding nationality code as text.</returns>
         public static SelectList Nationality_Code_SelectList(string selectedValue = "")
         {
             var items = new List<SelectListItem>();
@@ -584,6 +657,11 @@
             return new SelectList(items, "Value", "Text", selectedValue);
         }
 
+        /// <summary>
+        /// This is static method generating a <see cref="SelectList"/> with all document types.
+        /// </summary>
+        /// <param name="selectedValue">An optional string containing the selected value.</param>
+        /// <returns>Returns a <see cref="SelectList"/> with all document types.</returns>
         public static SelectList DocumentTypes(string selectedValue = "")
         {
             var items = new List<SelectListItem>()
@@ -596,6 +674,11 @@
             return new SelectList(items, "Value", "Text", selectedValue);
         }
 
+        /// <summary>
+        /// This is static method generating a <see cref="SelectList"/> with all genders.
+        /// </summary>
+        /// <param name="selectedValue">An optional string containing the selected value.</param>
+        /// <returns>Returns a <see cref="SelectList"/> with all genders.</returns>
         public static SelectList Genders(string selectedValue = "")
         {
             var items = new List<SelectListItem>()
@@ -604,8 +687,8 @@
                 new () { Value = "1", Text = "Female" },
             };
 
-            var slectList = new SelectList(items, "Value", "Text", selectedValue);
-            return slectList;
+            var selectList = new SelectList(items, "Value", "Text", selectedValue);
+            return selectList;
         }
 
         //public static readonly List<SelectListItem> Code_Nationality = new List<SelectListItem>()
