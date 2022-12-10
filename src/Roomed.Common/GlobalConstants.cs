@@ -17,6 +17,10 @@
         public const string PassportImagePath = "/assets/images/passport.png";
         public const string DrivingLicenseImagePath = "/assets/images/driver-license.png";
 
+        public const string CloudServiceImagePath = "/assets/images/administration/cloud-service.png";
+        public const string CloudSettingsImagePath = "/assets/images/administration/cloud-settings.png";
+        public const string SeoAndWebImagePath = "/assets/images/administration/seo-and-web.png";
+
         public static readonly HashSet<string> Nationalities = new HashSet<string>()
         {
             "Afghanistan",
