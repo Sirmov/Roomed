@@ -1,4 +1,8 @@
-﻿namespace Roomed.Web.ViewModels.Room
+﻿// <copyright file="RoomViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Roomed.Web.ViewModels.Room
 {
     using Roomed.Services.Data.Dtos.Room;
     using Roomed.Services.Mapping;

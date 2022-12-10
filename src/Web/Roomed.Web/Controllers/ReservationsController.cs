@@ -1,4 +1,11 @@
-﻿namespace Roomed.Web.Controllers
+﻿// |-----------------------------------------------------------------------------------------------------|
+// <copyright file="ReservationsController.cs" company="Roomed">
+// Copyright (c) Roomed. All Rights Reserved.
+// Licensed under the GPLv3 license. See LICENSE file in the project root for full license information.
+// </copyright>
+// |-----------------------------------------------------------------------------------------------------|
+
+namespace Roomed.Web.Controllers
 {
     using AutoMapper;
     using Ganss.Xss;
@@ -8,7 +15,6 @@
     using Newtonsoft.Json;
 
     using Roomed.Data.Models;
-    using Roomed.Data.Models.Enums;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.Reservation;
     using Roomed.Web.ViewModels.Profile;

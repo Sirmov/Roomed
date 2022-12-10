@@ -1,4 +1,8 @@
-﻿namespace Roomed.Data.Tests
+﻿// <copyright file="EfDeletableRepositoryTests.cs" company="Roomed">
+// Copyright (c) Roomed. All Rights Reserved.
+// </copyright>
+
+namespace Roomed.Data.Tests
 {
     using Microsoft.EntityFrameworkCore;
 

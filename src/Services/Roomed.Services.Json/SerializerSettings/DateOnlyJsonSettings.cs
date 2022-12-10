@@ -1,4 +1,11 @@
-﻿namespace Roomed.Services.Json.SerializerSettings
+﻿// |-----------------------------------------------------------------------------------------------------|
+// <copyright file="DateOnlyJsonSettings.cs" company="Roomed">
+// Copyright (c) Roomed. All Rights Reserved.
+// Licensed under the GPLv3 license. See LICENSE file in the project root for full license information.
+// </copyright>
+// |-----------------------------------------------------------------------------------------------------|
+
+namespace Roomed.Services.Json.SerializerSettings
 {
     using Newtonsoft.Json;
     using Roomed.Services.Json.Converters;

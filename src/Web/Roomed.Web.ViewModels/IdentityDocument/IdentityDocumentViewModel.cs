@@ -1,4 +1,8 @@
-﻿namespace Roomed.Web.ViewModels.IdentityDocument
+﻿// <copyright file="IdentityDocumentViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Roomed.Web.ViewModels.IdentityDocument
 {
     using System.ComponentModel.DataAnnotations;
 

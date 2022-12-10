@@ -1,4 +1,8 @@
-﻿namespace Roomed.Web.ViewModels.Shared
+﻿// <copyright file="IdentityDocumentIconViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Roomed.Web.ViewModels.Shared
 {
     using Roomed.Data.Models.Enums;
 

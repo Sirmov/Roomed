@@ -1,4 +1,8 @@
-﻿namespace Roomed.Web.ViewModels.ReservationDayGuest
+﻿// <copyright file="ReservationDayGuestViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Roomed.Web.ViewModels.ReservationDayGuest
 {
     using Roomed.Services.Data.Dtos.ReservationDayGuest;
     using Roomed.Services.Mapping;

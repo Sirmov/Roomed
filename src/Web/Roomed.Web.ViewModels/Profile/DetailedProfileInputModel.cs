@@ -1,4 +1,8 @@
-﻿namespace Roomed.Web.ViewModels.Profile
+﻿// <copyright file="DetailedProfileInputModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Roomed.Web.ViewModels.Profile
 {
     using System.ComponentModel.DataAnnotations;
 

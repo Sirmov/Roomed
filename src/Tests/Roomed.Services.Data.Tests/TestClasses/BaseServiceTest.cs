@@ -1,4 +1,8 @@
-﻿namespace Roomed.Services.Data.Tests.TestClasses
+﻿// <copyright file="BaseServiceTest.cs" company="Roomed">
+// Copyright (c) Roomed. All Rights Reserved.
+// </copyright>
+
+namespace Roomed.Services.Data.Tests.TestClasses
 {
     using AutoMapper;
 

@@ -75,7 +75,7 @@
             mock.Setup(m => m.All(It.IsAny<bool>(), It.IsAny<bool>()))
                 .Returns((bool isReadonly, bool withDeleted) =>
                 {
-                    var query = DbContext.Set<ReservationNote>().AsQueryable();
+                    IQueryable<ReservationNote> query = DbContext.Set<ReservationNote>();
 
                     if (isReadonly)
                     {
@@ -90,8 +90,8 @@
                     return query;
                 });
 
-            mock.Setup(m => m.FindAsync(It.IsAny<Guid>(), It.IsAny<bool>()).Result)
-                .Returns(async (Guid id, bool isReadonly) => await DbContext.Set<ReservationNote>().FindAsync(id));
+            //mock.Setup(m => m.FindAsync(It.IsAny<Guid>(), It.IsAny<bool>()).Result)
+            //    .Returns(async (Guid id, bool isReadonly) => await DbContext.Set<ReservationNote>().FindAsync(id));
 
             var repository = mock.Object;
             return repository;

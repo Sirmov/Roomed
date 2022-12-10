@@ -1,4 +1,8 @@
-﻿namespace Roomed.Web.ViewModels.User
+﻿// <copyright file="UserViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Roomed.Web.ViewModels.User
 {
     using Roomed.Data.Models;
     using Roomed.Services.Data.Dtos.User;

@@ -1,4 +1,11 @@
-﻿namespace Roomed.Common
+﻿// |-----------------------------------------------------------------------------------------------------|
+// <copyright file="AreasControllersActionsConstants.cs" company="Roomed">
+// Copyright (c) Roomed. All Rights Reserved.
+// Licensed under the GPLv3 license. See LICENSE file in the project root for full license information.
+// </copyright>
+// |-----------------------------------------------------------------------------------------------------|
+
+namespace Roomed.Common
 {
     /// <summary>
     /// This is a static class containing string constants of all area, controller and action names.

@@ -1,4 +1,8 @@
-﻿namespace Roomed.Services.Data.Tests
+﻿// <copyright file="BaseServiceTests.cs" company="Roomed">
+// Copyright (c) Roomed. All Rights Reserved.
+// </copyright>
+
+namespace Roomed.Services.Data.Tests
 {
     using System.Linq;
     using System.Reflection;

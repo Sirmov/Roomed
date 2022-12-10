@@ -1,4 +1,8 @@
-﻿namespace Roomed.Web.ViewModels.Reservation
+﻿// <copyright file="ReservationViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Roomed.Web.ViewModels.Reservation
 {
     using Roomed.Data.Models.Enums;
     using Roomed.Services.Data.Dtos.Reservation;
