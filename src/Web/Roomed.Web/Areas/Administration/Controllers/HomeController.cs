@@ -4,8 +4,16 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    /// <summary>
+    /// A MVC controller inheriting <see cref="BaseController"/>.
+    /// The home controller is used for viewing the home and not implemented page.
+    /// </summary>
     public class HomeController : BaseController
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeController"/> class.
+        /// </summary>
+        /// <param name="sanitizer">The global html sanitizer.</param>
         public HomeController(IHtmlSanitizer sanitizer)
             : base(sanitizer)
         {
@@ -21,9 +29,9 @@
         }
 
         /// <summary>
-        /// This method returns the not implemented page.
+        /// This action is used to show the "not implemented" page.
         /// </summary>
-        /// <returns>Returns <see cref="IActionResult"/>.</returns>
+        /// <returns>Returns the "not implemented" view.</returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult NotImplemented()
