@@ -18,6 +18,7 @@ namespace Roomed.Services.Data
     using Roomed.Services.Data.Common;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.IdentityDocument;
+    using Roomed.Services.Data.Dtos.Profile;
 
     /// <summary>
     /// This class is a implementation of the <see cref="IIdentityDocumentsService"/> interface.
@@ -31,7 +32,7 @@ namespace Roomed.Services.Data
         /// Uses constructor injection to resolve dependencies.
         /// </summary>
         /// <param name="identityDocumentsRepository">The <see cref="IdentityDocument"/> database repository.</param>
-        /// <param name="mapper">The global auto mapper.</param>
+        /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
         public IdentityDocumentsService(IDeletableEntityRepository<IdentityDocument, Guid> identityDocumentsRepository, IMapper mapper)
             : base(identityDocumentsRepository, mapper)
         {
@@ -104,6 +105,23 @@ namespace Roomed.Services.Data
         {
             await this.identityDocumentsRepository.DeleteAsync(id);
             await this.identityDocumentsRepository.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> ExistsAsync(Guid id, QueryOptions<IdentityDocumentDto>? queryOptions = null)
+        {
+            var result = true;
+
+            try
+            {
+                await this.identityDocumentsRepository.FindAsync(id);
+            }
+            catch (InvalidOperationException iox)
+            {
+                result = false;
+            }
+
+            return result;
         }
     }
 }
