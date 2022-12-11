@@ -120,6 +120,11 @@ namespace Roomed.Common
             /// </summary>
             public const string NotImplemented = "NotImplemented";
 
+            /// <summary>
+            /// A string representing the error action.
+            /// </summary>
+            public const string Error = "Error";
+
             // Reservations controller actions
 
             /// <summary>
