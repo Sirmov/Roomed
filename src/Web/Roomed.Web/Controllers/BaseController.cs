@@ -15,6 +15,7 @@ namespace Roomed.Web.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     using Roomed.Common.Attribues;
+    using static Roomed.Common.AreasControllersActionsConstants;
 
     /// <summary>
     /// The base controller is a base class for all controllers in this application.
@@ -23,13 +24,26 @@ namespace Roomed.Web.Controllers
     [Authorize(Policy = "FrontOffice")]
     public class BaseController : Controller
     {
+        /// <summary>
+        /// A field containing an implementation of the <see cref="IHtmlSanitizer"/>.
+        /// </summary>
         protected IHtmlSanitizer sanitizer;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseController"/> class.
+        /// </summary>
+        /// <param name="sanitizer">The implementation of <see cref="IHtmlSanitizer"/>.</param>
         public BaseController(IHtmlSanitizer sanitizer)
         {
             this.sanitizer = sanitizer;
         }
 
+        /// <summary>
+        /// This method sanitizes the properties on a specified model given the <see cref="SanitizeAttribute"/>.
+        /// </summary>
+        /// <typeparam name="TModel">The type of the model.</typeparam>
+        /// <param name="model">The model to be sanitized.</param>
+        /// <exception cref="ArgumentNullException">Throws when the model is null.</exception>
         protected void SanitizeModel<TModel>(TModel model)
         {
             ArgumentNullException.ThrowIfNull(model, nameof(model));
@@ -54,6 +68,20 @@ namespace Roomed.Web.Controllers
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// This method redirect to the error view providing an error title and message.
+        /// </summary>
+        /// <param name="title">The title of the error.</param>
+        /// <param name="message">The message of the error.</param>
+        /// <returns>Returns <see cref="IActionResult"/>.</returns>
+        protected IActionResult ShowError(string title, string message)
+        {
+            TempData["ErrorTitle"] = title;
+            TempData["ErrorMessage"] = message;
+
+            return RedirectToAction(Actions.Error, Controllers.Home, new { area = string.Empty });
         }
     }
 }
