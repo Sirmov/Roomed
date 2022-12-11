@@ -7,6 +7,9 @@
 
 namespace Roomed.Common.Attribues
 {
+    /// <summary>
+    /// This attribute is used to mark the properties that should be html sanitized.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     public class SanitizeAttribute : Attribute
     {

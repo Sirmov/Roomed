@@ -7,10 +7,24 @@
 
 namespace Roomed.Data.Models.Enums
 {
+    /// <summary>
+    /// This enumeration contains the allowed identity document types.
+    /// </summary>
     public enum IdentityDocumentType
     {
+        /// <summary>
+        /// Indicates that the document is an identity card.
+        /// </summary>
         Id,
+
+        /// <summary>
+        /// Indicates that the document is a passport.
+        /// </summary>
         Passport,
+
+        /// <summary>
+        /// Indicates that the document is a driving license.
+        /// </summary>
         DrivingLicense,
     }
 }

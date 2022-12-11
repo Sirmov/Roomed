@@ -13,7 +13,7 @@ namespace Roomed.Data.Models
     using Roomed.Data.Common.Models;
 
     /// <summary>
-    /// Reservation day entity model. Inherits base deletable model. Has guid id.
+    /// Reservation day entity model. Inherits <see cref="BaseDeletableModel{TKey}"/>. Has <see cref="Guid"/> id.
     /// </summary>
     public class ReservationDay : BaseDeletableModel<Guid>
     {

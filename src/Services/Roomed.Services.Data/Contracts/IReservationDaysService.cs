@@ -20,7 +20,7 @@ namespace Roomed.Services.Data.Contracts
         /// This method returns all reservation days asynchronously.
         /// </summary>
         /// <param name="queryOptions">The query options.</param>
-        /// <returns>Returns a <see cref="Task"/> with a collection of all <see cref="ReservationDayDto"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with a collection of all <see cref="ReservationDayDto"/>.</returns>
         public Task<ICollection<ReservationDayDto>> GetAllAsync(QueryOptions<ReservationDayDto>? queryOptions = null );
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Roomed.Services.Data.Contracts
         /// </summary>
         /// <param name="id">The id of the reservation day.</param>
         /// <param name="queryOptions">The query options.</param>
-        /// <returns>Returns a <see cref="Task"/> of <see cref="ReservationDayDto"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="ReservationDayDto"/>.</returns>
         public Task<ReservationDayDto> GetAsync(Guid id, QueryOptions<ReservationDayDto>? queryOptions = null);
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Roomed.Services.Data.Contracts
         /// </summary>
         /// <param name="date">The date of the reservation days.</param>
         /// <param name="queryOptions">The query options.</param>
-        /// <returns>Returns a <see cref="Task"/> with a collection of all <see cref="ReservationDayDto"/> on a given date.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with a collection of all <see cref="ReservationDayDto"/> on a given date.</returns>
         public Task<ICollection<ReservationDayDto>> GetAllForDate(DateOnly date, QueryOptions<ReservationDayDto>? queryOptions = null);
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="startDate">The start of the period.</param>
         /// <param name="endDate">The end of the period.</param>
         /// <param name="queryOptions">The query options.</param>
-        /// <returns>Returns a <see cref="Task"/> with a collection of all <see cref="ReservationDayDto"/> on a given period.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with a collection of all <see cref="ReservationDayDto"/> on a given period.</returns>
         public Task<ICollection<ReservationDayDto>> GetAllForPeriod(DateOnly startDate, DateOnly endDate, QueryOptions<ReservationDayDto>? queryOptions = null);
 
         /// <summary>

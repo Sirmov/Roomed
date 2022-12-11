@@ -15,6 +15,7 @@ namespace Roomed.Data.Repositories
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
+
     using Roomed.Data.Common.Models;
     using Roomed.Data.Common.Repositories;
 
@@ -38,12 +39,12 @@ namespace Roomed.Data.Repositories
         }
 
         /// <summary>
-        /// The entity's db set of the context.
+        /// Gets or sets the entity's db set of the context.
         /// </summary>
         protected DbSet<TEntity> DbSet { get; set; }
 
         /// <summary>
-        /// The application db context.
+        /// Gets or sets the application db context.
         /// </summary>
         protected ApplicationDbContext Context { get; set; }
 
@@ -91,9 +92,12 @@ namespace Roomed.Data.Repositories
         }
 
         /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when the id is null.</exception>
         /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
         public virtual async Task<TEntity> FindAsync(TKey id, bool isReadonly = false)
         {
+            ArgumentNullException.ThrowIfNull(id);
+
             TEntity? entity = await this.DbSet.FindAsync(id);
 
             if (entity == null)
@@ -196,12 +200,7 @@ namespace Roomed.Data.Repositories
         /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
         public virtual async Task DeleteAsync(TKey id)
         {
-            TEntity? entity = await this.FindAsync(id);
-
-            if (entity == null)
-            {
-                throw new InvalidOperationException("There is no entity found with this id!");
-            }
+            TEntity entity = await this.FindAsync(id);
 
             this.Delete(entity);
         }

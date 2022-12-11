@@ -30,7 +30,7 @@ namespace Roomed.Web.Controllers
         /// Uses constructor injection to resolve dependencies.
         /// </summary>
         /// <param name="usersService">The implementation of <see cref="IUsersService{TUser, TRole}"/>.</param>
-        /// <param name="sanitizer">The global html sanitizer.</param>
+        /// <param name="sanitizer">The implementation of <see cref="IHtmlSanitizer"/>.</param>
         public UserController(
             IUsersService<ApplicationUser, ApplicationRole> usersService,
             IHtmlSanitizer sanitizer)
@@ -40,9 +40,9 @@ namespace Roomed.Web.Controllers
         }
 
         /// <summary>
-        /// This method returns the login page.
+        /// This action returns the login page.
         /// </summary>
-        /// <returns>Return <see cref="IActionResult"/>.</returns>
+        /// <returns>Return the login view.</returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -53,11 +53,11 @@ namespace Roomed.Web.Controllers
         }
 
         /// <summary>
-        /// This method handles the login request.
+        /// This action handles the login request.
         /// Returns the same view if the login is not successful otherwise redirects to <see cref="HomeController.Index"/> action.
         /// </summary>
         /// <param name="inputModel">The login input model.</param>
-        /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel inputModel)
@@ -84,7 +84,7 @@ namespace Roomed.Web.Controllers
                     return View(inputModel);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError(string.Empty, "Invalid login!");
                 return View(inputModel);
@@ -94,10 +94,10 @@ namespace Roomed.Web.Controllers
         }
 
         /// <summary>
-        /// This method signs out the current user.
+        /// This action signs out the current user.
         /// Redirects to <see cref="UserController.Login"/> action.
         /// </summary>
-        /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         public async Task<IActionResult> Logout()
         {
             if (User?.Identity?.IsAuthenticated ?? false)
@@ -109,9 +109,9 @@ namespace Roomed.Web.Controllers
         }
 
         /// <summary>
-        /// This method returns the access denied page.
+        /// This action returns the access denied page.
         /// </summary>
-        /// <returns>Return <see cref="IActionResult"/>.</returns>
+        /// <returns>Return the access denied view.</returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AccessDenied()

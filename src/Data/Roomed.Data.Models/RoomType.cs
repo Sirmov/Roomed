@@ -14,7 +14,7 @@ namespace Roomed.Data.Models
     using static Roomed.Common.DataConstants.RoomType;
 
     /// <summary>
-    /// Room type entity model. Inherits base deletable model. Has int id.
+    /// Room type entity model. Inherits <see cref="BaseDeletableModel{TKey}"/>. Has <see cref="int"/> id.
     /// </summary>
     public class RoomType : BaseDeletableModel<int>
     {

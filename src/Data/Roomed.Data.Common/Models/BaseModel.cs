@@ -10,13 +10,22 @@ namespace Roomed.Data.Common.Models
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    /// <summary>
+    /// This abstract class is the base for every entity.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the primary key of the entity.</typeparam>
     public abstract class BaseModel<TKey> : IAuditInfo
     {
+        /// <summary>
+        /// Gets or sets the primary key of the entity.
+        /// </summary>
         [Key]
-        public TKey Id { get; set; }
+        public TKey Id { get; set; } = default(TKey) !;
 
+        /// <inheritdoc/>
         public DateTime CreatedOn { get; set; }
 
+        /// <inheritdoc/>
         public DateTime? ModifiedOn { get; set; }
     }
 }

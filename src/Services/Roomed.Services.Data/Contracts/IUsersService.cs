@@ -22,27 +22,27 @@ namespace Roomed.Services.Data.Contracts
         /// <summary>
         /// This method returns all registered users asynchronously.
         /// </summary>
-        /// <returns>Returns a <see cref="Task"/> with a collection of all <typeparamref name="TUser"/> users.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with a collection of all <typeparamref name="TUser"/> users.</returns>
         public Task<IEnumerable<TUser>> GetAllUsersAsync();
 
         /// <summary>
         /// This method returns all roles which a user is in asynchronously.
         /// </summary>
         /// <param name="user">The specified user.</param>
-        /// <returns>Returns a collection of all the roles which the specified user is in.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with a collection of all the roles which the specified user is in.</returns>
         public Task<IEnumerable<string>> GetUserRolesAsync(TUser user);
 
         /// <summary>
         /// This method returns all roles asynchronously.
         /// </summary>
-        /// <returns>Returns a collection of all roles.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with a collection of all roles.</returns>
         public Task<IEnumerable<string>> GetAllRolesAsync();
 
         /// <summary>
         /// This method checks if a role exists asynchronously.
         /// </summary>
         /// <param name="role">The name of the role.</param>
-        /// <returns>Returns a <see cref="Task"/> of <see cref="bool"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="bool"/>.</returns>
         public Task<bool> DoesRoleExistAsync(string role);
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="username">The username of the user.</param>
         /// <param name="password">The password of the user.</param>
         /// <param name="roles">Optional collection of user roles.</param>
-        /// <returns>Returns a task of <see cref="IdentityResult"/> for the operation.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IdentityResult"/> for the operation.</returns>
         public Task<IdentityResult> RegisterWithEmailAndUsernameAsync(string email, string username, string password, IEnumerable<string>? roles = null);
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="password">The login attempt password.</param>
         /// <param name="isPersistant">Flag indicating whether the sign-in cookie should persist after the browser is closed.</param>
         /// <param name="isLockout">Flag indicating if the user account should be locked if the sign in fails.</param>
-        /// <returns>Returns a task of <see cref="SignInResult"/> for the operation.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="SignInResult"/> for the operation.</returns>
         public Task<SignInResult> LoginWithEmailAsync(string email, string password, bool isPersistant = false, bool isLockout = true);
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="password">The login attempt password.</param>
         /// <param name="isPersistant">Flag indicating whether the sign-in cookie should persist after the browser is closed.</param>
         /// <param name="isLockout">Flag indicating if the user account should be locked if the sign in fails.</param>
-        /// <returns>Returns a task of <see cref="SignInResult"/> for the operation.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="SignInResult"/> for the operation.</returns>
         public Task<SignInResult> LoginWithUsernameAsync(string username, string password, bool isPersistant = false, bool isLockout = true);
 
         /// <summary>
@@ -115,21 +115,21 @@ namespace Roomed.Services.Data.Contracts
         /// This method tries to find the user with the specified email.
         /// </summary>
         /// <param name="email">The email of the searched user.</param>
-        /// <returns>Returns a task of <typeparamref name="TUser"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <typeparamref name="TUser"/>.</returns>
         public Task<TUser> FindUserByEmailAsync(string email);
 
         /// <summary>
         /// This method tries to find the user with the specified username.
         /// </summary>
         /// <param name="username">The username of the searched user.</param>
-        /// <returns>Returns a task of <typeparamref name="TUser"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <typeparamref name="TUser"/>.</returns>
         public Task<TUser> FindUserByUsernameAsync(string username);
 
         /// <summary>
         /// This method tries to find the user with the specified id.
         /// </summary>
         /// <param name="id">The id of the searched user.</param>
-        /// <returns>Returns a task of <typeparamref name="TUser"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <typeparamref name="TUser"/>.</returns>
         public Task<TUser> FindUserByIdAsync(string id);
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Roomed.Services.Data.Contracts
         /// This method asynchronously deletes an user.
         /// </summary>
         /// <param name="id">The id of the user.</param>
-        /// <returns>Returns a <see cref="Task"/> with <see cref="IdentityResult"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with <see cref="IdentityResult"/>.</returns>
         public Task<IdentityResult> DeleteUserWithId(string id);
     }
 }

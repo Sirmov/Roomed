@@ -7,13 +7,39 @@
 
 namespace Roomed.Data.Models.Enums
 {
+    /// <summary>
+    /// This enumeration contains the allowed reservation statuses.
+    /// </summary>
     public enum ReservationStatus
     {
+        /// <summary>
+        /// Indicates that the reservation is expected to arrive in the future.
+        /// </summary>
         Expected,
+
+        /// <summary>
+        /// Indicates that the reservation is arriving today.
+        /// </summary>
         Arriving,
+
+        /// <summary>
+        /// Indicates that the reservation is accommodated.
+        /// </summary>
         InHouse,
+
+        /// <summary>
+        /// Indicates that the reservation is departing today.
+        /// </summary>
         Departuring,
+
+        /// <summary>
+        /// Indicates that the reservation is checked out.
+        /// </summary>
         CheckOut,
+
+        /// <summary>
+        /// Indicates that the reservation is canceled.
+        /// </summary>
         Canceled,
     }
 }

@@ -9,13 +9,18 @@ namespace Roomed.Data.Common
 {
     using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+    /// <summary>
+    /// This class inherits <see cref="ValueConverter{TModel, TProvider}"/>
+    /// and its used for conversion between <see cref="DateOnly"/> and <see cref="DateTime"/>.
+    /// </summary>
     public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DateOnlyConverter"/> class.
+        /// </summary>
         public DateOnlyConverter()
-            : base
-            (
-                dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
-                dateTime => DateOnly.FromDateTime(dateTime)
-            ) { }
+            : base(dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue), dateTime => DateOnly.FromDateTime(dateTime))
+        {
+        }
     }
 }

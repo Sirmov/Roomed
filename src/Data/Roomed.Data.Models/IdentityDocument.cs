@@ -16,7 +16,7 @@ namespace Roomed.Data.Models
     using static Roomed.Common.DataConstants.IdentityDocument;
 
     /// <summary>
-    /// Identity document entity model. Inherits base deletable model. Has guid id.
+    /// Identity document entity model. Inherits <see cref="BaseDeletableModel{TKey}"/>. Has <see cref="Guid"/> id.
     /// </summary>
     public class IdentityDocument : BaseDeletableModel<Guid>
     {
@@ -46,14 +46,14 @@ namespace Roomed.Data.Models
         /// </summary>
         [Required(AllowEmptyStrings = false)]
         [MaxLength(NameMaxLength)]
-        public string NameInDocument { get; set; }
+        public string NameInDocument { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets document number.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
         [MaxLength(NumberMaxLength)]
-        public string DocumentNumber { get; set; }
+        public string DocumentNumber { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets personal number.
@@ -65,7 +65,7 @@ namespace Roomed.Data.Models
         /// Gets or sets identity document country.
         /// </summary>
         [MaxLength(CountryMaxLength)]
-        public string Country { get; set; }
+        public string Country { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets identity document birthdate.
@@ -78,14 +78,14 @@ namespace Roomed.Data.Models
         /// </summary>
         [Required]
         [MaxLength(PlaceOfBirthMaxLength)]
-        public string PlaceOfBirth { get; set; }
+        public string PlaceOfBirth { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets nationality.
         /// </summary>
         [Required]
         [MaxLength(NationalityMaxLength)]
-        public string Nationality { get; set; }
+        public string Nationality { get; set; } = null!;
 
         /// <summary>
         /// Gets or sets valid from.
@@ -104,7 +104,7 @@ namespace Roomed.Data.Models
         /// </summary>
         [Required(AllowEmptyStrings = false)]
         [MaxLength(IssuedByMaxLength)]
-        public string IssuedBy { get; set; }
+        public string IssuedBy { get; set; } = null!;
 
         // Navigational Properties
 
@@ -112,6 +112,6 @@ namespace Roomed.Data.Models
         /// Gets or sets owner navigational property.
         /// </summary>
         [ForeignKey(nameof(OwnerId))]
-        public virtual Profile Owner { get; set; }
+        public virtual Profile Owner { get; set; } = null!;
     }
 }

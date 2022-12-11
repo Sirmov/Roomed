@@ -9,10 +9,16 @@ namespace Roomed.Data.Common.Models
 {
     using System;
 
+    /// <summary>
+    /// This abstract class is the base for every deletable entity.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the primary key of the entity.</typeparam>
     public abstract class BaseDeletableModel<TKey> : BaseModel<TKey>, IDeletableEntity
     {
+        /// <inheritdoc/>
         public bool IsDeleted { get; set; }
 
+        /// <inheritdoc/>
         public DateTime? DeletedOn { get; set; }
     }
 }

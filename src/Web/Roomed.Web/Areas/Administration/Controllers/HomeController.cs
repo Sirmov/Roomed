@@ -20,7 +20,7 @@ namespace Roomed.Web.Areas.Administration.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="HomeController"/> class.
         /// </summary>
-        /// <param name="sanitizer">The global html sanitizer.</param>
+        /// <param name="sanitizer">The implementation of <see cref="IHtmlSanitizer"/>.</param>
         public HomeController(IHtmlSanitizer sanitizer)
             : base(sanitizer)
         {

@@ -17,7 +17,7 @@ namespace Roomed.Data.Seeding.Seeders
         /// </summary>
         /// <param name="dbContext">The database context.</param>
         /// <param name="serviceProvider">The IoC container, service provider.</param>
-        /// <returns>Returns <see cref="Task"/>.</returns>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
         Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider);
     }
 }

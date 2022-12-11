@@ -16,7 +16,7 @@ namespace Roomed.Services.Data.Contracts
         /// </summary>
         /// <typeparam name="TDto">The dto of the entity that should be returned.</typeparam>
         /// <param name="queryOptions">The options for the query.</param>
-        /// <returns>Returns a task with a collection of all entities of type <typeparamref name="TDto"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with a collection of all entities of type <typeparamref name="TDto"/>.</returns>
         public Task<ICollection<TDto>> GetAllAsync<TDto>(QueryOptions<TDto> queryOptions);
 
         /// <summary>

@@ -35,7 +35,7 @@ namespace Roomed.Services.Data
         /// <param name="reservationRepository">The <see cref="Reservation"/> database repository.</param>
         /// <param name="roomsService">The implementation of <see cref="IRoomsService"/>.</param>
         /// <param name="reservationDaysService">The implementation of <see cref="IReservationDaysService"/>.</param>
-        /// <param name="mapper">The global auto mapper.</param>
+        /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
         public ReservationsService(
             IDeletableEntityRepository<Reservation, Guid> reservationRepository,
             IRoomsService roomsService,

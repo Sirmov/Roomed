@@ -10,7 +10,6 @@ namespace Roomed.Services.Data.Contracts
     using Roomed.Data.Models;
     using Roomed.Services.Data.Common;
     using Roomed.Services.Data.Dtos.Reservation;
-    using Roomed.Services.Data.Dtos.RoomType;
 
     /// <summary>
     /// This interface is used to state and document the reservations data service functionality.
@@ -21,7 +20,7 @@ namespace Roomed.Services.Data.Contracts
         /// This method asynchronously returns a collection of all reservations.
         /// </summary>
         /// <param name="queryOptions">The query options.</param>
-        /// <returns>Returns a collection of <see cref="ReservationDto"/> objects.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with the collection of <see cref="ReservationDto"/> objects.</returns>
         public Task<ICollection<ReservationDto>> GetAllAsync(QueryOptions<ReservationDto>? queryOptions = null);
 
         /// <summary>
@@ -29,28 +28,28 @@ namespace Roomed.Services.Data.Contracts
         /// </summary>
         /// <param name="id">The id of the reservation.</param>
         /// <param name="queryOptions">The query options.</param>
-        /// <returns>Returns a single <see cref="ReservationDto"/> object.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with a single <see cref="ReservationDto"/> object.</returns>
         public Task<ReservationDto> GetAsync(string id, QueryOptions<ReservationDto>? queryOptions = null);
 
         /// <summary>
         /// This method asynchronously returns all arriving reservations on a given date.
         /// </summary>
         /// <param name="date">The date of the reservation.</param>
-        /// <returns>Returns a collection <see cref="ReservationDto"/> objects.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with the collection of <see cref="ReservationDto"/> objects.</returns>
         public Task<ICollection<ReservationDto>> GetAllArrivingFromDateAsync(DateOnly date);
 
         /// <summary>
         /// This method asynchronously returns all in house reservations on a given date.
         /// </summary>
         /// <param name="date">The date of the reservations.</param>
-        /// <returns>Returns a collection <see cref="ReservationDto"/> objects.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with the collection of <see cref="ReservationDto"/> objects.</returns>
         public Task<ICollection<ReservationDto>> GetAllInHouseFromDateAsync(DateOnly date);
 
         /// <summary>
         /// This method asynchronously returns all departing reservations on a given date.
         /// </summary>
         /// <param name="date">The date of the reservations.</param>
-        /// <returns>Returns a collection <see cref="ReservationDto"/> objects.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with the collection of <see cref="ReservationDto"/> objects.</returns>
         public Task<ICollection<ReservationDto>> GetAllDepartingFromDateAsync(DateOnly date);
 
         ///// <summary>
@@ -77,7 +76,7 @@ namespace Roomed.Services.Data.Contracts
         /// </summary>
         /// <param name="reservationDto">The reservation to be created.</param>
         /// <param name="roomId">The id of the room to be occupied.</param>
-        /// <returns>Returns a <see cref="Task"/> with the id of the newly created reservation.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with the id of the newly created reservation.</returns>
         public Task<Guid> CreateReservationAsync(ReservationDto reservationDto, int roomId);
     }
 }

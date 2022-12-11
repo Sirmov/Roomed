@@ -9,6 +9,7 @@ namespace Roomed.Services.Data.Contracts
 {
     using Roomed.Services.Data.Common;
     using Roomed.Services.Data.Dtos.IdentityDocument;
+    using Roomed.Services.Data.Dtos.Profile;
 
     /// <summary>
     /// This interface is used to state and document the identity documents data service functionality.
@@ -51,5 +52,13 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="id">The id of the identity document to be deleted.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
         public Task DeleteAsync(Guid id);
+
+        /// <summary>
+        /// This method asynchronously check if a identity document with a give id exists.
+        /// </summary>
+        /// <param name="id">The id of the identity document.</param>
+        /// <param name="queryOptions">The query options.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="bool"/>.</returns>
+        public Task<bool> ExistsAsync(Guid id, QueryOptions<IdentityDocumentDto>? queryOptions = null);
     }
 }

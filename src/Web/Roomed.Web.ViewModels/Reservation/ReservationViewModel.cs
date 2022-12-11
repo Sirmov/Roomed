@@ -1,6 +1,9 @@
-﻿// <copyright file="ReservationViewModel.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// |-----------------------------------------------------------------------------------------------------|
+// <copyright file="ReservationViewModel.cs" company="Roomed">
+// Copyright (c) Roomed. All Rights Reserved.
+// Licensed under the GPLv3 license. See LICENSE file in the project root for full license information.
 // </copyright>
+// |-----------------------------------------------------------------------------------------------------|
 
 namespace Roomed.Web.ViewModels.Reservation
 {
@@ -16,22 +19,37 @@ namespace Roomed.Web.ViewModels.Reservation
     /// </summary>
     public class ReservationViewModel : IMapFrom<ReservationDto>
     {
+        /// <inheritdoc cref="Roomed.Data.Common.Models.BaseModel{TKey}.Id"/>
         public Guid Id { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.ReservationHolderId"/>
         public Guid ReservationHolderId { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.ArrivalDate"/>
         public DateOnly ArrivalDate { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.DepartureDate"/>
         public DateOnly DepartureDate { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.Status"/>
         public ReservationStatus Status { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.RoomTypeId"/>
         public int RoomTypeId { get; set; }
 
+        /// <summary>
+        /// Gets or sets reservation holder view model.
+        /// </summary>
         public DetailedProfileViewModel ReservationHolder { get; set; } = null!;
 
+        /// <summary>
+        /// Gets or sets room type view model.
+        /// </summary>
         public RoomTypeViewModel RoomType { get; set; } = null!;
 
-        public ICollection<ReservationDayViewModel> ReservationDays { get; set; }
+        /// <summary>
+        /// Gets or sets a collection of reservation day view models.
+        /// </summary>
+        public ICollection<ReservationDayViewModel> ReservationDays { get; set; } = new List<ReservationDayViewModel>();
     }
 }

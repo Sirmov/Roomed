@@ -15,7 +15,7 @@ namespace Roomed.Data.Models
     using static Roomed.Common.DataConstants.Profile;
 
     /// <summary>
-    /// Profile entity model. Inherits base deletable model. Has guid id.
+    /// Profile entity model. Inherits <see cref="BaseDeletableModel{TKey}"/>. Has <see cref="Guid"/> id.
     /// </summary>
     public class Profile : BaseDeletableModel<Guid>
     {

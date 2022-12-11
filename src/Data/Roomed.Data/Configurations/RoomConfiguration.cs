@@ -9,6 +9,7 @@ namespace Roomed.Data.Configurations
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     using Roomed.Data.Models;
 
     /// <summary>

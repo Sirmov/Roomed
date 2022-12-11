@@ -36,7 +36,7 @@ namespace Roomed.Web.Controllers
         /// Uses constructor injection to resolve dependencies.
         /// </summary>
         /// <param name="profilesService">The implementation of <see cref="IProfilesService"/>.</param>
-        /// <param name="mapper">The global auto mapper.</param>
+        /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
         public ProfilesController(IProfilesService profilesService, IMapper mapper, IHtmlSanitizer sanitizer)
             : base(sanitizer)
         {

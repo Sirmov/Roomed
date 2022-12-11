@@ -14,7 +14,7 @@ namespace Roomed.Data
     using Roomed.Data.Models;
 
     /// <summary>
-    /// Application db context using Entity Framework Core, Microsoft SQL Server and ASP Identity. Inherits <see cref="IdentityDbContext{TUser, TRole, TKey}"/>.
+    /// Application db context using Entity Framework Core, Microsoft SQL Server and ASP.NET Core Identity. Inherits <see cref="IdentityDbContext{TUser, TRole, TKey}"/>.
     /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {

@@ -35,7 +35,7 @@ namespace Roomed.Services.Data.Contracts
         /// </summary>
         /// <param name="id">The id of the room type.</param>
         /// <param name="queryOptions">The query options.</param>
-        /// <returns>Returns a <see cref="Task"/> of <see cref="bool"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="bool"/>.</returns>
         public Task<bool> ExistsAsync(int id, QueryOptions<RoomTypeDto>? queryOptions = null);
     }
 }

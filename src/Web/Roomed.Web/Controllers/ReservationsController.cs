@@ -45,8 +45,8 @@ namespace Roomed.Web.Controllers
         /// <param name="profilesService">The implementation of <see cref="IProfilesService"/>.</param>
         /// <param name="roomTypesService">The implementation of <see cref="IRoomTypesService"/>.</param>
         /// <param name="roomsService">The implementation of <see cref="IRoomsService"/>.</param>
-        /// <param name="mapper">The global auto mapper.</param>
-        /// <param name="sanitizer">The global html sanitizer.</param>
+        /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
+        /// <param name="sanitizer">The implementation of <see cref="IHtmlSanitizer"/>.</param>
         public ReservationsController(
             IReservationsService reservationsService,
             IProfilesService profilesService,

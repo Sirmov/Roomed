@@ -32,7 +32,7 @@ namespace Roomed.Services.Data
         /// Uses constructor injection to resolve dependencies.
         /// </summary>
         /// <param name="profilesRepository">The <see cref="Profile"/> database repository.</param>
-        /// <param name="mapper">The global auto mapper.</param>
+        /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
         public ProfilesService(IDeletableEntityRepository<Profile, Guid> profilesRepository, IMapper mapper)
             : base(profilesRepository, mapper)
         {

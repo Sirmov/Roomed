@@ -58,7 +58,7 @@ namespace Roomed.Data.Common.Repositories
         /// </summary>
         /// <param name="id">The id of the searched entity.</param>
         /// <param name="isReadonly">This flag decides whether the entities should be tracked or not.</param>
-        /// <returns>Returns a task with the found entity.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with the found entity.</returns>
         Task<TEntity> FindAsync(TKey id, bool isReadonly = false);
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Roomed.Data.Common.Repositories
         /// This method asynchronously adds an entity to the database.
         /// </summary>
         /// <param name="entity">The entity that should be added.</param>
-        /// <returns>Returns a task with the <see cref="EntityEntry{TEntity}"/> of the entity.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with the <see cref="EntityEntry{TEntity}"/> of the entity.</returns>
         Task<EntityEntry<TEntity>> AddAsync(TEntity entity);
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Roomed.Data.Common.Repositories
         /// <summary>
         /// This method calls the <see cref="DbContext.SaveChangesAsync(CancellationToken)"/> method of the db context.
         /// </summary>
-        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="int"/>.</returns>
         Task<int> SaveChangesAsync();
     }
 }

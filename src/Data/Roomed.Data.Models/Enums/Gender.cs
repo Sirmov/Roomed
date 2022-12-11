@@ -7,9 +7,19 @@
 
 namespace Roomed.Data.Models.Enums
 {
+    /// <summary>
+    /// This enumeration contains the allowed genders.
+    /// </summary>
     public enum Gender
     {
+        /// <summary>
+        /// Indicates that the person is male.
+        /// </summary>
         Male,
+
+        /// <summary>
+        /// Indicates that the person is female.
+        /// </summary>
         Female,
     }
 }

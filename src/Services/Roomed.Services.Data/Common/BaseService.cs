@@ -37,7 +37,7 @@ namespace Roomed.Services.Data.Common
         /// Initializes a new instance of the <see cref="BaseService{TEntity, TKey}"/> class.
         /// </summary>
         /// <param name="entityRepository">The repository of the <typeparamref name="TEntity"/>.</param>
-        /// <param name="mapper">The global auto mapper.</param>
+        /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
         public BaseService(IDeletableEntityRepository<TEntity, TKey> entityRepository, IMapper mapper)
         {
             this.entityRepository = entityRepository;
