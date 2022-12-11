@@ -22,7 +22,8 @@ namespace Roomed.Data.Seeding.Seeders
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             string json = await File.ReadAllTextAsync("../../Data/Roomed.Data/Seeding/Data/ReservationSeed.json");
-            var reservations = JsonConvert.DeserializeObject<IEnumerable<Reservation>>(json, new DateOnlyJsonSettings().Settings);
+            var reservations = JsonConvert.DeserializeObject<IEnumerable<Reservation>>(json, new DateOnlyJsonSettings().Settings)
+                ?? throw new InvalidOperationException("Deserialization was not successful.");
 
             foreach (var reservation in reservations)
             {
