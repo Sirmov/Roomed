@@ -45,9 +45,9 @@ namespace Roomed.Web.Controllers
         }
 
         /// <summary>
-        /// This method returns a view with all profiles.
+        /// This action returns a page with all profiles.
         /// </summary>
-        /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
+        /// <returns>Returns a view with all profiles.</returns>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -58,11 +58,18 @@ namespace Roomed.Web.Controllers
         }
 
         /// <summary>
-        /// This method returns a view with a form for creating a new guest profile.
+        /// This action returns a page with a form for creating a new guest profile.
         /// </summary>
-        /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
+        /// <param name="returnUrl">Optional return url.
+        /// <para>
+        /// Exp: Used when creating a reservation but the guest does not have a profile
+        ///  and one should be created. When the creation is successful the user is redirected
+        ///  back to continue the making of the reservation.
+        /// </para>
+        /// </param>
+        /// <returns>Returns the create guest profile view.</returns>
         [HttpGet]
-        public async Task<IActionResult> Create(string? returnUrl)
+        public IActionResult Create(string? returnUrl)
         {
             var model = new DetailedProfileInputModel();
             ViewBag.ReturnUrl = returnUrl;
@@ -70,6 +77,21 @@ namespace Roomed.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action handles the create request.
+        /// It validates the model, sanitizes it and adds it to the database.
+        /// Returns the same view if the validation fails otherwise redirects to <see cref="ProfilesController.Details(Guid)"/> action
+        /// or to the <paramref name="returnUrl"/> if it is not null.
+        /// </summary>
+        /// <param name="returnUrl">Optional return url.
+        /// <para>
+        /// Exp: Used when creating a reservation but the guest does not have a profile
+        ///  and one should be created. When the creation is successful the user is redirected
+        ///  back to continue the making of the reservation.
+        /// </para>
+        /// </param>
+        /// <param name="model">The profile input model.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         [HttpPost]
         public async Task<IActionResult> Create(string? returnUrl, DetailedProfileInputModel model)
         {
@@ -85,8 +107,9 @@ namespace Roomed.Web.Controllers
             var id = await this.profilesService.CreateDetailedAsync(dto);
 
             if (returnUrl != null &&
-                //To do: Uncomment when in production
-                //Url.IsLocalUrl(returnUrl) &&
+
+                // To do: Uncomment when in production
+                // Url.IsLocalUrl(returnUrl) &&
                 !string.IsNullOrEmpty(returnUrl))
             {
                 return Redirect(returnUrl);
@@ -95,27 +118,60 @@ namespace Roomed.Web.Controllers
             return RedirectToAction(Actions.Details, new { id = id.ToString() });
         }
 
+        /// <summary>
+        /// This action returns a page with details of an existing guest profile.
+        /// </summary>
+        /// <param name="id">The id of the guest profile.</param>
+        /// <returns>Returns the details guest profile view.</returns>
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
+            if (!await this.profilesService.ExistsAsync(id))
+            {
+                base.ShowError("An error occurred", "The guest profile you are trying to view cannot be found.");
+            }
+
             var profile = await this.profilesService.GetAsync(id);
             var model = this.mapper.Map<DetailedProfileViewModel>(profile);
 
             return View(model);
         }
 
+        /// <summary>
+        /// This action returns a page with a form for editing an existing guest profile.
+        /// </summary>
+        /// <param name="id">The id of the guest profile to be edited.</param>
+        /// <returns>Returns the edit guest profile view.</returns>
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+            if (!await this.profilesService.ExistsAsync(id))
+            {
+                base.ShowError("An error occurred", "The guest profile you are trying to edit cannot be found.");
+            }
+
             var profile = await this.profilesService.GetAsync(id);
             var model = this.mapper.Map<DetailedProfileInputModel>(profile);
 
             return View(model);
         }
 
+        /// <summary>
+        /// This action handles the edit request.
+        /// It validates the model, sanitizes it and modifies the existing entity.
+        /// Returns the same view if the validation fails otherwise redirects to <see cref="ProfilesController.Details(Guid)"/> action.
+        /// </summary>
+        /// <param name="id">The id of the guest profile to be edited.</param>
+        /// <param name="model">The guest profile input model.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         [HttpPost]
         public async Task<IActionResult> Edit(Guid id, DetailedProfileInputModel model)
         {
+            if (!await this.profilesService.ExistsAsync(id))
+            {
+                base.ShowError("An error occurred", "The guest profile you are trying to edit cannot be found.");
+            }
+
             this.ValidateProfile(ModelState, model);
 
             if (!ModelState.IsValid)
@@ -130,20 +186,42 @@ namespace Roomed.Web.Controllers
             return RedirectToAction(Actions.Details, new { id = id.ToString() });
         }
 
+        /// <summary>
+        /// This action returns a confirmation page for deleting an existing guest profile.
+        /// </summary>
+        /// <param name="id">The id of the guest profile to be deleted.</param>
+        /// <param name="profile">The view model of the guest profile.</param>
+        /// <returns>Returns a delete confirmation view.</returns>
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id, ProfileViewModel profile)
         {
-            if (id == profile.Id)
+            if (!await this.profilesService.ExistsAsync(id))
             {
-                return View(profile);
+                base.ShowError("An error occurred", "The guest profile you are trying to delete cannot be found.");
             }
 
-            return BadRequest();
+            if (id != profile.Id)
+            {
+                base.ShowError("An error occurred", "Something went wrong.");
+            }
+
+            return View(profile);
         }
 
+        /// <summary>
+        /// This action handles the delete request.
+        /// It deletes the guest profile if it exists and redirects to <see cref="ProfilesController.Index"/>.
+        /// </summary>
+        /// <param name="id">The id of the guest profile to be deleted.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
+            if (!await this.profilesService.ExistsAsync(id))
+            {
+                base.ShowError("An error occurred", "The guest profile you are trying to delete cannot be found.");
+            }
+
             await this.profilesService.DeleteAsync(id);
             return RedirectToAction(Actions.Index);
         }

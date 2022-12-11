@@ -7,6 +7,7 @@
 
 namespace Roomed.Web.Controllers
 {
+    using System;
     using System.Globalization;
 
     using AutoMapper;
@@ -38,8 +39,8 @@ namespace Roomed.Web.Controllers
         /// </summary>
         /// <param name="identityDocumentsService">The implementation of <see cref="IIdentityDocumentsService"/>.</param>
         /// <param name="profilesService">The implementation of <see cref="IProfilesService"/>.</param>
-        /// <param name="mapper">The global auto mapper.</param>
-        /// <param name="sanitizer">The global html sanitizer.</param>
+        /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
+        /// <param name="sanitizer">The implementation of <see cref="IHtmlSanitizer"/>.</param>
         public IdentityDocumentsController(
             IIdentityDocumentsService identityDocumentsService,
             IProfilesService profilesService,
@@ -53,9 +54,9 @@ namespace Roomed.Web.Controllers
         }
 
         /// <summary>
-        /// This method returns a view with all identity documents.
+        /// This action returns a page with all identity documents.
         /// </summary>
-        /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
+        /// <returns>Returns a view with all identity documents.</returns>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -66,9 +67,9 @@ namespace Roomed.Web.Controllers
         }
 
         /// <summary>
-        /// This method returns a view with a form for creating a new identity document.
+        /// This action returns a page with a form for creating a new identity document.
         /// </summary>
-        /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
+        /// <returns>Returns the create identity document view.</returns>
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -79,6 +80,13 @@ namespace Roomed.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action handles the create request.
+        /// It validates the model, sanitizes it and adds it to the database.
+        /// Returns the same view if the validation fails otherwise redirects to <see cref="IdentityDocumentsController.Details(Guid)"/> action.
+        /// </summary>
+        /// <param name="model">The identity document input model.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         [HttpPost]
         public async Task<IActionResult> Create(IdentityDocumentInputModel model)
         {
@@ -98,9 +106,19 @@ namespace Roomed.Web.Controllers
             return RedirectToAction(Actions.Details, new { id = id.ToString() });
         }
 
+        /// <summary>
+        /// This actions returns a page with the details of a identity document with a given id.
+        /// </summary>
+        /// <param name="id">The id of the identity document.</param>
+        /// <returns>Returns the identity document details view.</returns>
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
+            if (!await this.identityDocumentsService.ExistsAsync(id))
+            {
+                return base.ShowError("An error occurred", "The identity document you are trying to view cannot be found.");
+            }
+
             var document = await this.identityDocumentsService.GetAsync(id);
             var model = this.mapper.Map<IdentityDocumentViewModel>(document);
 
@@ -110,9 +128,19 @@ namespace Roomed.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action returns a page with a form for editing an existing identity document.
+        /// </summary>
+        /// <param name="id">The id of the identity document to be edited.</param>
+        /// <returns>Returns the edit identity document view.</returns>
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+            if (!await this.identityDocumentsService.ExistsAsync(id))
+            {
+                return base.ShowError("An error occurred", "The identity document you are trying to edit cannot be found.");
+            }
+
             var document = await this.identityDocumentsService.GetAsync(id);
             var model = this.mapper.Map<IdentityDocumentInputModel>(document);
 
@@ -122,9 +150,22 @@ namespace Roomed.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action handles the edit request.
+        /// It validates the model, sanitizes it and modifies the existing entity.
+        /// Returns the same view if the validation fails otherwise redirects to <see cref="IdentityDocumentsController.Details(Guid)"/> action.
+        /// </summary>
+        /// <param name="id">The id of the identity document to be edited.</param>
+        /// <param name="model">The identity document input model.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         [HttpPost]
         public async Task<IActionResult> Edit(Guid id, IdentityDocumentInputModel model)
         {
+            if (!await this.identityDocumentsService.ExistsAsync(id))
+            {
+                return base.ShowError("An error occurred", "The identity document you are trying to edit cannot be found.");
+            }
+
             await this.ValidateIdentityDocument(ModelState, model);
 
             if (!ModelState.IsValid)
@@ -139,20 +180,42 @@ namespace Roomed.Web.Controllers
             return RedirectToAction(Actions.Details, new { id = id.ToString() });
         }
 
+        /// <summary>
+        /// This action returns a confirmation page for deleting an existing identity document.
+        /// </summary>
+        /// <param name="id">The id of the identity document to be deleted.</param>
+        /// <param name="identityDocument">The view model of the identity document.</param>
+        /// <returns>Returns a delete confirmation view.</returns>
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id, IdentityDocumentViewModel identityDocument)
         {
-            if (id == identityDocument.Id)
+            if (!await this.identityDocumentsService.ExistsAsync(id))
             {
-                return View(identityDocument);
+                return base.ShowError("An error occurred", "The identity document you are trying to delete cannot be found.");
             }
 
-            return BadRequest();
+            if (id != identityDocument.Id)
+            {
+                return base.ShowError("An error occurred", "Something went wrong.");
+            }
+
+            return View(identityDocument);
         }
 
+        /// <summary>
+        /// This action handles the delete request.
+        /// It deletes the identity document if it exists and redirects to <see cref="IdentityDocumentsController.Index"/>.
+        /// </summary>
+        /// <param name="id">The id of the identity document to be deleted.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
+            if (!await this.identityDocumentsService.ExistsAsync(id))
+            {
+                return base.ShowError("An error occurred", "The identity document you are trying to delete cannot be found.");
+            }
+
             await this.identityDocumentsService.DeleteAsync(id);
             return RedirectToAction(Actions.Index);
         }
