@@ -15,6 +15,7 @@ namespace Roomed.Web.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     using Roomed.Common.Attribues;
+
     using static Roomed.Common.AreasControllersActionsConstants;
 
     /// <summary>
@@ -44,6 +45,7 @@ namespace Roomed.Web.Controllers
         /// <typeparam name="TModel">The type of the model.</typeparam>
         /// <param name="model">The model to be sanitized.</param>
         /// <exception cref="ArgumentNullException">Throws when the model is null.</exception>
+        [NonAction]
         protected void SanitizeModel<TModel>(TModel model)
         {
             ArgumentNullException.ThrowIfNull(model, nameof(model));
@@ -76,6 +78,7 @@ namespace Roomed.Web.Controllers
         /// <param name="title">The title of the error.</param>
         /// <param name="message">The message of the error.</param>
         /// <returns>Returns <see cref="IActionResult"/>.</returns>
+        [NonAction]
         protected IActionResult ShowError(string title, string message)
         {
             TempData["ErrorTitle"] = title;
