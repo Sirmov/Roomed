@@ -81,7 +81,38 @@ You can install the project in three different ways.
 
 ## ⌨️🖱️ Usage
 
-To do...
+1. [Install the project](https://github.com/Sirmov/Roomed#-installing-the-project)
+2. Open the solution
+3. Make sure it builds
+4. Start a MSSQL Server instance
+5. Add the database connection string in the user secrets
+    1. Right click on the Roomed.Web project
+    2. Select Manage User Secrets
+    3. Your secrets.json should look like this
+    ```json
+    {
+        "ConnectionStrings": {
+            "DefaultConnection": "your_connection_string"
+        }
+    }
+    ```
+6. Set Roomed.Web as a starting project
+7. Apply database migrations
+    1. Open the package manager console
+    2. Set Roomed.Data as a default project
+    3. Execute this command
+    ```powershell
+    Update-Database
+    ```
+8. Right click on libman.json located in Roomed.Web and select Restore Client-Side Libraries
+9. Start Roomed.Web
+10. Log in with one of the seeded users
+    | Username      | Password         | Roles                         |
+    |---------------|------------------|-------------------------------|
+    | receptionist  | receptionist123  | Receptionist                  |
+    | hotelsManager | hotelsManager123 | HotelsManager                 |
+    | administrator | administrator123 | HotelsManager, Administrator  |
+11. Try out the application and share your feedback
 
 ## 📑 License
 
