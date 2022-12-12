@@ -73,7 +73,7 @@ namespace Roomed.Common.ValidationAttributes
 
                     if (date < otherDate)
                     {
-                        return ValidationResult.Success ?? throw new NullReferenceException();
+                        return ValidationResult.Success!;
                     }
 
                     return new ValidationResult("This date is not before the other date.");
