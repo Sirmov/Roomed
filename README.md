@@ -52,11 +52,12 @@ The application follows the standard [MVC architecture](https://learn.microsoft.
 
 <div align="center">
 <p align="center"><img src="https://github.com/Sirmov/Roomed/blob/main/assets/images/database-schema-1.png"></p>
-<small>1. Frameworks specific database tables schema</small>
-</div>
+<small>Figure 1. Frameworks specific database tables schema</small>
+</div>  
+<br/>
 <div align="center">
 <p align="center"><img src="https://github.com/Sirmov/Roomed/blob/main/assets/images/database-schema-2.png"></p>
-<small>2. Application specific database tables schema</small>
+<small>Figure 2. Application specific database tables schema</small>
 </div>
 
 ## 🎿 Installing the project
