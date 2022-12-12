@@ -12,7 +12,6 @@ namespace Roomed.Services.Data
     using System.Security.Claims;
 
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc.Internal;
     using Microsoft.EntityFrameworkCore;
 
     using Roomed.Data.Models;
@@ -330,6 +329,24 @@ namespace Roomed.Services.Data
             var user = await this.FindUserByIdAsync(id);
 
             var result = await this.userManager.DeleteAsync(user);
+
+            return result;
+        }
+
+        /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when the id is null.</exception>
+        public async Task<bool> ExistsAsync(string id)
+        {
+            var result = true;
+
+            try
+            {
+                await this.FindUserByIdAsync(id);
+            }
+            catch (InvalidOperationException)
+            {
+                result = false;
+            }
 
             return result;
         }

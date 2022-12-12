@@ -10,11 +10,13 @@ namespace Roomed.Services.Data.Contracts
     using Microsoft.AspNetCore.Identity;
     using Roomed.Data.Models;
     using Roomed.Services.Data.Dtos.User;
+    using System.Diagnostics.SymbolStore;
 
     /// <summary>
     /// This interface is used to state and document the users data service functionality.
     /// </summary>
     /// <typeparam name="TUser">Class inheritor of <see cref="ApplicationUser"/> with parameterless constructor.</typeparam>
+    /// <typeparam name="TRole">Class inheritor of <see cref="ApplicationRole"/> with parameterless constructor.</typeparam>
     public interface IUsersService<TUser, TRole>
         where TUser : ApplicationUser, new()
         where TRole : ApplicationRole, new()
@@ -146,5 +148,12 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="id">The id of the user.</param>
         /// <returns>Returns a <see cref="Task{TResult}"/> with <see cref="IdentityResult"/>.</returns>
         public Task<IdentityResult> DeleteUserWithId(string id);
+
+        /// <summary>
+        /// This method asynchronously determines whether a user with a specified id exists.
+        /// </summary>
+        /// <param name="id">The id of the user.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with <see cref="bool"/>.</returns>
+        public Task<bool> ExistsAsync(string id);
     }
 }
