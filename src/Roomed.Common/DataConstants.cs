@@ -121,7 +121,7 @@ namespace Roomed.Common
             /// <summary>
             /// An integer defining the nationality maximum length.
             /// </summary>
-            public const int NationalityMaxLength = 40;
+            public const int NationalityMaxLength = 60;
 
             /// <summary>
             /// An integer defining the nationality minimum length.

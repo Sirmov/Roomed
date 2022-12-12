@@ -59,7 +59,7 @@ namespace Roomed.Data.Migrations
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Birthdate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Gender = table.Column<int>(type: "int", nullable: true),
-                    Nationality = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Nationality = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: true),
                     NationalityCode = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
