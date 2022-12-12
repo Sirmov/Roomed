@@ -46,7 +46,7 @@ This is my first real [ASP.NET Core MVC](https://learn.microsoft.com/en-us/aspne
 The application follows the standard [MVC architecture](https://learn.microsoft.com/en-us/aspnet/core/mvc/overview?view=aspnetcore-7.0#mvc-pattern) including some key principles and patterns like:
 
 -   [Service layer pattern](https://en.wikipedia.org/wiki/Service_layer_pattern)
--   [Repository pattern]()
+-   [Repository pattern](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design#the-repository-pattern)
 -   [Inversion of control principle](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection)
 -   [Unit of work pattern](https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application) and other.
 
