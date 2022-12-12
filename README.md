@@ -114,6 +114,19 @@ You can install the project in three different ways.
     | administrator | administrator123 | HotelsManager, Administrator  |
 11. Try out the application and share your feedback
 
+## 📋 Documentation
+A local code documentation website can be hosted following these steps:
+1. Make sure you have built the solution at least one time before
+1. Open the documentation folder in the root of the repository
+2. Start a terminal in that folder
+3. Execute this command
+    ```powershell
+        docfx docfx_project\docfx.json --serve
+    ```
+4. Open http://localhost:8080
+5. Click Api Documentation
+6. Start exploring and reading
+
 ## 📑 License
 
 The project is licensed under the [GNU GPL v3](https://github.com/Sirmov/Roomed/blob/main/LICENSE) license.
