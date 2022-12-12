@@ -82,7 +82,7 @@ namespace Roomed.Web.Controllers
 
                 model.ShowRequestId = string.IsNullOrWhiteSpace(model.RequestId);
                 model.Title = errorTitle ?? "Something went wrong.";
-                model.Message = errorMessage ?? "An error occurred while processing your request. We are sorry for that.";
+                model.Message = errorMessage ?? "An unexpected error occurred while processing your request. We are sorry for that.";
             }
             else
             {

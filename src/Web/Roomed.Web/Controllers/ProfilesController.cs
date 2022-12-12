@@ -13,6 +13,7 @@ namespace Roomed.Web.Controllers
     using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
+
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.Profile;
     using Roomed.Web.ViewModels.Profile;
@@ -63,8 +64,8 @@ namespace Roomed.Web.Controllers
         /// <param name="returnUrl">Optional return url.
         /// <para>
         /// Exp: Used when creating a reservation but the guest does not have a profile
-        ///  and one should be created. When the creation is successful the user is redirected
-        ///  back to continue the making of the reservation.
+        /// and one should be created. When the creation is successful the user is redirected
+        /// back to continue the making of the reservation.
         /// </para>
         /// </param>
         /// <returns>Returns the create guest profile view.</returns>
@@ -86,8 +87,8 @@ namespace Roomed.Web.Controllers
         /// <param name="returnUrl">Optional return url.
         /// <para>
         /// Exp: Used when creating a reservation but the guest does not have a profile
-        ///  and one should be created. When the creation is successful the user is redirected
-        ///  back to continue the making of the reservation.
+        /// and one should be created. When the creation is successful the user is redirected
+        /// back to continue the making of the reservation.
         /// </para>
         /// </param>
         /// <param name="model">The profile input model.</param>
@@ -128,7 +129,7 @@ namespace Roomed.Web.Controllers
         {
             if (!await this.profilesService.ExistsAsync(id))
             {
-                base.ShowError("An error occurred", "The guest profile you are trying to view cannot be found.");
+                return base.ShowError("An error occurred", "The guest profile you are trying to view cannot be found.");
             }
 
             var profile = await this.profilesService.GetAsync(id);
@@ -147,7 +148,7 @@ namespace Roomed.Web.Controllers
         {
             if (!await this.profilesService.ExistsAsync(id))
             {
-                base.ShowError("An error occurred", "The guest profile you are trying to edit cannot be found.");
+                return base.ShowError("An error occurred", "The guest profile you are trying to edit cannot be found.");
             }
 
             var profile = await this.profilesService.GetAsync(id);
@@ -169,7 +170,7 @@ namespace Roomed.Web.Controllers
         {
             if (!await this.profilesService.ExistsAsync(id))
             {
-                base.ShowError("An error occurred", "The guest profile you are trying to edit cannot be found.");
+                return base.ShowError("An error occurred", "The guest profile you are trying to edit cannot be found.");
             }
 
             this.ValidateProfile(ModelState, model);
@@ -197,12 +198,12 @@ namespace Roomed.Web.Controllers
         {
             if (!await this.profilesService.ExistsAsync(id))
             {
-                base.ShowError("An error occurred", "The guest profile you are trying to delete cannot be found.");
+                return base.ShowError("An error occurred", "The guest profile you are trying to delete cannot be found.");
             }
 
             if (id != profile.Id)
             {
-                base.ShowError("An error occurred", "Something went wrong.");
+                return base.ShowError("An error occurred", "Something went wrong.");
             }
 
             return View(profile);
@@ -219,13 +220,14 @@ namespace Roomed.Web.Controllers
         {
             if (!await this.profilesService.ExistsAsync(id))
             {
-                base.ShowError("An error occurred", "The guest profile you are trying to delete cannot be found.");
+                return base.ShowError("An error occurred", "The guest profile you are trying to delete cannot be found.");
             }
 
             await this.profilesService.DeleteAsync(id);
             return RedirectToAction(Actions.Index);
         }
 
+        [NonAction]
         private void ValidateProfile(ModelStateDictionary modelState, DetailedProfileInputModel model)
         {
             if (modelState.IsValid == false)

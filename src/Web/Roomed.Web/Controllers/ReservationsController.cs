@@ -23,7 +23,6 @@ namespace Roomed.Web.Controllers
     using Roomed.Web.ViewModels.RoomType;
 
     using static Roomed.Common.AreasControllersActionsConstants;
-    using static Roomed.Common.DataConstants;
 
     /// <summary>
     /// A MVC controller inheriting <see cref="BaseController"/>.
@@ -64,9 +63,9 @@ namespace Roomed.Web.Controllers
         }
 
         /// <summary>
-        /// This method returns a view with a table of the arriving today reservations.
+        /// This action returns a page with a table of the arriving today reservations.
         /// </summary>
-        /// <returns>Returns a task of <see cref="IActionResult"/>.</returns>
+        /// <returns>Returns a view with all arriving today reservations.>.</returns>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -79,6 +78,10 @@ namespace Roomed.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action returns a page with a form for creating a new reservation.
+        /// </summary>
+        /// <returns>Returns the create reservation view.</returns>
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -96,6 +99,13 @@ namespace Roomed.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action handles the create request.
+        /// It validates the model and returns the same view if the validation fails
+        /// otherwise redirects to <see cref="ReservationsController.ChooseRoom()"/> action.
+        /// </summary>
+        /// <param name="model">The reservation input model.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/></returns>
         [HttpPost]
         public async Task<IActionResult> Create(ReservationInputModel model)
         {
@@ -120,6 +130,11 @@ namespace Roomed.Web.Controllers
             return RedirectToAction(Actions.ChooseRoom, Controllers.Reservations);
         }
 
+        /// <summary>
+        /// This action returns a page with all compatible free rooms
+        /// for the period of the reservation being made.
+        /// </summary>
+        /// <returns>Returns the choose room view.</returns>
         [HttpGet]
         public async Task<IActionResult> ChooseRoom()
         {
@@ -130,7 +145,13 @@ namespace Roomed.Web.Controllers
                 return RedirectToAction(Actions.Create, Controllers.Reservations);
             }
 
-            var model = JsonConvert.DeserializeObject<ReservationInputModel>(json);
+            var model = JsonConvert.DeserializeObject<ReservationInputModel>(json) !;
+
+            if (!await this.roomTypesService.ExistsAsync(model.RoomTypeId))
+            {
+                return base.ShowError("An error occurred", "The room type of the reservation cannot be found.");
+            }
+
             var roomType = await this.roomTypesService.GetAsync(model.RoomTypeId);
 
             var rooms = await this.roomsService.GetAllFreeRoomsAsync(model.ArrivalDate, model.DepartureDate, roomType);
@@ -140,15 +161,28 @@ namespace Roomed.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// This action handles the choose room request.
+        /// It takes the reservation input model and the chosen room,
+        /// validates that room is actually free and attempts to create the reservation.
+        /// </summary>
+        /// <param name="roomId">The id of the chosen room.</param>
+        /// <param name="model">The reservation input model.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         [HttpPost]
         public async Task<IActionResult> ChooseRoom(int roomId, ReservationInputModel model)
         {
+            if (!await this.roomTypesService.ExistsAsync(model.RoomTypeId))
+            {
+                return base.ShowError("An error occurred", "The room type of the reservation cannot be found.");
+            }
+
             var roomType = await this.roomTypesService.GetAsync(model.RoomTypeId);
             var freeRooms = await this.roomsService.GetAllFreeRoomsAsync(model.ArrivalDate, model.DepartureDate, roomType);
 
             if (!freeRooms.Any(r => r.Id == roomId))
             {
-                return BadRequest();
+                return base.ShowError("An error occurred", "The room you have chosen is not free for this period.");
             }
 
             var dto = this.mapper.Map<ReservationDto>(model);
@@ -159,15 +193,15 @@ namespace Roomed.Web.Controllers
             {
                 id = await this.reservationsService.CreateReservationAsync(dto, roomId);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-                return BadRequest();
-                throw;
+                return base.ShowError("An error occurred", "Something went wrong trying to create the reservation. Please try again.");
             }
 
             return RedirectToAction(Actions.Index);
         }
 
+        [NonAction]
         private async Task ValidateReservation(ModelStateDictionary modelState, ReservationInputModel model)
         {
             if (modelState.IsValid == false)

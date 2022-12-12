@@ -95,7 +95,7 @@ namespace Roomed.Web.Controllers
 
         /// <summary>
         /// This action signs out the current user.
-        /// Redirects to <see cref="UserController.Login"/> action.
+        /// Redirects to <see cref="UserController.Login()"/> action.
         /// </summary>
         /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         public async Task<IActionResult> Logout()

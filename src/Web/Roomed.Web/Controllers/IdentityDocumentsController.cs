@@ -90,6 +90,11 @@ namespace Roomed.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(IdentityDocumentInputModel model)
         {
+            if (!await this.profilesService.ExistsAsync(model.OwnerId))
+            {
+                return base.ShowError("An error occurred", "The owner of the document you are trying to create cannot be found.");
+            }
+
             await this.ValidateIdentityDocument(ModelState, model);
 
             if (!ModelState.IsValid)
@@ -166,6 +171,11 @@ namespace Roomed.Web.Controllers
                 return base.ShowError("An error occurred", "The identity document you are trying to edit cannot be found.");
             }
 
+            if (!await this.profilesService.ExistsAsync(model.OwnerId))
+            {
+                return base.ShowError("An error occurred", "The owner of the document you are trying to edit cannot be found.");
+            }
+
             await this.ValidateIdentityDocument(ModelState, model);
 
             if (!ModelState.IsValid)
@@ -220,6 +230,7 @@ namespace Roomed.Web.Controllers
             return RedirectToAction(Actions.Index);
         }
 
+        [NonAction]
         private async Task ValidateIdentityDocument(ModelStateDictionary modelState, IdentityDocumentInputModel model)
         {
             if (modelState.IsValid == false)

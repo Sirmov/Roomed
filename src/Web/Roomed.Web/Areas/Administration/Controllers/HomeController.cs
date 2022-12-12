@@ -27,9 +27,9 @@ namespace Roomed.Web.Areas.Administration.Controllers
         }
 
         /// <summary>
-        /// This method returns the administration home page.
+        /// This action returns the administration home page.
         /// </summary>
-        /// <returns>Returns <see cref="IActionResult"/>.</returns>
+        /// <returns>Returns the administration home view.</returns>
         public IActionResult Index()
         {
             return View();
