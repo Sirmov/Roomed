@@ -5,7 +5,6 @@
 namespace Roomed.Services.Data.Tests
 {
     using System.Linq;
-    using System.Reflection;
 
     using AutoMapper;
     using Microsoft.EntityFrameworkCore;
@@ -15,6 +14,7 @@ namespace Roomed.Services.Data.Tests
     using Roomed.Services.Data.Common;
     using Roomed.Services.Data.Dtos.ReservationNote;
     using Roomed.Services.Data.Tests.TestClasses;
+    using Roomed.Tests.Common;
 
     using static Roomed.Common.DataConstants.ReservationNote;
 
@@ -24,12 +24,44 @@ namespace Roomed.Services.Data.Tests
         private IMapper mapper;
         private IDeletableEntityRepository<ReservationNote, Guid> repository;
 
+        private readonly ICollection<ReservationNote> reservationNotes = new List<ReservationNote>
+        {
+            new ReservationNote()
+            {
+                Id = Guid.Parse("2bfff802-5afb-4bbb-96b3-27c98161ff00"),
+                Body = "Reservation note #1",
+                IsDeleted = false,
+            },
+            new ReservationNote()
+            {
+                Id = Guid.Parse("bb2f7b6c-d8d9-4e2c-b14b-3bd98e18ad86"),
+                Body = "Reservation note #2",
+                IsDeleted = true,
+            },
+            new ReservationNote()
+            {
+                Id = Guid.Parse("08bd1b0d-15fd-4d2e-9f59-979d09da1133"),
+                Body = "Reservation note #3",
+                IsDeleted = false,
+            },
+        };
+
         [SetUp]
         public async Task SetUp()
         {
-            await InitializeDbContextAsync();
-            this.mapper = GetMapper();
-            this.repository = GetReservationNotesRepository();
+            this.mapper = MapperMock.Instance;
+            this.repository = DeletableEntityRepositoryMock<ReservationNote, Guid>.Instance;
+
+            foreach (var item in this.reservationNotes)
+            {
+                await this.repository.AddAsync(item);
+            }
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            this.repository.Dispose();
         }
 
         // GetAllAsync
@@ -38,7 +70,7 @@ namespace Roomed.Services.Data.Tests
         public async Task GetAllAsyncShouldReturnAllNotDeletedEntities()
         {
             // Arrange
-            BaseService<ReservationNote, Guid> baseService = new(this.repository, this.mapper);
+            BaseService<ReservationNote, Guid> baseService = new (this.repository, this.mapper);
 
             // Act
             var dtos = await baseService.GetAllAsync<ReservationNoteDto>();
@@ -100,7 +132,7 @@ namespace Roomed.Services.Data.Tests
             var dtos = await baseService.GetAllAsync<ReservationNoteDto>(new()
             {
                 Skip = n,
-                WithDeleted = true
+                WithDeleted = true,
             });
 
             // Assert
