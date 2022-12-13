@@ -1,6 +1,9 @@
-﻿// <copyright file="BaseServiceTests.cs" company="Roomed">
+﻿// |-----------------------------------------------------------------------------------------------------|
+// <copyright file="BaseServiceTests.cs" company="Roomed">
 // Copyright (c) Roomed. All Rights Reserved.
+// Licensed under the GPLv3 license. See LICENSE file in the project root for full license information.
 // </copyright>
+// |-----------------------------------------------------------------------------------------------------|
 
 namespace Roomed.Services.Data.Tests
 {
@@ -8,6 +11,7 @@ namespace Roomed.Services.Data.Tests
 
     using AutoMapper;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Query.Internal;
     using NUnit.Framework;
 
     using Roomed.Data.Common.Repositories;
@@ -19,13 +23,13 @@ namespace Roomed.Services.Data.Tests
 
     using static Roomed.Common.DataConstants.ReservationNote;
 
+    /// <summary>
+    /// This class contains all unit tests for <see cref="BaseService{TEntity, TKey}"/>.
+    /// </summary>
     [TestFixture]
     public class BaseServiceTests
     {
-        private IMapper mapper;
-        private IDeletableEntityRepository<ReservationNote, Guid> repository;
-
-        private readonly ICollection<ReservationNote> reservationNotes = new List<ReservationNote>
+        private readonly ICollection<ReservationNote> reservationNotes = new List<ReservationNote>()
         {
             new ReservationNote()
             {
@@ -45,8 +49,15 @@ namespace Roomed.Services.Data.Tests
                 Body = "Reservation note #3",
                 IsDeleted = false,
             },
-        };
+        }.AsReadOnly();
 
+        private IMapper mapper;
+        private IDeletableEntityRepository<ReservationNote, Guid> repository;
+
+        /// <summary>
+        /// This method is called before every test.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
         [SetUp]
         public async Task SetUp()
         {
@@ -59,14 +70,21 @@ namespace Roomed.Services.Data.Tests
             }
         }
 
+        /// <summary>
+        /// This method is called after every test.
+        /// </summary>
         [TearDown]
         public void TearDown()
         {
             this.repository.Dispose();
         }
 
-        // GetAllAsync
-
+        /// <summary>
+        /// This test checks whether <see cref="BaseService{TEntity, TKey}.GetAllAsync{TDto}(QueryOptions{TDto}?)"/>
+        /// returns all not deleted entities.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // GetAllAsync<TDto>(QueryOptions<TDto>? queryOptions = null)
         [Test]
         public async Task GetAllAsyncShouldReturnAllNotDeletedEntities()
         {
@@ -81,16 +99,22 @@ namespace Roomed.Services.Data.Tests
             Assert.That(dtos, Has.All.Matches<object>(x => x is ReservationNoteDto), "Some entities are not of the correct type.");
         }
 
+        /// <summary>
+        /// This test check whether <see cref="BaseService{TEntity, TKey}.GetAllAsync{TDto}(QueryOptions{TDto}?)"/>
+        /// returns all entities including deleted ones.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // GetAllAsync<TDto>(QueryOptions<TDto>? queryOptions = null)
         [Test]
         public async Task GetAllAsyncShouldReturnAllEntitiesWithDeleted()
         {
             // Arrange
-            BaseService<ReservationNote, Guid> baseService = new(this.repository, this.mapper);
+            BaseService<ReservationNote, Guid> baseService = new (this.repository, this.mapper);
 
             // Act
-            var dtos = await baseService.GetAllAsync<ReservationNoteDto>(new()
+            var dtos = await baseService.GetAllAsync<ReservationNoteDto>(new ()
             {
-                WithDeleted = true
+                WithDeleted = true,
             });
 
             // Assert
@@ -98,14 +122,20 @@ namespace Roomed.Services.Data.Tests
             Assert.That(dtos, Has.All.Matches<object>(x => x is ReservationNoteDto), "Some entities are not of the correct type.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="BaseService{TEntity, TKey}.ModifyQuery{TDto}(IQueryable{TDto}, QueryOptions{TDto})"/>
+        /// ordering works correctly.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // ModifyQuery<TDto>(IQueryable<TDto> query, QueryOptions<TDto> queryOptions)
         [Test]
         public async Task GetAllAsyncShouldReturnAllEntitiesInCorrectOrder()
         {
             // Arrange
-            BaseService<ReservationNote, Guid> baseService = new(this.repository, this.mapper);
+            BaseService<ReservationNote, Guid> baseService = new (this.repository, this.mapper);
 
             // Act
-            var dtos = await baseService.GetAllAsync<ReservationNoteDto>(new()
+            var dtos = await baseService.GetAllAsync<ReservationNoteDto>(new ()
             {
                 OrderOptions = new ()
                 {
@@ -171,29 +201,40 @@ namespace Roomed.Services.Data.Tests
         //        Is.EqualTo(reservationNotes[n - 1].Body), "Entities are not in correct order.");
         //}
 
-        // GetAsync
-
+        /// <summary>
+        /// This test checks whether <see cref="BaseService{TEntity, TKey}.GetAsync{TDto}(TKey, QueryOptions{TDto}?)"/>
+        /// throws an exception when a entity with a specified id does not exist.
+        /// </summary>
+        /// <param name="id">The id of a non existing entity.</param>
+        // GetAsync<TDto>(TKey id, QueryOptions<TDto>? queryOptions = null)
         [Test]
         [TestCase("8d162afd-bcb2-4ccb-81c0-96965f7177d0")]
         public void GetAsyncShouldThrowWhenEntityDoesNotExist(string id)
         {
             // Arrange
-            BaseService<ReservationNote, Guid> baseService = new(this.repository, this.mapper);
+            BaseService<ReservationNote, Guid> baseService = new (this.repository, this.mapper);
             Guid guid = Guid.Parse(id);
 
             // Act
             Func<Task> code = async () => await baseService.GetAsync<ReservationNoteDto>(guid);
 
             // Assert
-            Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Should throw when entitiy is not found.");
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Should throw when entity is not found.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="BaseService{TEntity, TKey}.GetAsync{TDto}(TKey, QueryOptions{TDto}?)"/>
+        /// returns the correct entity by a given id.
+        /// </summary>
+        /// <param name="id">The id of an existing entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // GetAsync<TDto>(TKey id, QueryOptions<TDto>? queryOptions = null)
         [Test]
         [TestCase("bb2f7b6c-d8d9-4e2c-b14b-3bd98e18ad86")]
         public async Task GetAsyncShouldReturnEntityDtoWithGivenId(string id)
         {
             // Arrange
-            BaseService<ReservationNote, Guid> baseService = new(this.repository, this.mapper);
+            BaseService<ReservationNote, Guid> baseService = new (this.repository, this.mapper);
             Guid guid = Guid.Parse(id);
 
             // Act
@@ -207,13 +248,16 @@ namespace Roomed.Services.Data.Tests
             Assert.That(dto.Body, Is.EqualTo(reservationNote.Body), "Entities do not match.");
         }
 
-        // ValidateDto
-
+        /// <summary>
+        /// This test checks whether <see cref="BaseService{TEntity, TKey}.ValidateDto{TDto}(TDto)"/>
+        /// returns false for a non valid dto.
+        /// </summary>
+        // ValidateDto<TDto>(TDto dto)
         [Test]
         public void ValidateDtoShouldReturnFalse()
         {
             // Arrange
-            BaseServiceTest<ReservationNote, Guid> baseService = new(this.repository, this.mapper);
+            BaseServiceTest<ReservationNote, Guid> baseService = new (this.repository, this.mapper);
 
             var shortDto = new ReservationNoteDto()
             {
@@ -234,11 +278,16 @@ namespace Roomed.Services.Data.Tests
             Assert.IsFalse(longResult, "Validation result should be false.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="BaseService{TEntity, TKey}.ValidateDto{TDto}(TDto)"/>
+        /// returns true for a valid dto.
+        /// </summary>
+        // ValidateDto<TDto>(TDto dto)
         [Test]
         public void ValidateDtoShouldReturnTrue()
         {
             // Arrange
-            BaseServiceTest<ReservationNote, Guid> baseService = new(this.repository, this.mapper);
+            BaseServiceTest<ReservationNote, Guid> baseService = new (this.repository, this.mapper);
 
             var shortDto = new ReservationNoteDto()
             {
@@ -257,6 +306,25 @@ namespace Roomed.Services.Data.Tests
             // Assert
             Assert.IsTrue(shortResult, "Validation result should be true.");
             Assert.IsTrue(longResult, "Validation result should be true.");
+        }
+
+        /// <summary>
+        /// This test checks whether <see cref="BaseService{TEntity, TKey}.ValidateDto{TDto}(TDto)"/>
+        /// throw an exception when the dto is null.
+        /// </summary>
+        // ValidateDto<TDto>(TDto dto)
+        [Test]
+        public void ValidateDtoShouldThrowWhenDtoIsNull()
+        {
+            // Arrange
+            BaseServiceTest<ReservationNote, Guid> baseService = new(this.repository, this.mapper);
+            ReservationNoteDto? dto = null;
+
+            // Act
+            var code = () => baseService.ValidateDto(dto);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(() => code(), "Method should throw when dto is null.");
         }
     }
 }
