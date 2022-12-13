@@ -30,7 +30,11 @@ namespace Roomed.Services.Data.Common
     public class BaseService<TEntity, TKey> : IBaseService<TKey>
         where TEntity : BaseDeletableModel<TKey>
     {
+        /// <summary>
+        /// This field contains an implementation of <see cref="IMapper"/>.
+        /// </summary>
         protected readonly IMapper mapper;
+
         private readonly IDeletableEntityRepository<TEntity, TKey> entityRepository;
 
         /// <summary>
@@ -112,8 +116,18 @@ namespace Roomed.Services.Data.Common
             return query;
         }
 
+        /// <summary>
+        /// This method initializes a new <see cref="ValidationContext"/> and by using <see cref="Validator"/>
+        /// determines whether a dto is valid by looking at his validation attributes.
+        /// </summary>
+        /// <typeparam name="TDto">The type of the dto.</typeparam>
+        /// <param name="dto">The dto to be validated.</param>
+        /// <returns>Returns a <see cref="bool"/> indicating whether the dto is valid.</returns>
+        /// <exception cref="ArgumentNullException">Throws when <paramref name="dto"/> is null.</exception>
         protected bool ValidateDto<TDto>(TDto dto)
         {
+            ArgumentNullException.ThrowIfNull(dto);
+
             var context = new ValidationContext(dto, serviceProvider: null, items: null);
             var validationResults = new List<ValidationResult>();
 
