@@ -5,26 +5,51 @@
 namespace Roomed.Data.Tests
 {
     using Microsoft.EntityFrameworkCore;
+    using NUnit.Framework;
 
     using Roomed.Data.Models;
     using Roomed.Data.Repositories;
+    using Roomed.Tests.Common;
 
     [TestFixture]
     public class EfRepositoryTests
     {
         private ApplicationDbContext dbContext;
 
-        [SetUp]
-        public async Task OneTimeSetup()
+        private readonly ICollection<ReservationNote> reservationNotes = new List<ReservationNote>
         {
-            this.dbContext = await InitializeDbContextAsync();
+            new ReservationNote()
+            {
+                Id = Guid.Parse("2bfff802-5afb-4bbb-96b3-27c98161ff00"),
+                Body = "Reservation note #1",
+                IsDeleted = false,
+            },
+            new ReservationNote()
+            {
+                Id = Guid.Parse("bb2f7b6c-d8d9-4e2c-b14b-3bd98e18ad86"),
+                Body = "Reservation note #2",
+                IsDeleted = true,
+            },
+            new ReservationNote()
+            {
+                Id = Guid.Parse("08bd1b0d-15fd-4d2e-9f59-979d09da1133"),
+                Body = "Reservation note #3",
+                IsDeleted = false,
+            },
+        };
+
+        [SetUp]
+        public async Task Setup()
+        {
+            this.dbContext = await DbContextMock.InitializeDbContextAsync();
+            await this.dbContext.AddRangeAsync(this.reservationNotes);
+            await this.dbContext.SaveChangesAsync();
         }
 
         [TearDown]
-        public async Task OneTimeTearDown()
+        public async Task TearDown()
         {
-            await this.dbContext.Database.EnsureDeletedAsync();
-            await this.dbContext.DisposeAsync();
+            await DbContextMock.DisposeAsync();
         }
 
         // All
