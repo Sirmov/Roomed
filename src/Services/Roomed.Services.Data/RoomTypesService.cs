@@ -18,10 +18,19 @@ namespace Roomed.Services.Data
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.RoomType;
 
+    /// <summary>
+    /// This class is a implementation of the <see cref="IRoomTypesService"/> interface.
+    /// It's purpose is to abstract and encapsulate the business logic related to the <see cref="RoomType"/> entity.
+    /// </summary>
     public class RoomTypesService : BaseService<RoomType, int>, IRoomTypesService
     {
         private readonly IDeletableEntityRepository<RoomType, int> roomTypesRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoomTypesService"/> class.
+        /// </summary>
+        /// <param name="entityRepository">The implementation of <see cref="IDeletableEntityRepository{TEntity, TKey}"/>.</param>
+        /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
         public RoomTypesService(
             IDeletableEntityRepository<RoomType, int> entityRepository,
             IMapper mapper)
@@ -51,7 +60,7 @@ namespace Roomed.Services.Data
             {
                 await this.roomTypesRepository.FindAsync(id);
             }
-            catch (InvalidOperationException iox)
+            catch (InvalidOperationException)
             {
                 result = false;
             }
