@@ -42,13 +42,13 @@ namespace Roomed.Services.Data
         /// <inheritdoc />
         public async Task<ICollection<IdentityDocumentDto>> GetAllAsync(QueryOptions<IdentityDocumentDto>? queryOptions = null)
         {
-            return await base.GetAllAsync(queryOptions ?? new());
+            return await base.GetAllAsync(queryOptions ?? new ());
         }
 
         /// <inheritdoc/>
         public async Task<IdentityDocumentDto> GetAsync(Guid id, QueryOptions<IdentityDocumentDto>? queryOptions = null)
         {
-            return await base.GetAsync(id, queryOptions ?? new());
+            return await base.GetAsync(id, queryOptions ?? new ());
         }
 
         /// <inheritdoc/>

@@ -58,13 +58,13 @@ namespace Roomed.Services.Data
 
             var guid = Guid.Parse(id);
 
-            return await base.GetAsync(guid, queryOptions ?? new());
+            return await base.GetAsync(guid, queryOptions ?? new ());
         }
 
         /// <inheritdoc/>
         public async Task<ICollection<ReservationDto>> GetAllAsync(QueryOptions<ReservationDto>? queryOptions = null)
         {
-            return await base.GetAllAsync(queryOptions ?? new());
+            return await base.GetAllAsync(queryOptions ?? new ());
         }
 
         /// <inheritdoc />

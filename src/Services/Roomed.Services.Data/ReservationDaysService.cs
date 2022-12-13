@@ -41,7 +41,7 @@ namespace Roomed.Services.Data
         /// <inheritdoc/>
         public async Task<ReservationDayDto> GetAsync(Guid id, QueryOptions<ReservationDayDto>? queryOptions = null)
         {
-            return await base.GetAsync(id, queryOptions ?? new());
+            return await base.GetAsync(id, queryOptions ?? new ());
         }
 
         /// <inheritdoc/>

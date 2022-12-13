@@ -40,7 +40,7 @@ namespace Roomed.Services.Data
         /// <inheritdoc/>
         public async Task<ICollection<RoomDto>> GetAllAsync(RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null)
         {
-            var rooms = await base.GetAllAsync(queryOptions ?? new());
+            var rooms = await base.GetAllAsync(queryOptions ?? new ());
 
             if (roomType != null)
             {
