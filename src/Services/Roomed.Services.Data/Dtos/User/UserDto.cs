@@ -18,15 +18,15 @@ namespace Roomed.Services.Data.Dtos.User
         [EmailAddress]
         [Required(AllowEmptyStrings = false)]
         [StringLength(EmailMaxLength, MinimumLength = EmailMinLength)]
-        public string Email { get; set; }
+        public string Email { get; set; } = null!;
 
         [Required(AllowEmptyStrings = false)]
         [StringLength(UserNameMaxLength, MinimumLength = UserNameMinLength)]
-        public string UserName { get; set; }
+        public string UserName { get; set; } = null!;
 
         [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength)]
         public string? Password { get; set; }
 
-        public IEnumerable<string> Roles { get; set; }
+        public IEnumerable<string> Roles { get; set; } = Enumerable.Empty<string>();
     }
 }

@@ -21,14 +21,18 @@ namespace Roomed.Data
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
         /// </summary>
-        public ApplicationDbContext() { }
+        public ApplicationDbContext()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
         /// </summary>
         /// <param name="options">Db context configuring options.</param>
         public ApplicationDbContext(DbContextOptions options)
-            : base(options) { }
+            : base(options)
+        {
+        }
 
         /// <summary>
         /// Gets or sets db set for <see cref="Reservation"/> entity model.

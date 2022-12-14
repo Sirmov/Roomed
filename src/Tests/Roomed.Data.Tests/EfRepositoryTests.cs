@@ -14,8 +14,6 @@ namespace Roomed.Data.Tests
     [TestFixture]
     public class EfRepositoryTests
     {
-        private ApplicationDbContext dbContext;
-
         private readonly ICollection<ReservationNote> reservationNotes = new List<ReservationNote>
         {
             new ReservationNote()
@@ -36,7 +34,9 @@ namespace Roomed.Data.Tests
                 Body = "Reservation note #3",
                 IsDeleted = false,
             },
-        };
+        }.AsReadOnly();
+
+        private ApplicationDbContext dbContext;
 
         [SetUp]
         public async Task Setup()
@@ -53,8 +53,8 @@ namespace Roomed.Data.Tests
         }
 
         // All
-
-        [Test, Order(1)]
+        [Test]
+        [Order(1)]
         public async Task AllShouldReturnAllWithoutTracking()
         {
             // Arrange
@@ -66,10 +66,17 @@ namespace Roomed.Data.Tests
             // Assert
             Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
             Assert.That(entities, Has.Exactly(this.dbContext.ReservationNotes.Count()).Items, "Entities count is not correct.");
-            Assert.That(entities.Select(e => e.Id),
-                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Id)), "Entities have incorrect ids.");
-            Assert.That(entities.Select(e => e.Body),
-                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Body)), "Entities have incorrect data.");
+
+            Assert.That(
+                entities.Select(e => e.Id),
+                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Id)),
+                "Entities have incorrect ids.");
+
+            Assert.That(
+                entities.Select(e => e.Body),
+                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Body)),
+                "Entities have incorrect data.");
+
             Assert.That(entities, Has.All.Matches<ReservationNote>(rn =>
             {
                 var entityState = this.dbContext.Entry(rn).State;
@@ -78,7 +85,8 @@ namespace Roomed.Data.Tests
             }));
         }
 
-        [Test, Order(2)]
+        [Test]
+        [Order(2)]
         public async Task AllShouldReturnAllWithTracking()
         {
             // Arrange
@@ -90,10 +98,16 @@ namespace Roomed.Data.Tests
             // Assert
             Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
             Assert.That(entities, Has.Exactly(this.dbContext.ReservationNotes.Count()).Items, "Entities count is not correct.");
-            Assert.That(entities.Select(e => e.Id),
-                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Id)), "Entities have incorrect ids.");
-            Assert.That(entities.Select(e => e.Body),
-                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Body)), "Entities have incorrect data.");
+
+            Assert.That(
+                entities.Select(e => e.Id),
+                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Id)),
+                "Entities have incorrect ids.");
+
+            Assert.That(
+                entities.Select(e => e.Body),
+                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Body)),
+                "Entities have incorrect data.");
         }
 
         [Test]
@@ -148,7 +162,6 @@ namespace Roomed.Data.Tests
         }
 
         // Find
-
         [Test]
         [TestCase("2bfff802-5afb-4bbb-96b3-27c98161ff00", "Reservation note #1")]
         [TestCase("08bd1b0d-15fd-4d2e-9f59-979d09da1133", "Reservation note #3")]
@@ -198,7 +211,6 @@ namespace Roomed.Data.Tests
         }
 
         // FindAsync
-
         [Test]
         [TestCase("2bfff802-5afb-4bbb-96b3-27c98161ff00", "Reservation note #1")]
         [TestCase("08bd1b0d-15fd-4d2e-9f59-979d09da1133", "Reservation note #3")]
@@ -248,7 +260,6 @@ namespace Roomed.Data.Tests
         }
 
         // Add
-
         [Test]
         [TestCase("I was added by Add() method.")]
         public async Task AddShouldAddEntityToDatabaseAndReturnEntityEntry(string body)
@@ -257,7 +268,7 @@ namespace Roomed.Data.Tests
             var repository = new EfRepository<ReservationNote, Guid>(this.dbContext);
 
             // Act
-            var result = repository.Add(new ReservationNote() { Body = body});
+            var result = repository.Add(new ReservationNote() { Body = body });
             await repository.SaveChangesAsync();
 
             // Assert
@@ -269,7 +280,6 @@ namespace Roomed.Data.Tests
         }
 
         // AddAsync
-
         [Test]
         [TestCase("I was added by AddAsync() method.")]
         public async Task AddAsyncShouldAddEntityToDatabaseAndReturnEntityEntry(string body)
@@ -290,7 +300,6 @@ namespace Roomed.Data.Tests
         }
 
         // AddRange
-
         [Test]
         [TestCase("I was added by AddRange() method.", "Me too.")]
         public async Task AddRangeShouldAddEntitiesToDatabase(string body1, string body2)
@@ -324,7 +333,6 @@ namespace Roomed.Data.Tests
         }
 
         // AddRangeAsync
-
         [Test]
         [TestCase("I was added by AddRange() method.", "Me too.")]
         public async Task AddRangeAsyncShouldAddEntitiesToDatabase(string body1, string body2)
@@ -358,7 +366,6 @@ namespace Roomed.Data.Tests
         }
 
         // Update
-
         [Test]
         [TestCase("a5652bde-19cd-4ce9-88ff-daf3f7bfd3eb", "My body does not matter because it will be updated.", "I told you ;)")]
         public async Task UpdateShouldUpdateEntity(string id, string body, string modifiedBody)
@@ -395,7 +402,9 @@ namespace Roomed.Data.Tests
             await this.dbContext.SaveChangesAsync();
 
             // Act
-            var entity = await this.dbContext.ReservationNotes.FindAsync(guid);
+            var entity = await this.dbContext.ReservationNotes.FindAsync(guid) ??
+                throw new InvalidOperationException("No entity with specified id can be found.");
+
             this.dbContext.Entry(entity).State = EntityState.Detached;
 
             entity.Body = modifiedBody;
@@ -413,7 +422,6 @@ namespace Roomed.Data.Tests
         }
 
         // UpdateAsync
-
         [Test]
         [TestCase("304340a1-16d7-4bdd-b85c-c1521ac3aa2c", "My body does not matter because it will be updated.", "I told you ;)")]
         public async Task UpdateAsyncShouldUpdateEntity(string id, string body, string modifiedBody)
@@ -484,7 +492,6 @@ namespace Roomed.Data.Tests
         }
 
         // UpdateRange
-
         [Test]
         [TestCase("I will be updated!", "I think I'm going to be updated too!", "Yes")]
         public async Task UpdateRangeShouldUpdateAllEntities(string body1, string body2, string addition)
@@ -529,7 +536,6 @@ namespace Roomed.Data.Tests
         }
 
         // Delete
-
         [Test]
         [TestCase("d429e67c-d9d7-4a93-9ba7-e35ad2150182", "I'm going to be deleted :(")]
         public async Task DeleteShouldChangeEntityStateAndDeleteIt(string id, string body)
@@ -553,7 +559,6 @@ namespace Roomed.Data.Tests
         }
 
         // DeleteAsync
-
         [Test]
         [TestCase("3edef0b0-912d-497a-ae8c-d183b898d627", "I'm going to be deleted :(")]
         public async Task DeleteAsyncShouldChangeEntityStateAndDeleteIt(string id, string body)
@@ -591,7 +596,6 @@ namespace Roomed.Data.Tests
         }
 
         // DeleteRange
-
         [Test]
         [TestCase("We are going to be deleted!?", "I don't like where this is going")]
         public async Task DeleteRangeShouldRemoveEntities(string body1, string body2)
@@ -619,10 +623,10 @@ namespace Roomed.Data.Tests
             // Assert
             entity1 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body1);
+                .FirstAsync(rn => rn.Body == body1);
             entity2 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body2);
+                .FirstAsync(rn => rn.Body == body2);
 
             Assert.That(this.dbContext.Entry(entity1).State, Is.EqualTo(EntityState.Deleted), "Entity's state should be Deleted.");
             Assert.That(this.dbContext.Entry(entity2).State, Is.EqualTo(EntityState.Deleted), "Entity's state should be Deleted.");
@@ -635,12 +639,11 @@ namespace Roomed.Data.Tests
 
             entity2 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body2 );
+                .FirstOrDefaultAsync(rn => rn.Body == body2);
             Assert.That(entity2, Is.Null, "The entity is not deleted.");
         }
 
         // Detach
-
         [Test]
         [TestCase("9a14c00e-dbd6-4b05-9541-2af3f5ec6f31", "Am I detached?")]
         public async Task DetachShouldStopTrackingEntity(string id, string body)

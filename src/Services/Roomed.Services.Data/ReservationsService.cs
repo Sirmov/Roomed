@@ -45,7 +45,7 @@ namespace Roomed.Services.Data
         {
             this.reservationsRepository = reservationRepository;
             this.roomsService = roomsService;
-            this.reservationDaysService= reservationDaysService;
+            this.reservationDaysService = reservationDaysService;
         }
 
         /// <inheritdoc/>

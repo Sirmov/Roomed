@@ -8,9 +8,9 @@
 namespace Roomed.Services.Data.Contracts
 {
     using Microsoft.AspNetCore.Identity;
+
     using Roomed.Data.Models;
     using Roomed.Services.Data.Dtos.User;
-    using System.Diagnostics.SymbolStore;
 
     /// <summary>
     /// This interface is used to state and document the users data service functionality.

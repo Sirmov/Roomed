@@ -21,7 +21,7 @@ namespace Roomed.Services.Data.Contracts
         /// </summary>
         /// <param name="queryOptions">The query options.</param>
         /// <returns>Returns a <see cref="Task{TResult}"/> with a collection of all <see cref="ReservationDayDto"/>.</returns>
-        public Task<ICollection<ReservationDayDto>> GetAllAsync(QueryOptions<ReservationDayDto>? queryOptions = null );
+        public Task<ICollection<ReservationDayDto>> GetAllAsync(QueryOptions<ReservationDayDto>? queryOptions = null);
 
         /// <summary>
         /// This method returns the reservation day with the given id asynchronously.

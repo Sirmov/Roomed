@@ -14,8 +14,6 @@ namespace Roomed.Data.Tests
     [TestFixture]
     public class EfDeletableRepositoryTests
     {
-        private ApplicationDbContext dbContext;
-
         private readonly ICollection<ReservationNote> reservationNotes = new List<ReservationNote>
         {
             new ReservationNote()
@@ -36,7 +34,9 @@ namespace Roomed.Data.Tests
                 Body = "Reservation note #3",
                 IsDeleted = false,
             },
-        };
+        }.AsReadOnly();
+
+        private ApplicationDbContext dbContext;
 
         [SetUp]
         public async Task Setup()
@@ -53,7 +53,6 @@ namespace Roomed.Data.Tests
         }
 
         // All
-
         [Test]
         public async Task AllShouldReturnAllEntitiesIncludingDeleted()
         {
@@ -78,8 +77,11 @@ namespace Roomed.Data.Tests
             var entities = await repository.All().ToListAsync();
 
             // Assert
-            Assert.That(entities.Count,
-                Is.EqualTo(this.dbContext.ReservationNotes.Count(x => !x.IsDeleted)), "Entities count is not correct.");
+            Assert.That(
+                entities.Count,
+                Is.EqualTo(this.dbContext.ReservationNotes.Count(x => !x.IsDeleted)),
+                "Entities count is not correct.");
+
             Assert.That(entities.Any(rn => rn.IsDeleted), Is.False, "Only not deleted entities should be returned");
         }
 
@@ -93,8 +95,11 @@ namespace Roomed.Data.Tests
             var entities = await repository.All(rn => rn.Body.Contains("Reservation note")).ToListAsync();
 
             // Assert
-            Assert.That(entities.Count,
-                Is.EqualTo(this.dbContext.ReservationNotes.Count(x => !x.IsDeleted)), "Entities count is not correct.");
+            Assert.That(
+                entities.Count,
+                Is.EqualTo(this.dbContext.ReservationNotes.Count(x => !x.IsDeleted)),
+                "Entities count is not correct.");
+
             Assert.That(entities.Any(rn => rn.IsDeleted), Is.False, "Only not deleted entities should be returned");
         }
 
@@ -108,14 +113,16 @@ namespace Roomed.Data.Tests
             var entities = await repository.All(rn => rn.Body.Contains("Reservation note"), true).ToListAsync();
 
             // Assert
-            Assert.That(entities.Count,
-                Is.EqualTo(this.dbContext.ReservationNotes.Count(x => !x.IsDeleted)), "Entities count is not correct.");
+            Assert.That(
+                entities.Count,
+                Is.EqualTo(this.dbContext.ReservationNotes.Count(x => !x.IsDeleted)),
+                "Entities count is not correct.");
+
             Assert.That(entities.Any(rn => rn.IsDeleted), Is.False, "Only not deleted entities should be returned");
             Assert.That(entities.All(rn => this.dbContext.Entry(rn).State == EntityState.Detached), Is.True);
         }
 
         // HardDelete
-
         [Test]
         [TestCase("d00528ac-df34-4c63-a5c8-b3dd031f17bb", "I will be gone forever.")]
         public async Task HardDeleteShouldDeleteEntityFromDatabase(string id, string body)
@@ -132,7 +139,7 @@ namespace Roomed.Data.Tests
                 .FindAsync(guid);
 
             repository.HardDelete(entity);
-            
+
             // Assert
             Assert.IsTrue(this.dbContext.Entry(entity).State == EntityState.Deleted);
             await repository.SaveChangesAsync();
@@ -143,7 +150,6 @@ namespace Roomed.Data.Tests
         }
 
         // Delete
-
         [Test]
         [TestCase("68fb55cb-1593-4961-b43a-20a315228bb4", "I will go missing.")]
         public async Task DeleteShouldSetIsDeletedFlagUpdateEntityAndSetDeletedOn(string id, string body)
@@ -172,7 +178,6 @@ namespace Roomed.Data.Tests
         }
 
         // Undelete
-
         [Test]
         [TestCase("7ea2d660-1e7b-42d1-b9bb-aa1f1ac96f65", "I was found!")]
         public async Task UndeleteShouldRemoveDeletedOnAndIsDeletedAndUpdateEntity(string id, string body)

@@ -317,7 +317,7 @@ namespace Roomed.Services.Data.Tests
         public void ValidateDtoShouldThrowWhenDtoIsNull()
         {
             // Arrange
-            BaseServiceTest<ReservationNote, Guid> baseService = new(this.repository, this.mapper);
+            BaseServiceTest<ReservationNote, Guid> baseService = new (this.repository, this.mapper);
             ReservationNoteDto? dto = null;
 
             // Act

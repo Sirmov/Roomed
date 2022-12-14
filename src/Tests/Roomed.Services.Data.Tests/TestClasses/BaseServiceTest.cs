@@ -21,7 +21,7 @@ namespace Roomed.Services.Data.Tests.TestClasses
         {
         }
 
-        public bool ValidateDto<TDto>(TDto dto)
+        public new bool ValidateDto<TDto>(TDto dto)
         {
             return base.ValidateDto(dto);
         }
