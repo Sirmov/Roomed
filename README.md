@@ -39,6 +39,7 @@ This is my first real [ASP.NET Core MVC](https://learn.microsoft.com/en-us/aspne
 -   Microsoft.NET TestSdk 17.4.0
 -   Microsoft EntityFramework Core InMemory 6.0.10
 -   Moq 4.8.13
+-   MockQueryable.Moq 6.0.1
 -   coverlet collector 3.2.0
 
 ## 🧱 Architecture
