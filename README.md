@@ -61,6 +61,13 @@ The application follows the standard [MVC architecture](https://learn.microsoft.
 <small>Figure 2. Application specific database tables schema</small>
 </div>
 
+## 🎯 Code coverage
+<div align="center">
+<p align="center"><img src="https://github.com/Sirmov/Roomed/blob/main/assets/images/data-layer-coverage.png"></p>
+<small>Figure 3. Data layer code coverage</small>
+</div> 
+
+
 ## 🎿 Installing the project
 
 You can install the project in three different ways.
