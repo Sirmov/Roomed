@@ -22,11 +22,22 @@ namespace Roomed.Services.Data
     using Roomed.Services.Data.Dtos.Room;
     using Roomed.Services.Data.Dtos.RoomType;
 
+    /// <summary>
+    /// This class is a implementation of the <see cref="RoomsService"/> interface.
+    /// It's purpose is to abstract and encapsulate the business logic related to the <see cref="Room"/> entity.
+    /// </summary>
     public class RoomsService : BaseService<Room, int>, IRoomsService
     {
         private readonly IDeletableEntityRepository<Room, int> roomsRepository;
         private readonly IReservationDaysService reservationDaysService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoomsService"/> class.
+        /// Uses constructor injection to resolve dependencies.
+        /// </summary>
+        /// <param name="entityRepository">The implementation of <see cref="IDeletableEntityRepository{TEntity, TKey}"/>.</param>
+        /// <param name="reservationDaysService">The implementation of <see cref="IReservationDaysService"/>.</param>
+        /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
         public RoomsService(
             IDeletableEntityRepository<Room, int> entityRepository,
             IReservationDaysService reservationDaysService,

@@ -75,7 +75,7 @@ namespace Roomed.Services.Data.Tests
 
         /// <summary>
         /// This test check whether <see cref="RoomTypesService.GetAllAsync(Common.QueryOptions{Dtos.RoomType.RoomTypeDto}?)"/>
-        /// returns all not deleted <see cref="RoomType"/> room types.
+        /// returns all not deleted <see cref="RoomType"/> entities.
         /// </summary>
         /// <returns>Returns a <see cref="Task"/>.</returns>
         // GetAllAsync(QueryOptions<RoomTypeDto>? queryOptions = null)
@@ -114,7 +114,7 @@ namespace Roomed.Services.Data.Tests
             var dto = await service.GetAsync(id);
 
             // Assert
-            var entity = this.roomTypes.First(r => r.Id == id);
+            var entity = this.repository.Find(id);
 
             Assert.That(dto.Id, Is.EqualTo(entity.Id), "Entity's id is not correct.");
             Assert.That(dto.Name, Is.EqualTo(entity.Name), "Entity's name is not correct.");
@@ -142,7 +142,7 @@ namespace Roomed.Services.Data.Tests
 
         /// <summary>
         /// This test checks whether <see cref="RoomTypesService.ExistsAsync(int, Common.QueryOptions{Dtos.RoomType.RoomTypeDto}?)"/>
-        /// returns true for existing room types.
+        /// returns true for an existing room type.
         /// </summary>
         /// <param name="id">The id of an existing room type.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>

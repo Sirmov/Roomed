@@ -18,10 +18,10 @@ namespace Roomed.Services.Data
     using Roomed.Services.Data.Common;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.IdentityDocument;
-    using Roomed.Services.Data.Dtos.Profile;
 
     /// <summary>
     /// This class is a implementation of the <see cref="IIdentityDocumentsService"/> interface.
+    /// It's purpose is to abstract and encapsulate the business logic related to the <see cref="IdentityDocument"/> entity.
     /// </summary>
     public class IdentityDocumentsService : BaseService<IdentityDocument, Guid>, IIdentityDocumentsService
     {
@@ -116,7 +116,7 @@ namespace Roomed.Services.Data
             {
                 await this.identityDocumentsRepository.FindAsync(id);
             }
-            catch (InvalidOperationException iox)
+            catch (InvalidOperationException)
             {
                 result = false;
             }

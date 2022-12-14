@@ -28,6 +28,7 @@ namespace Roomed.Services.Data
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RoomTypesService"/> class.
+        /// Uses constructor injection to resolve dependencies.
         /// </summary>
         /// <param name="entityRepository">The implementation of <see cref="IDeletableEntityRepository{TEntity, TKey}"/>.</param>
         /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
