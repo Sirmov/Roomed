@@ -73,9 +73,12 @@ namespace Roomed.Data.Repositories
         }
 
         /// <inheritdoc/>
+        /// <exception cref="ArgumentNullException">Throws when the <paramref name="id"/> is null.</exception>
         /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
         public virtual TEntity Find(TKey id, bool isReadonly = false)
         {
+            ArgumentNullException.ThrowIfNull(id);
+
             TEntity? entity = this.DbSet.Find(id);
 
             if (entity == null)
@@ -92,7 +95,7 @@ namespace Roomed.Data.Repositories
         }
 
         /// <inheritdoc/>
-        /// <exception cref="ArgumentNullException">Throws when the id is null.</exception>
+        /// <exception cref="ArgumentNullException">Throws when the <paramref name="id"/> is null.</exception>
         /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
         public virtual async Task<TEntity> FindAsync(TKey id, bool isReadonly = false)
         {
