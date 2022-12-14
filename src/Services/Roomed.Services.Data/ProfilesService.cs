@@ -22,6 +22,7 @@ namespace Roomed.Services.Data
 
     /// <summary>
     /// This class is a implementation of the <see cref="IProfilesService"/> interface.
+    /// It's purpose is to abstract and encapsulate the business logic related to the <see cref="Profile"/> entity.
     /// </summary>
     public class ProfilesService : BaseService<Profile, Guid>, IProfilesService
     {
@@ -60,9 +61,10 @@ namespace Roomed.Services.Data
             var result = await this.profilesRepository.AddAsync(model);
             await this.profilesRepository.SaveChangesAsync();
 
-            return result.Entity.Id;
+            return result?.Entity?.Id ?? Guid.Empty;
         }
 
+        /// <inheritdoc/>
         public async Task<DetailedProfileDto> GetAsync(Guid id, QueryOptions<DetailedProfileDto>? queryOptions = null)
         {
             return await base.GetAsync(id, queryOptions ?? new ());
@@ -71,6 +73,11 @@ namespace Roomed.Services.Data
         /// <inheritdoc/>
         public async Task EditAsync(Guid id, DetailedProfileDto newProfile)
         {
+            if (!await this.ExistsAsync(id))
+            {
+                throw new InvalidOperationException("No profile with this id can be found.");
+            }
+
             bool isValid = base.ValidateDto(newProfile);
 
             if (!isValid)
@@ -98,6 +105,11 @@ namespace Roomed.Services.Data
         /// <inheritdoc/>
         public async Task DeleteAsync(Guid id)
         {
+            if (!await this.ExistsAsync(id))
+            {
+                throw new InvalidOperationException("No profile with this id can be found.");
+            }
+
             await this.profilesRepository.DeleteAsync(id);
             await this.profilesRepository.SaveChangesAsync();
         }
@@ -111,7 +123,7 @@ namespace Roomed.Services.Data
             {
                 await this.profilesRepository.FindAsync(id);
             }
-            catch (InvalidOperationException iox)
+            catch (InvalidOperationException)
             {
                 result = false;
             }
