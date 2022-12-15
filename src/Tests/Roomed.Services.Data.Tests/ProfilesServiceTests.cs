@@ -85,7 +85,7 @@ namespace Roomed.Services.Data.Tests
         /// <returns>Returns a <see cref="Task"/>.</returns>
         // GetAllAsync(QueryOptions<DetailedProfileDto>? queryOptions = null)
         [Test]
-        public async Task GetAllAsyncShouldReturnAllNotDeletedRoomTypes()
+        public async Task GetAllAsyncShouldReturnAllNotDeletedProfiles()
         {
             // Arrange
             ProfilesService service = new ProfilesService(this.repository, this.mapper);
@@ -134,7 +134,7 @@ namespace Roomed.Services.Data.Tests
         // GetAsync(Guid id, QueryOptions<DetailedProfileDto>? queryOptions = null)
         [Test]
         [TestCase("212bb3ec-b975-4798-9a92-64b147efba30")]
-        public void GetAsyncShouldThrowWhenEntityDoesNotExist(string id)
+        public void GetAsyncShouldThrowWhenProfileDoesNotExist(string id)
         {
             // Arrange
             ProfilesService service = new ProfilesService(this.repository, this.mapper);
@@ -201,7 +201,7 @@ namespace Roomed.Services.Data.Tests
         // DeleteAsync(Guid id)
         [Test]
         [TestCase("b5203cb5-8b78-48a6-878b-03b251708991")]
-        public void DeleteAsyncShouldThrowWhenEntityDoesNotExist(string id)
+        public void DeleteAsyncShouldThrowWhenProfileDoesNotExist(string id)
         {
             // Arrange
             ProfilesService service = new ProfilesService(this.repository, this.mapper);
@@ -245,7 +245,7 @@ namespace Roomed.Services.Data.Tests
         // EditAsync(Guid id, DetailedProfileDto newProfile)
         [Test]
         [TestCase("8445a2a4-4856-472f-a494-3d2024179558")]
-        public void EditAsyncShouldThrowWhenEntityDoesNotExist(string id)
+        public void EditAsyncShouldThrowWhenProfileDoesNotExist(string id)
         {
             // Arrange
             ProfilesService service = new ProfilesService(this.repository, this.mapper);
