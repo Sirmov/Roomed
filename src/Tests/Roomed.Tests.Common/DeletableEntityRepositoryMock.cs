@@ -15,7 +15,7 @@ namespace Roomed.Tests.Common
     using Roomed.Data.Common.Repositories;
 
     /// <summary>
-    /// This class is a mock of <see cref="DeletableEntityRepositoryMock{TEntity, TKey}"/>.
+    /// This class is a mock of <see cref="IDeletableEntityRepository{TEntity, TKey}"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TKey">The type of the primary key of the entity.</typeparam>
@@ -53,6 +53,15 @@ namespace Roomed.Tests.Common
                     });
 
                 mock.Setup(m => m.AddAsync(It.IsAny<TEntity>()).Result)
+                    .Returns((TEntity entity) =>
+                    {
+                        entity.CreatedOn = DateTime.UtcNow;
+                        Entities.Add(entity);
+
+                        return null!;
+                    });
+
+                mock.Setup(m => m.Add(It.IsAny<TEntity>()))
                     .Returns((TEntity entity) =>
                     {
                         entity.CreatedOn = DateTime.UtcNow;
