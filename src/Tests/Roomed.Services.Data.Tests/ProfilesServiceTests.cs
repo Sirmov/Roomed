@@ -11,13 +11,13 @@ namespace Roomed.Services.Data.Tests
     using NUnit.Framework;
 
     using Roomed.Data.Common.Repositories;
+    using Roomed.Data.Models.Enums;
     using Roomed.Services.Data.Dtos.Profile;
     using Roomed.Tests.Common;
 
-    using Profile = Roomed.Data.Models.Profile;
-
     using static Roomed.Common.DataConstants.Profile;
-    using Roomed.Data.Models.Enums;
+
+    using Profile = Roomed.Data.Models.Profile;
 
     /// <summary>
     /// This class contains all unit tests for <see cref="ProfilesService"/>.
@@ -149,7 +149,7 @@ namespace Roomed.Services.Data.Tests
 
         /// <summary>
         /// This test checks whether <see cref="RoomTypesService.ExistsAsync(int, Common.QueryOptions{Dtos.RoomType.RoomTypeDto}?)"/>
-        /// returns true for an existing profile.
+        /// returns <see langword="true"/> for an existing profile.
         /// </summary>
         /// <param name="id">The id of an existing profile.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
@@ -173,7 +173,7 @@ namespace Roomed.Services.Data.Tests
 
         /// <summary>
         /// This test checks whether <see cref="RoomTypesService.ExistsAsync(int, Common.QueryOptions{Dtos.RoomType.RoomTypeDto}?)"/>
-        /// returns false for a non existing profile.
+        /// returns <see langword="false"/> for a non existing profile.
         /// </summary>
         /// <param name="id">The id of a non existing profile.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
@@ -216,14 +216,14 @@ namespace Roomed.Services.Data.Tests
 
         /// <summary>
         /// This test checks whether <see cref="ProfilesService.DeleteAsync(Guid)"/>
-        /// deletes an existing entity by setting its isDeleted flag to true.
+        /// deletes an existing guest profile by setting its isDeleted flag to true.
         /// </summary>
         /// <param name="id">The id of an existing entity.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
         // DeleteAsync(Guid id)
         [Test]
         [TestCase("01e26ba7-52df-4293-a4cb-2bc20cd2e733")]
-        public async Task DeleteAsyncShouldSetIsDeleteToTrue(string id)
+        public async Task DeleteAsyncShouldMarkProfileAsDeleted(string id)
         {
             // Arrange
             ProfilesService service = new ProfilesService(this.repository, this.mapper);
@@ -336,7 +336,7 @@ namespace Roomed.Services.Data.Tests
 
         /// <summary>
         /// This test checks whether <see cref="ProfilesService.CreateDetailedAsync(DetailedProfileDto)"/>
-        /// creates a new profile entity, adds it to the database and returns its id.
+        /// creates a new profile entity and adds it to the database.
         /// </summary>
         /// <param name="firstName">The first name of the new profile.</param>
         /// <param name="lastName">The last name of the new profile.</param>
