@@ -26,17 +26,23 @@ namespace Roomed.Services.Data
     public class IdentityDocumentsService : BaseService<IdentityDocument, Guid>, IIdentityDocumentsService
     {
         private readonly IDeletableEntityRepository<IdentityDocument, Guid> identityDocumentsRepository;
+        private readonly IProfilesService profilesService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IdentityDocumentsService"/> class.
         /// Uses constructor injection to resolve dependencies.
         /// </summary>
         /// <param name="identityDocumentsRepository">The <see cref="IdentityDocument"/> database repository.</param>
+        /// <param name="profilesService">The implementation of <see cref="IProfilesService"/>.</param>
         /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
-        public IdentityDocumentsService(IDeletableEntityRepository<IdentityDocument, Guid> identityDocumentsRepository, IMapper mapper)
+        public IdentityDocumentsService(
+            IDeletableEntityRepository<IdentityDocument, Guid> identityDocumentsRepository,
+            IProfilesService profilesService,
+            IMapper mapper)
             : base(identityDocumentsRepository, mapper)
         {
             this.identityDocumentsRepository = identityDocumentsRepository;
+            this.profilesService = profilesService;
         }
 
         /// <inheritdoc />
@@ -54,6 +60,11 @@ namespace Roomed.Services.Data
         /// <inheritdoc/>
         public async Task<Guid> CreateAsync(IdentityDocumentDto identityDocumentDto)
         {
+            if (!await this.profilesService.ExistsAsync(identityDocumentDto.OwnerId))
+            {
+                throw new InvalidOperationException("The owner of the  document cannot be found.");
+            }
+
             bool isValid = base.ValidateDto(identityDocumentDto);
 
             if (!isValid)
@@ -66,12 +77,22 @@ namespace Roomed.Services.Data
             var result = await this.identityDocumentsRepository.AddAsync(model);
             await this.identityDocumentsRepository.SaveChangesAsync();
 
-            return result.Entity.Id;
+            return result?.Entity?.Id ?? Guid.Empty;
         }
 
         /// <inheritdoc/>
         public async Task EditAsync(Guid id, IdentityDocumentDto newIdentityDocument)
         {
+            if (!await this.ExistsAsync(id))
+            {
+                throw new InvalidOperationException("The document cannot be found.");
+            }
+
+            if (!await this.profilesService.ExistsAsync(newIdentityDocument.OwnerId))
+            {
+                throw new InvalidOperationException("The new owner of the  document cannot be found.");
+            }
+
             bool isValid = base.ValidateDto(newIdentityDocument);
 
             if (!isValid)
@@ -103,6 +124,11 @@ namespace Roomed.Services.Data
         /// <inheritdoc/>
         public async Task DeleteAsync(Guid id)
         {
+            if (!await this.ExistsAsync(id))
+            {
+                throw new InvalidOperationException("The document cannot be found.");
+            }
+
             await this.identityDocumentsRepository.DeleteAsync(id);
             await this.identityDocumentsRepository.SaveChangesAsync();
         }
