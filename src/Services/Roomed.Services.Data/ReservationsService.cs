@@ -112,6 +112,21 @@ namespace Roomed.Services.Data
         /// <inheritdoc />
         public async Task<Guid> CreateReservationAsync(ReservationDto reservationDto, int roomId)
         {
+            var today = DateOnly.FromDateTime(DateTime.Today);
+
+            if (reservationDto.ArrivalDate > today)
+            {
+                reservationDto.Status = ReservationStatus.Expected;
+            }
+            else if (reservationDto.ArrivalDate == today)
+            {
+                reservationDto.Status = ReservationStatus.Arriving;
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot make a reservation for the past.");
+            }
+
             bool isValid = base.ValidateDto(reservationDto);
 
             if (!isValid)
@@ -119,23 +134,14 @@ namespace Roomed.Services.Data
                 throw new ArgumentException("Reservation model state is not valid.", nameof(reservationDto));
             }
 
-            var today = DateOnly.FromDateTime(DateTime.Today);
-
-            if (reservationDto.ArrivalDate == today)
-            {
-                reservationDto.Status = ReservationStatus.Arriving;
-            }
-
-            reservationDto.Status = ReservationStatus.Expected;
-
             Reservation model = this.mapper.Map<Reservation>(reservationDto);
 
             var result = await this.reservationsRepository.AddAsync(model);
             await this.reservationsRepository.SaveChangesAsync();
 
-            await this.reservationDaysService.CreateForReservationAsync(result.Entity, roomId);
+            await this.reservationDaysService.CreateForReservationAsync(result?.Entity ?? model, roomId);
 
-            return result.Entity.Id;
+            return result?.Entity?.Id ?? Guid.Empty;
         }
 
         /// <inheritdoc/>
