@@ -12,8 +12,6 @@ namespace Roomed.Services.Data
     using System.Threading.Tasks;
 
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
 
     using Roomed.Data.Common.Repositories;
     using Roomed.Data.Models;
