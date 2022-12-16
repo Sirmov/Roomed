@@ -32,12 +32,12 @@ namespace Roomed.Services.Data
         /// Initializes a new instance of the <see cref="ProfilesService"/> class.
         /// Uses constructor injection to resolve dependencies.
         /// </summary>
-        /// <param name="profilesRepository">The <see cref="Profile"/> database repository.</param>
+        /// <param name="entityRepository">The implementation of <see cref="IDeletableEntityRepository{TEntity, TKey}"/>.</param>
         /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
-        public ProfilesService(IDeletableEntityRepository<Profile, Guid> profilesRepository, IMapper mapper)
-            : base(profilesRepository, mapper)
+        public ProfilesService(IDeletableEntityRepository<Profile, Guid> entityRepository, IMapper mapper)
+            : base(entityRepository, mapper)
         {
-            this.profilesRepository = profilesRepository;
+            this.profilesRepository = entityRepository;
         }
 
         /// <inheritdoc/>
