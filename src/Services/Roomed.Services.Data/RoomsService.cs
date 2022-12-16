@@ -49,6 +49,23 @@ namespace Roomed.Services.Data
         }
 
         /// <inheritdoc/>
+        public async Task<bool> ExistsAsync(int id, QueryOptions<RoomDto>? queryOptions = null)
+        {
+            var result = true;
+
+            try
+            {
+                await this.roomsRepository.FindAsync(id);
+            }
+            catch (InvalidOperationException)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        /// <inheritdoc/>
         public async Task<ICollection<RoomDto>> GetAllAsync(RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null)
         {
             var rooms = await base.GetAllAsync(queryOptions ?? new ());
@@ -64,7 +81,7 @@ namespace Roomed.Services.Data
         /// <inheritdoc/>
         public async Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly date, RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null)
         {
-            var reservationDays = await this.reservationDaysService.GetAllForDate(date);
+            var reservationDays = await this.reservationDaysService.GetAllForDateAsync(date);
 
             if (roomType != null)
             {
@@ -85,7 +102,7 @@ namespace Roomed.Services.Data
         /// <inheritdoc/>
         public async Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly startDate, DateOnly endDate, RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null)
         {
-            var reservationDays = await this.reservationDaysService.GetAllForPeriod(startDate, endDate);
+            var reservationDays = await this.reservationDaysService.GetAllForPeriodAsync(startDate, endDate);
 
             if (roomType != null)
             {

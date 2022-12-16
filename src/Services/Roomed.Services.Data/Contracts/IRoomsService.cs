@@ -45,5 +45,13 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="queryOptions">The query options.</param>
         /// <returns>Returns a collection of all free rooms of the given type for the given period.</returns>
         public Task<ICollection<RoomDto>> GetAllFreeRoomsAsync(DateOnly startDate, DateOnly endDate, RoomTypeDto? roomType = null, QueryOptions<RoomDto>? queryOptions = null);
+
+        /// <summary>
+        /// This method asynchronously determines whether a room with a given id exists.
+        /// </summary>
+        /// <param name="id">The id of the room.</param>
+        /// <param name="queryOptions">The query options.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="bool"/> indicating whether the room exists.</returns>
+        public Task<bool> ExistsAsync(int id, QueryOptions<RoomDto>? queryOptions = null);
     }
 }

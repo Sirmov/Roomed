@@ -137,5 +137,22 @@ namespace Roomed.Services.Data
 
             return result.Entity.Id;
         }
+
+        /// <inheritdoc/>
+        public async Task<bool> ExistsAsync(Guid id, QueryOptions<ReservationDto>? queryOptions = null)
+        {
+            var result = true;
+
+            try
+            {
+                await this.reservationsRepository.FindAsync(id);
+            }
+            catch (InvalidOperationException)
+            {
+                result = false;
+            }
+
+            return result;
+        }
     }
 }

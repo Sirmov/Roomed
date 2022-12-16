@@ -78,5 +78,13 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="roomId">The id of the room to be occupied.</param>
         /// <returns>Returns a <see cref="Task{TResult}"/> with the id of the newly created reservation.</returns>
         public Task<Guid> CreateReservationAsync(ReservationDto reservationDto, int roomId);
+
+        /// <summary>
+        /// This method asynchronously determines whether a reservation with a given id exists.
+        /// </summary>
+        /// <param name="id">The id of the reservation.</param>
+        /// <param name="queryOptions">The query options.</param>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="bool"/> indicating whether the reservation exists.</returns>
+        public Task<bool> ExistsAsync(Guid id, QueryOptions<ReservationDto>? queryOptions = null);
     }
 }
