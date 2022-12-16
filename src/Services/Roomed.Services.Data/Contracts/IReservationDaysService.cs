@@ -37,7 +37,7 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="date">The date of the reservation days.</param>
         /// <param name="queryOptions">The query options.</param>
         /// <returns>Returns a <see cref="Task{TResult}"/> with a collection of all <see cref="ReservationDayDto"/> on a given date.</returns>
-        public Task<ICollection<ReservationDayDto>> GetAllForDate(DateOnly date, QueryOptions<ReservationDayDto>? queryOptions = null);
+        public Task<ICollection<ReservationDayDto>> GetAllForDateAsync(DateOnly date, QueryOptions<ReservationDayDto>? queryOptions = null);
 
         /// <summary>
         /// This method return all reservation days in a given period.
@@ -46,7 +46,7 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="endDate">The end of the period.</param>
         /// <param name="queryOptions">The query options.</param>
         /// <returns>Returns a <see cref="Task{TResult}"/> with a collection of all <see cref="ReservationDayDto"/> on a given period.</returns>
-        public Task<ICollection<ReservationDayDto>> GetAllForPeriod(DateOnly startDate, DateOnly endDate, QueryOptions<ReservationDayDto>? queryOptions = null);
+        public Task<ICollection<ReservationDayDto>> GetAllForPeriodAsync(DateOnly startDate, DateOnly endDate, QueryOptions<ReservationDayDto>? queryOptions = null);
 
         /// <summary>
         /// This method creates all reservation days for a newly created reservation.
