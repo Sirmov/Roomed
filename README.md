@@ -65,6 +65,10 @@ The application follows the standard [MVC architecture](https://learn.microsoft.
 <div align="center">
 <p align="center"><img src="https://github.com/Sirmov/Roomed/blob/main/assets/images/data-layer-coverage.png"></p>
 <small>Figure 3. Data layer code coverage</small>
+</div>
+<div align="center">
+<p align="center"><img src="https://github.com/Sirmov/Roomed/blob/main/assets/images/service-layer-coverage.png"></p>
+<small>Figure 4. Service layer code coverage</small>
 </div> 
 
 
