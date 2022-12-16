@@ -52,6 +52,19 @@ namespace Roomed.Tests.Common
                         return query;
                     });
 
+                mock.Setup(m => m.All(It.IsAny<bool>()))
+                    .Returns((bool isReadonly) =>
+                    {
+                        IQueryable<TEntity> query = entitiesMock;
+
+                        if (isReadonly)
+                        {
+                            query = query.AsNoTracking();
+                        }
+
+                        return query;
+                    });
+
                 mock.Setup(m => m.AddAsync(It.IsAny<TEntity>()).Result)
                     .Returns((TEntity entity) =>
                     {
@@ -59,6 +72,15 @@ namespace Roomed.Tests.Common
                         Entities.Add(entity);
 
                         return null!;
+                    });
+
+                mock.Setup(m => m.AddRangeAsync(It.IsAny<IEnumerable<TEntity>>()))
+                    .Callback((IEnumerable<TEntity> entities) =>
+                    {
+                        foreach (var entity in entities)
+                        {
+                            Entities.Add(entity);
+                        }
                     });
 
                 mock.Setup(m => m.Add(It.IsAny<TEntity>()))
