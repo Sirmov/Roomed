@@ -48,7 +48,7 @@ namespace Roomed.Services.Data.Tests
                 ReservationId = Guid.Parse("a0368b88-05bb-48ff-83cb-0c1c6a323e4e"),
                 Date = new DateOnly(2022, 8, 21),
             },
-        };
+        }.AsReadOnly();
 
         private IMapper mapper;
         private IDeletableEntityRepository<ReservationDay, Guid> repository;
