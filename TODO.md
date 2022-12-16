@@ -49,3 +49,5 @@
 1. ☐ Add documentation where it is missing
 2. ☐ Make changes were appropriate
 3. ☐ Move ProjectTo{TDto} last before ToListAsync()
+
+☐ Make creating a reservation and its reservation days in a transaction
