@@ -20,16 +20,33 @@ namespace Roomed.Services.Data
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.ReservationDay;
 
+    /// <summary>
+    /// This class is a implementation of the <see cref="IReservationDaysService"/> interface.
+    /// It's purpose is to abstract and encapsulate the business logic related to the <see cref="ReservationDay"/> entity.
+    /// </summary>
     public class ReservationDaysService : BaseService<ReservationDay, Guid>, IReservationDaysService
     {
         private readonly IDeletableEntityRepository<ReservationDay, Guid> reservationDaysRepository;
+        private readonly IReservationsService reservationsService;
+        private readonly IRoomsService roomsService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReservationDaysService"/> class.
+        /// </summary>
+        /// <param name="entityRepository">The implementation of <see cref="IDeletableEntityRepository{TEntity, TKey}"/>.</param>
+        /// <param name="reservationsService">The implementation of <see cref="IReservationsService"/>.</param>
+        /// <param name="roomsService">The implementation of <see cref="IRoomsService"/>.</param>
+        /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
         public ReservationDaysService(
             IDeletableEntityRepository<ReservationDay, Guid> entityRepository,
+            IReservationsService reservationsService,
+            IRoomsService roomsService,
             IMapper mapper)
             : base(entityRepository, mapper)
         {
             this.reservationDaysRepository = entityRepository;
+            this.reservationsService = reservationsService;
+            this.roomsService = roomsService;
         }
 
         /// <inheritdoc/>
@@ -45,7 +62,7 @@ namespace Roomed.Services.Data
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<ReservationDayDto>> GetAllForDate(DateOnly date, QueryOptions<ReservationDayDto>? queryOptions = null)
+        public async Task<ICollection<ReservationDayDto>> GetAllForDateAsync(DateOnly date, QueryOptions<ReservationDayDto>? queryOptions = null)
         {
             var dtos = await this.reservationDaysRepository
                 .All(queryOptions?.IsReadOnly ?? false, queryOptions?.WithDeleted ?? false)
@@ -59,7 +76,7 @@ namespace Roomed.Services.Data
         }
 
         /// <inheritdoc/>
-        public async Task<ICollection<ReservationDayDto>> GetAllForPeriod(DateOnly startDate, DateOnly endDate, QueryOptions<ReservationDayDto>? queryOptions = null)
+        public async Task<ICollection<ReservationDayDto>> GetAllForPeriodAsync(DateOnly startDate, DateOnly endDate, QueryOptions<ReservationDayDto>? queryOptions = null)
         {
             var dtos = await this.reservationDaysRepository
                 .All(queryOptions?.IsReadOnly ?? false, queryOptions?.WithDeleted ?? false)
@@ -75,6 +92,16 @@ namespace Roomed.Services.Data
         /// <inheritdoc/>
         public async Task CreateForReservationAsync(Reservation reservation, int roomId)
         {
+            if (!await this.reservationsService.ExistsAsync(reservation.Id))
+            {
+                throw new InvalidOperationException("Reservation cannot be found.");
+            }
+
+            if (!await this.roomsService.ExistsAsync(roomId))
+            {
+                throw new InvalidOperationException("Room cannot be found.");
+            }
+
             bool reservationDaysExist = await this.reservationDaysRepository
                 .All()
                 .AnyAsync(rd => rd.ReservationId == reservation.Id);
