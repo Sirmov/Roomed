@@ -10,10 +10,20 @@ namespace Roomed.Tests.Common
     using Microsoft.EntityFrameworkCore;
     using Roomed.Data;
 
+    /// <summary>
+    /// This class is a mock of <see cref="ApplicationDbContext"/>.
+    /// </summary>
     public static class DbContextMock
     {
-        public static ApplicationDbContext DbContext { get; set; }
+        /// <summary>
+        /// Gets or sets the instance of <see cref="ApplicationDbContext"/>.
+        /// </summary>
+        public static ApplicationDbContext DbContext { get; set; } = null!;
 
+        /// <summary>
+        /// This method asynchronously initializes the db context.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task{TResult}"/> with <see cref="ApplicationDbContext"/>.</returns>
         public static async Task<ApplicationDbContext> InitializeDbContextAsync()
         {
             var options = new DbContextOptionsBuilder()
@@ -31,6 +41,10 @@ namespace Roomed.Tests.Common
             return dbContext;
         }
 
+        /// <summary>
+        /// This method asynchronously deletes and disposes the database.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
         public static async Task DisposeAsync()
         {
             await DbContext.Database.EnsureDeletedAsync();
