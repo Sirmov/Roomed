@@ -27,26 +27,18 @@ namespace Roomed.Services.Data
     public class ReservationDaysService : BaseService<ReservationDay, Guid>, IReservationDaysService
     {
         private readonly IDeletableEntityRepository<ReservationDay, Guid> reservationDaysRepository;
-        private readonly IReservationsService reservationsService;
-        private readonly IRoomsService roomsService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReservationDaysService"/> class.
         /// </summary>
         /// <param name="entityRepository">The implementation of <see cref="IDeletableEntityRepository{TEntity, TKey}"/>.</param>
-        /// <param name="reservationsService">The implementation of <see cref="IReservationsService"/>.</param>
-        /// <param name="roomsService">The implementation of <see cref="IRoomsService"/>.</param>
         /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
         public ReservationDaysService(
             IDeletableEntityRepository<ReservationDay, Guid> entityRepository,
-            IReservationsService reservationsService,
-            IRoomsService roomsService,
             IMapper mapper)
             : base(entityRepository, mapper)
         {
             this.reservationDaysRepository = entityRepository;
-            this.reservationsService = reservationsService;
-            this.roomsService = roomsService;
         }
 
         /// <inheritdoc/>
@@ -92,16 +84,6 @@ namespace Roomed.Services.Data
         /// <inheritdoc/>
         public async Task CreateForReservationAsync(Reservation reservation, int roomId)
         {
-            if (!await this.reservationsService.ExistsAsync(reservation.Id))
-            {
-                throw new InvalidOperationException("Reservation cannot be found.");
-            }
-
-            if (!await this.roomsService.ExistsAsync(roomId))
-            {
-                throw new InvalidOperationException("Room cannot be found.");
-            }
-
             bool reservationDaysExist = await this.reservationDaysRepository
                 .All()
                 .AnyAsync(rd => rd.ReservationId == reservation.Id);

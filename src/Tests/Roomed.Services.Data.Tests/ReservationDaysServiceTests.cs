@@ -92,7 +92,7 @@ namespace Roomed.Services.Data.Tests
         public async Task GetAllAsyncShouldReturnAllNotDeletedReservationDays()
         {
             // Arrange
-            var service = new ReservationDaysService(this.repository, this.reservationsService, this.roomsService, this.mapper);
+            var service = new ReservationDaysService(this.repository, this.mapper);
 
             // Act
             var dtos = await service.GetAllAsync();
@@ -116,7 +116,7 @@ namespace Roomed.Services.Data.Tests
         public void GetAsyncShouldThrowWhenReservationDayDoesNotExist(string id)
         {
             // Arrange
-            var service = new ReservationDaysService(this.repository, this.reservationsService, this.roomsService, this.mapper);
+            var service = new ReservationDaysService(this.repository, this.mapper);
             var guid = Guid.Parse(id);
 
             // Act
@@ -138,7 +138,7 @@ namespace Roomed.Services.Data.Tests
         public async Task GetAsyncShoulReturnExactResevationDay(string id)
         {
             // Arrange
-            var service = new ReservationDaysService(this.repository, this.reservationsService, this.roomsService, this.mapper);
+            var service = new ReservationDaysService(this.repository, this.mapper);
             var guid = Guid.Parse(id);
 
             // Act
@@ -165,7 +165,7 @@ namespace Roomed.Services.Data.Tests
         public async Task GetAllForDateAsyncShouldReturnCorrectReservationDays(int year, int month, int day)
         {
             // Arrange
-            var service = new ReservationDaysService(this.repository, this.reservationsService, this.roomsService, this.mapper);
+            var service = new ReservationDaysService(this.repository, this.mapper);
             var date = new DateOnly(year, month, day);
 
             // Act
@@ -194,7 +194,7 @@ namespace Roomed.Services.Data.Tests
             int endYear, int endMonth, int endDay)
         {
             // Arrange
-            var service = new ReservationDaysService(this.repository, this.reservationsService, this.roomsService, this.mapper);
+            var service = new ReservationDaysService(this.repository, this.mapper);
             var startDate = new DateOnly(starYear, startMonth, startDay);
             var endDate = new DateOnly(endYear, endMonth, endDay);
 
@@ -205,53 +205,53 @@ namespace Roomed.Services.Data.Tests
             Assert.That(dtos.All(rd => rd.Date >= startDate && rd.Date <= endDate), "Incorrect entities.");
         }
 
-        /// <summary>
-        /// This test checks whether <see cref="ReservationDaysService.CreateForReservationAsync(Reservation, int)"/>
-        /// throws an exception when the reservation does not exist.
-        /// </summary>
-        /// <param name="reservationId">The id of a non existing reservation.</param>
-        /// <param name="roomId">The id of a existing room.</param>
-        // CreateForReservationAsync(Reservation reservation, int roomId)
-        [Test]
-        [TestCase("4f43e9ba-e187-4831-b723-55c64397b84c", 1)]
-        public void CreateForReservationAsyncShouldThrowWhenReservationDoesNotExist(string reservationId, int roomId)
-        {
-            // Arrange
-            var service = new ReservationDaysService(this.repository, this.reservationsService, this.roomsService, this.mapper);
+        ///// <summary>
+        ///// This test checks whether <see cref="ReservationDaysService.CreateForReservationAsync(Reservation, int)"/>
+        ///// throws an exception when the reservation does not exist.
+        ///// </summary>
+        ///// <param name="reservationId">The id of a non existing reservation.</param>
+        ///// <param name="roomId">The id of a existing room.</param>
+        //// CreateForReservationAsync(Reservation reservation, int roomId)
+        //[Test]
+        //[TestCase("4f43e9ba-e187-4831-b723-55c64397b84c", 1)]
+        //public void CreateForReservationAsyncShouldThrowWhenReservationDoesNotExist(string reservationId, int roomId)
+        //{
+        //    // Arrange
+        //    var service = new ReservationDaysService(this.repository, this.mapper);
 
-            // Act
-            var reservation = new Reservation() { Id = Guid.Parse(reservationId) };
+        //    // Act
+        //    var reservation = new Reservation() { Id = Guid.Parse(reservationId) };
 
-            var code = async () => await service.CreateForReservationAsync(reservation, roomId);
+        //    var code = async () => await service.CreateForReservationAsync(reservation, roomId);
 
-            // Assert
-            var exception = Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Method should throw an exception.");
-            Assert.That(exception.Message, Is.EqualTo("Reservation cannot be found."), "Exception message is not correct.");
-        }
+        //    // Assert
+        //    var exception = Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Method should throw an exception.");
+        //    Assert.That(exception.Message, Is.EqualTo("Reservation cannot be found."), "Exception message is not correct.");
+        //}
 
-        /// <summary>
-        /// This test checks whether <see cref="ReservationDaysService.CreateForReservationAsync(Reservation, int)"/>
-        /// throws an exception when no room exists by a given id.
-        /// </summary>
-        /// <param name="reservationId">The id of a existing reservation.</param>
-        /// <param name="roomId">The id of a non existing room.</param>
-        // CreateForReservationAsync(Reservation reservation, int roomId)
-        [Test]
-        [TestCase("a0368b88-05bb-48ff-83cb-0c1c6a323e4e", 0)]
-        public void CreateForReservationAsyncShouldThrowWhenRoomDoesNotExist(string reservationId, int roomId)
-        {
-            // Arrange
-            var service = new ReservationDaysService(this.repository, this.reservationsService, this.roomsService, this.mapper);
+        ///// <summary>
+        ///// This test checks whether <see cref="ReservationDaysService.CreateForReservationAsync(Reservation, int)"/>
+        ///// throws an exception when no room exists by a given id.
+        ///// </summary>
+        ///// <param name="reservationId">The id of a existing reservation.</param>
+        ///// <param name="roomId">The id of a non existing room.</param>
+        //// CreateForReservationAsync(Reservation reservation, int roomId)
+        //[Test]
+        //[TestCase("a0368b88-05bb-48ff-83cb-0c1c6a323e4e", 0)]
+        //public void CreateForReservationAsyncShouldThrowWhenRoomDoesNotExist(string reservationId, int roomId)
+        //{
+        //    // Arrange
+        //    var service = new ReservationDaysService(this.repository, this.mapper);
 
-            // Act
-            var reservation = new Reservation() { Id = Guid.Parse(reservationId) };
+        //    // Act
+        //    var reservation = new Reservation() { Id = Guid.Parse(reservationId) };
 
-            var code = async () => await service.CreateForReservationAsync(reservation, roomId);
+        //    var code = async () => await service.CreateForReservationAsync(reservation, roomId);
 
-            // Assert
-            var exception = Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Method should throw an exception.");
-            Assert.That(exception.Message, Is.EqualTo("Room cannot be found."), "Exception message is not correct.");
-        }
+        //    // Assert
+        //    var exception = Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Method should throw an exception.");
+        //    Assert.That(exception.Message, Is.EqualTo("Room cannot be found."), "Exception message is not correct.");
+        //}
 
         /// <summary>
         /// This test checks whether <see cref="ReservationDaysService.CreateForReservationAsync(Reservation, int)"/>
@@ -265,7 +265,7 @@ namespace Roomed.Services.Data.Tests
         public void CreateForReservationAsyncShouldThrowWhenReservationDaysExist(string reservationId, int roomId)
         {
             // Arrange
-            var service = new ReservationDaysService(this.repository, this.reservationsService, this.roomsService, this.mapper);
+            var service = new ReservationDaysService(this.repository, this.mapper);
 
             // Act
             var reservation = new Reservation() { Id = Guid.Parse(reservationId) };
@@ -299,7 +299,7 @@ namespace Roomed.Services.Data.Tests
             int departureYear, int departureMonth, int departureDay)
         {
             // Arrange
-            var service = new ReservationDaysService(this.repository, this.reservationsService, this.roomsService, this.mapper);
+            var service = new ReservationDaysService(this.repository, this.mapper);
             var reservationGuid = Guid.Parse(reservationId);
             var arrivalDate = new DateOnly(arrivalYear, arrivalMonth, arrivalDay);
             var departureDate = new DateOnly(departureYear, departureMonth, departureDay);
