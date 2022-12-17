@@ -78,15 +78,15 @@
 				<div id="collapseReservations" class="collapse" aria-labelledby="headingReservations" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">By status</h6>
-						<a class="collapse-item" href="tables.html">
+						<a class="collapse-item" asp-area="" asp-controller="@Controllers.Reservations" asp-action="@Actions.Index">
 							<i class="fa-solid fa-plane-arrival"></i>
 							<span>Arriving</span>
 						</a>
-						<a class="collapse-item" href="tables.html">
+						<a class="collapse-item" asp-area="" asp-controller="@Controllers.Reservations" asp-action="@Actions.InHouse">
 							<i class="fa-solid fa-hotel"></i>
 							<span>In house</span>
 						</a>
-						<a class="collapse-item" href="tables.html">
+						<a class="collapse-item" asp-area="" asp-controller="@Controllers.Reservations" asp-action="@Actions.Departing">
 							<i class="fa-solid fa-plane-departure"></i>
 							<span>Departing</span>
 						</a>

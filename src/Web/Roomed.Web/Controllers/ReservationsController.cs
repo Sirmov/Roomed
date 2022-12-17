@@ -69,13 +69,42 @@ namespace Roomed.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            // For testing purposes
-            // var currentDate = DateOnly.FromDateTime(DateTime.Now);
-            var currentDate = DateOnly.FromDateTime(new DateTime(2022, 12, 12));
+            var currentDate = DateOnly.FromDateTime(DateTime.Now);
             var reservations = await this.reservationsService.GetAllArrivingFromDateAsync(currentDate);
             var model = reservations.Select(r => mapper.Map<ReservationViewModel>(r));
 
+            ViewData["ReservationsType"] = "Arriving";
             return View(model);
+        }
+
+        /// <summary>
+        /// This action returns a page with a table of the in house today reservations.
+        /// </summary>
+        /// <returns>Returns a view with all in house today reservations.>.</returns>
+        [HttpGet]
+        public async Task<IActionResult> InHouse()
+        {
+            var currentDate = DateOnly.FromDateTime(DateTime.Now);
+            var reservations = await this.reservationsService.GetAllInHouseFromDateAsync(currentDate);
+            var model = reservations.Select(r => mapper.Map<ReservationViewModel>(r));
+
+            ViewData["ReservationsType"] = "In House";
+            return View("Index", model);
+        }
+
+        /// <summary>
+        /// This action returns a page with a table of the departing today reservations.
+        /// </summary>
+        /// <returns>Returns a view with all departing today reservations.>.</returns>
+        [HttpGet]
+        public async Task<IActionResult> Departing()
+        {
+            var currentDate = DateOnly.FromDateTime(DateTime.Now);
+            var reservations = await this.reservationsService.GetAllDepartingFromDateAsync(currentDate);
+            var model = reservations.Select(r => mapper.Map<ReservationViewModel>(r));
+
+            ViewData["ReservationsType"] = "Departing";
+            return View("Index", model);
         }
 
         /// <summary>

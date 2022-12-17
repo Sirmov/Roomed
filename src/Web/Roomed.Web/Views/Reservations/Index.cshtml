@@ -11,14 +11,14 @@
 @if (Model.Count() < 1)
 {
     <div class="text-center">
-        <h1 class="display-4">Reservations</h1>
+        <h1 class="display-4">@ViewData["ReservationsType"] Reservations</h1>
         <h4>No reservations to show</h4>
     </div>
 }
 else
 {
     <div class="text-center">
-        <h1 class="display-4">Reservations</h1>
+        <h1 class="display-4">@ViewData["ReservationsType"] Reservations</h1>
         <table class="table table-bordered table-hover">
             <thead class="thead bg-primary text-light">
                 <tr>

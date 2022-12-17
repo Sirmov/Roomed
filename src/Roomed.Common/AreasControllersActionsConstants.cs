@@ -128,6 +128,16 @@ namespace Roomed.Common
             // Reservations controller actions
 
             /// <summary>
+            /// A string representing the in house action.
+            /// </summary>
+            public const string InHouse = "InHouse";
+
+            /// <summary>
+            /// A string representing the parting action.
+            /// </summary>
+            public const string Departing = "Departing";
+
+            /// <summary>
             /// A string representing the choose room action.
             /// </summary>
             public const string ChooseRoom = "ChooseRoom";
