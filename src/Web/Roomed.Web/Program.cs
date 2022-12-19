@@ -68,6 +68,7 @@ internal class Program
         .AddRoles<ApplicationRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
+        // Add policies
         services.AddAuthorization(options =>
         {
             options.AddPolicy("FrontOffice", policy =>
@@ -77,6 +78,7 @@ internal class Program
                 policy.RequireRole("Administrator"));
         });
 
+        // Change redirect links
         services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath = "/User/Login";
@@ -108,6 +110,7 @@ internal class Program
         // Add DateOnly and TimeOnly support
         services.AddDateOnlyTimeOnlyStringConverters();
 
+        // Add filters
         services.AddControllersWithViews()
             .AddMvcOptions(options =>
             {
