@@ -38,6 +38,7 @@ namespace Roomed.Web.Controllers
         /// </summary>
         /// <param name="profilesService">The implementation of <see cref="IProfilesService"/>.</param>
         /// <param name="mapper">The implementation of <see cref="IMapper"/>.</param>
+        /// <param name="sanitizer">The implementation of <see cref="IHtmlSanitizer"/>.</param>
         public ProfilesController(IProfilesService profilesService, IMapper mapper, IHtmlSanitizer sanitizer)
             : base(sanitizer)
         {
