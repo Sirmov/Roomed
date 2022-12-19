@@ -134,7 +134,7 @@ namespace Roomed.Web.Controllers
         /// otherwise redirects to <see cref="ReservationsController.ChooseRoom()"/> action.
         /// </summary>
         /// <param name="model">The reservation input model.</param>
-        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/></returns>
+        /// <returns>Returns a <see cref="Task{TResult}"/> of <see cref="IActionResult"/>.</returns>
         [HttpPost]
         public async Task<IActionResult> Create(ReservationInputModel model)
         {

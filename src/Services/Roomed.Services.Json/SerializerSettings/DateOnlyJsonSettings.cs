@@ -20,7 +20,7 @@ namespace Roomed.Services.Json.SerializerSettings
                 {
                     new NullableDateOnlyJsonConverter(),
                     new DateOnlyJsonConverter(),
-                }
+                },
             };
         }
 
