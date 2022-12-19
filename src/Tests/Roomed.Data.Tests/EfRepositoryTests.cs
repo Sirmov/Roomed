@@ -11,6 +11,9 @@ namespace Roomed.Data.Tests
     using Roomed.Data.Repositories;
     using Roomed.Tests.Common;
 
+    /// <summary>
+    /// This class contains all unit tests for <see cref="EfRepository{TEntity, TKey}"/>.
+    /// </summary>
     [TestFixture]
     public class EfRepositoryTests
     {
@@ -38,6 +41,10 @@ namespace Roomed.Data.Tests
 
         private ApplicationDbContext dbContext;
 
+        /// <summary>
+        /// This method is called before every test.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
         [SetUp]
         public async Task Setup()
         {
@@ -46,13 +53,22 @@ namespace Roomed.Data.Tests
             await this.dbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// This method is called after every test.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
         [TearDown]
         public async Task TearDown()
         {
             await DbContextMock.DisposeAsync();
         }
 
-        // All
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.All(bool)"/>
+        /// returns all entities without tracking.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // All(bool isReadonly = false)
         [Test]
         [Order(1)]
         public async Task AllShouldReturnAllWithoutTracking()
@@ -85,6 +101,12 @@ namespace Roomed.Data.Tests
             }));
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.All(bool)"/>
+        /// returns all entities with tracking.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // All(bool isReadonly = false)
         [Test]
         [Order(2)]
         public async Task AllShouldReturnAllWithTracking()
@@ -110,6 +132,12 @@ namespace Roomed.Data.Tests
                 "Entities have incorrect data.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.All(System.Linq.Expressions.Expression{Func{TEntity, bool}}, bool)"/>
+        /// returns an empty collection when no entity satisfies the condition.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // All(bool isReadonly = false)
         [Test]
         public async Task AllShouldReturnAnEmptyCollection()
         {
@@ -123,6 +151,14 @@ namespace Roomed.Data.Tests
             Assert.That(entities, Is.Empty, "The collection contains entities.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.All(System.Linq.Expressions.Expression{Func{TEntity, bool}}, bool)"/>
+        /// returns all entities satisfying the condition with tracking.
+        /// </summary>
+        /// <param name="id">The id of the entity with the specified body.</param>
+        /// <param name="body">The body of an existing entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // All(bool isReadonly = false)
         [Test]
         [TestCase("2bfff802-5afb-4bbb-96b3-27c98161ff00", "Reservation note #1")]
         [TestCase("08bd1b0d-15fd-4d2e-9f59-979d09da1133", "Reservation note #3")]
@@ -142,6 +178,14 @@ namespace Roomed.Data.Tests
             Assert.IsTrue(this.dbContext.Entry(entities[0]).State != EntityState.Detached, "Entity's state is not tracked.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.All(System.Linq.Expressions.Expression{Func{TEntity, bool}}, bool)"/>
+        /// returns all entities satisfying the condition without tracking.
+        /// </summary>
+        /// <param name="id">The id of the entity with the specified body.</param>
+        /// <param name="body">The body of an existing entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // All(bool isReadonly = false)
         [Test]
         [TestCase("2bfff802-5afb-4bbb-96b3-27c98161ff00", "Reservation note #1")]
         [TestCase("08bd1b0d-15fd-4d2e-9f59-979d09da1133", "Reservation note #3")]
@@ -161,7 +205,13 @@ namespace Roomed.Data.Tests
             Assert.IsTrue(this.dbContext.Entry(entities[0]).State == EntityState.Detached, "Entity's state is not detached.");
         }
 
-        // Find
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.Find(TKey, bool)"/>
+        /// returns the correct entity without tracking.
+        /// </summary>
+        /// <param name="id">The id of an existing entity.</param>
+        /// <param name="body">The body of the entity.</param>
+        // Find(TKey id, bool isReadonly = false)
         [Test]
         [TestCase("2bfff802-5afb-4bbb-96b3-27c98161ff00", "Reservation note #1")]
         [TestCase("08bd1b0d-15fd-4d2e-9f59-979d09da1133", "Reservation note #3")]
@@ -179,6 +229,13 @@ namespace Roomed.Data.Tests
             Assert.IsTrue(this.dbContext.Entry(entity).State == EntityState.Detached, "Entity's state is not detached.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.Find(TKey, bool)"/>
+        /// returns the correct entity with tracking.
+        /// </summary>
+        /// <param name="id">The id of an existing entity.</param>
+        /// <param name="body">The body of the entity.</param>
+        // Find(TKey id, bool isReadonly = false)
         [Test]
         [TestCase("2bfff802-5afb-4bbb-96b3-27c98161ff00", "Reservation note #1")]
         [TestCase("08bd1b0d-15fd-4d2e-9f59-979d09da1133", "Reservation note #3")]
@@ -196,6 +253,12 @@ namespace Roomed.Data.Tests
             Assert.IsTrue(this.dbContext.Entry(entity).State != EntityState.Detached, "Entity's state is not tracked.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.Find(TKey, bool)"/>
+        /// throws an error when the entity does not exist.
+        /// </summary>
+        /// <param name="id">The id of a non existing entity.</param>
+        /// Find(TKey id, bool isReadonly = false)
         [Test]
         [TestCase("022f6770-dd45-4c02-b9ed-529134a85595")]
         public void FindShouldThrowWhenEntityDoesNotExist(string id)
@@ -210,7 +273,14 @@ namespace Roomed.Data.Tests
             Assert.Throws<InvalidOperationException>(() => code());
         }
 
-        // FindAsync
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.FindAsync(TKey, bool)"/>
+        /// returns the correct entity without tracking.
+        /// </summary>
+        /// <param name="id">The id of an existing entity.</param>
+        /// <param name="body">The body of the entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // FindAsync(TKey id, bool isReadonly = false)
         [Test]
         [TestCase("2bfff802-5afb-4bbb-96b3-27c98161ff00", "Reservation note #1")]
         [TestCase("08bd1b0d-15fd-4d2e-9f59-979d09da1133", "Reservation note #3")]
@@ -228,6 +298,14 @@ namespace Roomed.Data.Tests
             Assert.IsTrue(this.dbContext.Entry(entity).State == EntityState.Detached, "Entity's state is not detached.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.FindAsync(TKey, bool)"/>
+        /// returns the correct entity with tracking.
+        /// </summary>
+        /// <param name="id">The id of an existing entity.</param>
+        /// <param name="body">The body of the entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // FindAsync(TKey id, bool isReadonly = false)
         [Test]
         [TestCase("2bfff802-5afb-4bbb-96b3-27c98161ff00", "Reservation note #1")]
         [TestCase("08bd1b0d-15fd-4d2e-9f59-979d09da1133", "Reservation note #3")]
@@ -245,6 +323,12 @@ namespace Roomed.Data.Tests
             Assert.IsTrue(this.dbContext.Entry(entity).State != EntityState.Detached, "Entity's state is not tracked.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.FindAsync(TKey, bool)"/>
+        /// throws an exception when the entity does not exist.
+        /// </summary>
+        /// <param name="id">The id of a non existing entity.</param>
+        // FindAsync(TKey id, bool isReadonly = false)
         [Test]
         [TestCase("022f6770-dd45-4c02-b9ed-529134a85595")]
         public void FindAsyncShouldThrowWhenEntityDoesNotExist(string id)
@@ -259,7 +343,13 @@ namespace Roomed.Data.Tests
             Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Invalid operation exception should be thrown.");
         }
 
-        // Add
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.Add(TEntity)"/>
+        /// adds entity to the database and returns its entity entry.
+        /// </summary>
+        /// <param name="body">The body of the new entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // Add(TEntity entity)
         [Test]
         [TestCase("I was added by Add() method.")]
         public async Task AddShouldAddEntityToDatabaseAndReturnEntityEntry(string body)
@@ -279,7 +369,13 @@ namespace Roomed.Data.Tests
             Assert.That(body, Is.EqualTo(entity.Body), "Entity data is not set or is not matching.");
         }
 
-        // AddAsync
+        /// <summary>
+        /// This test cheks whether <see cref="EfRepository{TEntity, TKey}.AddAsync(TEntity)"/>
+        /// adds entity to the database and returns its entity entry asynchronously.
+        /// </summary>
+        /// <param name="body">The body of the new entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // AddAsync(TEntity entity)
         [Test]
         [TestCase("I was added by AddAsync() method.")]
         public async Task AddAsyncShouldAddEntityToDatabaseAndReturnEntityEntry(string body)
@@ -299,7 +395,14 @@ namespace Roomed.Data.Tests
             Assert.That(body, Is.EqualTo(entity.Body), "Entity data is not set or is not matching.");
         }
 
-        // AddRange
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.AddRange(IEnumerable{TEntity})"/>
+        /// adds multiple entities to the database.
+        /// </summary>
+        /// <param name="body1">The body of the first entity.</param>
+        /// <param name="body2">The body of the second entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // AddRange(IEnumerable<TEntity> entities)
         [Test]
         [TestCase("I was added by AddRange() method.", "Me too.")]
         public async Task AddRangeShouldAddEntitiesToDatabase(string body1, string body2)
@@ -332,7 +435,14 @@ namespace Roomed.Data.Tests
             Assert.That(body2, Is.EqualTo(entity2.Body), "Entity data is not set or is not matching.");
         }
 
-        // AddRangeAsync
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.AddRangeAsync(IEnumerable{TEntity})"/>
+        /// adds multiple entities to the database asynchronously.
+        /// </summary>
+        /// <param name="body1">The body of the first entity.</param>
+        /// <param name="body2">The body of the second entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // AddRangeAsync(IEnumerable<TEntity> entities)
         [Test]
         [TestCase("I was added by AddRange() method.", "Me too.")]
         public async Task AddRangeAsyncShouldAddEntitiesToDatabase(string body1, string body2)
@@ -365,7 +475,16 @@ namespace Roomed.Data.Tests
             Assert.That(body2, Is.EqualTo(entity2.Body), "Entity data is not set or is not matching.");
         }
 
-        // Update
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.Update(TEntity)"/>
+        /// modifies the entity's data.
+        /// </summary>
+        /// <param name="id">The of the entity to be modified.</param>
+        /// <param name="body">The original body of the entity.</param>
+        /// <param name="modifiedBody">The modified body of the entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when no entity with <paramref name="id"/> can be found.</exception>
+        // Update(TEntity entity)
         [Test]
         [TestCase("a5652bde-19cd-4ce9-88ff-daf3f7bfd3eb", "My body does not matter because it will be updated.", "I told you ;)")]
         public async Task UpdateShouldUpdateEntity(string id, string body, string modifiedBody)
@@ -377,7 +496,8 @@ namespace Roomed.Data.Tests
             await this.dbContext.SaveChangesAsync();
 
             // Act
-            var entity = await this.dbContext.ReservationNotes.FindAsync(guid);
+            var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found.");
             entity.Body = modifiedBody;
             repository.Update(entity);
 
@@ -391,6 +511,16 @@ namespace Roomed.Data.Tests
             Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.Update(TEntity)"/>
+        /// tracks the entity and modifies it.
+        /// </summary>
+        /// <param name="id">The of the entity to be modified.</param>
+        /// <param name="body">The original body of the entity.</param>
+        /// <param name="modifiedBody">The modified body of the entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when no entity with <paramref name="id"/> can be found.</exception>
+        // Update(TEntity entity)
         [Test]
         [TestCase("67a55fdd-269d-474e-a0e8-cba4cbb5f24c", "My body does not matter because it will be updated.", "I told you ;)")]
         public async Task UpdateShouldTrackAndUpdateEntity(string id, string body, string modifiedBody)
@@ -421,7 +551,16 @@ namespace Roomed.Data.Tests
             Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
         }
 
-        // UpdateAsync
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.UpdateAsync(TKey)(TEntity)"/>
+        /// tracks the entity and modifies it asynchronously.
+        /// </summary>
+        /// <param name="id">The of the entity to be modified.</param>
+        /// <param name="body">The original body of the entity.</param>
+        /// <param name="modifiedBody">The modified body of the entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when no entity with <paramref name="id"/> can be found.</exception>
+        // UpdateAsync(TKey id)
         [Test]
         [TestCase("304340a1-16d7-4bdd-b85c-c1521ac3aa2c", "My body does not matter because it will be updated.", "I told you ;)")]
         public async Task UpdateAsyncShouldUpdateEntity(string id, string body, string modifiedBody)
@@ -433,7 +572,8 @@ namespace Roomed.Data.Tests
             await this.dbContext.SaveChangesAsync();
 
             // Act
-            var entity = await this.dbContext.ReservationNotes.FindAsync(guid);
+            var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("No entity with specified id can be found.");
             entity.Body = modifiedBody;
             await repository.UpdateAsync(guid);
 
@@ -447,6 +587,16 @@ namespace Roomed.Data.Tests
             Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.UpdateAsync(TKey)(TEntity)"/>
+        /// tracks the entity and modifies it asynchronously.
+        /// </summary>
+        /// <param name="id">The of the entity to be modified.</param>
+        /// <param name="body">The original body of the entity.</param>
+        /// <param name="modifiedBody">The modified body of the entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when no entity with <paramref name="id"/> can be found.</exception>
+        // UpdateAsync(TKey id)
         [Test]
         [TestCase("efcd5ace-febb-4999-9530-6726608e6768", "My body does not matter because it will be updated.", "I told you ;)")]
         public async Task UpdateAsyncShouldTrackAndUpdateEntity(string id, string body, string modifiedBody)
@@ -458,14 +608,16 @@ namespace Roomed.Data.Tests
             await this.dbContext.SaveChangesAsync();
 
             // Act
-            var entity = await this.dbContext.ReservationNotes.FindAsync(guid);
+            var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found");
             this.dbContext.Entry(entity).State = EntityState.Detached;
 
             entity.Body = modifiedBody;
             await repository.UpdateAsync(guid);
 
             // Assert
-            entity = await this.dbContext.ReservationNotes.FindAsync(guid);
+            entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found");
             Assert.That(this.dbContext.Entry(entity).State, Is.Not.EqualTo(EntityState.Detached), "Entity should be tracked.");
             Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Modified), "Entity's state should be Modified.");
             entity.Body = modifiedBody;
@@ -477,6 +629,12 @@ namespace Roomed.Data.Tests
             Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.UpdateAsync(TKey)"/>
+        /// throws an exception when the entity does not exist.
+        /// </summary>
+        /// <param name="id">The id of a non existing entity.</param>
+        // UpdateAsync(TKey id)
         [Test]
         [TestCase("1626c009-2a86-4516-818f-44dc4ae17b0a")]
         public void UpdateAsyncThrowsWhenEntityDoesNotExist(string id)
@@ -491,7 +649,15 @@ namespace Roomed.Data.Tests
             Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Invalid operation exception should be thrown.");
         }
 
-        // UpdateRange
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.UpdateRange(IEnumerable{TEntity})"/>
+        /// updates a collection of entities.
+        /// </summary>
+        /// <param name="body1">The original body of the first entity.</param>
+        /// <param name="body2">The original body of the second entity.</param>
+        /// <param name="addition">The addition text added to both entities.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // UpdateRange(IEnumerable<TEntity> entities)
         [Test]
         [TestCase("I will be updated!", "I think I'm going to be updated too!", "Yes")]
         public async Task UpdateRangeShouldUpdateAllEntities(string body1, string body2, string addition)
@@ -509,11 +675,11 @@ namespace Roomed.Data.Tests
             // Act
             var entity1 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body1);
+                .FirstAsync(rn => rn.Body == body1);
             entity1.Body += addition;
             var entity2 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body2);
+                .FirstAsync(rn => rn.Body == body2);
             entity2.Body += addition;
 
             repository.UpdateRange(new List<ReservationNote>() { entity1, entity2 });
@@ -535,7 +701,15 @@ namespace Roomed.Data.Tests
             Assert.That(entity2.Body, Is.EqualTo(body2 + addition), "Entity data is not set or is not matching.");
         }
 
-        // Delete
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.Delete(TEntity)"/>
+        /// changes entity's state and deletes it.
+        /// </summary>
+        /// <param name="id">The id of the new entity.</param>
+        /// <param name="body">The body of the new entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
+        // Delete(TEntity entity)
         [Test]
         [TestCase("d429e67c-d9d7-4a93-9ba7-e35ad2150182", "I'm going to be deleted :(")]
         public async Task DeleteShouldChangeEntityStateAndDeleteIt(string id, string body)
@@ -547,7 +721,8 @@ namespace Roomed.Data.Tests
             await this.dbContext.SaveChangesAsync();
 
             // Act
-            var entity = await this.dbContext.ReservationNotes.FindAsync(guid);
+            var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found");
             repository.Delete(entity);
 
             // Assert
@@ -558,7 +733,15 @@ namespace Roomed.Data.Tests
             Assert.That(entity, Is.Null, "Entity is not deleted.");
         }
 
-        // DeleteAsync
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.DeleteAsync(TKey)(TEntity)"/>
+        /// changes entity's state and deletes it asynchronously.
+        /// </summary>
+        /// <param name="id">The id of the new entity.</param>
+        /// <param name="body">The body of the new entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
+        // DeleteAsync(TKey id)
         [Test]
         [TestCase("3edef0b0-912d-497a-ae8c-d183b898d627", "I'm going to be deleted :(")]
         public async Task DeleteAsyncShouldChangeEntityStateAndDeleteIt(string id, string body)
@@ -570,7 +753,8 @@ namespace Roomed.Data.Tests
             await this.dbContext.SaveChangesAsync();
 
             // Act
-            var entity = await this.dbContext.ReservationNotes.FindAsync(guid);
+            var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found");
             await repository.DeleteAsync(guid);
 
             // Assert
@@ -581,6 +765,12 @@ namespace Roomed.Data.Tests
             Assert.That(entity, Is.Null, "Entity is not deleted.");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.DeleteAsync(TKey)"/>
+        /// throws when the entity does not exist.
+        /// </summary>
+        /// <param name="id">The id of a non existing entity.</param>
+        /// DeleteAsync(TKey id)
         [Test]
         [TestCase("0afc3501-cdfe-4d2e-91a4-15a41ac0d5db")]
         public void DeleteAsyncShouldThrowWhenEntityDoesNotExist(string id)
@@ -595,7 +785,14 @@ namespace Roomed.Data.Tests
             Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Invalid operation exception should be thrown.");
         }
 
-        // DeleteRange
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.DeleteRange(IEnumerable{TEntity})"/>
+        /// changes the state of a collection of entities and deletes them.
+        /// </summary>
+        /// <param name="body1">The body of the first entity.</param>
+        /// <param name="body2">The body of the second entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // DeleteRange(IEnumerable<TEntity> entities)
         [Test]
         [TestCase("We are going to be deleted!?", "I don't like where this is going")]
         public async Task DeleteRangeShouldRemoveEntities(string body1, string body2)
@@ -613,10 +810,10 @@ namespace Roomed.Data.Tests
             // Act
             var entity1 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body1);
+                .FirstAsync(rn => rn.Body == body1);
             var entity2 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body2);
+                .FirstAsync(rn => rn.Body == body2);
 
             repository.DeleteRange(new List<ReservationNote>() { entity1, entity2 });
 
@@ -643,7 +840,15 @@ namespace Roomed.Data.Tests
             Assert.That(entity2, Is.Null, "The entity is not deleted.");
         }
 
-        // Detach
+        /// <summary>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.Detach(TEntity)"/>
+        /// sets the entity's state to detached.
+        /// </summary>
+        /// <param name="id">The id of the entity to be detached.</param>
+        /// <param name="body">The body of entity.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
+        // Detach(TEntity entity)
         [Test]
         [TestCase("9a14c00e-dbd6-4b05-9541-2af3f5ec6f31", "Am I detached?")]
         public async Task DetachShouldStopTrackingEntity(string id, string body)
@@ -655,7 +860,8 @@ namespace Roomed.Data.Tests
             await this.dbContext.SaveChangesAsync();
 
             // Act
-            var entity = await this.dbContext.ReservationNotes.FindAsync(guid);
+            var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found");
             this.dbContext.Entry(entity).State = EntityState.Modified;
             repository.Detach(entity);
 
