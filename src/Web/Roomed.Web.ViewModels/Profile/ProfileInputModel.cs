@@ -9,6 +9,8 @@ namespace Roomed.Web.ViewModels.Profile
 {
     using System.ComponentModel.DataAnnotations;
 
+    using Roomed.Common.Attribues;
+
     using static Roomed.Common.DataConstants.Profile;
 
     /// <summary>
@@ -20,12 +22,14 @@ namespace Roomed.Web.ViewModels.Profile
         [Required(AllowEmptyStrings = false)]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         [Display(Name = "First name")]
+        [Sanitize]
         public string FirstName { get; set; } = null!;
 
         /// <inheritdoc cref="Roomed.Data.Models.Profile.LastName"/>
         [Required(AllowEmptyStrings = false)]
         [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
         [Display(Name = "Last name")]
+        [Sanitize]
         public string LastName { get; set; } = null!;
     }
 }

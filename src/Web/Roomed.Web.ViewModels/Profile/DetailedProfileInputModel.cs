@@ -21,30 +21,16 @@ namespace Roomed.Web.ViewModels.Profile
     /// <summary>
     /// This is a <see cref="Roomed.Data.Models.Profile"/> detailed view model.
     /// </summary>
-    public class DetailedProfileInputModel : IMapTo<DetailedProfileDto>, IMapFrom<DetailedProfileDto>
+    public class DetailedProfileInputModel : ProfileInputModel, IMapTo<DetailedProfileDto>, IMapFrom<DetailedProfileDto>
     {
         /// <inheritdoc cref="Roomed.Data.Common.Models.BaseModel{TKey}.Id"/>
         public Guid? Id { get; set; }
-
-        /// <inheritdoc cref="Roomed.Data.Models.Profile.FirstName"/>
-        [Required(AllowEmptyStrings = false)]
-        [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
-        [Display(Name = "First name")]
-        [Sanitize]
-        public string FirstName { get; set; } = null!;
 
         /// <inheritdoc cref="Roomed.Data.Models.Profile.MiddleName"/>
         [StringLength(MiddleNameMaxLenght, MinimumLength = MiddleNameMinLenght)]
         [Display(Name = "Middle name")]
         [Sanitize]
         public string? MiddleName { get; set; }
-
-        /// <inheritdoc cref="Roomed.Data.Models.Profile.LastName"/>
-        [Required(AllowEmptyStrings = false)]
-        [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
-        [Display(Name = "Last name")]
-        [Sanitize]
-        public string LastName { get; set; } = null!;
 
         /// <inheritdoc cref="Roomed.Data.Models.Profile.Birthdate"/>
         [Required]

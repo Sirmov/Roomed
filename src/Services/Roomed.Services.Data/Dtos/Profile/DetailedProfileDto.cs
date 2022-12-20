@@ -14,20 +14,12 @@ namespace Roomed.Services.Data.Dtos.Profile
 
     using static Roomed.Common.DataConstants.Profile;
 
-    public class DetailedProfileDto : IMapFrom<Roomed.Data.Models.Profile>, IMapTo<Roomed.Data.Models.Profile>
+    public class DetailedProfileDto : ProfileDto, IMapFrom<Roomed.Data.Models.Profile>, IMapTo<Roomed.Data.Models.Profile>
     {
         public Guid? Id { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
-        [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
-        public string FirstName { get; set; } = null!;
-
         [StringLength(MiddleNameMaxLenght, MinimumLength = MiddleNameMinLenght)]
         public string? MiddleName { get; set; }
-
-        [Required(AllowEmptyStrings = false)]
-        [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
-        public string LastName { get; set; } = null!;
 
         [Required]
         [DataType(DataType.Date)]
