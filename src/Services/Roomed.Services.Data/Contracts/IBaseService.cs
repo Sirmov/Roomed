@@ -9,6 +9,10 @@ namespace Roomed.Services.Data.Contracts
 {
     using Roomed.Services.Data.Common;
 
+    /// <summary>
+    /// This interface is used to state and document the functionality that every data service should have.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the primary key of the entity.</typeparam>
     public interface IBaseService<TKey>
     {
         /// <summary>

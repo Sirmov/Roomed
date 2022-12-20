@@ -11,15 +11,20 @@ namespace Roomed.Services.Json.Converters
 
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// This class contains the logic for reading and writing <see cref="DateOnly"/>.
+    /// </summary>
     public class DateOnlyJsonConverter : JsonConverter<DateOnly>
     {
         private const string DateFormat = "yyyy-MM-dd";
 
+        /// <inheritdoc/>
         public override DateOnly ReadJson(JsonReader reader, Type objectType, DateOnly existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            return DateOnly.ParseExact((string)reader.Value, DateFormat, CultureInfo.InvariantCulture);
+            return DateOnly.ParseExact((string)reader.Value!, DateFormat, CultureInfo.InvariantCulture);
         }
 
+        /// <inheritdoc/>
         public override void WriteJson(JsonWriter writer, DateOnly value, JsonSerializer serializer)
         {
             writer.WriteValue(value.ToString(DateFormat, CultureInfo.InvariantCulture));

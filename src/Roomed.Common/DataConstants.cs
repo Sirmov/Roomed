@@ -160,7 +160,6 @@ namespace Roomed.Common
         {
             // Nationality constraints
 
-
             /// <summary>
             /// An integer defining the nationality maximum length.
             /// </summary>

@@ -11,6 +11,9 @@ namespace Roomed.Data.Tests
     using Roomed.Data.Repositories;
     using Roomed.Tests.Common;
 
+    /// <summary>
+    /// This class contains all unit tests for <see cref="EfDeletableEntityRepository{TEntity, TKey}"/>.
+    /// </summary>
     [TestFixture]
     public class EfDeletableRepositoryTests
     {
@@ -38,6 +41,10 @@ namespace Roomed.Data.Tests
 
         private ApplicationDbContext dbContext;
 
+        /// <summary>
+        /// This method is called before every test.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
         [SetUp]
         public async Task Setup()
         {
@@ -46,13 +53,22 @@ namespace Roomed.Data.Tests
             await this.dbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// This method is called after every test.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
         [TearDown]
-        public async Task OneTimeTearDown()
+        public async Task TearDown()
         {
             await DbContextMock.DisposeAsync();
         }
 
-        // All
+        /// <summary>
+        /// This test checks whether <see cref="EfDeletableEntityRepository{TEntity, TKey}.All(bool, bool)"/>
+        /// returns all entities including deleted.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // All(bool isReadonly = false, bool withDeleted = false)
         [Test]
         public async Task AllShouldReturnAllEntitiesIncludingDeleted()
         {
@@ -67,6 +83,11 @@ namespace Roomed.Data.Tests
             Assert.That(entities, Has.All.Matches<ReservationNote>(rn => rn.IsDeleted || !rn.IsDeleted));
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfDeletableEntityRepository{TEntity, TKey}.All(bool)"/>
+        /// returns all not deleted entities.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
         [Test]
         public async Task AllShouldReturnAllNotDeletedEntities()
         {
@@ -85,6 +106,12 @@ namespace Roomed.Data.Tests
             Assert.That(entities.Any(rn => rn.IsDeleted), Is.False, "Only not deleted entities should be returned");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfDeletableEntityRepository{TEntity, TKey}.All(System.Linq.Expressions.Expression{Func{TEntity, bool}}, bool)"/>
+        /// returns all not deleted entities satisfying the condition.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // All(Expression<Func<TEntity, bool>> search, bool isReadonly = false)
         [Test]
         public async Task AllShouldReturnAllFilteredNotDeletedEntities()
         {
@@ -103,6 +130,12 @@ namespace Roomed.Data.Tests
             Assert.That(entities.Any(rn => rn.IsDeleted), Is.False, "Only not deleted entities should be returned");
         }
 
+        /// <summary>
+        /// This test checks whether <see cref="EfDeletableEntityRepository{TEntity, TKey}.All(System.Linq.Expressions.Expression{Func{TEntity, bool}}, bool, bool)"/>
+        /// returns all not deleted entities satisfying the condition without tracking.
+        /// </summary>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        // All(Expression<Func<TEntity, bool>> search, bool isReadonly = false, bool withDeleted = false)
         [Test]
         public async Task AllShouldReturnAllFilteredNotDeletedEntitiesWithoutTracking()
         {
@@ -122,7 +155,15 @@ namespace Roomed.Data.Tests
             Assert.That(entities.All(rn => this.dbContext.Entry(rn).State == EntityState.Detached), Is.True);
         }
 
-        // HardDelete
+        /// <summary>
+        /// This test checks whether <see cref="EfDeletableEntityRepository{TEntity, TKey}.HardDelete(TEntity)"/>
+        /// deletes the entity from the database.
+        /// </summary>
+        /// <param name="id">The id of the entity to be deleted.</param>
+        /// <param name="body">The body of the entity to be deleted.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when no entity with <paramref name="id"/> can be found.</exception>
+        // HardDelete(TEntity entity)
         [Test]
         [TestCase("d00528ac-df34-4c63-a5c8-b3dd031f17bb", "I will be gone forever.")]
         public async Task HardDeleteShouldDeleteEntityFromDatabase(string id, string body)
@@ -136,7 +177,8 @@ namespace Roomed.Data.Tests
             // Act
             var entity = await this.dbContext
                 .ReservationNotes
-                .FindAsync(guid);
+                .FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found.");
 
             repository.HardDelete(entity);
 
@@ -149,7 +191,15 @@ namespace Roomed.Data.Tests
             Assert.That(entities.Any(rn => rn.Body == body), Is.False);
         }
 
-        // Delete
+        /// <summary>
+        /// This test checks whether <see cref="EfDeletableEntityRepository{TEntity, TKey}.Delete(TEntity)"/>
+        /// marks the entity as deleted and saves the date of the act.
+        /// </summary>
+        /// <param name="id">The id of the entity to be deleted.</param>
+        /// <param name="body">The body of the entity to be deleted.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when no entity with <paramref name="id"/> can be found.</exception>
+        // Delete(TEntity entity)
         [Test]
         [TestCase("68fb55cb-1593-4961-b43a-20a315228bb4", "I will go missing.")]
         public async Task DeleteShouldSetIsDeletedFlagUpdateEntityAndSetDeletedOn(string id, string body)
@@ -163,7 +213,8 @@ namespace Roomed.Data.Tests
             // Act
             var entity = await this.dbContext
                 .ReservationNotes
-                .FindAsync(guid);
+                .FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found.");
             repository.Delete(entity);
 
             // Assert
@@ -172,12 +223,21 @@ namespace Roomed.Data.Tests
 
             entity = await this.dbContext
                 .ReservationNotes
-                .FindAsync(guid);
+                .FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found.");
             Assert.IsTrue(entity.IsDeleted);
             Assert.That(entity.DeletedOn, Is.Not.Null);
         }
 
-        // Undelete
+        /// <summary>
+        /// This test checks whether <see cref="EfDeletableEntityRepository{TEntity, TKey}.Undelete(TEntity)"/>
+        /// marks the entity as active and removes the deleted on timestamp.
+        /// </summary>
+        /// <param name="id">The id of the entity to be deleted.</param>
+        /// <param name="body">The body of the entity to be deleted.</param>
+        /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when no entity with <paramref name="id"/> can be found.</exception>
+        // Undelete(TEntity entity)
         [Test]
         [TestCase("7ea2d660-1e7b-42d1-b9bb-aa1f1ac96f65", "I was found!")]
         public async Task UndeleteShouldRemoveDeletedOnAndIsDeletedAndUpdateEntity(string id, string body)
@@ -191,7 +251,8 @@ namespace Roomed.Data.Tests
             // Act
             var entity = await this.dbContext
                 .ReservationNotes
-                .FindAsync(guid);
+                .FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found.");
             repository.Undelete(entity);
 
             // Assert
@@ -200,7 +261,8 @@ namespace Roomed.Data.Tests
 
             entity = await this.dbContext
                 .ReservationNotes
-                .FindAsync(guid);
+                .FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found.");
             Assert.IsFalse(entity.IsDeleted);
             Assert.That(entity.DeletedOn, Is.Null);
         }

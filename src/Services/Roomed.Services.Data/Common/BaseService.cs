@@ -136,7 +136,9 @@ namespace Roomed.Services.Data.Common
             return isValid;
         }
 
+        #pragma warning disable IDE0060 // Remove unused parameter / The parameter is used for generic intellisense
         private PropertyInfo GetPropertyInfo<TSource, TProperty>(TSource source, Expression<Func<TSource, TProperty>> propertyLambda)
+        #pragma warning restore IDE0060 // Remove unused parameter
         {
             Type type = typeof(TSource);
             MemberExpression? member = propertyLambda.Body as MemberExpression;
@@ -157,7 +159,7 @@ namespace Roomed.Services.Data.Common
                     propertyLambda.ToString()));
             }
 
-            if (type != propInfo.ReflectedType && !type.IsSubclassOf(propInfo.ReflectedType))
+            if (type != propInfo.ReflectedType && !type.IsSubclassOf(propInfo.ReflectedType!))
             {
                 throw new ArgumentException(string.Format(
                     "Expression '{0}' refers to a property that is not from type {1}.",

@@ -353,6 +353,8 @@ namespace Roomed.Services.Data
 
         private bool ValidateDto<TDto>(TDto dto)
         {
+            ArgumentNullException.ThrowIfNull(dto);
+
             var context = new ValidationContext(dto, serviceProvider: null, items: null);
             var validationResults = new List<ValidationResult>();
 

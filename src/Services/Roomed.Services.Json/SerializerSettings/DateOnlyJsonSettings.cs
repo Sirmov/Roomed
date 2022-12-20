@@ -10,8 +10,14 @@ namespace Roomed.Services.Json.SerializerSettings
     using Newtonsoft.Json;
     using Roomed.Services.Json.Converters;
 
+    /// <summary>
+    /// This class contains the json settings for reading and writing <see cref="DateOnly"/>.
+    /// </summary>
     public class DateOnlyJsonSettings
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DateOnlyJsonSettings"/> class.
+        /// </summary>
         public DateOnlyJsonSettings()
         {
             this.Settings = new JsonSerializerSettings()
@@ -24,6 +30,9 @@ namespace Roomed.Services.Json.SerializerSettings
             };
         }
 
+        /// <summary>
+        /// Gets the <see cref="JsonSerializerSettings"/>.
+        /// </summary>
         public JsonSerializerSettings Settings { get; }
     }
 }
