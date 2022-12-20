@@ -15,12 +15,30 @@ namespace Roomed.Services.Mapping
     using AutoMapper;
     using AutoMapper.Configuration;
 
+    /// <summary>
+    /// This class registers the automapper mappings by getting all classes implementing the <see cref="IMapFrom{TClass}"/>,
+    /// <see cref="IMapTo{TClass}"/> and <see cref="IHaveCustomMappings"/> from the provided assemblies and initializes the
+    /// <see cref="IMapper"/> instance.
+    /// </summary>
     public static class AutoMapperConfig
     {
         private static bool initialized;
 
-        public static IMapper MapperInstance { get; set; }
+        /// <summary>
+        /// Gets or sets the <see cref="IMapper"/> instance.
+        /// </summary>
+        public static IMapper MapperInstance { get; set; } = null!;
 
+        /// <summary>
+        /// This method creates and register all automapper mappings by
+        /// getting all classes implementing the <see cref="IMapFrom{TClass}"/>,
+        /// <see cref="IMapTo{TClass}"/>, <see cref="IHaveCustomMappings"/> interfaces
+        /// from the specified <paramref name="assemblies"/>.
+        /// </summary>
+        /// <param name="assemblies">
+        /// The assemblies containing the classes implementing <see cref="IMapFrom{TClass}"/>
+        /// <see cref="IMapTo{TClass}"/> and <see cref="IHaveCustomMappings"/>.
+        /// </param>
         public static void RegisterMappings(params Assembly[] assemblies)
         {
             if (initialized)
@@ -101,16 +119,22 @@ namespace Roomed.Services.Mapping
                              where typeof(IHaveCustomMappings).GetTypeInfo().IsAssignableFrom(t) &&
                                    !t.GetTypeInfo().IsAbstract &&
                                    !t.GetTypeInfo().IsInterface
-                             select (IHaveCustomMappings)Activator.CreateInstance(t);
+                             select (IHaveCustomMappings)Activator.CreateInstance(t) !;
 
             return customMaps;
         }
 
         private class TypesMap
         {
-            public Type Source { get; set; }
+            /// <summary>
+            /// Gets or sets the type of the source class.
+            /// </summary>
+            public Type Source { get; set; } = null!;
 
-            public Type Destination { get; set; }
+            /// <summary>
+            /// Gets or sets the type of the destination class.
+            /// </summary>
+            public Type Destination { get; set; } = null!;
         }
     }
 }
