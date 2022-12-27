@@ -183,7 +183,7 @@ namespace Roomed.Data.Tests
             repository.HardDelete(entity);
 
             // Assert
-            Assert.IsTrue(this.dbContext.Entry(entity).State == EntityState.Deleted);
+            Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Deleted));
             await repository.SaveChangesAsync();
 
             var entities = await this.dbContext.ReservationNotes.ToListAsync();
@@ -218,14 +218,14 @@ namespace Roomed.Data.Tests
             repository.Delete(entity);
 
             // Assert
-            Assert.IsTrue(this.dbContext.Entry(entity).State == EntityState.Modified);
+            Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Modified));
             await repository.SaveChangesAsync();
 
             entity = await this.dbContext
                 .ReservationNotes
                 .FindAsync(guid)
                 ?? throw new InvalidOperationException("Entity can not be found.");
-            Assert.IsTrue(entity.IsDeleted);
+            Assert.That(entity.IsDeleted, Is.True);
             Assert.That(entity.DeletedOn, Is.Not.Null);
         }
 
@@ -256,7 +256,7 @@ namespace Roomed.Data.Tests
             repository.Undelete(entity);
 
             // Assert
-            Assert.IsTrue(this.dbContext.Entry(entity).State == EntityState.Modified);
+            Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Modified));
             await repository.SaveChangesAsync();
 
             entity = await this.dbContext

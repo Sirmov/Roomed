@@ -190,8 +190,12 @@ namespace Roomed.Services.Data.Tests
         [Test]
         [TestCase(2022, 8, 10, 2022, 8, 30)]
         public async Task GetAllForPeriodAsyncShouldReturnCorrectReservationDays(
-            int starYear, int startMonth, int startDay,
-            int endYear, int endMonth, int endDay)
+            int starYear,
+            int startMonth,
+            int startDay,
+            int endYear,
+            int endMonth,
+            int endDay)
         {
             // Arrange
             var service = new ReservationDaysService(this.repository, this.mapper);
@@ -294,9 +298,14 @@ namespace Roomed.Services.Data.Tests
         [Test]
         [TestCase("33fec2d6-a85c-40f8-8738-848c68bc2ac8", 3, 2022, 7, 7, 2022, 7, 9)]
         public async Task CreateForReservationAsyncShouldCreateCorrectReservationDays(
-            string reservationId, int roomId,
-            int arrivalYear, int arrivalMonth, int arrivalDay,
-            int departureYear, int departureMonth, int departureDay)
+            string reservationId,
+            int roomId,
+            int arrivalYear,
+            int arrivalMonth,
+            int arrivalDay,
+            int departureYear,
+            int departureMonth,
+            int departureDay)
         {
             // Arrange
             var service = new ReservationDaysService(this.repository, this.mapper);
@@ -322,7 +331,7 @@ namespace Roomed.Services.Data.Tests
             int reservationLength = (departureDate.DayNumber - arrivalDate.DayNumber) + 1;
 
             Assert.That(reservationDays, Has.Exactly(reservationLength).Items, "Reservation days count is not correct.");
-            Assert.IsTrue(reservationDays.All(rd => rd.ReservationId == reservationGuid), "Reservation days are not correct.");
+            Assert.That(reservationDays.All(rd => rd.ReservationId == reservationGuid), Is.True, "Reservation days are not correct.");
         }
     }
 }

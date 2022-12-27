@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+    <DocumentationFile>D:\Programming\Repos\Roomed\src\Documentation\Tests\Roomed.Services.Data.Tests.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

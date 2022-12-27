@@ -126,9 +126,12 @@ namespace Roomed.Services.Data.Tests
                 .ToList();
             var numbers = entities.Select(e => e.Number);
 
-            Assert.That(dtos, Has.Exactly(entities.Count).Items, "Entities count is not correct.");
-            Assert.That(dtos.Any(r => !numbers.Contains(r.Number)), Is.False, "Entities are not correct.");
-            Assert.That(dtos.All(r => r.Type.Name == roomType), Is.True, "Entity's room type is not correct.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(dtos, Has.Exactly(entities.Count).Items, "Entities count is not correct.");
+                Assert.That(dtos.Any(r => !numbers.Contains(r.Number)), Is.False, "Entities are not correct.");
+                Assert.That(dtos.All(r => r.Type.Name == roomType), Is.True, "Entity's room type is not correct.");
+            });
         }
 
         /// <summary>
@@ -146,10 +149,10 @@ namespace Roomed.Services.Data.Tests
             var service = new RoomsService(this.repository, this.reservationDaysService, this.mapper);
 
             // Act
-            var result = await service.ExistsAsync(roomId);
+            bool result = await service.ExistsAsync(roomId);
 
             // Assert
-            Assert.IsTrue(result, "Result should be true.");
+            Assert.That(result, Is.True, "Result should be true.");
         }
 
         /// <summary>
@@ -167,10 +170,10 @@ namespace Roomed.Services.Data.Tests
             var service = new RoomsService(this.repository, this.reservationDaysService, this.mapper);
 
             // Act
-            var result = await service.ExistsAsync(roomId);
+            bool result = await service.ExistsAsync(roomId);
 
             // Assert
-            Assert.IsFalse(result, "Result should be false.");
+            Assert.That(result, Is.False, "Result should be false.");
         }
 
         /// <summary>
@@ -210,9 +213,12 @@ namespace Roomed.Services.Data.Tests
 
             var numbers = freeRooms.Select(e => e.Number);
 
-            Assert.That(dtos, Has.Exactly(freeRooms.Count).Items, "Entities count is not correct.");
-            Assert.That(dtos.Any(r => !numbers.Contains(r.Number)), Is.False, "Entities are not correct.");
-            Assert.That(dtos.All(r => r.Type.Name == roomType), Is.True, "Entity's room type is not correct.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(dtos, Has.Exactly(freeRooms.Count).Items, "Entities count is not correct.");
+                Assert.That(dtos.Any(r => !numbers.Contains(r.Number)), Is.False, "Entities are not correct.");
+                Assert.That(dtos.All(r => r.Type.Name == roomType), Is.True, "Entity's room type is not correct.");
+            });
         }
 
         /// <summary>
@@ -232,8 +238,12 @@ namespace Roomed.Services.Data.Tests
         [TestCase("Double Room", 2022, 6, 10, 2022, 6, 15)]
         public async Task GetAllFreeRoomsAsyncShouldReturnAllFreeRoomsOfTypeForAPeriod(
             string roomType,
-            int startYear, int startMonth, int startDay,
-            int endYear, int endMonth, int endDay)
+            int startYear,
+            int startMonth,
+            int startDay,
+            int endYear,
+            int endMonth,
+            int endDay)
         {
             // Arrange
             var service = new RoomsService(this.repository, this.reservationDaysService, this.mapper);
@@ -259,9 +269,12 @@ namespace Roomed.Services.Data.Tests
 
             var numbers = freeRooms.Select(e => e.Number);
 
-            Assert.That(dtos, Has.Exactly(freeRooms.Count).Items, "Entities count is not correct.");
-            Assert.That(dtos.Any(r => !numbers.Contains(r.Number)), Is.False, "Entities are not correct.");
-            Assert.That(dtos.All(r => r.Type.Name == roomType), Is.True, "Entity's room type is not correct.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(dtos, Has.Exactly(freeRooms.Count).Items, "Entities count is not correct.");
+                Assert.That(dtos.Any(r => !numbers.Contains(r.Number)), Is.False, "Entities are not correct.");
+                Assert.That(dtos.All(r => r.Type.Name == roomType), Is.True, "Entity's room type is not correct.");
+            });
         }
     }
 }

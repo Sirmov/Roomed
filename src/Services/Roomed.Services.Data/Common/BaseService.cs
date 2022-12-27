@@ -72,7 +72,7 @@ namespace Roomed.Services.Data.Common
 
             var entity = await this.entityRepository.FindAsync(id);
 
-            var dto = mapper.Map<TDto>(entity);
+            var dto = this.mapper.Map<TDto>(entity);
 
             return dto;
         }

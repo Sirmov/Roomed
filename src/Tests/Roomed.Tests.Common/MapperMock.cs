@@ -14,8 +14,14 @@ namespace Roomed.Tests.Common
     using Roomed.Services.Data.Dtos.Reservation;
     using Roomed.Services.Mapping;
 
+    /// <summary>
+    /// This class is a mock of <see cref="IMapper"/>.
+    /// </summary>
     public static class MapperMock
     {
+        /// <summary>
+        /// Gets the <see cref="IMapper"/> instance of the mock.
+        /// </summary>
         public static IMapper Instance
         {
             get

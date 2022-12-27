@@ -29,13 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0B699F47
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Services.Data.Tests", "D:\Programming\Repos\Roomed\src\Tests\Roomed.Services.Data.Tests\Roomed.Services.Data.Tests.csproj", "{3A583C4C-6728-483B-BF25-E689A69D4A99}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Tests\Sandbox\Sandbox.csproj", "{A777D939-AB46-45D7-A715-B9E15A0E4FED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Tests.Sandbox", "Tests\Sandbox\Roomed.Tests.Sandbox.csproj", "{A777D939-AB46-45D7-A715-B9E15A0E4FED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Common", "Roomed.Common\Roomed.Common.csproj", "{B30BAC3E-B12D-48DF-A2A2-8F1F2E12C59D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Data.Tests", "Tests\Roomed.Data.Tests\Roomed.Data.Tests.csproj", "{AD42C97B-F07D-4D91-A676-B05182098A2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomed.Tests.Common", "Tests\Roomed.Tests.Common\Roomed.Tests.Common.csproj", "{2EECED73-CFDC-49DA-AB71-1D1139F495FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomed.Tests.Common", "Tests\Roomed.Tests.Common\Roomed.Tests.Common.csproj", "{2EECED73-CFDC-49DA-AB71-1D1139F495FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

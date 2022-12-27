@@ -12,7 +12,7 @@ namespace Roomed.Services.Json.Converters
     using Newtonsoft.Json;
 
     /// <summary>
-    /// This class contains the logic for reading and writing <see cref="DateOnly?"/>.
+    /// This class contains the logic for reading and writing nullable <see cref="DateOnly"/>.
     /// </summary>
     public class NullableDateOnlyJsonConverter : JsonConverter<DateOnly?>
     {

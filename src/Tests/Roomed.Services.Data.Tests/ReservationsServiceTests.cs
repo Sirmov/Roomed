@@ -470,7 +470,7 @@ namespace Roomed.Services.Data.Tests
             var result = await service.ExistsAsync(guid);
 
             // Assert
-            Assert.IsTrue(result, "Result should be true.");
+            Assert.That(result, Is.True, "Result should be true.");
         }
     }
 }

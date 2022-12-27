@@ -14,29 +14,39 @@ namespace Roomed.Services.Data.Dtos.Profile
 
     using static Roomed.Common.DataConstants.Profile;
 
+    /// <summary>
+    /// This is a detailed <see cref="Roomed.Data.Models.Profile"/> data transfer object.
+    /// </summary>
     public class DetailedProfileDto : ProfileDto, IMapFrom<Roomed.Data.Models.Profile>, IMapTo<Roomed.Data.Models.Profile>
     {
+        /// <inheritdoc cref="Roomed.Data.Common.Models.BaseModel{TKey}.Id"/>
         public Guid? Id { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Profile.MiddleName"/>
         [StringLength(MiddleNameMaxLenght, MinimumLength = MiddleNameMinLenght)]
         public string? MiddleName { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Profile.Birthdate"/>
         [Required]
         [DataType(DataType.Date)]
         public DateOnly Birthdate { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Profile.Gender"/>
         [Required]
         [EnumDataType(typeof(Gender))]
         public Gender Gender { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Profile.Nationality"/>
         [Required]
         [StringLength(NationalityMaxLength, MinimumLength = NationalityMinLength)]
-        public string Nationality { get; set; }
+        public string Nationality { get; set; } = null!;
 
+        /// <inheritdoc cref="Roomed.Data.Models.Profile.NationalityCode"/>
         [Required]
         [StringLength(NationalityCodeMaxLength, MinimumLength = NationalityCodeMinLength)]
-        public string NationalityCode { get; set; }
+        public string NationalityCode { get; set; } = null!;
 
+        /// <inheritdoc cref="Roomed.Data.Models.Profile.Address"/>
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
         public string? Address { get; set; }
     }

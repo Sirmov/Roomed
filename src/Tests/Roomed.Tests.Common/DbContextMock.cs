@@ -31,11 +31,7 @@ namespace Roomed.Tests.Common
                 .Options;
 
             var dbContext = new ApplicationDbContext(options);
-
-            if (dbContext != null)
-            {
-                await dbContext.Database.EnsureDeletedAsync();
-            }
+            await dbContext.Database.EnsureCreatedAsync();
 
             DbContext = dbContext;
             return dbContext;

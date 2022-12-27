@@ -11,16 +11,24 @@ namespace Roomed.Services.Data.Dtos.ReservationDayGuest
     using Roomed.Services.Data.Dtos.ReservationDay;
     using Roomed.Services.Mapping;
 
+    /// <summary>
+    /// This is a <see cref="Roomed.Data.Models.ReservationDayGuest"/> data transfer object.
+    /// </summary>
     public class ReservationDayGuestDto : IMapFrom<Roomed.Data.Models.ReservationDayGuest>
     {
+        /// <inheritdoc cref="Roomed.Data.Common.Models.BaseModel{TKey}.Id"/>
         public int Id { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.ReservationDayGuest.ReservationDayId"/>
         public Guid ReservationDayId { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.ReservationDayGuest.GuestId"/>
         public Guid GuestId { get; set; }
 
-        public virtual ReservationDayDto ReservationDay { get; set; } = null!;
+        /// <inheritdoc cref="Roomed.Data.Models.ReservationDayGuest.ReservationDay"/>
+        public ReservationDayDto ReservationDay { get; set; } = null!;
 
-        public virtual DetailedProfileDto Guest { get; set; } = null!;
+        /// <inheritdoc cref="Roomed.Data.Models.ReservationDayGuest.Guest"/>
+        public DetailedProfileDto Guest { get; set; } = null!;
     }
 }

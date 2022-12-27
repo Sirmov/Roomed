@@ -13,12 +13,17 @@ namespace Roomed.Services.Data.Dtos.Profile
 
     using static Roomed.Common.DataConstants.Profile;
 
+    /// <summary>
+    /// This is a <see cref="Roomed.Data.Models.Profile"/> data transfer object.
+    /// </summary>
     public class ProfileDto : IMapFrom<Roomed.Data.Models.Profile>
     {
+        /// <inheritdoc cref="Roomed.Data.Models.Profile.FirstName"/>
         [Required(AllowEmptyStrings = false)]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         public string FirstName { get; set; } = null!;
 
+        /// <inheritdoc cref="Roomed.Data.Models.Profile.LastName"/>
         [Required(AllowEmptyStrings = false)]
         [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
         public string LastName { get; set; } = null!;

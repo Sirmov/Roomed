@@ -80,25 +80,28 @@ namespace Roomed.Data.Tests
             var entities = await repository.All(true).ToListAsync();
 
             // Assert
-            Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
-            Assert.That(entities, Has.Exactly(this.dbContext.ReservationNotes.Count()).Items, "Entities count is not correct.");
-
-            Assert.That(
-                entities.Select(e => e.Id),
-                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Id)),
-                "Entities have incorrect ids.");
-
-            Assert.That(
-                entities.Select(e => e.Body),
-                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Body)),
-                "Entities have incorrect data.");
-
-            Assert.That(entities, Has.All.Matches<ReservationNote>(rn =>
+            Assert.Multiple(() =>
             {
-                var entityState = this.dbContext.Entry(rn).State;
+                Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
+                Assert.That(entities, Has.Exactly(this.dbContext.ReservationNotes.Count()).Items, "Entities count is not correct.");
 
-                return entityState == EntityState.Detached;
-            }));
+                Assert.That(
+                    entities.Select(e => e.Id),
+                    Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Id)),
+                    "Entities have incorrect ids.");
+
+                Assert.That(
+                    entities.Select(e => e.Body),
+                    Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Body)),
+                    "Entities have incorrect data.");
+
+                Assert.That(entities, Has.All.Matches<ReservationNote>(rn =>
+                {
+                    var entityState = this.dbContext.Entry(rn).State;
+
+                    return entityState == EntityState.Detached;
+                }));
+            });
         }
 
         /// <summary>
@@ -118,18 +121,21 @@ namespace Roomed.Data.Tests
             var entities = await repository.All().ToListAsync();
 
             // Assert
-            Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
-            Assert.That(entities, Has.Exactly(this.dbContext.ReservationNotes.Count()).Items, "Entities count is not correct.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
+                Assert.That(entities, Has.Exactly(this.dbContext.ReservationNotes.Count()).Items, "Entities count is not correct.");
 
-            Assert.That(
-                entities.Select(e => e.Id),
-                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Id)),
-                "Entities have incorrect ids.");
+                Assert.That(
+                    entities.Select(e => e.Id),
+                    Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Id)),
+                    "Entities have incorrect ids.");
 
-            Assert.That(
-                entities.Select(e => e.Body),
-                Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Body)),
-                "Entities have incorrect data.");
+                Assert.That(
+                    entities.Select(e => e.Body),
+                    Is.EquivalentTo(this.dbContext.ReservationNotes.Select(rn => rn.Body)),
+                    "Entities have incorrect data.");
+            });
         }
 
         /// <summary>
@@ -171,11 +177,14 @@ namespace Roomed.Data.Tests
             var entities = await repository.All(rn => rn.Body == body).ToListAsync();
 
             // Assert
-            Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
-            Assert.That(entities, Has.Exactly(1).Items, "Only one entity should be returned.");
-            Assert.That(entities[0].Id.ToString() == id, "The entity's id is not correct.");
-            Assert.IsTrue(entities[0].Body == body, "The entity's data is not correct.");
-            Assert.IsTrue(this.dbContext.Entry(entities[0]).State != EntityState.Detached, "Entity's state is not tracked.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
+                Assert.That(entities, Has.Exactly(1).Items, "Only one entity should be returned.");
+                Assert.That(entities[0].Id.ToString(), Is.EqualTo(id), "The entity's id is not correct.");
+                Assert.That(entities[0].Body, Is.EqualTo(body), "The entity's data is not correct.");
+                Assert.That(this.dbContext.Entry(entities[0]).State, Is.Not.EqualTo(EntityState.Detached), "Entity's state is not tracked.");
+            });
         }
 
         /// <summary>
@@ -198,11 +207,14 @@ namespace Roomed.Data.Tests
             var entities = await repository.All(rn => rn.Body == body, true).ToListAsync();
 
             // Assert
-            Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
-            Assert.That(entities, Has.Exactly(1).Items, "Only one entity should be returned.");
-            Assert.IsTrue(entities[0].Id.ToString() == id, "The entity's id is not correct.");
-            Assert.IsTrue(entities[0].Body == body, "The entity's data is not correct.");
-            Assert.IsTrue(this.dbContext.Entry(entities[0]).State == EntityState.Detached, "Entity's state is not detached.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entities, Is.Not.Empty, "No entities were retrieved.");
+                Assert.That(entities, Has.Exactly(1).Items, "Only one entity should be returned.");
+                Assert.That(entities[0].Id.ToString(), Is.EqualTo(id), "The entity's id is not correct.");
+                Assert.That(entities[0].Body, Is.EqualTo(body), "The entity's data is not correct.");
+                Assert.That(this.dbContext.Entry(entities[0]).State, Is.EqualTo(EntityState.Detached), "Entity's state is not detached.");
+            });
         }
 
         /// <summary>
@@ -224,9 +236,12 @@ namespace Roomed.Data.Tests
             var entity = repository.Find(Guid.Parse(id), true);
 
             // Assert
-            Assert.IsTrue(entity.Id.ToString() == id, "Entity's id is incorrect.");
-            Assert.IsTrue(entity.Body == body, "Entity's data is incorrect.");
-            Assert.IsTrue(this.dbContext.Entry(entity).State == EntityState.Detached, "Entity's state is not detached.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity.Id.ToString(), Is.EqualTo(id), "Entity's id is incorrect.");
+                Assert.That(entity.Body, Is.EqualTo(body), "Entity's data is incorrect.");
+                Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Detached), "Entity's state is not detached.");
+            });
         }
 
         /// <summary>
@@ -248,9 +263,12 @@ namespace Roomed.Data.Tests
             var entity = repository.Find(Guid.Parse(id));
 
             // Assert
-            Assert.IsTrue(entity.Id.ToString() == id, "Entity's id is incorrect.");
-            Assert.IsTrue(entity.Body == body, "Entity's data is incorrect.");
-            Assert.IsTrue(this.dbContext.Entry(entity).State != EntityState.Detached, "Entity's state is not tracked.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity.Id.ToString(), Is.EqualTo(id), "Entity's id is incorrect.");
+                Assert.That(entity.Body, Is.EqualTo(body), "Entity's data is incorrect.");
+                Assert.That(this.dbContext.Entry(entity).State, Is.Not.EqualTo(EntityState.Detached), "Entity's state is not tracked.");
+            });
         }
 
         /// <summary>
@@ -293,9 +311,12 @@ namespace Roomed.Data.Tests
             var entity = await repository.FindAsync(Guid.Parse(id), true);
 
             // Assert
-            Assert.IsTrue(entity.Id.ToString() == id, "Entity's id is incorrect.");
-            Assert.IsTrue(entity.Body == body, "Entity's data is incorrect.");
-            Assert.IsTrue(this.dbContext.Entry(entity).State == EntityState.Detached, "Entity's state is not detached.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity.Id.ToString(), Is.EqualTo(id), "Entity's id is incorrect.");
+                Assert.That(entity.Body, Is.EqualTo(body), "Entity's data is incorrect.");
+                Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Detached), "Entity's state is not detached.");
+            });
         }
 
         /// <summary>
@@ -318,9 +339,12 @@ namespace Roomed.Data.Tests
             var entity = await repository.FindAsync(Guid.Parse(id));
 
             // Assert
-            Assert.IsTrue(entity.Id.ToString() == id, "Entity's id is incorrect.");
-            Assert.IsTrue(entity.Body == body, "Entity's data is incorrect.");
-            Assert.IsTrue(this.dbContext.Entry(entity).State != EntityState.Detached, "Entity's state is not tracked.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity.Id.ToString(), Is.EqualTo(id), "Entity's id is incorrect.");
+                Assert.That(entity.Body, Is.EqualTo(body), "Entity's data is incorrect.");
+                Assert.That(this.dbContext.Entry(entity).State, Is.Not.EqualTo(EntityState.Detached), "Entity's state is not tracked.");
+            });
         }
 
         /// <summary>
@@ -349,6 +373,7 @@ namespace Roomed.Data.Tests
         /// </summary>
         /// <param name="body">The body of the new entity.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when no entity with returned id can be found.</exception>
         // Add(TEntity entity)
         [Test]
         [TestCase("I was added by Add() method.")]
@@ -362,19 +387,24 @@ namespace Roomed.Data.Tests
             await repository.SaveChangesAsync();
 
             // Assert
-            var entity = await this.dbContext.ReservationNotes.FindAsync(result.Entity.Id);
-            Assert.That(entity, Is.Not.Null, "The entity can not be found.");
-            Assert.That(entity.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
-            Assert.That(result.Entity.Id, Is.EqualTo(entity.Id), "Ids don't match.");
-            Assert.That(body, Is.EqualTo(entity.Body), "Entity data is not set or is not matching.");
+            var entity = await this.dbContext.ReservationNotes.FindAsync(result.Entity.Id)
+                ?? throw new InvalidOperationException("Entity can not be found");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
+                Assert.That(result.Entity.Id, Is.EqualTo(entity.Id), "Ids don't match.");
+                Assert.That(body, Is.EqualTo(entity.Body), "Entity data is not set or is not matching.");
+            });
         }
 
         /// <summary>
-        /// This test cheks whether <see cref="EfRepository{TEntity, TKey}.AddAsync(TEntity)"/>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.AddAsync(TEntity)"/>
         /// adds entity to the database and returns its entity entry asynchronously.
         /// </summary>
         /// <param name="body">The body of the new entity.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when no entity with returned id can be found.</exception>
         // AddAsync(TEntity entity)
         [Test]
         [TestCase("I was added by AddAsync() method.")]
@@ -388,11 +418,15 @@ namespace Roomed.Data.Tests
             await repository.SaveChangesAsync();
 
             // Assert
-            var entity = await this.dbContext.ReservationNotes.FindAsync(result.Entity.Id);
-            Assert.That(entity, Is.Not.Null, "The entity can not be found.");
-            Assert.That(entity.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
-            Assert.That(result.Entity.Id, Is.EqualTo(entity.Id), "Ids don't match.");
-            Assert.That(body, Is.EqualTo(entity.Body), "Entity data is not set or is not matching.");
+            var entity = await this.dbContext.ReservationNotes.FindAsync(result.Entity.Id)
+                ?? throw new InvalidOperationException("Entity can not be found");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
+                Assert.That(result.Entity.Id, Is.EqualTo(entity.Id), "Ids don't match.");
+                Assert.That(body, Is.EqualTo(entity.Body), "Entity data is not set or is not matching.");
+            });
         }
 
         /// <summary>
@@ -422,17 +456,24 @@ namespace Roomed.Data.Tests
             // Assert
             var entity1 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body1);
-            Assert.That(entity1, Is.Not.Null, "The entity can not be found.");
-            Assert.That(entity1.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
-            Assert.That(body1, Is.EqualTo(entity1.Body), "Entity data is not set or is not matching.");
+                .FirstAsync(rn => rn.Body == body1);
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity1, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity1.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
+                Assert.That(body1, Is.EqualTo(entity1.Body), "Entity data is not set or is not matching.");
+            });
 
             var entity2 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body2);
-            Assert.That(entity2, Is.Not.Null, "The entity can not be found.");
-            Assert.That(entity2.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
-            Assert.That(body2, Is.EqualTo(entity2.Body), "Entity data is not set or is not matching.");
+                .FirstAsync(rn => rn.Body == body2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity2, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity2.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
+                Assert.That(body2, Is.EqualTo(entity2.Body), "Entity data is not set or is not matching.");
+            });
         }
 
         /// <summary>
@@ -462,17 +503,23 @@ namespace Roomed.Data.Tests
             // Assert
             var entity1 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body1);
-            Assert.That(entity1, Is.Not.Null, "The entity can not be found.");
-            Assert.That(entity1.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
-            Assert.That(body1, Is.EqualTo(entity1.Body), "Entity data is not set or is not matching.");
+                .FirstAsync(rn => rn.Body == body1);
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity1, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity1.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
+                Assert.That(body1, Is.EqualTo(entity1.Body), "Entity data is not set or is not matching.");
+            });
 
             var entity2 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body2);
-            Assert.That(entity2, Is.Not.Null, "The entity can not be found.");
-            Assert.That(entity2.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
-            Assert.That(body2, Is.EqualTo(entity2.Body), "Entity data is not set or is not matching.");
+                .FirstAsync(rn => rn.Body == body2);
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity2, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity2.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
+                Assert.That(body2, Is.EqualTo(entity2.Body), "Entity data is not set or is not matching.");
+            });
         }
 
         /// <summary>
@@ -505,10 +552,14 @@ namespace Roomed.Data.Tests
             Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Modified), "Entity's state should be Modified.");
             await repository.SaveChangesAsync();
 
-            entity = await this.dbContext.ReservationNotes.FindAsync(guid);
-            Assert.That(entity, Is.Not.Null, "Entity can not be found.");
-            Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not updated.");
-            Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
+            entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity, Is.Not.Null, "Entity can not be found.");
+                Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not updated.");
+                Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
+            });
         }
 
         /// <summary>
@@ -541,18 +592,25 @@ namespace Roomed.Data.Tests
             repository.Update(entity);
 
             // Assert
-            Assert.That(this.dbContext.Entry(entity).State, Is.Not.EqualTo(EntityState.Detached), "Entity should be tracked.");
-            Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Modified), "Entity's state should be Modified.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(this.dbContext.Entry(entity).State, Is.Not.EqualTo(EntityState.Detached), "Entity should be tracked.");
+                Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Modified), "Entity's state should be Modified.");
+            });
             await repository.SaveChangesAsync();
 
-            entity = await this.dbContext.ReservationNotes.FindAsync(guid);
-            Assert.That(entity, Is.Not.Null, "Entity can not be found.");
-            Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not updated.");
-            Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
+            entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity, Is.Not.Null, "Entity can not be found.");
+                Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not updated.");
+                Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
+            });
         }
 
         /// <summary>
-        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.UpdateAsync(TKey)(TEntity)"/>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.UpdateAsync(TKey)"/>
         /// tracks the entity and modifies it asynchronously.
         /// </summary>
         /// <param name="id">The of the entity to be modified.</param>
@@ -581,14 +639,18 @@ namespace Roomed.Data.Tests
             Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Modified), "Entity's state should be Modified.");
             await repository.SaveChangesAsync();
 
-            entity = await this.dbContext.ReservationNotes.FindAsync(guid);
-            Assert.That(entity, Is.Not.Null, "Entity can not be found.");
-            Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not modified.");
-            Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
+            entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity, Is.Not.Null, "Entity can not be found.");
+                Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not modified.");
+                Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
+            });
         }
 
         /// <summary>
-        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.UpdateAsync(TKey)(TEntity)"/>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.UpdateAsync(TKey)"/>
         /// tracks the entity and modifies it asynchronously.
         /// </summary>
         /// <param name="id">The of the entity to be modified.</param>
@@ -618,15 +680,24 @@ namespace Roomed.Data.Tests
             // Assert
             entity = await this.dbContext.ReservationNotes.FindAsync(guid)
                 ?? throw new InvalidOperationException("Entity can not be found");
-            Assert.That(this.dbContext.Entry(entity).State, Is.Not.EqualTo(EntityState.Detached), "Entity should be tracked.");
-            Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Modified), "Entity's state should be Modified.");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(this.dbContext.Entry(entity).State, Is.Not.EqualTo(EntityState.Detached), "Entity should be tracked.");
+                Assert.That(this.dbContext.Entry(entity).State, Is.EqualTo(EntityState.Modified), "Entity's state should be Modified.");
+            });
+
             entity.Body = modifiedBody;
             await repository.SaveChangesAsync();
 
-            entity = await this.dbContext.ReservationNotes.FindAsync(guid);
-            Assert.That(entity, Is.Not.Null, "Entity can not be found.");
-            Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not modified.");
-            Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
+            entity = await this.dbContext.ReservationNotes.FindAsync(guid)
+                ?? throw new InvalidOperationException("Entity can not be found");
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity, Is.Not.Null, "Entity can not be found.");
+                Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not modified.");
+                Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
+            });
         }
 
         /// <summary>
@@ -688,17 +759,22 @@ namespace Roomed.Data.Tests
             // Assert
             entity1 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body1 + addition);
-            Assert.That(entity1, Is.Not.Null, "The entity can not be found.");
-            Assert.That(entity1.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
-            Assert.That(entity1.Body, Is.EqualTo(body1 + addition), "Entity data is not set or is not matching.");
-
+                .FirstAsync(rn => rn.Body == body1 + addition);
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity1, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity1.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
+                Assert.That(entity1.Body, Is.EqualTo(body1 + addition), "Entity data is not set or is not matching.");
+            });
             entity2 = await this.dbContext
                 .ReservationNotes
-                .FirstOrDefaultAsync(rn => rn.Body == body2 + addition);
-            Assert.That(entity2, Is.Not.Null, "The entity can not be found.");
-            Assert.That(entity2.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
-            Assert.That(entity2.Body, Is.EqualTo(body2 + addition), "Entity data is not set or is not matching.");
+                .FirstAsync(rn => rn.Body == body2 + addition);
+            Assert.Multiple(() =>
+            {
+                Assert.That(entity2, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity2.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
+                Assert.That(entity2.Body, Is.EqualTo(body2 + addition), "Entity data is not set or is not matching.");
+            });
         }
 
         /// <summary>
@@ -734,7 +810,7 @@ namespace Roomed.Data.Tests
         }
 
         /// <summary>
-        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.DeleteAsync(TKey)(TEntity)"/>
+        /// This test checks whether <see cref="EfRepository{TEntity, TKey}.DeleteAsync(TKey)"/>
         /// changes entity's state and deletes it asynchronously.
         /// </summary>
         /// <param name="id">The id of the new entity.</param>
@@ -824,9 +900,11 @@ namespace Roomed.Data.Tests
             entity2 = await this.dbContext
                 .ReservationNotes
                 .FirstAsync(rn => rn.Body == body2);
-
-            Assert.That(this.dbContext.Entry(entity1).State, Is.EqualTo(EntityState.Deleted), "Entity's state should be Deleted.");
-            Assert.That(this.dbContext.Entry(entity2).State, Is.EqualTo(EntityState.Deleted), "Entity's state should be Deleted.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(this.dbContext.Entry(entity1).State, Is.EqualTo(EntityState.Deleted), "Entity's state should be Deleted.");
+                Assert.That(this.dbContext.Entry(entity2).State, Is.EqualTo(EntityState.Deleted), "Entity's state should be Deleted.");
+            });
             await repository.SaveChangesAsync();
 
             entity1 = await this.dbContext

@@ -18,44 +18,59 @@ namespace Roomed.Services.Data.Dtos.Reservation
 
     using static Roomed.Common.DataConstants.Reservation;
 
+    /// <summary>
+    /// This is a <see cref="Roomed.Data.Models.Reservation"/> data transfer object.
+    /// </summary>
     public class ReservationDto : IMapFrom<Roomed.Data.Models.Reservation>, IMapTo<Roomed.Data.Models.Reservation>
     {
+        /// <inheritdoc cref="Roomed.Data.Common.Models.BaseModel{TKey}.Id"/>
         public Guid? Id { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.ReservationHolderId"/>
         [Required]
         public Guid ReservationHolderId { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.ArrivalDate"/>
         [Required]
         [BeforeDate(nameof(DepartureDate))]
         public DateOnly ArrivalDate { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.DepartureDate"/>
         [Required]
         [AfterDate(nameof(ArrivalDate))]
         public DateOnly DepartureDate { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.Status"/>
         [Required]
         [EnumDataType(typeof(ReservationStatus))]
         public ReservationStatus Status { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.RoomTypeId"/>
         [Required]
         public int RoomTypeId { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.Adults"/>
         [Required]
         [Range(1, AdultsMaxCount)]
         public int Adults { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.Teenagers"/>
         [Required]
         [Range(0, TeenagersMaxCount)]
         public int Teenagers { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.Children"/>
         [Required]
         [Range(0, ChildrenMaxCount)]
         public int Children { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.ReservationHolder"/>
         public DetailedProfileDto ReservationHolder { get; set; } = null!;
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.RoomType"/>
         public RoomTypeDto RoomType { get; set; } = null!;
 
-        public ICollection<ReservationDayDto> ReservationDays { get; set; }
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.ReservationDays"/>
+        public ICollection<ReservationDayDto> ReservationDays { get; set; } = new HashSet<ReservationDayDto>();
     }
 }

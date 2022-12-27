@@ -14,15 +14,22 @@ namespace Roomed.Services.Data.Dtos.ReservationNote
 
     using static Roomed.Common.DataConstants.ReservationNote;
 
+    /// <summary>
+    /// This is a <see cref="Roomed.Data.Models.ReservationNote"/> data transfer object.
+    /// </summary>
     public class ReservationNoteDto : IMapFrom<Roomed.Data.Models.ReservationNote>
     {
+        /// <inheritdoc cref="Roomed.Data.Common.Models.BaseModel{TKey}.Id"/>
         public Guid Id { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.ReservationNote.ReservationId"/>
         public Guid ReservationId { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.ReservationNote.Body"/>
         [StringLength(BodyMaxLength, MinimumLength = BodyMinLength)]
         public string Body { get; set; } = null!;
 
-        public virtual ReservationDto Reservation { get; set; } = null!;
+        /// <inheritdoc cref="Roomed.Data.Models.ReservationNote.Reservation"/>
+        public ReservationDto Reservation { get; set; } = null!;
     }
 }

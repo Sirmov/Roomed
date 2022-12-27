@@ -13,10 +13,15 @@ namespace Roomed.Services.Data.Dtos.RoomType
 
     using static Roomed.Common.DataConstants.RoomType;
 
+    /// <summary>
+    /// This is a <see cref="Roomed.Data.Models.RoomType"/> data transfer object.
+    /// </summary>
     public class RoomTypeDto : IMapFrom<Roomed.Data.Models.RoomType>
     {
+        /// <inheritdoc cref="Roomed.Data.Common.Models.BaseModel{TKey}.Id"/>
         public int? Id { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.RoomType.Name"/>
         [Required(AllowEmptyStrings = false)]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; set; } = null!;

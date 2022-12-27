@@ -244,7 +244,7 @@ namespace Roomed.Services.Data.Tests
             var reservationNotes = await this.repository.All(true, true).ToListAsync();
             var reservationNote = reservationNotes.First(rn => rn.Id == guid);
             Assert.That(reservationNote, Is.Not.Null, "Entity does not exist.");
-            Assert.IsTrue(dto is ReservationNoteDto, "Entity is not of correct type.");
+            Assert.That(dto is ReservationNoteDto, Is.True, "Entity is not of correct type.");
             Assert.That(dto.Body, Is.EqualTo(reservationNote.Body), "Entities do not match.");
         }
 
@@ -304,8 +304,8 @@ namespace Roomed.Services.Data.Tests
             var longResult = baseService.ValidateDto(longDto);
 
             // Assert
-            Assert.IsTrue(shortResult, "Validation result should be true.");
-            Assert.IsTrue(longResult, "Validation result should be true.");
+            Assert.That(shortResult, Is.True, "Validation result should be true.");
+            Assert.That(longResult, Is.True, "Validation result should be true.");
         }
 
         /// <summary>
