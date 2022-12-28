@@ -79,14 +79,14 @@ namespace Roomed.Web.ViewModels.IdentityDocument
 
         /// <inheritdoc cref="Roomed.Data.Models.IdentityDocument.ValidFrom"/>
         [Required]
-        [BeforeDate(nameof(ValidUntil))]
+        [BeforeDate(typeof(DateOnly), nameof(ValidUntil))]
         [DataType(DataType.Date)]
         [Display(Name = "Valid from")]
         public DateOnly? ValidFrom { get; set; }
 
         /// <inheritdoc cref="Roomed.Data.Models.IdentityDocument.ValidUntil"/>
         [Required]
-        [AfterDate(nameof(ValidFrom))]
+        [AfterDate(typeof(DateOnly), nameof(ValidFrom))]
         [DataType(DataType.Date)]
         [Display(Name = "Valid until")]
         public DateOnly? ValidUntil { get; set; }

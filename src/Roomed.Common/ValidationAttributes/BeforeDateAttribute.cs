@@ -21,11 +21,20 @@ namespace Roomed.Common.ValidationAttributes
         /// <summary>
         /// Initializes a new instance of the <see cref="BeforeDateAttribute"/> class.
         /// </summary>
+        /// <param name="dateType">The date type of the properties to be validated.
+        /// <para>Example: <see cref="DateOnly"/>, <see cref="DateTime"/>.</para>
+        /// </param>
         /// <param name="otherProperty">The name of the other property.</param>
-        public BeforeDateAttribute(string otherProperty)
+        public BeforeDateAttribute(Type dateType, string otherProperty)
         {
+            this.DateType = dateType;
             this.OtherProperty = otherProperty;
         }
+
+        /// <summary>
+        /// Gets or sets the type of the propeties to be validated.
+        /// </summary>
+        public Type DateType { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the other property.
@@ -37,7 +46,7 @@ namespace Roomed.Common.ValidationAttributes
         {
             return string.Format(
                 CultureInfo.InvariantCulture,
-                ErrorMessageString,
+                this.ErrorMessageString,
                 name);
         }
 
@@ -51,7 +60,7 @@ namespace Roomed.Common.ValidationAttributes
         /// <exception cref="NullReferenceException">Throws when <see cref="ValidationResult.Success"/> points to <see langword="null"/>.</exception>
         protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
-            var otherPropertyInfo = validationContext.ObjectType.GetRuntimeProperty(OtherProperty);
+            var otherPropertyInfo = validationContext.ObjectType.GetRuntimeProperty(this.OtherProperty);
 
             if (otherPropertyInfo == null || otherPropertyInfo.GetIndexParameters().Length > 0)
             {
@@ -68,8 +77,24 @@ namespace Roomed.Common.ValidationAttributes
             {
                 try
                 {
-                    var date = (DateOnly)value;
-                    var otherDate = (DateOnly)otherPropertyValue;
+                    DateTime date;
+                    DateTime otherDate;
+
+                    switch (this.DateType.Name)
+                    {
+                        case "DateTime":
+                            date = (DateTime)value;
+                            otherDate = (DateTime)otherPropertyValue;
+                            break;
+                        case "DateOnly":
+                            date = ((DateOnly)value)
+                                .ToDateTime(TimeOnly.MinValue);
+                            otherDate = ((DateOnly)otherPropertyValue)
+                                .ToDateTime(TimeOnly.MinValue);
+                            break;
+                        default:
+                            return new ValidationResult("Invalid date type specified. Supported types: DateTime, DateOnly.");
+                    }
 
                     if (date < otherDate)
                     {

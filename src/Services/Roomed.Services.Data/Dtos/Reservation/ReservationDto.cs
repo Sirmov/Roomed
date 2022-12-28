@@ -32,12 +32,12 @@ namespace Roomed.Services.Data.Dtos.Reservation
 
         /// <inheritdoc cref="Roomed.Data.Models.Reservation.ArrivalDate"/>
         [Required]
-        [BeforeDate(nameof(DepartureDate))]
+        [BeforeDate(typeof(DateOnly), nameof(DepartureDate))]
         public DateOnly ArrivalDate { get; set; }
 
         /// <inheritdoc cref="Roomed.Data.Models.Reservation.DepartureDate"/>
         [Required]
-        [AfterDate(nameof(ArrivalDate))]
+        [AfterDate(typeof(DateOnly), nameof(ArrivalDate))]
         public DateOnly DepartureDate { get; set; }
 
         /// <inheritdoc cref="Roomed.Data.Models.Reservation.Status"/>

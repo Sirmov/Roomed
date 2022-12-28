@@ -67,12 +67,12 @@ namespace Roomed.Services.Data.Dtos.IdentityDocument
 
         /// <inheritdoc cref="Roomed.Data.Models.IdentityDocument.ValidFrom"/>
         [Required]
-        [BeforeDate(nameof(ValidUntil))]
+        [BeforeDate(typeof(DateOnly), nameof(ValidUntil))]
         public DateOnly ValidFrom { get; set; }
 
         /// <inheritdoc cref="Roomed.Data.Models.IdentityDocument.ValidUntil"/>
         [Required]
-        [AfterDate(nameof(ValidFrom))]
+        [AfterDate(typeof(DateOnly), nameof(ValidFrom))]
         public DateOnly ValidUntil { get; set; }
 
         /// <inheritdoc cref="Roomed.Data.Models.IdentityDocument.IssuedBy"/>

@@ -35,14 +35,14 @@ namespace Roomed.Web.ViewModels.Reservation
 
         /// <inheritdoc cref="Roomed.Data.Models.Reservation.ArrivalDate"/>
         [Required(AllowEmptyStrings = false)]
-        [BeforeDate(nameof(DepartureDate))]
+        [BeforeDate(typeof(DateOnly), nameof(DepartureDate))]
         [DataType(DataType.Date)]
         [Display(Name = "Arrival date")]
         public DateOnly ArrivalDate { get; set; }
 
         /// <inheritdoc cref="Roomed.Data.Models.Reservation.DepartureDate"/>
         [Required(AllowEmptyStrings = false)]
-        [AfterDate(nameof(ArrivalDate))]
+        [AfterDate(typeof(DateOnly), nameof(ArrivalDate))]
         [DataType(DataType.Date)]
         [Display(Name = "Departure date")]
         public DateOnly DepartureDate { get; set; }
