@@ -63,7 +63,7 @@ namespace Roomed.Web.Controllers
         /// <param name="statusCode">The http status code.</param>
         /// <returns>Returns a view corresponding to the error.</returns>
         [AllowAnonymous]
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(CacheProfileName = "ErrorPage")]
         public IActionResult Error(int? statusCode)
         {
             var model = new ErrorViewModel()

@@ -81,6 +81,9 @@ internal class Program
             options.IdleTimeout = TimeSpan.FromMinutes(10);
         });
 
+        // Add response caching
+        services.AddResponseCaching();
+
         // Add policies
         services.AddAuthorization(options =>
         {
@@ -123,12 +126,19 @@ internal class Program
         // Add DateOnly and TimeOnly support
         services.AddDateOnlyTimeOnlyStringConverters();
 
-        // Add filters
+        // Add filters and cache profiles
         services.AddControllersWithViews()
             .AddCookieTempDataProvider()
             .AddMvcOptions(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+
+                options.CacheProfiles.Add("ErrorPage", new CacheProfile()
+                {
+                    Duration = TimeSpan.FromMinutes(15).Seconds,
+                    Location = ResponseCacheLocation.Any,
+                    NoStore = false,
+                });
             });
     }
 
@@ -161,6 +171,7 @@ internal class Program
         app.UseAuthorization();
 
         app.UseSession();
+        app.UseResponseCaching();
 
         app.UseEndpoints(endpoints =>
         {
