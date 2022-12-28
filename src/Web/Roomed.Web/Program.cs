@@ -68,6 +68,19 @@ internal class Program
         .AddRoles<ApplicationRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
+        // Session configuration
+        services.AddDistributedMemoryCache();
+
+        services.AddSession(options =>
+        {
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+
+            options.IOTimeout = TimeSpan.FromSeconds(15);
+
+            options.IdleTimeout = TimeSpan.FromMinutes(10);
+        });
+
         // Add policies
         services.AddAuthorization(options =>
         {
@@ -112,6 +125,7 @@ internal class Program
 
         // Add filters
         services.AddControllersWithViews()
+            .AddCookieTempDataProvider()
             .AddMvcOptions(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
@@ -145,6 +159,8 @@ internal class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
+
+        app.UseSession();
 
         app.UseEndpoints(endpoints =>
         {
