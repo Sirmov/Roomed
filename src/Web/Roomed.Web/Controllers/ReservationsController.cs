@@ -78,6 +78,16 @@ namespace Roomed.Web.Controllers
         }
 
         /// <summary>
+        /// This action returns a page with details for a reservation.
+        /// </summary>
+        /// <returns>Returns a view with details for a reservation.>.</returns>
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            return View();
+        }
+
+        /// <summary>
         /// This action returns a page with a table of the in house today reservations.
         /// </summary>
         /// <returns>Returns a view with all in house today reservations.>.</returns>
