@@ -23,6 +23,7 @@ else
             <thead class="thead bg-primary text-light">
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Room №</th>
                     <th scope="col">Name</th>
                     <th scope="col">Arrival</th>
                     <th scope="col">Departure</th>
@@ -36,8 +37,15 @@ else
                 }
                 @foreach (var reservation in Model)
                 {
+                    var today = DateOnly.FromDateTime(DateTime.Today);
+
+                    var reservationDayToday = reservation
+                        .ReservationDays
+                        .FirstOrDefault(rd => rd.Date == today);
+
                     <tr class="reservation-row" data-id="@reservation.Id">
                         <th scope="row">@(i++)</th>
+                        <th>@(reservationDayToday?.Room?.Number ?? "_")</th>
                         <td>@($"{reservation.ReservationHolder.FirstName} {reservation.ReservationHolder.LastName}")</td>
                         <td>@reservation.ArrivalDate</td>
                         <td>@reservation.DepartureDate</td>
