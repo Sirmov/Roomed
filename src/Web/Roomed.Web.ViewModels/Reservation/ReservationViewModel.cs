@@ -37,6 +37,15 @@ namespace Roomed.Web.ViewModels.Reservation
         /// <inheritdoc cref="Roomed.Data.Models.Reservation.RoomTypeId"/>
         public int RoomTypeId { get; set; }
 
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.Adults"/>
+        public int Adults { get; set; }
+
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.Teenagers"/>
+        public int Teenagers { get; set; }
+
+        /// <inheritdoc cref="Roomed.Data.Models.Reservation.Children"/>
+        public int Children { get; set; }
+
         /// <summary>
         /// Gets or sets reservation holder view model.
         /// </summary>
