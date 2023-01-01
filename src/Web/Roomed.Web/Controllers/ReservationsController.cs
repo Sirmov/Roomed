@@ -23,6 +23,7 @@ namespace Roomed.Web.Controllers
     using Roomed.Web.ViewModels.RoomType;
 
     using static Roomed.Common.AreasControllersActionsConstants;
+    using static Roomed.Common.DataConstants;
 
     /// <summary>
     /// A MVC controller inheriting <see cref="BaseController"/>.
@@ -80,11 +81,26 @@ namespace Roomed.Web.Controllers
         /// <summary>
         /// This action returns a page with details for a reservation.
         /// </summary>
-        /// <returns>Returns a view with details for a reservation.>.</returns>
+        /// <param name="id">The id of the reservation.</param>
+        /// <returns>Returns a view with details for a reservation.</returns>
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
-            return View();
+            var reservation = await this.reservationsService.GetAsync(id);
+            var profiles = await this.profilesService.GetAllAsync();
+            var roomTypes = (await this.roomTypesService.GetAllAsync())
+                .Select(rt => this.mapper.Map<RoomTypeViewModel>(rt));
+
+            ViewBag.Profiles = profiles.Select(p => this.mapper.Map<DetailedProfileViewModel>(p));
+            ViewBag.RoomTypesSelectList = new SelectList(
+                    roomTypes.Select(rt => new SelectListItem() { Value = rt.Id.ToString(), Text = rt.Name }),
+                    "Value",
+                    "Text",
+                    reservation.RoomTypeId);
+
+            var model = this.mapper.Map<ReservationViewModel>(reservation);
+
+            return View(model);
         }
 
         /// <summary>
@@ -184,7 +200,7 @@ namespace Roomed.Web.Controllers
                 return RedirectToAction(Actions.Create, Controllers.Reservations);
             }
 
-            var model = JsonConvert.DeserializeObject<ReservationInputModel>(json) !;
+            var model = JsonConvert.DeserializeObject<ReservationInputModel>(json)!;
 
             if (!await this.roomTypesService.ExistsAsync(model.RoomTypeId))
             {
