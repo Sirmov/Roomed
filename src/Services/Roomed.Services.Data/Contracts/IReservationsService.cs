@@ -29,7 +29,7 @@ namespace Roomed.Services.Data.Contracts
         /// <param name="id">The id of the reservation.</param>
         /// <param name="queryOptions">The query options.</param>
         /// <returns>Returns a <see cref="Task{TResult}"/> with a single <see cref="ReservationDto"/> object.</returns>
-        public Task<ReservationDto> GetAsync(string id, QueryOptions<ReservationDto>? queryOptions = null);
+        public Task<ReservationDto> GetAsync(Guid id, QueryOptions<ReservationDto>? queryOptions = null);
 
         /// <summary>
         /// This method asynchronously returns all arriving reservations on a given date.
