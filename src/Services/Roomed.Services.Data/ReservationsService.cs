@@ -49,16 +49,16 @@ namespace Roomed.Services.Data
         }
 
         /// <inheritdoc/>
-        public async Task<ReservationDto> GetAsync(string id, QueryOptions<ReservationDto>? queryOptions = null)
+        public async Task<ReservationDto> GetAsync(Guid id, QueryOptions<ReservationDto>? queryOptions = null)
         {
-            if (id == null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
+            var reservation = await this.reservationsRepository
+                .All()
+                .Include(r => r.ReservationHolder)
+                .FirstAsync(r => r.Id == id);
 
-            var guid = Guid.Parse(id);
+            var dto = this.mapper.Map<ReservationDto>(reservation);
 
-            return await base.GetAsync(guid, queryOptions ?? new ());
+            return dto;
         }
 
         /// <inheritdoc/>
