@@ -45,7 +45,7 @@ else
 
                     <tr class="reservation-row" data-id="@reservation.Id">
                         <th scope="row">@(i++)</th>
-                        <th>@(reservationDayToday?.Room?.Number ?? "_")</th>
+                        <td>@(reservationDayToday?.Room?.Number ?? "_")</td>
                         <td>@($"{reservation.ReservationHolder.FirstName} {reservation.ReservationHolder.LastName}")</td>
                         <td>@reservation.ArrivalDate</td>
                         <td>@reservation.DepartureDate</td>
