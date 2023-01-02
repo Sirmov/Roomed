@@ -41,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\js\areas\controllers\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
