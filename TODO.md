@@ -8,6 +8,12 @@
 
 ---
 
+## Purpose
+
+When all task are either completed or dismissed this file will be deleted and only GitHub Issues will be used.
+
+---
+
 ☐ Consider renaming ApplicationDbContext to RoomedDbContext
 
 ☐ Extract Front Office MVC area
@@ -32,22 +38,22 @@
 
 ☐ Consider the use of "init;"
 
-☐ Make an partial for loading all scripts for a specified area, controller or view
+✔️ Make an partial for loading all scripts for a specified area, controller or view
 
 ✔️ Audit data layer
 
 ✔️ Audit web layer
 
-☐ Audit test layer
+✔️ Audit test layer
 
-1. ☐ Add documentation to all tests
-2. ☐ Add a comment above every test with the method signature that it is testing. Example: // GetAll(bool isReadonly, bool withDeleted)
-3. ☐ Add messages to all test assertions
+1. ✔️ Add documentation to all tests
+2. ✔️ Add a comment above every test with the method signature that it is testing. Example: // GetAll(bool isReadonly, bool withDeleted)
+3. ✔️ Add messages to all test assertions
 
-☐ Audit service layer
+✔️ Audit service layer
 
-1. ☐ Add documentation where it is missing
-2. ☐ Make changes were appropriate
+1. ✔️ Add documentation where it is missing
+2. ✔️ Make changes were appropriate
 3. ☐ Move ProjectTo{TDto} last before ToListAsync()
 
 ☐ Make creating a reservation and its reservation days in a transaction
