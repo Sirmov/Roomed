@@ -95,7 +95,7 @@ namespace Roomed.Services.Data.Tests
             var dtos = await baseService.GetAllAsync<ReservationNoteDto>();
 
             // Assert
-            Assert.That(dtos.Count, Is.EqualTo(2), "Entities count is not correct.");
+            Assert.That(dtos, Has.Count.EqualTo(2), "Entities count is not correct.");
             Assert.That(dtos, Has.All.Matches<object>(x => x is ReservationNoteDto), "Some entities are not of the correct type.");
         }
 
@@ -118,7 +118,7 @@ namespace Roomed.Services.Data.Tests
             });
 
             // Assert
-            Assert.That(dtos.Count, Is.EqualTo(3), "Entities count is not correct.");
+            Assert.That(dtos, Has.Count.EqualTo(3), "Entities count is not correct.");
             Assert.That(dtos, Has.All.Matches<object>(x => x is ReservationNoteDto), "Some entities are not of the correct type.");
         }
 
@@ -146,16 +146,16 @@ namespace Roomed.Services.Data.Tests
 
             // Assert
             var reservationNotes = await this.repository.All(true, true).ToListAsync();
-            Assert.That(dtos.Count, Is.EqualTo(3), "Entities count is not correct.");
+            Assert.That(dtos, Has.Count.EqualTo(3), "Entities count is not correct.");
             Assert.That(dtos, Has.All.Matches<object>(x => x is ReservationNoteDto), "Some entities are not of the correct type.");
             Assert.That(dtos.First().Body, Is.EqualTo(reservationNotes.First().Body), "Entities are not in correct order.");
         }
 
-        //[Test]
-        //[TestCase(1)]
-        //[TestCase(2)]
-        //public async Task GetAllAsyncShouldReturnAllEntitiesSkippingFirstNAmount(int n)
-        //{
+        // [Test]
+        // [TestCase(1)]
+        // [TestCase(2)]
+        // public async Task GetAllAsyncShouldReturnAllEntitiesSkippingFirstNAmount(int n)
+        // {
         //    // Arrange
         //    BaseService<ReservationNote, Guid> baseService = new (this.repository, this.mapper);
 
@@ -176,13 +176,13 @@ namespace Roomed.Services.Data.Tests
         //    Assert.That(dtos, Has.All.Matches<object>(x => x is ReservationNoteDto), "Some entities are not of the correct type.");
         //    Assert.That(dtos.First().Body,
         //        Is.EqualTo(reservationNotes[reservationNotes.Count - n - 1].Body), "Entities are not in correct order.");
-        //}
+        // }
 
-        //[Test]
-        //[TestCase(1)]
-        //[TestCase(2)]
-        //public async Task GetAllAsyncShouldReturnAllEntitiesTakingFirstNAmount(int n)
-        //{
+        // [Test]
+        // [TestCase(1)]
+        // [TestCase(2)]
+        // public async Task GetAllAsyncShouldReturnAllEntitiesTakingFirstNAmount(int n)
+        // {
         //    // Arrange
         //    BaseService<ReservationNote, Guid> baseService = new(this.repository, this.mapper);
 
@@ -199,7 +199,7 @@ namespace Roomed.Services.Data.Tests
         //    Assert.That(dtos, Has.All.Matches<object>(x => x is ReservationNoteDto), "Some entities are not of the correct type.");
         //    Assert.That(dtos.Last().Body,
         //        Is.EqualTo(reservationNotes[n - 1].Body), "Entities are not in correct order.");
-        //}
+        // }
 
         /// <summary>
         /// This test checks whether <see cref="BaseService{TEntity, TKey}.GetAsync{TDto}(TKey, QueryOptions{TDto}?)"/>
@@ -243,9 +243,12 @@ namespace Roomed.Services.Data.Tests
             // Assert
             var reservationNotes = await this.repository.All(true, true).ToListAsync();
             var reservationNote = reservationNotes.First(rn => rn.Id == guid);
-            Assert.That(reservationNote, Is.Not.Null, "Entity does not exist.");
-            Assert.That(dto is ReservationNoteDto, Is.True, "Entity is not of correct type.");
-            Assert.That(dto.Body, Is.EqualTo(reservationNote.Body), "Entities do not match.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(reservationNote, Is.Not.Null, "Entity does not exist.");
+                Assert.That(dto is ReservationNoteDto, Is.True, "Entity is not of correct type.");
+                Assert.That(dto.Body, Is.EqualTo(reservationNote.Body), "Entities do not match.");
+            });
         }
 
         /// <summary>
@@ -270,12 +273,15 @@ namespace Roomed.Services.Data.Tests
             };
 
             // Act
-            var shortResult = baseService.ValidateDto(shortDto);
-            var longResult = baseService.ValidateDto(longDto);
+            bool shortResult = baseService.ValidateDto(shortDto);
+            bool longResult = baseService.ValidateDto(longDto);
 
             // Assert
-            Assert.IsFalse(shortResult, "Validation result should be false.");
-            Assert.IsFalse(longResult, "Validation result should be false.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(shortResult, Is.False, "Validation result should be false.");
+                Assert.That(longResult, Is.False, "Validation result should be false.");
+            });
         }
 
         /// <summary>
@@ -300,12 +306,15 @@ namespace Roomed.Services.Data.Tests
             };
 
             // Act
-            var shortResult = baseService.ValidateDto(shortDto);
-            var longResult = baseService.ValidateDto(longDto);
+            bool shortResult = baseService.ValidateDto(shortDto);
+            bool longResult = baseService.ValidateDto(longDto);
 
             // Assert
-            Assert.That(shortResult, Is.True, "Validation result should be true.");
-            Assert.That(longResult, Is.True, "Validation result should be true.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(shortResult, Is.True, "Validation result should be true.");
+                Assert.That(longResult, Is.True, "Validation result should be true.");
+            });
         }
 
         /// <summary>

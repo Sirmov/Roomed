@@ -23,7 +23,6 @@ namespace Roomed.Web.Controllers
     using Roomed.Web.ViewModels.RoomType;
 
     using static Roomed.Common.AreasControllersActionsConstants;
-    using static Roomed.Common.DataConstants;
 
     /// <summary>
     /// A MVC controller inheriting <see cref="BaseController"/>.
@@ -72,7 +71,7 @@ namespace Roomed.Web.Controllers
         {
             var currentDate = DateOnly.FromDateTime(DateTime.Now);
             var reservations = await this.reservationsService.GetAllArrivingFromDateAsync(currentDate);
-            var model = reservations.Select(r => mapper.Map<ReservationViewModel>(r));
+            var model = reservations.Select(r => this.mapper.Map<ReservationViewModel>(r));
 
             ViewData["ReservationsType"] = "Arriving";
             return View(model);
@@ -193,14 +192,14 @@ namespace Roomed.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> ChooseRoom()
         {
-            var json = TempData["CreateReservationModel"]?.ToString();
+            string? json = TempData["CreateReservationModel"]?.ToString();
 
             if (json == null)
             {
                 return RedirectToAction(Actions.Create, Controllers.Reservations);
             }
 
-            var model = JsonConvert.DeserializeObject<ReservationInputModel>(json)!;
+            var model = JsonConvert.DeserializeObject<ReservationInputModel>(json) !;
 
             if (!await this.roomTypesService.ExistsAsync(model.RoomTypeId))
             {

@@ -126,56 +126,52 @@ namespace Roomed.Services.Data.Tests
             this.repository.Dispose();
         }
 
+        ///// <summary>
+        ///// This test checks whether <see cref="ReservationsService.GetAsync(Guid, Common.QueryOptions{Dtos.Reservation.ReservationDto}?)"/>
+        ///// throws and exception when id is null.
+        ///// </summary>
+        //// GetAsync(Guid id, QueryOptions<ReservationDto>? queryOptions = null)
+        // [Test]
+        // public void GetAsyncShouldThrowWhenIdIsNull()
+        // {
+        //    // Arrange
+        //    var service = new ReservationsService(this.repository, this.roomsService, this.reservationDaysService, this.mapper);
+
+        //    // Act
+        //    var code = async () => await service.GetAsync(null!);
+
+        //    // Assert
+        //    Assert.ThrowsAsync<ArgumentNullException>(async () => await code(), "Method should throw exception.");
+        // }
+
         /// <summary>
-        /// This test checks whether <see cref="ReservationsService.GetAsync(string, Common.QueryOptions{Dtos.Reservation.ReservationDto}?)"/>
-        /// throws and exception when id is null.
-        /// </summary>
-        // GetAsync(string id, QueryOptions<ReservationDto>? queryOptions = null)
-        [Test]
-        public void GetAsyncShouldThrowWhenIdIsNull()
-        {
-            // Arrange
-            var service = new ReservationsService(this.repository, this.roomsService, this.reservationDaysService, this.mapper);
-
-            // Act
-            var code = async () => await service.GetAsync(null!);
-
-            // Assert
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await code(), "Method should throw exception.");
-        }
-
-        /// <summary>
-        /// This test checks whether <see cref="ReservationsService.GetAsync(string, Common.QueryOptions{Dtos.Reservation.ReservationDto}?)"/>
+        /// This test checks whether <see cref="ReservationsService.GetAsync(Guid, Common.QueryOptions{Dtos.Reservation.ReservationDto}?)"/>
         /// throws and exception no reservation with specified id can be found.
         /// </summary>
         /// <param name="id">The id of a non existing reservation.</param>
-        // GetAsync(string id, QueryOptions<ReservationDto>? queryOptions = null)
+        // GetAsync(Guid id, QueryOptions<ReservationDto>? queryOptions = null)
         [Test]
         [TestCase("bd6d8567-b4e1-4c98-9420-7847bd1ddc4f")]
         public void GetAsyncShouldThrowWhenReservationDoesNotExist(string id)
         {
-            if (id == null)
-            {
-                Assert.Fail("Id should not be null.");
-            }
-
             // Arrange
             var service = new ReservationsService(this.repository, this.roomsService, this.reservationDaysService, this.mapper);
+            var guid = Guid.Parse(id!);
 
             // Act
-            var code = async () => await service.GetAsync(id!);
+            var code = async () => await service.GetAsync(guid);
 
             // Assert
             Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Method should throw exception.");
         }
 
         /// <summary>
-        /// This test checks whether <see cref="ReservationsService.GetAsync(string, Common.QueryOptions{Dtos.Reservation.ReservationDto}?)"/>
+        /// This test checks whether <see cref="ReservationsService.GetAsync(Guid, Common.QueryOptions{Dtos.Reservation.ReservationDto}?)"/>
         /// returns the correct reservation by a given id.
         /// </summary>
         /// <param name="id">The id of an existing reservation.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
-        // GetAsync(string id, QueryOptions<ReservationDto>? queryOptions = null)
+        // GetAsync(Guid id, QueryOptions<ReservationDto>? queryOptions = null)
         [Test]
         [TestCase("a51493f3-a2ac-44b7-b545-89ea1a78468e")]
         public async Task GetAsyncShouldReturnCorrectReservation(string id)
@@ -187,17 +183,20 @@ namespace Roomed.Services.Data.Tests
 
             // Arrange
             var service = new ReservationsService(this.repository, this.roomsService, this.reservationDaysService, this.mapper);
+            var guid = Guid.Parse(id!);
 
             // Act
-            var dto = await service.GetAsync(id!);
+            var dto = await service.GetAsync(guid);
 
             // Assert
             var reservation = this.repository.All().First(r => r.Id.ToString() == id);
-
-            Assert.That(dto.Id, Is.EqualTo(reservation.Id), "Entity's id is not correct.");
-            Assert.That(dto.Status, Is.EqualTo(reservation.Status), "Entity's status is not correct.");
-            Assert.That(dto.ArrivalDate, Is.EqualTo(reservation.ArrivalDate), "Entity's arrival date is not correct.");
-            Assert.That(dto.DepartureDate, Is.EqualTo(reservation.DepartureDate), "Entity's departure date is not correct.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(dto.Id, Is.EqualTo(reservation.Id), "Entity's id is not correct.");
+                Assert.That(dto.Status, Is.EqualTo(reservation.Status), "Entity's status is not correct.");
+                Assert.That(dto.ArrivalDate, Is.EqualTo(reservation.ArrivalDate), "Entity's arrival date is not correct.");
+                Assert.That(dto.DepartureDate, Is.EqualTo(reservation.DepartureDate), "Entity's departure date is not correct.");
+            });
         }
 
         /// <summary>
@@ -426,7 +425,7 @@ namespace Roomed.Services.Data.Tests
 
             // Assert
             var reservation = this.repository.Find(reservationGuid);
-            Assert.IsNotNull(reservation);
+            Assert.That(reservation, Is.Not.Null);
         }
 
         /// <summary>
@@ -445,10 +444,10 @@ namespace Roomed.Services.Data.Tests
             var guid = Guid.Parse(reservationId);
 
             // Act
-            var result = await service.ExistsAsync(guid);
+            bool result = await service.ExistsAsync(guid);
 
             // Assert
-            Assert.IsFalse(result, "Result should be false.");
+            Assert.That(result, Is.False, "Result should be false.");
         }
 
         /// <summary>
@@ -467,7 +466,7 @@ namespace Roomed.Services.Data.Tests
             var guid = Guid.Parse(reservationId);
 
             // Act
-            var result = await service.ExistsAsync(guid);
+            bool result = await service.ExistsAsync(guid);
 
             // Assert
             Assert.That(result, Is.True, "Result should be true.");

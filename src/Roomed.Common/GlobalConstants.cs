@@ -698,8 +698,8 @@ namespace Roomed.Common
             return selectList;
         }
 
-        //public static readonly List<SelectListItem> Code_Nationality = new List<SelectListItem>()
-        //{
+        // public static readonly List<SelectListItem> Code_Nationality = new List<SelectListItem>()
+        // {
         //    new SelectListItem() { Value = "AF", Text = "Afghanistan" },
         //    new SelectListItem() { Value = "AL", Text = "Albania" },
         //    new SelectListItem() { Value = "DZ", Text = "Algeria" },
@@ -949,10 +949,10 @@ namespace Roomed.Common
         //    new SelectListItem() { Value = "ZM", Text = "Zambia" },
         //    new SelectListItem() { Value = "ZW", Text = "Zimbabwe" },
         //    new SelectListItem() { Value = "AX", Text = "Åland Islands" },
-        //};
+        // };
 
-        //public static readonly List<SelectListItem> NationalityCodes = new List<SelectListItem>
-        //{
+        // public static readonly List<SelectListItem> NationalityCodes = new List<SelectListItem>
+        // {
         //    new SelectListItem() { Value = "AF", Text = "AF" },
         //    new SelectListItem() { Value = "AL", Text = "AL" },
         //    new SelectListItem() { Value = "DZ", Text = "DZ" },
@@ -1202,10 +1202,10 @@ namespace Roomed.Common
         //    new SelectListItem() { Value = "ZM", Text = "ZM" },
         //    new SelectListItem() { Value = "ZW", Text = "ZW" },
         //    new SelectListItem() { Value = "AX", Text = "AX" },
-        //};
+        // };
 
-        //public static readonly List<SelectListItem> Nationalities = new List<SelectListItem>
-        //{
+        // public static readonly List<SelectListItem> Nationalities = new List<SelectListItem>
+        // {
         //    new SelectListItem() { Value = "Afghanistan", Text = "Afghanistan" },
         //    new SelectListItem() { Value = "Albania", Text = "Albania" },
         //    new SelectListItem() { Value = "Algeria", Text = "Algeria" },
@@ -1455,10 +1455,10 @@ namespace Roomed.Common
         //    new SelectListItem() { Value = "Zambia", Text = "Zambia" },
         //    new SelectListItem() { Value = "Zimbabwe", Text = "Zimbabwe" },
         //    new SelectListItem() { Value = "Åland Islands", Text = "Åland Islands" },
-        //};
+        // };
 
-        //public static readonly List<SelectListItem> Nationality_Code = new List<SelectListItem>
-        //{
+        // public static readonly List<SelectListItem> Nationality_Code = new List<SelectListItem>
+        // {
         //    new SelectListItem() { Value = "Afghanistan", Text = "AF" },
         //    new SelectListItem() { Value = "Albania", Text = "AL" },
         //    new SelectListItem() { Value = "Algeria", Text = "DZ" },
@@ -1708,6 +1708,6 @@ namespace Roomed.Common
         //    new SelectListItem() { Value = "Zambia", Text = "ZM" },
         //    new SelectListItem() { Value = "Zimbabwe", Text = "ZW" },
         //    new SelectListItem() { Value = "Åland Islands", Text = "AX" },
-        //};
+        // };
     }
 }

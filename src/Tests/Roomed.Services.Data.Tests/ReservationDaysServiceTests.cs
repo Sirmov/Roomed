@@ -216,10 +216,10 @@ namespace Roomed.Services.Data.Tests
         ///// <param name="reservationId">The id of a non existing reservation.</param>
         ///// <param name="roomId">The id of a existing room.</param>
         //// CreateForReservationAsync(Reservation reservation, int roomId)
-        //[Test]
-        //[TestCase("4f43e9ba-e187-4831-b723-55c64397b84c", 1)]
-        //public void CreateForReservationAsyncShouldThrowWhenReservationDoesNotExist(string reservationId, int roomId)
-        //{
+        // [Test]
+        // [TestCase("4f43e9ba-e187-4831-b723-55c64397b84c", 1)]
+        // public void CreateForReservationAsyncShouldThrowWhenReservationDoesNotExist(string reservationId, int roomId)
+        // {
         //    // Arrange
         //    var service = new ReservationDaysService(this.repository, this.mapper);
 
@@ -231,7 +231,7 @@ namespace Roomed.Services.Data.Tests
         //    // Assert
         //    var exception = Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Method should throw an exception.");
         //    Assert.That(exception.Message, Is.EqualTo("Reservation cannot be found."), "Exception message is not correct.");
-        //}
+        // }
 
         ///// <summary>
         ///// This test checks whether <see cref="ReservationDaysService.CreateForReservationAsync(Reservation, int)"/>
@@ -240,10 +240,10 @@ namespace Roomed.Services.Data.Tests
         ///// <param name="reservationId">The id of a existing reservation.</param>
         ///// <param name="roomId">The id of a non existing room.</param>
         //// CreateForReservationAsync(Reservation reservation, int roomId)
-        //[Test]
-        //[TestCase("a0368b88-05bb-48ff-83cb-0c1c6a323e4e", 0)]
-        //public void CreateForReservationAsyncShouldThrowWhenRoomDoesNotExist(string reservationId, int roomId)
-        //{
+        // [Test]
+        // [TestCase("a0368b88-05bb-48ff-83cb-0c1c6a323e4e", 0)]
+        // public void CreateForReservationAsyncShouldThrowWhenRoomDoesNotExist(string reservationId, int roomId)
+        // {
         //    // Arrange
         //    var service = new ReservationDaysService(this.repository, this.mapper);
 
@@ -255,7 +255,7 @@ namespace Roomed.Services.Data.Tests
         //    // Assert
         //    var exception = Assert.ThrowsAsync<InvalidOperationException>(async () => await code(), "Method should throw an exception.");
         //    Assert.That(exception.Message, Is.EqualTo("Room cannot be found."), "Exception message is not correct.");
-        //}
+        // }
 
         /// <summary>
         /// This test checks whether <see cref="ReservationDaysService.CreateForReservationAsync(Reservation, int)"/>
