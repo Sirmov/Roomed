@@ -1,0 +1,6 @@
+﻿@model IEnumerable<string>
+
+@foreach (var scriptDirectory in Model)
+{
+    <script src="@scriptDirectory" asp-append-version="true"></script>
+}
