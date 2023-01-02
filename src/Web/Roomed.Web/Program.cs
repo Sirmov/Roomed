@@ -10,6 +10,8 @@ using System.Reflection;
 using AutoMapper;
 using Ganss.Xss;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 
 using Roomed.Data;
@@ -125,6 +127,8 @@ internal class Program
 
         // Add DateOnly and TimeOnly support
         services.AddDateOnlyTimeOnlyStringConverters();
+
+        services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
         // Add filters and cache profiles
         services.AddControllersWithViews()
