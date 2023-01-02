@@ -41,6 +41,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ViewComponents\" />
+    <Folder Include="Views\Shared\Components\" />
     <Folder Include="wwwroot\js\areas\controllers\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
