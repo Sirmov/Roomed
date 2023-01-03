@@ -30,7 +30,7 @@ When all task are either completed or dismissed this file will be deleted and on
 
 ☐ Make error messages format strings
 
-☐ Extend base service  
+✔️ Extend base service  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add more methods like: ExistAsync(), CreateAsync() etc.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make the virtual so every service can override them if needed.
 
