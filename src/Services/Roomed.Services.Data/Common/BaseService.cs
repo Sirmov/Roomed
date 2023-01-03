@@ -77,6 +77,84 @@ namespace Roomed.Services.Data.Common
             return dto;
         }
 
+        /// <inheritdoc/>
+        public virtual async Task<TKey> CreateAsync<TDto>(TDto dto)
+        {
+            bool isValid = this.ValidateDto(dto);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Entity model state is not valid.", nameof(dto));
+            }
+
+            TEntity model = this.mapper.Map<TEntity>(dto);
+
+            var result = await this.entityRepository.AddAsync(model);
+            await this.entityRepository.SaveChangesAsync();
+
+            return result.Entity.Id ?? default!;
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task EditAsync<TDto>(TKey id, TDto dto)
+        {
+            ArgumentNullException.ThrowIfNull(dto, nameof(dto));
+
+            if (!await this.ExistsAsync<TDto>(id))
+            {
+                throw new InvalidOperationException("The entity cannot be found.");
+            }
+
+            bool isValid = this.ValidateDto(dto);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Entity model state is not valid.", nameof(dto));
+            }
+
+            TEntity oldEntity = await this.entityRepository.FindAsync(id, false);
+
+            this.CopyProperties(dto, oldEntity);
+            oldEntity.ModifiedOn = DateTime.Now;
+
+            await this.entityRepository.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task DeleteAsync<TDto>(TKey id)
+        {
+            if (!await this.ExistsAsync<TDto>(id))
+            {
+                throw new InvalidOperationException("The entity cannot be found.");
+            }
+
+            await this.entityRepository.DeleteAsync(id);
+            await this.entityRepository.SaveChangesAsync();
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task<bool> ExistsAsync<TDto>(TKey id, QueryOptions<TDto>? queryOptions = null)
+        {
+            var result = true;
+
+            try
+            {
+                var entity = await this.entityRepository.FindAsync(id);
+                bool withDeleted = queryOptions?.WithDeleted ?? false;
+
+                if (withDeleted == false && entity.IsDeleted == true)
+                {
+                    result = false;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// This method modifies the query based on the <see cref="QueryOptions{TDto}"/> passed.
         /// </summary>
@@ -168,6 +246,35 @@ namespace Roomed.Services.Data.Common
             }
 
             return propInfo;
+        }
+
+        private void CopyProperties(object source, object destination)
+        {
+            // If any this null throw an exception
+            if (source == null || destination == null)
+            {
+                throw new Exception("Source or/and Destination Objects are null");
+            }
+
+            // Getting the Types of the objects
+            Type typeDest = destination.GetType();
+            Type typeSrc = source.GetType();
+
+            // Collect all the valid properties to map
+            var results = from srcProp in typeSrc.GetProperties()
+                          let targetProperty = typeDest.GetProperty(srcProp.Name)
+                          where srcProp.CanRead
+                          && targetProperty != null
+                          && (targetProperty.GetSetMethod(true) != null && !targetProperty.GetSetMethod(true) !.IsPrivate)
+                          && (targetProperty.GetSetMethod() !.Attributes & MethodAttributes.Static) == 0
+                          && targetProperty.PropertyType.IsAssignableFrom(srcProp.PropertyType)
+                          select new { sourceProperty = srcProp, targetProperty = targetProperty };
+
+            // Map the properties
+            foreach (var props in results)
+            {
+                props.targetProperty.SetValue(destination, props.sourceProperty.GetValue(source, null), null);
+            }
         }
     }
 }
