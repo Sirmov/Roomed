@@ -17,6 +17,7 @@ namespace Roomed.Services.Data.Common
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Common.Models;
     using Roomed.Data.Common.Repositories;
     using Roomed.Services.Data.Contracts;
@@ -84,7 +85,9 @@ namespace Roomed.Services.Data.Common
 
             if (!isValid)
             {
-                throw new ArgumentException("Entity model state is not valid.", nameof(dto));
+                throw new ArgumentException(
+                    string.Format(ErrorMessagesConstants.EntitysModelStateIsNotValid, "Entity"),
+                    nameof(dto));
             }
 
             TEntity model = this.mapper.Map<TEntity>(dto);
@@ -102,14 +105,16 @@ namespace Roomed.Services.Data.Common
 
             if (!await this.ExistsAsync<TDto>(id))
             {
-                throw new InvalidOperationException("The entity cannot be found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             }
 
             bool isValid = this.ValidateDto(dto);
 
             if (!isValid)
             {
-                throw new ArgumentException("Entity model state is not valid.", nameof(dto));
+                throw new ArgumentException(
+                    string.Format(ErrorMessagesConstants.EntitysModelStateIsNotValid, "Entity"),
+                    nameof(dto));
             }
 
             TEntity oldEntity = await this.entityRepository.FindAsync(id, false);
@@ -125,7 +130,7 @@ namespace Roomed.Services.Data.Common
         {
             if (!await this.ExistsAsync<TDto>(id))
             {
-                throw new InvalidOperationException("The entity cannot be found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             }
 
             await this.entityRepository.DeleteAsync(id);
@@ -253,7 +258,7 @@ namespace Roomed.Services.Data.Common
             // If any this null throw an exception
             if (source == null || destination == null)
             {
-                throw new Exception("Source or/and Destination Objects are null");
+                throw new Exception(ErrorMessagesConstants.SourceOrDestinationNull);
             }
 
             // Getting the Types of the objects

@@ -13,7 +13,7 @@ namespace Roomed.Services.Data
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
-
+    using Roomed.Common.Constants;
     using Roomed.Data.Common.Repositories;
     using Roomed.Data.Models;
     using Roomed.Services.Data.Common;
@@ -90,7 +90,7 @@ namespace Roomed.Services.Data
 
             if (reservationDaysExist)
             {
-                throw new InvalidOperationException("There are reservation days for this reservation already.");
+                throw new InvalidOperationException(ErrorMessagesConstants.ExistingReservationDays);
             }
 
             int reservationLength = (reservation.DepartureDate.DayNumber - reservation.ArrivalDate.DayNumber) + 1;

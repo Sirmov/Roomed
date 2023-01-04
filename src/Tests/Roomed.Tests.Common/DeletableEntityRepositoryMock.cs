@@ -11,6 +11,7 @@ namespace Roomed.Tests.Common
     using MockQueryable.Moq;
     using Moq;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Common.Models;
     using Roomed.Data.Common.Repositories;
 
@@ -101,7 +102,7 @@ namespace Roomed.Tests.Common
 
                         if (entity == null)
                         {
-                            throw new InvalidOperationException("There is no entity found with this id!");
+                            throw new InvalidOperationException(ErrorMessagesConstants.NoEntityWithId);
                         }
 
                         return entity;
@@ -116,7 +117,7 @@ namespace Roomed.Tests.Common
 
                         if (entity == null)
                         {
-                            throw new InvalidOperationException("There is no entity found with this id!");
+                            throw new InvalidOperationException(ErrorMessagesConstants.NoEntityWithId);
                         }
 
                         return entity;

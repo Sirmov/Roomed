@@ -10,6 +10,7 @@ namespace Roomed.Web.TagHelpers
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
     using Microsoft.AspNetCore.Razor.TagHelpers;
+    using Roomed.Common.Constants;
 
     /// <summary>
     /// This tag helper is used to create a script tag linking a javascript file according to a specified view.
@@ -69,7 +70,7 @@ namespace Roomed.Web.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             this.Controller ??= this?.actionContextAccessor?.ActionContext?.RouteData?.Values["controller"]?.ToString()
-                ?? throw new InvalidOperationException("Controller can not be assumed, it has to be specified.");
+                ?? throw new InvalidOperationException(ErrorMessagesConstants.ControlledCanNotBeAssuemd);
 
             this.View = this.ConvertToCamelCase(this.View) !;
             this.Controller = this.ConvertToCamelCase(this.Controller) !;
@@ -89,7 +90,7 @@ namespace Roomed.Web.TagHelpers
 
             if (!File.Exists(path))
             {
-                throw new InvalidOperationException($"Script file can not be found. Searched \"/wwroot/{directory}\".");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.ScriptNotFound, directory));
             }
 
             output.TagName = "script";

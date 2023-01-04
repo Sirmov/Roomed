@@ -13,6 +13,7 @@ namespace Roomed.Services.Data
 
     using AutoMapper;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Common.Repositories;
     using Roomed.Data.Models;
     using Roomed.Services.Data.Common;
@@ -62,14 +63,14 @@ namespace Roomed.Services.Data
         {
             if (!await this.profilesService.ExistsAsync(identityDocumentDto.OwnerId))
             {
-                throw new InvalidOperationException("The owner of the  document cannot be found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "new owner of the document"));
             }
 
             bool isValid = base.ValidateDto(identityDocumentDto);
 
             if (!isValid)
             {
-                throw new ArgumentException("Identity document model state is not valid.", nameof(identityDocumentDto));
+                throw new ArgumentException(string.Format(ErrorMessagesConstants.EntitysModelStateIsNotValid, "Identity document"), nameof(identityDocumentDto));
             }
 
             IdentityDocument model = this.mapper.Map<IdentityDocument>(identityDocumentDto);
@@ -85,19 +86,19 @@ namespace Roomed.Services.Data
         {
             if (!await this.ExistsAsync(id))
             {
-                throw new InvalidOperationException("The document cannot be found.");
+                throw new InvalidOperationException(string.Format(string.Format(ErrorMessagesConstants.EntityNotFound, "document")));
             }
 
             if (!await this.profilesService.ExistsAsync(newIdentityDocument.OwnerId))
             {
-                throw new InvalidOperationException("The new owner of the  document cannot be found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "new owner of the document"));
             }
 
             bool isValid = base.ValidateDto(newIdentityDocument);
 
             if (!isValid)
             {
-                throw new ArgumentException("Identity document model state is not valid.", nameof(newIdentityDocument));
+                throw new ArgumentException(string.Format(ErrorMessagesConstants.EntitysModelStateIsNotValid, "Identity document"), nameof(newIdentityDocument));
             }
 
             var oldIdentityDocument = await this.identityDocumentsRepository.FindAsync(id, false);
@@ -126,7 +127,7 @@ namespace Roomed.Services.Data
         {
             if (!await this.ExistsAsync(id))
             {
-                throw new InvalidOperationException("The document cannot be found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "document"));
             }
 
             await this.identityDocumentsRepository.DeleteAsync(id);

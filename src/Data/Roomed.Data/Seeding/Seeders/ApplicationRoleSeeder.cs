@@ -10,6 +10,7 @@ namespace Roomed.Data.Seeding.Seeders
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Models;
 
     /// <summary>
@@ -20,7 +21,8 @@ namespace Roomed.Data.Seeding.Seeders
         /// <inheritdoc/>
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            var roleManager = serviceProvider.GetService<RoleManager<ApplicationRole>>() ?? throw new ArgumentException("Role manager is null.");
+            var roleManager = serviceProvider.GetService<RoleManager<ApplicationRole>>() ??
+                throw new ArgumentException(string.Format(ErrorMessagesConstants.VariableIsNull, "Role manager"));
 
             var receptionistRole = new ApplicationRole()
             {

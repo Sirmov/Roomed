@@ -13,6 +13,7 @@ namespace Roomed.Services.Data
 
     using AutoMapper;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Common.Repositories;
     using Roomed.Services.Data.Common;
     using Roomed.Services.Data.Contracts;
@@ -53,7 +54,7 @@ namespace Roomed.Services.Data
 
             if (!isValid)
             {
-                throw new ArgumentException("Profile model state is not valid.", nameof(profileDto));
+                throw new ArgumentException(string.Format(ErrorMessagesConstants.EntitysModelStateIsNotValid, "Profile"), nameof(profileDto));
             }
 
             Profile model = this.mapper.Map<Profile>(profileDto);
@@ -75,14 +76,14 @@ namespace Roomed.Services.Data
         {
             if (!await this.ExistsAsync(id))
             {
-                throw new InvalidOperationException("No profile with this id can be found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "Profile", nameof(id)));
             }
 
             bool isValid = base.ValidateDto(newProfile);
 
             if (!isValid)
             {
-                throw new ArgumentException("Profile model state is not valid.", nameof(newProfile));
+                throw new ArgumentException(string.Format(ErrorMessagesConstants.EntitysModelStateIsNotValid, "Profile"), nameof(newProfile));
             }
 
             var oldProfile = await this.profilesRepository.FindAsync(id, false);
@@ -107,7 +108,7 @@ namespace Roomed.Services.Data
         {
             if (!await this.ExistsAsync(id))
             {
-                throw new InvalidOperationException("No profile with this id can be found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "Profile", nameof(id)));
             }
 
             await this.profilesRepository.DeleteAsync(id);

@@ -6,7 +6,7 @@ namespace Roomed.Data.Tests
 {
     using Microsoft.EntityFrameworkCore;
     using NUnit.Framework;
-
+    using Roomed.Common.Constants;
     using Roomed.Data.Models;
     using Roomed.Data.Repositories;
     using Roomed.Tests.Common;
@@ -388,7 +388,7 @@ namespace Roomed.Data.Tests
 
             // Assert
             var entity = await this.dbContext.ReservationNotes.FindAsync(result.Entity.Id)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
                 Assert.That(entity, Is.Not.Null, "The entity can not be found.");
@@ -419,7 +419,7 @@ namespace Roomed.Data.Tests
 
             // Assert
             var entity = await this.dbContext.ReservationNotes.FindAsync(result.Entity.Id)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
                 Assert.That(entity, Is.Not.Null, "The entity can not be found.");
@@ -544,7 +544,7 @@ namespace Roomed.Data.Tests
 
             // Act
             var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found.");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             entity.Body = modifiedBody;
             repository.Update(entity);
 
@@ -553,7 +553,7 @@ namespace Roomed.Data.Tests
             await repository.SaveChangesAsync();
 
             entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
                 Assert.That(entity, Is.Not.Null, "Entity can not be found.");
@@ -584,7 +584,7 @@ namespace Roomed.Data.Tests
 
             // Act
             var entity = await this.dbContext.ReservationNotes.FindAsync(guid) ??
-                throw new InvalidOperationException("No entity with specified id can be found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "entity", nameof(id)));
 
             this.dbContext.Entry(entity).State = EntityState.Detached;
 
@@ -600,7 +600,7 @@ namespace Roomed.Data.Tests
             await repository.SaveChangesAsync();
 
             entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
                 Assert.That(entity, Is.Not.Null, "Entity can not be found.");
@@ -631,7 +631,7 @@ namespace Roomed.Data.Tests
 
             // Act
             var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("No entity with specified id can be found.");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "entity", nameof(id)));
             entity.Body = modifiedBody;
             await repository.UpdateAsync(guid);
 
@@ -640,7 +640,7 @@ namespace Roomed.Data.Tests
             await repository.SaveChangesAsync();
 
             entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
                 Assert.That(entity, Is.Not.Null, "Entity can not be found.");
@@ -671,7 +671,7 @@ namespace Roomed.Data.Tests
 
             // Act
             var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             this.dbContext.Entry(entity).State = EntityState.Detached;
 
             entity.Body = modifiedBody;
@@ -679,7 +679,7 @@ namespace Roomed.Data.Tests
 
             // Assert
             entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
 
             Assert.Multiple(() =>
             {
@@ -691,7 +691,7 @@ namespace Roomed.Data.Tests
             await repository.SaveChangesAsync();
 
             entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
                 Assert.That(entity, Is.Not.Null, "Entity can not be found.");
@@ -798,7 +798,7 @@ namespace Roomed.Data.Tests
 
             // Act
             var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             repository.Delete(entity);
 
             // Assert
@@ -830,7 +830,7 @@ namespace Roomed.Data.Tests
 
             // Act
             var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             await repository.DeleteAsync(guid);
 
             // Assert
@@ -939,7 +939,7 @@ namespace Roomed.Data.Tests
 
             // Act
             var entity = await this.dbContext.ReservationNotes.FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             this.dbContext.Entry(entity).State = EntityState.Modified;
             repository.Detach(entity);
 

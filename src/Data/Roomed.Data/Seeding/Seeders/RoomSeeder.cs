@@ -10,6 +10,7 @@ namespace Roomed.Data.Seeding.Seeders
     using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Models;
 
     /// <summary>
@@ -21,7 +22,8 @@ namespace Roomed.Data.Seeding.Seeders
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             string json = await File.ReadAllTextAsync("../../Data/Roomed.Data/Seeding/Data/RoomSeed.json");
-            var rooms = JsonConvert.DeserializeObject<IEnumerable<Room>>(json) ?? throw new InvalidOperationException("Deserialization was not successful.");
+            var rooms = JsonConvert.DeserializeObject<IEnumerable<Room>>(json)
+                ?? throw new InvalidOperationException(ErrorMessagesConstants.DeserializationFailed);
 
             int doubleRoomSeaViewId = dbContext.RoomTypes.Where(rt => rt.Name == "Double room sea view").First().Id;
             int doubleRoomParkViewId = dbContext.RoomTypes.Where(rt => rt.Name == "Double room park view").First().Id;

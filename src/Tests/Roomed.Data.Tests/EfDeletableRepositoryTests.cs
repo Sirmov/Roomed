@@ -6,7 +6,7 @@ namespace Roomed.Data.Tests
 {
     using Microsoft.EntityFrameworkCore;
     using NUnit.Framework;
-
+    using Roomed.Common.Constants;
     using Roomed.Data.Models;
     using Roomed.Data.Repositories;
     using Roomed.Tests.Common;
@@ -178,7 +178,7 @@ namespace Roomed.Data.Tests
             var entity = await this.dbContext
                 .ReservationNotes
                 .FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found.");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
 
             repository.HardDelete(entity);
 
@@ -214,7 +214,7 @@ namespace Roomed.Data.Tests
             var entity = await this.dbContext
                 .ReservationNotes
                 .FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found.");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             repository.Delete(entity);
 
             // Assert
@@ -224,7 +224,7 @@ namespace Roomed.Data.Tests
             entity = await this.dbContext
                 .ReservationNotes
                 .FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found.");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.That(entity.IsDeleted, Is.True);
             Assert.That(entity.DeletedOn, Is.Not.Null);
         }
@@ -252,7 +252,7 @@ namespace Roomed.Data.Tests
             var entity = await this.dbContext
                 .ReservationNotes
                 .FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found.");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             repository.Undelete(entity);
 
             // Assert
@@ -262,7 +262,7 @@ namespace Roomed.Data.Tests
             entity = await this.dbContext
                 .ReservationNotes
                 .FindAsync(guid)
-                ?? throw new InvalidOperationException("Entity can not be found.");
+                ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.IsFalse(entity.IsDeleted);
             Assert.That(entity.DeletedOn, Is.Null);
         }

@@ -14,6 +14,7 @@ namespace Roomed.Services.Data
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Models;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.User;
@@ -55,17 +56,17 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentNullException(nameof(email), "Email cannot be null or white space.");
+                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Email"));
             }
 
             if (string.IsNullOrWhiteSpace(username))
             {
-                throw new ArgumentNullException(nameof(username), "Username cannot be null or white space.");
+                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Username"));
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException(nameof(password), "Password cannot be null or white space.");
+                throw new ArgumentNullException(nameof(password), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Password"));
             }
 
             TUser user = this.CreateUserWithEmailAndUsername(email, username);
@@ -96,12 +97,12 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentNullException(nameof(email), "Email cannot be null or white space.");
+                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Email"));
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException(nameof(password), "Password cannot be null or white space.");
+                throw new ArgumentNullException(nameof(password), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Password"));
             }
 
             var user = await this.FindUserByEmailAsync(email);
@@ -116,12 +117,12 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(username))
             {
-                throw new ArgumentNullException(nameof(username), "Username cannot be null or white space.");
+                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Username"));
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException(nameof(password), "Password cannot be null or white space.");
+                throw new ArgumentNullException(nameof(password), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Password"));
             }
 
             var user = await this.FindUserByUsernameAsync(username);
@@ -141,7 +142,7 @@ namespace Roomed.Services.Data
         {
             if (user == null)
             {
-                throw new ArgumentNullException(nameof(user), "User cannot be null.");
+                throw new ArgumentNullException(nameof(user), string.Format(ErrorMessagesConstants.VariableNull, "User"));
             }
 
             var principal = user as ClaimsPrincipal;
@@ -156,14 +157,14 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentNullException(nameof(email), "Email cannot be null or white space.");
+                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Email"));
             }
 
             var user = await this.userManager.FindByEmailAsync(email);
 
             if (user == null)
             {
-                throw new InvalidOperationException("No user with this email was found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "User", nameof(email)));
             }
 
             return user;
@@ -176,14 +177,14 @@ namespace Roomed.Services.Data
         {
             if (id == null)
             {
-                throw new ArgumentNullException(nameof(id), "Id cannot be null.");
+                throw new ArgumentNullException(nameof(id), string.Format(ErrorMessagesConstants.VariableNull, "Id"));
             }
 
             var user = await this.userManager.FindByIdAsync(id);
 
             if (user == null)
             {
-                throw new InvalidOperationException("No user with this id was found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "User", nameof(id));
             }
 
             return user;
@@ -196,14 +197,14 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(username))
             {
-                throw new ArgumentNullException(nameof(username), "Username cannot be null or white space.");
+                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Username"));
             }
 
             var user = await this.userManager.FindByNameAsync(username);
 
             if (user == null)
             {
-                throw new InvalidOperationException("No user with this username was found.");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "User", nameof(username));
             }
 
             return user;
@@ -215,12 +216,12 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentNullException(nameof(email), "Email cannot be null or white space.");
+                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Email"));
             }
 
             if (string.IsNullOrWhiteSpace(username))
             {
-                throw new ArgumentNullException(nameof(username), "Username cannot be null or white space.");
+                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Username"));
             }
 
             var user = Activator.CreateInstance<TUser>();
@@ -271,7 +272,9 @@ namespace Roomed.Services.Data
 
             if (!isValid)
             {
-                throw new ArgumentException("User model state is not valid.", nameof(userDto));
+                throw new ArgumentException(
+                    string.Format(ErrorMessagesConstants.EntitysModelStateIsNotValid, "User"),
+                    nameof(userDto));
             }
 
             string id = userDto?.Id?.ToString() ?? throw new ArgumentNullException(nameof(userDto.Id));

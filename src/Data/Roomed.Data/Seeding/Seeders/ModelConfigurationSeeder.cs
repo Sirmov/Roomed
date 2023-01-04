@@ -11,6 +11,7 @@ namespace Roomed.Data.Seeding.Seeders
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Newtonsoft.Json;
 
+    using Roomed.Common.Constants;
     using Roomed.Services.Json.SerializerSettings;
 
     /// <summary>
@@ -45,7 +46,7 @@ namespace Roomed.Data.Seeding.Seeders
 
             if (data == null)
             {
-                throw new NullReferenceException("Deserialized object is set to a null reference.");
+                throw new NullReferenceException(string.Format(ErrorMessagesConstants.NullReference, "Deserialized object"));
             }
 
             builder.HasData(data);

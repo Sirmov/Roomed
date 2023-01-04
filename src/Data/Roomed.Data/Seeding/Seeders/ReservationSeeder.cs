@@ -10,6 +10,7 @@ namespace Roomed.Data.Seeding.Seeders
     using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Models;
     using Roomed.Services.Json.SerializerSettings;
 
@@ -23,7 +24,7 @@ namespace Roomed.Data.Seeding.Seeders
         {
             string json = await File.ReadAllTextAsync("../../Data/Roomed.Data/Seeding/Data/ReservationSeed.json");
             var reservations = JsonConvert.DeserializeObject<IEnumerable<Reservation>>(json, new DateOnlyJsonSettings().Settings)
-                ?? throw new InvalidOperationException("Deserialization was not successful.");
+                ?? throw new InvalidOperationException(ErrorMessagesConstants.DeserializationFailed);
 
             foreach (var reservation in reservations)
             {

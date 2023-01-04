@@ -10,6 +10,7 @@ namespace Roomed.Data.Seeding.Seeders
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Models;
 
     /// <summary>
@@ -20,7 +21,8 @@ namespace Roomed.Data.Seeding.Seeders
         /// <inheritdoc/>
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>() ?? throw new ArgumentException("User manager is null.");
+            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>() ??
+                throw new ArgumentException(string.Format(ErrorMessagesConstants.VariableIsNull, "User manager"));
 
             ApplicationUser receptionist = new ApplicationUser()
             {

@@ -11,6 +11,7 @@ namespace Roomed.Services.Data
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Common.Repositories;
     using Roomed.Data.Models;
     using Roomed.Data.Models.Enums;
@@ -124,14 +125,14 @@ namespace Roomed.Services.Data
             }
             else
             {
-                throw new InvalidOperationException("Cannot make a reservation for the past.");
+                throw new InvalidOperationException(ErrorMessagesConstants.ReservationInThePast);
             }
 
             bool isValid = base.ValidateDto(reservationDto);
 
             if (!isValid)
             {
-                throw new ArgumentException("Reservation model state is not valid.", nameof(reservationDto));
+                throw new ArgumentException(string.Format(ErrorMessagesConstants.EntitysModelStateIsNotValid, "Reservation"), nameof(reservationDto));
             }
 
             Reservation model = this.mapper.Map<Reservation>(reservationDto);

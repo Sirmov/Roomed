@@ -16,6 +16,7 @@ namespace Roomed.Data.Repositories
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Common.Models;
     using Roomed.Data.Common.Repositories;
 
@@ -83,7 +84,7 @@ namespace Roomed.Data.Repositories
 
             if (entity == null)
             {
-                throw new InvalidOperationException("There is no entity found with this id!");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "entity", nameof(id)));
             }
 
             if (isReadonly)
@@ -105,7 +106,7 @@ namespace Roomed.Data.Repositories
 
             if (entity == null)
             {
-                throw new InvalidOperationException("There is no entity found with this id!");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "entity", nameof(id)));
             }
 
             if (isReadonly)
@@ -171,7 +172,7 @@ namespace Roomed.Data.Repositories
 
             if (entity == null)
             {
-                throw new InvalidOperationException("There is no entity found with this id!");
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "entity", nameof(id)));
             }
 
             this.Update(entity);
