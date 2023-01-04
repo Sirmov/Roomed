@@ -184,7 +184,7 @@ namespace Roomed.Services.Data
 
             if (user == null)
             {
-                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "User", nameof(id));
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "User", nameof(id)));
             }
 
             return user;
@@ -204,7 +204,7 @@ namespace Roomed.Services.Data
 
             if (user == null)
             {
-                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "User", nameof(username));
+                throw new InvalidOperationException(string.Format(ErrorMessagesConstants.NoEntityWithPropertyFound, "User", nameof(username)));
             }
 
             return user;
