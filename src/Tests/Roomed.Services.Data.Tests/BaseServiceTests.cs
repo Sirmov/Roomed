@@ -21,7 +21,7 @@ namespace Roomed.Services.Data.Tests
     using Roomed.Services.Data.Tests.TestClasses;
     using Roomed.Tests.Common;
 
-    using static Roomed.Common.DataConstants.ReservationNote;
+    using static Roomed.Common.Constants.DataConstants.ReservationNote;
 
     /// <summary>
     /// This class contains all unit tests for <see cref="BaseService{TEntity, TKey}"/>.

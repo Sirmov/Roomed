@@ -16,7 +16,7 @@ namespace Roomed.Web.ViewModels.User
     using Roomed.Services.Data.Dtos.User;
     using Roomed.Services.Mapping;
 
-    using static Roomed.Common.DataConstants.ApplicationUser;
+    using static Roomed.Common.Constants.DataConstants.ApplicationUser;
 
     /// <summary>
     /// This is a <see cref="ApplicationUser"/> input model.

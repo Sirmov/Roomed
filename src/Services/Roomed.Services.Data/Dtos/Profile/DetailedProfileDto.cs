@@ -12,7 +12,7 @@ namespace Roomed.Services.Data.Dtos.Profile
     using Roomed.Data.Models.Enums;
     using Roomed.Services.Mapping;
 
-    using static Roomed.Common.DataConstants.Profile;
+    using static Roomed.Common.Constants.DataConstants.Profile;
 
     /// <summary>
     /// This is a detailed <see cref="Roomed.Data.Models.Profile"/> data transfer object.

@@ -16,7 +16,7 @@ namespace Roomed.Services.Data.Dtos.Reservation
     using Roomed.Services.Data.Dtos.RoomType;
     using Roomed.Services.Mapping;
 
-    using static Roomed.Common.DataConstants.Reservation;
+    using static Roomed.Common.Constants.DataConstants.Reservation;
 
     /// <summary>
     /// This is a <see cref="Roomed.Data.Models.Reservation"/> data transfer object.

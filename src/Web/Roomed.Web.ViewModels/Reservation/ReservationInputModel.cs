@@ -14,7 +14,7 @@ namespace Roomed.Web.ViewModels.Reservation
     using Roomed.Services.Data.Dtos.Reservation;
     using Roomed.Services.Mapping;
 
-    using static Roomed.Common.DataConstants.Reservation;
+    using static Roomed.Common.Constants.DataConstants.Reservation;
 
     /// <summary>
     /// This is a <see cref="Roomed.Data.Models.Reservation"/> input model.

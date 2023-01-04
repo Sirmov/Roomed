@@ -15,7 +15,7 @@ namespace Roomed.Services.Data.Tests
     using Roomed.Services.Data.Dtos.Profile;
     using Roomed.Tests.Common;
 
-    using static Roomed.Common.DataConstants.Profile;
+    using static Roomed.Common.Constants.DataConstants.Profile;
 
     using Profile = Roomed.Data.Models.Profile;
 

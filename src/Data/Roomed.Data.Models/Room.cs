@@ -12,7 +12,7 @@ namespace Roomed.Data.Models
 
     using Roomed.Data.Common.Models;
 
-    using static Roomed.Common.DataConstants.Room;
+    using static Roomed.Common.Constants.DataConstants.Room;
 
     /// <summary>
     /// Room entity model. Inherits <see cref="BaseDeletableModel{TKey}"/>. Has <see cref="int"/> id.

@@ -16,7 +16,7 @@ namespace Roomed.Web.Controllers
 
     using Roomed.Common.Attribues;
 
-    using static Roomed.Common.AreasControllersActionsConstants;
+    using static Roomed.Common.Constants.AreasControllersActionsConstants;
 
     /// <summary>
     /// The base controller is a base class for all controllers in this application.

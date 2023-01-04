@@ -11,7 +11,7 @@ namespace Roomed.Services.Data.Dtos.RoomType
 
     using Roomed.Services.Mapping;
 
-    using static Roomed.Common.DataConstants.RoomType;
+    using static Roomed.Common.Constants.DataConstants.RoomType;
 
     /// <summary>
     /// This is a <see cref="Roomed.Data.Models.RoomType"/> data transfer object.

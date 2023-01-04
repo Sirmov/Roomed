@@ -5,7 +5,7 @@
 // </copyright>
 // |-----------------------------------------------------------------------------------------------------|
 
-namespace Roomed.Common
+namespace Roomed.Common.Constants
 {
     /// <summary>
     /// This static class contains all of the data models validations constraints.

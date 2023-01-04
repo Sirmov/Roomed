@@ -12,7 +12,7 @@ namespace Roomed.Data.Configurations
 
     using Roomed.Data.Models;
 
-    using static Roomed.Common.DataConstants.ApplicationUser;
+    using static Roomed.Common.Constants.DataConstants.ApplicationUser;
 
     /// <summary>
     /// Model builder configuration for <see cref="ApplicationUser"/> entity.

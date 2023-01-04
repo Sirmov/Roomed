@@ -22,7 +22,7 @@ namespace Roomed.Web.Controllers
     using Roomed.Web.ViewModels.Room;
     using Roomed.Web.ViewModels.RoomType;
 
-    using static Roomed.Common.AreasControllersActionsConstants;
+    using static Roomed.Common.Constants.AreasControllersActionsConstants;
 
     /// <summary>
     /// A MVC controller inheriting <see cref="BaseController"/>.

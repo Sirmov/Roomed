@@ -9,7 +9,7 @@ namespace Roomed.Web.ViewModels.User
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Roomed.Common.DataConstants.ApplicationUser;
+    using static Roomed.Common.Constants.DataConstants.ApplicationUser;
 
     /// <summary>
     /// This is a login view model. It is used for displaying the login form and validation errors.

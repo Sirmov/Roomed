@@ -12,7 +12,7 @@ namespace Roomed.Data.Models
 
     using Roomed.Data.Common.Models;
 
-    using static Roomed.Common.DataConstants.ReservationNote;
+    using static Roomed.Common.Constants.DataConstants.ReservationNote;
 
     /// <summary>
     /// Reservation note entity model. Inherits <see cref="BaseDeletableModel{TKey}"/>. Has <see cref="Guid"/> id.

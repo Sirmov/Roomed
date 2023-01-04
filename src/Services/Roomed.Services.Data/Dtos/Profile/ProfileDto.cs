@@ -11,7 +11,7 @@ namespace Roomed.Services.Data.Dtos.Profile
 
     using Roomed.Services.Mapping;
 
-    using static Roomed.Common.DataConstants.Profile;
+    using static Roomed.Common.Constants.DataConstants.Profile;
 
     /// <summary>
     /// This is a <see cref="Roomed.Data.Models.Profile"/> data transfer object.

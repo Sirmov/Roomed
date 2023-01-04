@@ -13,7 +13,7 @@ namespace Roomed.Services.Data.Dtos.IdentityDocument
     using Roomed.Data.Models.Enums;
     using Roomed.Services.Mapping;
 
-    using static Roomed.Common.DataConstants.IdentityDocument;
+    using static Roomed.Common.Constants.DataConstants.IdentityDocument;
 
     /// <summary>
     /// This is a <see cref="Roomed.Data.Models.IdentityDocument"/> data transfer object.

@@ -12,7 +12,7 @@ namespace Roomed.Data.Models
     using Roomed.Data.Common.Models;
     using Roomed.Data.Models.Enums;
 
-    using static Roomed.Common.DataConstants.Profile;
+    using static Roomed.Common.Constants.DataConstants.Profile;
 
     /// <summary>
     /// Profile entity model. Inherits <see cref="BaseDeletableModel{TKey}"/>. Has <see cref="Guid"/> id.

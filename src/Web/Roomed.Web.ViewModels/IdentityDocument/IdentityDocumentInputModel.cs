@@ -15,7 +15,7 @@ namespace Roomed.Web.ViewModels.IdentityDocument
     using Roomed.Services.Data.Dtos.IdentityDocument;
     using Roomed.Services.Mapping;
 
-    using static Roomed.Common.DataConstants.IdentityDocument;
+    using static Roomed.Common.Constants.DataConstants.IdentityDocument;
 
     /// <summary>
     /// This is a <see cref="Roomed.Data.Models.IdentityDocument"/> input model.

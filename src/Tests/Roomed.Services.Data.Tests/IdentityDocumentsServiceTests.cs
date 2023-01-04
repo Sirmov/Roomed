@@ -17,7 +17,7 @@ namespace Roomed.Services.Data.Tests
     using Roomed.Services.Data.Dtos.IdentityDocument;
     using Roomed.Tests.Common;
 
-    using static Roomed.Common.DataConstants.IdentityDocument;
+    using static Roomed.Common.Constants.DataConstants.IdentityDocument;
 
     /// <summary>
     /// This class contains all unit tests for <see cref="IdentityDocumentsService"/>.

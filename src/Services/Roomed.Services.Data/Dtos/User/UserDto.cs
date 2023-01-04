@@ -11,7 +11,7 @@ namespace Roomed.Services.Data.Dtos.User
 
     using Microsoft.AspNetCore.Identity;
 
-    using static Roomed.Common.DataConstants.ApplicationUser;
+    using static Roomed.Common.Constants.DataConstants.ApplicationUser;
 
     /// <summary>
     /// This is a <see cref="Roomed.Data.Models.ApplicationUser"/> data transfer object.

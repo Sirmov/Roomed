@@ -24,7 +24,7 @@ using Roomed.Services.Mapping;
 using Roomed.Web.Extensions;
 using Roomed.Web.ViewModels;
 
-using static Roomed.Common.DataConstants.ApplicationUser;
+using static Roomed.Common.Constants.DataConstants.ApplicationUser;
 
 internal class Program
 {

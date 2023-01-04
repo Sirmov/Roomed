@@ -12,7 +12,7 @@ namespace Roomed.Services.Data.Dtos.ReservationNote
     using Roomed.Services.Data.Dtos.Reservation;
     using Roomed.Services.Mapping;
 
-    using static Roomed.Common.DataConstants.ReservationNote;
+    using static Roomed.Common.Constants.DataConstants.ReservationNote;
 
     /// <summary>
     /// This is a <see cref="Roomed.Data.Models.ReservationNote"/> data transfer object.

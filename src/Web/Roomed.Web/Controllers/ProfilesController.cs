@@ -18,8 +18,8 @@ namespace Roomed.Web.Controllers
     using Roomed.Services.Data.Dtos.Profile;
     using Roomed.Web.ViewModels.Profile;
 
-    using static Roomed.Common.AreasControllersActionsConstants;
-    using static Roomed.Common.GlobalConstants;
+    using static Roomed.Common.Constants.AreasControllersActionsConstants;
+    using static Roomed.Common.Constants.GlobalConstants;
 
     using Profile = Roomed.Data.Models.Profile;
 

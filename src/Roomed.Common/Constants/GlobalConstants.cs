@@ -5,7 +5,7 @@
 // </copyright>
 // |-----------------------------------------------------------------------------------------------------|
 
-namespace Roomed.Common
+namespace Roomed.Common.Constants
 {
     using Microsoft.AspNetCore.Mvc.Rendering;
 

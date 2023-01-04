@@ -5,7 +5,7 @@
 // </copyright>
 // |-----------------------------------------------------------------------------------------------------|
 
-namespace Roomed.Common
+namespace Roomed.Common.Constants
 {
     /// <summary>
     /// This is a static class containing string constants of all area, controller and action names.
