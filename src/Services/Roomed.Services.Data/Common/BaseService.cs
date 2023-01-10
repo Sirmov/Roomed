@@ -56,7 +56,7 @@ namespace Roomed.Services.Data.Common
                 .All(queryOptions?.IsReadOnly ?? false, queryOptions?.WithDeleted ?? false)
                 .ProjectTo<TDto>(this.mapper.ConfigurationProvider);
 
-            this.ModifyQuery(query, queryOptions ?? new ());
+            query = this.ModifyQuery(query, queryOptions ?? new ());
 
             var dtos = await query.ToListAsync();
 
@@ -178,11 +178,11 @@ namespace Roomed.Services.Data.Common
             {
                 if (orderOption.Order == OrderByOrder.Ascending)
                 {
-                    query = query.OrderBy(x => this.GetPropertyInfo(x, orderOption.Property).GetValue(x));
+                    query = query.OrderBy(orderOption.Property);
                 }
                 else
                 {
-                    query = query.OrderByDescending(x => this.GetPropertyInfo(x, orderOption.Property).GetValue(x));
+                    query = query.OrderByDescending(orderOption.Property);
                 }
             }
 
