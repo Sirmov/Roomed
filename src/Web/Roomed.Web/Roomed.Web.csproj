@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-Roomed.Web-82AB629F-0055-448F-912B-3CE49FBFD049</UserSecretsId>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>D:\Programming\Repos\Roomed\src\Documentation\Web\Roomed.Web.xml</DocumentationFile>
+    <DocumentationFile>..\..\Documentation\Web\Roomed.Web.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>D:\Programming\Repos\Roomed\src\Documentation\Services\Roomed.Services.Mapping.xml</DocumentationFile>
+    <DocumentationFile>..\..\Documentation\Services\Roomed.Services.Mapping.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
