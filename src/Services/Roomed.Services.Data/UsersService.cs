@@ -142,7 +142,7 @@ namespace Roomed.Services.Data
         {
             if (user == null)
             {
-                throw new ArgumentNullException(nameof(user), string.Format(ErrorMessagesConstants.VariableNull, "User"));
+                throw new ArgumentNullException(nameof(user), string.Format(ErrorMessagesConstants.VariableIsNull, nameof(user)));
             }
 
             var principal = user as ClaimsPrincipal;
@@ -177,7 +177,7 @@ namespace Roomed.Services.Data
         {
             if (id == null)
             {
-                throw new ArgumentNullException(nameof(id), string.Format(ErrorMessagesConstants.VariableNull, "Id"));
+                throw new ArgumentNullException(nameof(id), string.Format(ErrorMessagesConstants.VariableIsNull, nameof(id)));
             }
 
             var user = await this.userManager.FindByIdAsync(id);
