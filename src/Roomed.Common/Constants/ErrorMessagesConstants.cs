@@ -13,20 +13,28 @@ namespace Roomed.Common.Constants
     public class ErrorMessagesConstants
     {
         /// <summary>
-        /// A error message indicating that a variable is null.
+        /// A error message indicating that a variable can not be null.
         /// 0 Parameter - The name of the variable.
         /// </summary>
-        public const string VariableIsNull = "{0} is null";
+        public const string VariableIsNull = "Variable \"{0}\" cannot be null.";
 
         /// <summary>
-        /// A error message indicating that the role manager is null.
+        /// A error message indicating that a argument cannot be null.
+        /// 0 Parameter - The name of the argument.
         /// </summary>
-        public const string RoleMannagerIsNull = "Role manager is null.";
+        public const string ArgumentIsNull = "Argument \"{0}\" cannot be null.";
 
         /// <summary>
-        /// A error message indicating that the user manager is null.
+        /// A error message indicating that a variable can not be null or white space.
+        /// 0 Parameter - The name of the variable.
         /// </summary>
-        public const string UserManagerIsNull = "User manager is null.";
+        public const string VariableNullOrWhiteSpace = "{0} cannot be null or white space";
+
+        /// <summary>
+        /// A error message indicating a variable is set to a null reference.
+        /// 0 Parameter - The name of the variable.
+        /// </summary>
+        public const string NullReference = "{0} is set to a null reference.";
 
         /// <summary>
         /// A error message indicating that the entity's state is not valid.
@@ -62,18 +70,6 @@ namespace Roomed.Common.Constants
         public const string ControlledCanNotBeAssuemd = "Controller can not be assumed, it has to be specified.";
 
         /// <summary>
-        /// A error message indicating that a variable can not be null or white space.
-        /// 0 Parameter - The name of the variable.
-        /// </summary>
-        public const string VariableNullOrWhiteSpace = "{0} cannot be null or white space";
-
-        /// <summary>
-        /// A error message indicating that a variable can not be null.
-        /// 0 Parameter - The name of the variable.
-        /// </summary>
-        public const string VariableNull = "{0} cannot be null.";
-
-        /// <summary>
         /// A error message indicating that the deserialization was not successful.
         /// </summary>
         public const string DeserializationFailed = "Deserialization was not successful.";
@@ -93,12 +89,6 @@ namespace Roomed.Common.Constants
         /// 0 Parameter - The name of the entity.
         /// 1 Parameter - The name of the property.
         /// </summary>
-        public const string NoEntityWithPropertyFound = "No {0} with this {1} was found";
-
-        /// <summary>
-        /// A error message indicating a variable is set to a null reference.
-        /// 0 Parameter - The name of the variable.
-        /// </summary>
-        public const string NullReference = "{0} is set to a null reference.";
+        public const string NoEntityWithPropertyFound = "No {0} with this {1} was found.";
     }
 }
