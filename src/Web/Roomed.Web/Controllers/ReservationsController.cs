@@ -277,7 +277,7 @@ namespace Roomed.Web.Controllers
 
             if (model.ArrivalDate < today)
             {
-                ModelState.AddModelError(nameof(model.ArrivalDate), "Can not create a reservation from the past.");
+                ModelState.AddModelError(nameof(model.ArrivalDate), "Cannot create a reservation from the past.");
             }
 
             if (model.Adults < 1)
