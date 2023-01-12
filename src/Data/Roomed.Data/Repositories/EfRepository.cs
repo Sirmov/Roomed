@@ -75,7 +75,7 @@ namespace Roomed.Data.Repositories
 
         /// <inheritdoc/>
         /// <exception cref="ArgumentNullException">Throws when the <paramref name="id"/> is null.</exception>
-        /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
+        /// <exception cref="InvalidOperationException">Throws when the entity cannot be found.</exception>
         public virtual TEntity Find(TKey id, bool isReadonly = false)
         {
             ArgumentNullException.ThrowIfNull(id);
@@ -97,7 +97,7 @@ namespace Roomed.Data.Repositories
 
         /// <inheritdoc/>
         /// <exception cref="ArgumentNullException">Throws when the <paramref name="id"/> is null.</exception>
-        /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
+        /// <exception cref="InvalidOperationException">Throws when the entity cannot be found.</exception>
         public virtual async Task<TEntity> FindAsync(TKey id, bool isReadonly = false)
         {
             ArgumentNullException.ThrowIfNull(id);
@@ -165,7 +165,7 @@ namespace Roomed.Data.Repositories
         }
 
         /// <inheritdoc/>
-        /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
+        /// <exception cref="InvalidOperationException">Throws when the entity cannot be found.</exception>
         public virtual async Task UpdateAsync(TKey id)
         {
             TEntity? entity = await this.FindAsync(id);
@@ -201,7 +201,7 @@ namespace Roomed.Data.Repositories
         }
 
         /// <inheritdoc/>
-        /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
+        /// <exception cref="InvalidOperationException">Throws when the entity cannot be found.</exception>
         public virtual async Task DeleteAsync(TKey id)
         {
             TEntity entity = await this.FindAsync(id);

@@ -391,7 +391,7 @@ namespace Roomed.Data.Tests
                 ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
-                Assert.That(entity, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity, Is.Not.Null, "The entity cannot be found.");
                 Assert.That(entity.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
                 Assert.That(result.Entity.Id, Is.EqualTo(entity.Id), "Ids don't match.");
                 Assert.That(body, Is.EqualTo(entity.Body), "Entity data is not set or is not matching.");
@@ -422,7 +422,7 @@ namespace Roomed.Data.Tests
                 ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
-                Assert.That(entity, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity, Is.Not.Null, "The entity cannot be found.");
                 Assert.That(entity.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
                 Assert.That(result.Entity.Id, Is.EqualTo(entity.Id), "Ids don't match.");
                 Assert.That(body, Is.EqualTo(entity.Body), "Entity data is not set or is not matching.");
@@ -459,7 +459,7 @@ namespace Roomed.Data.Tests
                 .FirstAsync(rn => rn.Body == body1);
             Assert.Multiple(() =>
             {
-                Assert.That(entity1, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity1, Is.Not.Null, "The entity cannot be found.");
                 Assert.That(entity1.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
                 Assert.That(body1, Is.EqualTo(entity1.Body), "Entity data is not set or is not matching.");
             });
@@ -470,7 +470,7 @@ namespace Roomed.Data.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(entity2, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity2, Is.Not.Null, "The entity cannot be found.");
                 Assert.That(entity2.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
                 Assert.That(body2, Is.EqualTo(entity2.Body), "Entity data is not set or is not matching.");
             });
@@ -506,7 +506,7 @@ namespace Roomed.Data.Tests
                 .FirstAsync(rn => rn.Body == body1);
             Assert.Multiple(() =>
             {
-                Assert.That(entity1, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity1, Is.Not.Null, "The entity cannot be found.");
                 Assert.That(entity1.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
                 Assert.That(body1, Is.EqualTo(entity1.Body), "Entity data is not set or is not matching.");
             });
@@ -516,7 +516,7 @@ namespace Roomed.Data.Tests
                 .FirstAsync(rn => rn.Body == body2);
             Assert.Multiple(() =>
             {
-                Assert.That(entity2, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity2, Is.Not.Null, "The entity cannot be found.");
                 Assert.That(entity2.CreatedOn, Is.Not.EqualTo(default(DateTime)), "Created should be set.");
                 Assert.That(body2, Is.EqualTo(entity2.Body), "Entity data is not set or is not matching.");
             });
@@ -556,7 +556,7 @@ namespace Roomed.Data.Tests
                 ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
-                Assert.That(entity, Is.Not.Null, "Entity can not be found.");
+                Assert.That(entity, Is.Not.Null, "Entity cannot be found.");
                 Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not updated.");
                 Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
             });
@@ -603,7 +603,7 @@ namespace Roomed.Data.Tests
                 ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
-                Assert.That(entity, Is.Not.Null, "Entity can not be found.");
+                Assert.That(entity, Is.Not.Null, "Entity cannot be found.");
                 Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not updated.");
                 Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
             });
@@ -643,7 +643,7 @@ namespace Roomed.Data.Tests
                 ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
-                Assert.That(entity, Is.Not.Null, "Entity can not be found.");
+                Assert.That(entity, Is.Not.Null, "Entity cannot be found.");
                 Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not modified.");
                 Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
             });
@@ -694,7 +694,7 @@ namespace Roomed.Data.Tests
                 ?? throw new InvalidOperationException(string.Format(ErrorMessagesConstants.EntityNotFound, "entity"));
             Assert.Multiple(() =>
             {
-                Assert.That(entity, Is.Not.Null, "Entity can not be found.");
+                Assert.That(entity, Is.Not.Null, "Entity cannot be found.");
                 Assert.That(entity.Body, Is.EqualTo(modifiedBody), "Entity's data is not modified.");
                 Assert.That(entity.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
             });
@@ -762,7 +762,7 @@ namespace Roomed.Data.Tests
                 .FirstAsync(rn => rn.Body == body1 + addition);
             Assert.Multiple(() =>
             {
-                Assert.That(entity1, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity1, Is.Not.Null, "The entity cannot be found.");
                 Assert.That(entity1.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
                 Assert.That(entity1.Body, Is.EqualTo(body1 + addition), "Entity data is not set or is not matching.");
             });
@@ -771,7 +771,7 @@ namespace Roomed.Data.Tests
                 .FirstAsync(rn => rn.Body == body2 + addition);
             Assert.Multiple(() =>
             {
-                Assert.That(entity2, Is.Not.Null, "The entity can not be found.");
+                Assert.That(entity2, Is.Not.Null, "The entity cannot be found.");
                 Assert.That(entity2.ModifiedOn, Is.Not.Null, "ModifiedOn should not be null.");
                 Assert.That(entity2.Body, Is.EqualTo(body2 + addition), "Entity data is not set or is not matching.");
             });
@@ -784,7 +784,7 @@ namespace Roomed.Data.Tests
         /// <param name="id">The id of the new entity.</param>
         /// <param name="body">The body of the new entity.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
-        /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
+        /// <exception cref="InvalidOperationException">Throws when the entity cannot be found.</exception>
         // Delete(TEntity entity)
         [Test]
         [TestCase("d429e67c-d9d7-4a93-9ba7-e35ad2150182", "I'm going to be deleted :(")]
@@ -816,7 +816,7 @@ namespace Roomed.Data.Tests
         /// <param name="id">The id of the new entity.</param>
         /// <param name="body">The body of the new entity.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
-        /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
+        /// <exception cref="InvalidOperationException">Throws when the entity cannot be found.</exception>
         // DeleteAsync(TKey id)
         [Test]
         [TestCase("3edef0b0-912d-497a-ae8c-d183b898d627", "I'm going to be deleted :(")]
@@ -925,7 +925,7 @@ namespace Roomed.Data.Tests
         /// <param name="id">The id of the entity to be detached.</param>
         /// <param name="body">The body of entity.</param>
         /// <returns>Returns a <see cref="Task"/>.</returns>
-        /// <exception cref="InvalidOperationException">Throws when the entity can not be found.</exception>
+        /// <exception cref="InvalidOperationException">Throws when the entity cannot be found.</exception>
         // Detach(TEntity entity)
         [Test]
         [TestCase("9a14c00e-dbd6-4b05-9541-2af3f5ec6f31", "Am I detached?")]

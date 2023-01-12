@@ -13,7 +13,7 @@ namespace Roomed.Common.Constants
     public class ErrorMessagesConstants
     {
         /// <summary>
-        /// A error message indicating that a variable can not be null.
+        /// A error message indicating that a variable cannot be null.
         /// 0 Parameter - The name of the variable.
         /// </summary>
         public const string VariableIsNull = "Variable \"{0}\" cannot be null.";
@@ -25,7 +25,7 @@ namespace Roomed.Common.Constants
         public const string ArgumentIsNull = "Argument \"{0}\" cannot be null.";
 
         /// <summary>
-        /// A error message indicating that a variable can not be null or white space.
+        /// A error message indicating that a variable cannot be null or white space.
         /// 0 Parameter - The name of the variable.
         /// </summary>
         public const string VariableNullOrWhiteSpace = "{0} cannot be null or white space";
@@ -43,7 +43,7 @@ namespace Roomed.Common.Constants
         public const string EntitysModelStateIsNotValid = "{0} model state is not valid.";
 
         /// <summary>
-        /// A error message indicating that the entity can not be found.
+        /// A error message indicating that the entity cannot be found.
         /// 0 Parameter - The name of the entity.
         /// </summary>
         public const string EntityNotFound = "The {0} cannot be found.";
@@ -59,15 +59,15 @@ namespace Roomed.Common.Constants
         public const string NoEntityWithId = "There is no entity found with this id!";
 
         /// <summary>
-        /// A error message indicating that the script file can not be found.
+        /// A error message indicating that the script file cannot be found.
         /// 0 Parameter - The searched directory.
         /// </summary>
-        public const string ScriptNotFound = "Script file can not be found. Searched \"/wwroot/{0}\".";
+        public const string ScriptNotFound = "Script file cannot be found. Searched \"/wwroot/{0}\".";
 
         /// <summary>
-        /// A error message indicating that a controller can not be assumed and should be specified.
+        /// A error message indicating that a controller cannot be assumed and should be specified.
         /// </summary>
-        public const string ControlledCanNotBeAssuemd = "Controller can not be assumed, it has to be specified.";
+        public const string ControlledCanNotBeAssuemd = "Controller cannot be assumed, it has to be specified.";
 
         /// <summary>
         /// A error message indicating that the deserialization was not successful.
@@ -75,7 +75,7 @@ namespace Roomed.Common.Constants
         public const string DeserializationFailed = "Deserialization was not successful.";
 
         /// <summary>
-        /// A error message indicating that a reservation can not be made in the past.
+        /// A error message indicating that a reservation cannot be made in the past.
         /// </summary>
         public const string ReservationInThePast = "Cannot make a reservation for the past.";
 
