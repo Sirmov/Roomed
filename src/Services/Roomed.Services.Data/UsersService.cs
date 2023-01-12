@@ -56,17 +56,17 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Email"));
+                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Email"));
             }
 
             if (string.IsNullOrWhiteSpace(username))
             {
-                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Username"));
+                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Username"));
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException(nameof(password), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Password"));
+                throw new ArgumentNullException(nameof(password), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Password"));
             }
 
             TUser user = this.CreateUserWithEmailAndUsername(email, username);
@@ -97,12 +97,12 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Email"));
+                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Email"));
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException(nameof(password), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Password"));
+                throw new ArgumentNullException(nameof(password), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Password"));
             }
 
             var user = await this.FindUserByEmailAsync(email);
@@ -117,12 +117,12 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(username))
             {
-                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Username"));
+                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Username"));
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException(nameof(password), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Password"));
+                throw new ArgumentNullException(nameof(password), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Password"));
             }
 
             var user = await this.FindUserByUsernameAsync(username);
@@ -157,7 +157,7 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Email"));
+                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Email"));
             }
 
             var user = await this.userManager.FindByEmailAsync(email);
@@ -197,7 +197,7 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(username))
             {
-                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Username"));
+                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Username"));
             }
 
             var user = await this.userManager.FindByNameAsync(username);
@@ -216,12 +216,12 @@ namespace Roomed.Services.Data
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Email"));
+                throw new ArgumentNullException(nameof(email), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Email"));
             }
 
             if (string.IsNullOrWhiteSpace(username))
             {
-                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableNullOrWhiteSpace, "Username"));
+                throw new ArgumentNullException(nameof(username), string.Format(ErrorMessagesConstants.VariableIsNullOrWhiteSpace, "Username"));
             }
 
             var user = Activator.CreateInstance<TUser>();

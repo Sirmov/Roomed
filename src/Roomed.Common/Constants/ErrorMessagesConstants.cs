@@ -19,16 +19,70 @@ namespace Roomed.Common.Constants
         public const string VariableIsNull = "Variable \"{0}\" cannot be null.";
 
         /// <summary>
+        /// A error message indicating that a variable cannot be true.
+        /// </summary>
+        public const string VariableIsTrue = "Variable \"{0}\" cannot be true.";
+
+        /// <summary>
+        /// A error message indicating that a variable cannot be false.
+        /// </summary>
+        public const string VariableIsFalse = "Variable \"{0}\" cannot be false.";
+
+        /// <summary>
         /// A error message indicating that a argument cannot be null.
         /// 0 Parameter - The name of the argument.
         /// </summary>
         public const string ArgumentIsNull = "Argument \"{0}\" cannot be null.";
 
         /// <summary>
+        /// A error message indicating that a argument cannot be true.
+        /// </summary>
+        public const string ArgumentIsTrue = "Argument \"{0}\" cannot be true.";
+
+        /// <summary>
+        /// A error message indicating that a argument cannot be false.
+        /// </summary>
+        public const string ArgumentIsFalse = "Argument \"{0}\" cannot be false.";
+
+        /// <summary>
         /// A error message indicating that a variable cannot be null or white space.
         /// 0 Parameter - The name of the variable.
         /// </summary>
-        public const string VariableNullOrWhiteSpace = "{0} cannot be null or white space";
+        public const string VariableIsNullOrWhiteSpace = "Variable \"{0}\" cannot be null or white space.";
+
+        /// <summary>
+        /// A error message indicating that a argument cannot be null or white space.
+        /// 0 Parameter - The name of the variable.
+        /// </summary>
+        public const string ArgumentIsNullOrWhiteSpace = "Argument \"{0}\" cannot be null or white space.";
+
+        /// <summary>
+        /// A error message indicating that a variable cannot be null or empty.
+        /// 0 Parameter - The name of the variable.
+        /// </summary>
+        public const string VariableIsNullOrEmpty = "Variable \"{0}\" cannot be null or empty.";
+
+        /// <summary>
+        /// A error message indicating that a argument cannot be null or empty.
+        /// 0 Parameter - The name of the variable.
+        /// </summary>
+        public const string ArgumentIsNullOrEmpty = "Argument \"{0}\" cannot be null or empty.";
+
+        /// <summary>
+        /// A error message indicating that a string variable does not match a regex pattern.
+        /// 0 Parameter - The name of the variable.
+        /// 1 Parameter - The string value of the variable.
+        /// 2 Parameter - The regex pattern.
+        /// </summary>
+        public const string VariableRegexDoesNotMatch = "Variable {0} does not match the regex pattern.\nString - {1}\nRegex - {2}";
+
+        /// <summary>
+        /// A error message indicating that a string argument does not match a regex pattern.
+        /// 0 Parameter - The name of the argument.
+        /// 1 Parameter - The string value of the argument.
+        /// 2 Parameter - The regex pattern.
+        /// </summary>
+        public const string ArgumentRegexDoesNotMatch = "Variable {0} does not match the regex pattern.\nString - {1}\nRegex - {2}";
 
         /// <summary>
         /// A error message indicating a variable is set to a null reference.
@@ -77,7 +131,7 @@ namespace Roomed.Common.Constants
         /// <summary>
         /// A error message indicating that a reservation cannot be made in the past.
         /// </summary>
-        public const string ReservationInThePast = "Cannot make a reservation for the past.";
+        public const string ReservationInThePast = "Cannot make a reservation from the past.";
 
         /// <summary>
         /// A error message indicating that a reservation already has reservation days.
