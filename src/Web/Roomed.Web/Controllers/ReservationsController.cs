@@ -14,6 +14,7 @@ namespace Roomed.Web.Controllers
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Newtonsoft.Json;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Models;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.Reservation;
@@ -73,7 +74,7 @@ namespace Roomed.Web.Controllers
             var reservations = await this.reservationsService.GetAllArrivingFromDateAsync(currentDate);
             var model = reservations.Select(r => this.mapper.Map<ReservationViewModel>(r));
 
-            ViewData["ReservationsType"] = "Arriving";
+            ViewData[DataKeyConstants.ReservationsType] = "Arriving";
             return View(model);
         }
 
@@ -113,7 +114,7 @@ namespace Roomed.Web.Controllers
             var reservations = await this.reservationsService.GetAllInHouseFromDateAsync(currentDate);
             var model = reservations.Select(r => mapper.Map<ReservationViewModel>(r));
 
-            ViewData["ReservationsType"] = "In House";
+            ViewData[DataKeyConstants.ReservationsType] = "In House";
             return View("Index", model);
         }
 
@@ -128,7 +129,7 @@ namespace Roomed.Web.Controllers
             var reservations = await this.reservationsService.GetAllDepartingFromDateAsync(currentDate);
             var model = reservations.Select(r => mapper.Map<ReservationViewModel>(r));
 
-            ViewData["ReservationsType"] = "Departing";
+            ViewData[DataKeyConstants.ReservationsType] = "Departing";
             return View("Index", model);
         }
 
@@ -180,7 +181,7 @@ namespace Roomed.Web.Controllers
                 return View(model);
             }
 
-            TempData["CreateReservationModel"] = JsonConvert.SerializeObject(model);
+            TempData[DataKeyConstants.CreateReservationModel] = JsonConvert.SerializeObject(model);
             return RedirectToAction(Actions.ChooseRoom, Controllers.Reservations);
         }
 
@@ -192,7 +193,7 @@ namespace Roomed.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> ChooseRoom()
         {
-            string? json = TempData["CreateReservationModel"]?.ToString();
+            string? json = TempData[DataKeyConstants.CreateReservationModel]?.ToString();
 
             if (json == null)
             {
@@ -210,8 +211,8 @@ namespace Roomed.Web.Controllers
 
             var rooms = await this.roomsService.GetAllFreeRoomsAsync(model.ArrivalDate, model.DepartureDate, roomType);
 
-            ViewData["FreeRooms"] = rooms.Select(r => this.mapper.Map<RoomViewModel>(r));
-            ViewData["ReservationInputModel"] = model;
+            ViewData[DataKeyConstants.FreeRooms] = rooms.Select(r => this.mapper.Map<RoomViewModel>(r));
+            ViewData[DataKeyConstants.ReservationInputModel] = model;
             return View(model);
         }
 

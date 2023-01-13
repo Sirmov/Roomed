@@ -11,6 +11,7 @@ namespace Roomed.Web.Areas.Administration.Controllers
     using Ganss.Xss;
     using Microsoft.AspNetCore.Mvc;
 
+    using Roomed.Common.Constants;
     using Roomed.Data.Models;
     using Roomed.Services.Data.Contracts;
     using Roomed.Services.Data.Dtos.User;
@@ -61,7 +62,7 @@ namespace Roomed.Web.Areas.Administration.Controllers
                 })
                 .Select(t => t.Result);
 
-            ViewData["AllRoles"] = await this.usersService.GetAllRolesAsync();
+            ViewData[DataKeyConstants.AllRoles] = await this.usersService.GetAllRolesAsync();
 
             return View(models);
         }
@@ -103,7 +104,7 @@ namespace Roomed.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Create()
         {
             var model = new UserInputModel();
-            ViewData["AllRoles"] = await this.usersService.GetAllRolesAsync();
+            ViewData[DataKeyConstants.AllRoles] = await this.usersService.GetAllRolesAsync();
 
             return View(model);
         }

@@ -15,6 +15,7 @@ namespace Roomed.Web.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     using Roomed.Common.Attribues;
+    using Roomed.Common.Constants;
 
     using static Roomed.Common.Constants.AreasControllersActionsConstants;
 
@@ -81,8 +82,8 @@ namespace Roomed.Web.Controllers
         [NonAction]
         protected IActionResult ShowError(string title, string message)
         {
-            TempData["ErrorTitle"] = title;
-            TempData["ErrorMessage"] = message;
+            TempData[DataKeyConstants.ErrorTitle] = title;
+            TempData[DataKeyConstants.ErrorMessage] = message;
 
             return RedirectToAction(Actions.Error, Controllers.Home, new { area = string.Empty });
         }

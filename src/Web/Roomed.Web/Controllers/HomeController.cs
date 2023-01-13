@@ -14,6 +14,7 @@ namespace Roomed.Web.Controllers
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
 
+    using Roomed.Common.Constants;
     using Roomed.Web.ViewModels;
 
     using static Roomed.Common.Constants.AreasControllersActionsConstants;
@@ -77,8 +78,8 @@ namespace Roomed.Web.Controllers
                 var exceptionHandlerPathFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
                 var error = exceptionHandlerPathFeature?.Error;
 
-                var errorTitle = TempData["ErrorTitle"]?.ToString();
-                var errorMessage = TempData["ErrorMessage"]?.ToString();
+                var errorTitle = TempData[DataKeyConstants.ErrorTitle]?.ToString();
+                var errorMessage = TempData[DataKeyConstants.ErrorMessage]?.ToString();
 
                 model.ShowRequestId = string.IsNullOrWhiteSpace(model.RequestId);
                 model.Title = errorTitle ?? "Something went wrong.";
