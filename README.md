@@ -80,7 +80,7 @@ You can install the project in three different ways.
 
 -   Open Git Bash.
 -   Change the current working directory to the location where you want the cloned project.
--   Type `git clone https://github.com/Sirmov/Mimega` and press enter.
+-   Type `git clone https://github.com/Sirmov/Roomed` and press enter.
 
 ### 2. Downloading the repository
 
