@@ -84,7 +84,7 @@ You can install the project in three different ways.
 
 ### 2. Downloading the repository
 
--   Go to the [root](https://github.com/Sirmov/Mimega) of the repository.
+-   Go to the [root](https://github.com/Sirmov/Roomed) of the repository.
 -   Click the green code button.
 -   Click download zip.
 <img width="50%" src="https://docs.github.com/assets/cb-20363/images/help/repository/code-button.png">
