@@ -233,3 +233,6 @@ generated_code = true
 
 [*.{cs,vb}]
 dotnet_diagnostic.SA1101.severity = suggestion
+
+# StyleCop
+dotnet_diagnostic.SA1124.severity = suggestion
