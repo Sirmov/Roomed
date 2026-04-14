@@ -26,8 +26,8 @@ namespace Roomed.Data.Configurations
                 .HasForeignKey(e => e.ReservationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(rd => rd.Date)
-                .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            // builder.Property(rd => rd.Date)
+            //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
         }
     }
 }

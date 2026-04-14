@@ -21,14 +21,14 @@ namespace Roomed.Data.Configurations
         /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<IdentityDocument> builder)
         {
-            builder.Property(e => e.Birthdate)
-                .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            // builder.Property(e => e.Birthdate)
+            //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
 
-            builder.Property(e => e.ValidFrom)
-                .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            // builder.Property(e => e.ValidFrom)
+            //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
 
-            builder.Property(e => e.ValidUntil)
-                .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            // builder.Property(e => e.ValidUntil)
+            //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
 
             builder.HasIndex(e => e.DocumentNumber)
                 .IsUnique(true);

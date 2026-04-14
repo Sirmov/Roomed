@@ -21,8 +21,8 @@ namespace Roomed.Data.Configurations
         /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<Profile> builder)
         {
-            builder.Property(e => e.Birthdate)
-                    .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            // builder.Property(e => e.Birthdate)
+            //         .HasConversion<DateOnlyConverter, DateOnlyComparer>();
         }
     }
 }

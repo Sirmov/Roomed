@@ -21,11 +21,11 @@ namespace Roomed.Data.Configurations
         /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
-            builder.Property(r => r.ArrivalDate)
-                .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            // builder.Property(r => r.ArrivalDate)
+            //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
 
-            builder.Property(r => r.DepartureDate)
-                .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            // builder.Property(r => r.DepartureDate)
+            //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
         }
     }
 }

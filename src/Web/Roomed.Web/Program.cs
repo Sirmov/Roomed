@@ -50,7 +50,7 @@ internal class Program
 
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseSqlServer(defaultConnectingString);
+            options.UseNpgsql(defaultConnectingString).UseSnakeCaseNamingConvention();
         });
         services.AddDatabaseDeveloperPageExceptionFilter();
 
