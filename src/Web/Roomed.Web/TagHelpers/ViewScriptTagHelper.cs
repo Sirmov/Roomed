@@ -8,6 +8,7 @@
 namespace Roomed.Web.TagHelpers
 {
     using Microsoft.AspNetCore.Mvc.Infrastructure;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
     using Microsoft.AspNetCore.Razor.TagHelpers;
     using Roomed.Common.Constants;
@@ -20,19 +21,28 @@ namespace Roomed.Web.TagHelpers
     /// </summary>
     public class ViewScriptTagHelper : TagHelper
     {
-        private readonly IActionContextAccessor actionContextAccessor;
         private readonly IFileVersionProvider fileVersionProvider;
+
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        /// <summary>
+        /// Gets or sets the context for view execution.
+        /// </summary>
+        /// <value>The context for view execution.</value>
+        [ViewContext]
+        [HtmlAttributeNotBound]
+        public ViewContext ViewContext { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewScriptTagHelper"/> class.
         /// Uses inversion of control to satisfy dependencies.
         /// </summary>
-        /// <param name="actionContextAccessor">The implementation of <see cref="IActionContextAccessor"/>.</param>
         /// <param name="fileVersionProvider">The implementation of <see cref="IFileVersionProvider"/>.</param>
-        public ViewScriptTagHelper(IActionContextAccessor actionContextAccessor, IFileVersionProvider fileVersionProvider)
+        /// <param name="webHostEnvironment">Provides information about the web hosting environment an application is running in.</param>
+        public ViewScriptTagHelper(IFileVersionProvider fileVersionProvider, IWebHostEnvironment webHostEnvironment)
         {
-            this.actionContextAccessor = actionContextAccessor;
             this.fileVersionProvider = fileVersionProvider;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         /// <summary>
@@ -69,14 +79,14 @@ namespace Roomed.Web.TagHelpers
         /// <param name="output">A stateful HTML element used to generate an HTML tag.</param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            this.Controller ??= this?.actionContextAccessor?.ActionContext?.RouteData?.Values["controller"]?.ToString()
+            this.Controller ??= this.ViewContext.RouteData.Values["controller"]?.ToString()
                 ?? throw new InvalidOperationException(ErrorMessagesConstants.ControlledCanNotBeAssuemd);
 
-            this.View = this.ConvertToCamelCase(this.View) !;
-            this.Controller = this.ConvertToCamelCase(this.Controller) !;
+            this.View = this.ConvertToCamelCase(this.View)!;
+            this.Controller = this.ConvertToCamelCase(this.Controller)!;
             this.Area = this.ConvertToCamelCase(this.Area);
 
-            string basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\", "wwwroot", "js");
+            string basePath = Path.Combine(this.webHostEnvironment.WebRootPath, "js");
 
             string path = this.Area == null
                 ? Path.Combine(basePath, "controllers", this.Controller, $"{this.View}.js")
