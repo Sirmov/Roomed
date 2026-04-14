@@ -14,6 +14,8 @@ namespace Roomed.Services.Mapping
 
     using AutoMapper;
     using AutoMapper.Configuration;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
 
     /// <summary>
     /// This class registers the automapper mappings by getting all classes implementing the <see cref="IMapFrom{TClass}"/>,
@@ -35,11 +37,12 @@ namespace Roomed.Services.Mapping
         /// <see cref="IMapTo{TClass}"/>, <see cref="IHaveCustomMappings"/> interfaces
         /// from the specified <paramref name="assemblies"/>.
         /// </summary>
+        /// <param name="loggerFactory">This parameter is used for diagnostics.</param>
         /// <param name="assemblies">
         /// The assemblies containing the classes implementing <see cref="IMapFrom{TClass}"/>
         /// <see cref="IMapTo{TClass}"/> and <see cref="IHaveCustomMappings"/>.
         /// </param>
-        public static void RegisterMappings(params Assembly[] assemblies)
+        public static void RegisterMappings(ILoggerFactory loggerFactory, params Assembly[] assemblies)
         {
             if (initialized)
             {
@@ -75,10 +78,10 @@ namespace Roomed.Services.Mapping
                     }
                 });
 
-            MapperInstance = new Mapper(new MapperConfiguration(config));
+            MapperInstance = new Mapper(new MapperConfiguration(config, loggerFactory));
         }
 
-        private static IEnumerable<TypesMap> GetFromMaps(IEnumerable<Type> types)
+        public static IEnumerable<TypesMap> GetFromMaps(IEnumerable<Type> types)
         {
             var fromMaps = from t in types
                            from i in t.GetTypeInfo().GetInterfaces()
@@ -95,7 +98,7 @@ namespace Roomed.Services.Mapping
             return fromMaps;
         }
 
-        private static IEnumerable<TypesMap> GetToMaps(IEnumerable<Type> types)
+        public static IEnumerable<TypesMap> GetToMaps(IEnumerable<Type> types)
         {
             var toMaps = from t in types
                          from i in t.GetTypeInfo().GetInterfaces()
@@ -112,19 +115,19 @@ namespace Roomed.Services.Mapping
             return toMaps;
         }
 
-        private static IEnumerable<IHaveCustomMappings> GetCustomMappings(IEnumerable<Type> types)
+        public static IEnumerable<IHaveCustomMappings> GetCustomMappings(IEnumerable<Type> types)
         {
             var customMaps = from t in types
                              from i in t.GetTypeInfo().GetInterfaces()
                              where typeof(IHaveCustomMappings).GetTypeInfo().IsAssignableFrom(t) &&
                                    !t.GetTypeInfo().IsAbstract &&
                                    !t.GetTypeInfo().IsInterface
-                             select (IHaveCustomMappings)Activator.CreateInstance(t) !;
+                             select (IHaveCustomMappings)Activator.CreateInstance(t)!;
 
             return customMaps;
         }
 
-        private class TypesMap
+        public class TypesMap
         {
             /// <summary>
             /// Gets or sets the type of the source class.

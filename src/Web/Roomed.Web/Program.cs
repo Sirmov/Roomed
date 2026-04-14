@@ -105,14 +105,38 @@ internal class Program
         });
 
         // AutoMapper configuration
-        var asseblies = new Assembly[]
+        var assemblies = new Assembly[]
         {
             typeof(ErrorViewModel).GetTypeInfo().Assembly,
             typeof(ReservationDto).GetTypeInfo().Assembly,
         };
-        AutoMapperConfig.RegisterMappings(asseblies);
-        IMapper mapper = AutoMapperConfig.MapperInstance;
-        services.AddSingleton<IMapper>(mapper);
+        var types = assemblies.SelectMany(a => a.GetExportedTypes()).ToList();
+
+        services.AddAutoMapper(config =>
+        {
+            config.CreateProfile(
+                "ReflectionProfile",
+                configuration =>
+                {
+                    // IMapFrom<>
+                    foreach (var map in AutoMapperConfig.GetFromMaps(types))
+                    {
+                        configuration.CreateMap(map.Source, map.Destination);
+                    }
+
+                    // IMapTo<>
+                    foreach (var map in AutoMapperConfig.GetToMaps(types))
+                    {
+                        configuration.CreateMap(map.Source, map.Destination);
+                    }
+
+                    // IHaveCustomMappings
+                    foreach (var map in AutoMapperConfig.GetCustomMappings(types))
+                    {
+                        map.CreateMappings(configuration);
+                    }
+                });
+        });
 
         // HtmlSanitizer configuration
         IHtmlSanitizer htmlSanitizer = new HtmlSanitizer(new HtmlSanitizerOptions() { AllowedTags = { } });
