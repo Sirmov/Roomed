@@ -1,29 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>..\..\Documentation\Services\Roomed.Services.Data.xml</DocumentationFile>
   </PropertyGroup>
-
   <ItemGroup>
-    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.9" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Roomed.Data.Models\Roomed.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\Roomed.Data\Roomed.Data.csproj" />
     <ProjectReference Include="..\Roomed.Services.Mapping\Roomed.Services.Mapping.csproj" />
   </ItemGroup>
-
 </Project>

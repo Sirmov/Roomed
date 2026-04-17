@@ -1,47 +1,32 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-Roomed.Web-82AB629F-0055-448F-912B-3CE49FBFD049</UserSecretsId>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>..\..\Documentation\Web\Roomed.Web.xml</DocumentationFile>
     <UserSecretsId>516c59f9-c72f-427d-86a3-fcbf2b4b4845</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="ViewComponents\**" />
     <Content Remove="ViewComponents\**" />
     <EmbeddedResource Remove="ViewComponents\**" />
     <None Remove="ViewComponents\**" />
   </ItemGroup>
-
   <ItemGroup>
-    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="16.1.1" />
-    <PackageReference Include="DateOnlyTimeOnly.AspNet" Version="2.1.1" />
-    <PackageReference Include="EFCore.NamingConventions" Version="10.0.1" />
-    <PackageReference Include="HtmlSanitizer" Version="9.0.892" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.5">
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="DateOnlyTimeOnly.AspNet" />
+    <PackageReference Include="EFCore.NamingConventions" />
+    <PackageReference Include="HtmlSanitizer" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Roomed.Common\Roomed.Common.csproj" />
     <ProjectReference Include="..\..\Services\Roomed.Services.Data\Roomed.Services.Data.csproj" />
@@ -49,13 +34,11 @@
     <ProjectReference Include="..\..\Services\Roomed.Services.Mapping\Roomed.Services.Mapping.csproj" />
     <ProjectReference Include="..\Roomed.Web.ViewModels\Roomed.Web.ViewModels.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Views\Shared\Components\" />
     <Folder Include="wwwroot\js\areas\controllers\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Update="Areas\Administration\Views\_ViewImports.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -66,23 +49,18 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Areas\Administration\Views\Shared\Error.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Administration\Views\Shared\_DashboardLayout.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Administration\Views\Shared\_ValidationScriptsPartial.cshtml" />
   </ItemGroup>
-
   <ItemGroup>
     <UpToDateCheckInput Remove="Areas\Administration\Views\Shared\_DashboardLayout.cshtml" />
   </ItemGroup>
-
   <ItemGroup>
     <UpToDateCheckInput Remove="Areas\Administration\Views\Shared\_ValidationScriptsPartial.cshtml" />
   </ItemGroup>
-
   <ItemGroup>
     <UpToDateCheckInput Remove="Areas\Administration\Views\Shared\Error.cshtml" />
   </ItemGroup>
-
 </Project>

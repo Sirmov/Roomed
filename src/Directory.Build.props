@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!-- Central configuration defining the common properties and configurations for the build of the projects -->
+    <!-- Enforces consistency, reduces code redundancy, centralizes configuration -->
+
+    <PropertyGroup>
+
+        <!-- Sets the "RootDir" property to the directory where this file resides if not already defined -->
+        <RootDir Condition=" '$(RootDir)' == '' ">$(MSBuildThisFileDirectory)</RootDir>
+
+        <!--
+            Exclude test project folders from default item inclusion (e.g. globbing like **/*.cs).
+            Prevents accidental inclusion of test files in non-test projects.
+        -->
+        <DefaultItemExcludes>$(MSBuildProjectName).Tests\**;%(DefaultItemExcludes)</DefaultItemExcludes>
+
+    </PropertyGroup>
+
+    <ItemGroup>
+
+        <!-- Include the StyleCop configuration in all projects  -->
+        <!-- The Link attribute ensures it appears as if it exists in each project root -->
+        <AdditionalFiles Include="$(RootDir)\stylecop.json" Link="stylecop.json" />
+
+    </ItemGroup>
+
+    <ItemGroup>
+
+        <!-- Add StyleCop analyzers to all projects for consistent code style enforcement < -->
+        <PackageReference Include="StyleCop.Analyzers">
+            <!-- Specifies all relevant asset types for analyzers -->
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <!-- Ensures this dependency is not exposed transitively -->
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+
+    </ItemGroup>
+
+    <!-- Build configuration for test projects -->
+    <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+
+        <!-- Prevent test projects from being packaged/published -->
+        <IsPackable>false</IsPackable>
+
+        <!-- Mark project explicitly as a test project -->
+        <IsTestProject>true</IsTestProject>
+
+        <!-- Disable auto-generation of assembly metadata for test projects -->
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
+        <!-- Disable generation of TargetFramework attribute -->
+        <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+
+    </PropertyGroup>
+
+
+    <!-- Generate XML documentation files for non-test projects in non-Release builds. -->
+    <PropertyGroup
+        Condition="'$(Configuration)' != 'Release' AND $(MSBuildProjectName.Contains('.Tests')) == false">
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+</Project>
