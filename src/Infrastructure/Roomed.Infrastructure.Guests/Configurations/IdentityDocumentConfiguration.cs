@@ -1,0 +1,27 @@
+﻿// |-----------------------------------------------------------------------------------------------------|
+// <copyright file="IdentityDocumentConfiguration.cs" company="Roomed">
+// Copyright (c) Roomed. All Rights Reserved.
+// Licensed under the GPLv3 license. See LICENSE file in the project root for full license information.
+// </copyright>
+// |-----------------------------------------------------------------------------------------------------|
+
+namespace Roomed.Data.Configurations
+{
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using Roomed.Domain.Entities;
+
+    /// <summary>
+    /// Model builder configuration for <see cref="IdentityDocument"/> entity.
+    /// </summary>
+    public class IdentityDocumentConfiguration : IEntityTypeConfiguration<IdentityDocument>
+    {
+        /// <inheritdoc/>
+        public void Configure(EntityTypeBuilder<IdentityDocument> builder)
+        {
+            builder.HasIndex(e => e.DocumentNumber)
+                .IsUnique(true);
+        }
+    }
+}
