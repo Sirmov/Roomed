@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\..\Services\Roomed.Services.Data\Roomed.Services.Data.csproj" />
     <ProjectReference Include="..\Roomed.Tests.Common\Roomed.Tests.Common.csproj" />
   </ItemGroup>
-
   <!-- NuGet Packages -->
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
@@ -21,5 +19,4 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  
 </Project>

@@ -1,15 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Roomed.Data.Models\Roomed.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\Roomed.Data\Roomed.Data.csproj" />
     <ProjectReference Include="..\Roomed.Services.Mapping\Roomed.Services.Mapping.csproj" />
   </ItemGroup>
-
-  <!-- NuGet Packages -->  
+  <!-- NuGet Packages -->
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" />
   </ItemGroup>
-
 </Project>

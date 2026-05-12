@@ -1,12 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <!-- Project References -->
-  <ItemGroup>
-  </ItemGroup>
-
+  <ItemGroup />
   <!-- NuGet Packages -->
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
-
 </Project>

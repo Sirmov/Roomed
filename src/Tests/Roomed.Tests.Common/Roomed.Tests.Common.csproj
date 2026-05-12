@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Roomed.Data\Roomed.Data.csproj" />
     <ProjectReference Include="..\..\Services\Roomed.Services.Data\Roomed.Services.Data.csproj" />
   </ItemGroup>
-
   <!-- NuGet Packages -->
   <ItemGroup>
     <PackageReference Include="AutoMapper" />
@@ -13,5 +11,4 @@
     <PackageReference Include="MockQueryable.Moq" />
     <PackageReference Include="Moq" />
   </ItemGroup>
-
 </Project>
