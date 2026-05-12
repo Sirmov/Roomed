@@ -1,11 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    
-    <!-- Project References -->
-    <ItemGroup>
-    </ItemGroup>
-
-    <!-- NuGet Packages -->
-    <ItemGroup>
-    </ItemGroup>
-    
+  <!-- Project References -->
+  <ItemGroup />
+  <!-- NuGet Packages -->
+  <ItemGroup />
 </Project>

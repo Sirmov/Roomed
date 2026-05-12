@@ -11,20 +11,26 @@ namespace Roomed.Infrastructure.Common.Repositories
     using System.Linq;
     using System.Linq.Expressions;
 
+    using Microsoft.EntityFrameworkCore;
+
+    using Roomed.Domain.Common.Entities;
+
     /// <summary>
     /// An implementation of the <see cref="IDeletableEntityRepository{TEntity, TKey}"/> interface for the Entity Framework Core ORM.
     /// </summary>
+    /// <typeparam name="TDbContext">This is the db context storing  the <typeparamref name="TEntity"/>.</typeparam>
     /// <typeparam name="TEntity">This is the entity that represents the table in the database.</typeparam>
     /// <typeparam name="TKey">This is the type of the primary key of the entity.</typeparam>
-    public class EfDeletableEntityRepository<TEntity, TKey> : EfRepository<TEntity, TKey>, IDeletableEntityRepository<TEntity, TKey>
+    public class EfDeletableEntityRepository<TDbContext, TEntity, TKey> : EfRepository<TDbContext, TEntity, TKey>, IDeletableEntityRepository<TEntity, TKey>
+        where TDbContext : DbContext
         where TEntity : BaseDeletableModel<TKey>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EfDeletableEntityRepository{TEntity, TKey}"/> class.
+        /// Initializes a new instance of the <see cref="EfDeletableEntityRepository{TDbContext, TEntity, TKey}"/> class.
         /// </summary>
         /// <param name="context">The ef core db context.</param>
         /// <exception cref="ArgumentNullException">Throws when the db context is null.</exception>
-        public EfDeletableEntityRepository(ApplicationDbContext context)
+        public EfDeletableEntityRepository(TDbContext context)
             : base(context)
         {
         }

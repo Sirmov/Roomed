@@ -95,6 +95,9 @@
         "resolved": "10.0.7",
         "contentHash": "D5M0Jr551iTgwkZMN9rm0pSkgNLj5quUWQUmQPMZh7k/bnvZTnXRGfE2KuvXf1EEjt/ofD9yw9IumpgdP9QCnw=="
       },
+      "roomed.common": {
+        "type": "Project"
+      },
       "roomed.domain.common": {
         "type": "Project"
       }

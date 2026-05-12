@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Project References -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\Roomed.Domain.Common\Roomed.Domain.Common.csproj" />
+  </ItemGroup>
+  <!-- NuGet Packages -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Project References -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\Roomed.Infrastructure.Common\Roomed.Infrastructure.Common.csproj" />
+    <ProjectReference Include="..\..\..\Domain\Facility\Roomed.Domain.Facility\Roomed.Domain.Facility.csproj" />
+  </ItemGroup>
+  <!-- NuGet Packages -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+  </ItemGroup>
+</Project>

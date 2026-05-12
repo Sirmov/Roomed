@@ -11,23 +11,25 @@ namespace Roomed.Infrastructure.Common.Repositories
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
-
+    using Roomed.Common.Constants;
     using Roomed.Domain.Common.Entities;
 
     /// <summary>
     /// An implementation of the <see cref="IRepository{TEntity, TKey}"/> interface for the Entity Framework Core ORM.
     /// </summary>
+    /// <typeparam name="TDbContext">This is the db context storing  the <typeparamref name="TEntity"/>.</typeparam>
     /// <typeparam name="TEntity">This is the entity that represents the table in the database.</typeparam>
     /// <typeparam name="TKey">This is the type of the primary key of the entity.</typeparam>
-    public class EfRepository<TEntity, TKey> : IRepository<TEntity, TKey>
+    public class EfRepository<TDbContext, TEntity, TKey> : IRepository<TEntity, TKey>
+        where TDbContext : DbContext
         where TEntity : BaseModel<TKey>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EfRepository{TEntity, TKey}"/> class.
+        /// Initializes a new instance of the <see cref="EfRepository{TDbContext, TEntity, TKey}"/> class.
         /// </summary>
         /// <param name="context">The ef core db context.</param>
         /// <exception cref="ArgumentNullException">Throws when the db context is null.</exception>
-        public EfRepository(ApplicationDbContext context)
+        public EfRepository(TDbContext context)
         {
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
             this.DbSet = this.Context.Set<TEntity>();
@@ -41,7 +43,7 @@ namespace Roomed.Infrastructure.Common.Repositories
         /// <summary>
         /// Gets or sets the application db context.
         /// </summary>
-        protected ApplicationDbContext Context { get; set; }
+        protected TDbContext Context { get; set; }
 
         /// <inheritdoc/>
         public virtual IQueryable<TEntity> All(bool isReadonly = false)
