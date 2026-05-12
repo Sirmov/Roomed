@@ -5,7 +5,7 @@
 // </copyright>
 // |-----------------------------------------------------------------------------------------------------|
 
-namespace Roomed.Domain.Entities
+namespace Roomed.Domain.Guests.Entities
 {
     using System.ComponentModel.DataAnnotations;
 
