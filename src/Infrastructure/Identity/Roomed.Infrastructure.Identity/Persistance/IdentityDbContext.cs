@@ -5,13 +5,13 @@
 // </copyright>
 // |-----------------------------------------------------------------------------------------------------|
 
-namespace Roomed.Infrastructure.Identity
+namespace Roomed.Infrastructure.Persistance.Identity
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    using Roomed.Data.Configurations;
     using Roomed.Domain.Identity.Entities;
+    using Roomed.Infrastructure.Identity.Persistance.Configurations;
 
     /// <summary>
     /// Entity Framework Core Db context for the identity module.

@@ -5,12 +5,12 @@
 // </copyright>
 // |-----------------------------------------------------------------------------------------------------|
 
-namespace Roomed.Data.Configurations
+namespace Roomed.Infrastructure.Persistance.Guests.Configurations
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using Roomed.Domain.Entities;
+    using Roomed.Domain.Guests.Entities;
 
     /// <summary>
     /// Model builder configuration for <see cref="IdentityDocument"/> entity.

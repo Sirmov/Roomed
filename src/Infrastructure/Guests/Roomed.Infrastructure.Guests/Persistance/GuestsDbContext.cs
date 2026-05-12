@@ -5,12 +5,12 @@
 // </copyright>
 // |-----------------------------------------------------------------------------------------------------|
 
-namespace Roomed.Infrastructure.Guests
+namespace Roomed.Infrastructure.Persistance.Guests
 {
     using Microsoft.EntityFrameworkCore;
 
-    using Roomed.Data.Configurations;
-    using Roomed.Domain.Entities;
+    using Roomed.Domain.Guests.Entities;
+    using Roomed.Infrastructure.Persistance.Guests.Configurations;
 
     /// <summary>
     /// Entity Framework Core Db context for the guests module.

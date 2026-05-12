@@ -1,29 +1,30 @@
 ﻿// |-----------------------------------------------------------------------------------------------------|
-// <copyright file="ReservationConfiguration.cs" company="Roomed">
+// <copyright file="ReservationDayConfiguration.cs" company="Roomed">
 // Copyright (c) Roomed. All Rights Reserved.
 // Licensed under the GPLv3 license. See LICENSE file in the project root for full license information.
 // </copyright>
 // |-----------------------------------------------------------------------------------------------------|
 
-namespace Roomed.Data.Configurations
+namespace Roomed.Data.Persistance.Configurations
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
     using Roomed.Domain.Reservations.Entities;
 
     /// <summary>
-    /// Model builder configuration for <see cref="Reservation"/> entity.
+    /// Model builder configuration for <see cref="ReservationDay"/> entity.
     /// </summary>
-    public class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
+    public class ReservationDayConfiguration : IEntityTypeConfiguration<ReservationDay>
     {
         /// <inheritdoc/>
-        public void Configure(EntityTypeBuilder<Reservation> builder)
+        public void Configure(EntityTypeBuilder<ReservationDay> builder)
         {
-            // builder.Property(r => r.ArrivalDate)
-            //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            builder.HasOne(e => e.Reservation)
+                .WithMany(r => r.ReservationDays)
+                .HasForeignKey(e => e.ReservationId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // builder.Property(r => r.DepartureDate)
+            // builder.Property(rd => rd.Date)
             //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
         }
     }

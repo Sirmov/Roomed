@@ -5,11 +5,11 @@
 // </copyright>
 // |-----------------------------------------------------------------------------------------------------|
 
-namespace Roomed.Infrastructure.Reservations
+namespace Roomed.Infrastructure.Persistance.Reservations
 {
     using Microsoft.EntityFrameworkCore;
 
-    using Roomed.Data.Configurations;
+    using Roomed.Data.Persistance.Configurations;
     using Roomed.Domain.Reservations.Entities;
 
     /// <summary>
