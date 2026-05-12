@@ -5,6 +5,18 @@
     <!-- Enforces consistency, reduces code redundancy, centralizes configuration -->
 
     <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <AnalysisMode>All</AnalysisMode>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
 
         <!-- Sets the "RootDir" property to the directory where this file resides if not already defined -->
         <RootDir Condition=" '$(RootDir)' == '' ">$(MSBuildThisFileDirectory)</RootDir>

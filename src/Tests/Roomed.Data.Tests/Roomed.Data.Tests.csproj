@@ -1,9 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+
+  <!-- Project References -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\Roomed.Data\Roomed.Data.csproj" />
+    <ProjectReference Include="..\Roomed.Tests.Common\Roomed.Tests.Common.csproj" />
+  </ItemGroup>
+
+  <!-- NuGet Packages -->
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
@@ -19,8 +22,5 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Data\Roomed.Data\Roomed.Data.csproj" />
-    <ProjectReference Include="..\Roomed.Tests.Common\Roomed.Tests.Common.csproj" />
-  </ItemGroup>
+  
 </Project>

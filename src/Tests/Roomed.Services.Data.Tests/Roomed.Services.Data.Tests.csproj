@@ -1,9 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+
+  <!-- Project References -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\Roomed.Services.Data\Roomed.Services.Data.csproj" />
+    <ProjectReference Include="..\Roomed.Tests.Common\Roomed.Tests.Common.csproj" />
+  </ItemGroup>
+
+  <!-- NuGet Packages -->
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Moq" />
@@ -18,8 +21,5 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Services\Roomed.Services.Data\Roomed.Services.Data.csproj" />
-    <ProjectReference Include="..\Roomed.Tests.Common\Roomed.Tests.Common.csproj" />
-  </ItemGroup>
+  
 </Project>

@@ -1,15 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" />
-  </ItemGroup>
+  
+  <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\..\Roomed.Common\Roomed.Common.csproj" />
     <ProjectReference Include="..\..\Services\Roomed.Services.Data\Roomed.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\Roomed.Services.Mapping\Roomed.Services.Mapping.csproj" />
   </ItemGroup>
+
+  <!-- NuGet Packages -->
+  <ItemGroup>
+  </ItemGroup>
+
 </Project>
